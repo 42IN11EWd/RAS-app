@@ -1,0 +1,12 @@
+﻿<UserControl x:Class="RunApproachStatistics.View.MeasurementView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignWidth="711" d:DesignHeight="400" Background="White">
+    <Grid>
+        <Button Content="Home" Margin="0,0,10,10" Background="Black" Foreground="Orange" FontSize="26" VerticalAlignment="Bottom" Height="50" Command="{Binding HomeCommand}" RenderTransformOrigin="0.804,0.1" HorizontalAlignment="Right" Width="230"/>
+
+    </Grid>
+</UserControl>
