@@ -5,7 +5,7 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RunApproachStatistics", "RunApproachStatistics\RunApproachStatistics.csproj", "{A1DD7798-9FA7-4BA2-A858-0AD86872B4F8}"
 EndProject
-Project("{F088123C-0E9E-452A-89E6-6BA2F21D5CAC}") = "Everyware", "..\..\Everyware\Everyware\Everyware.modelproj", "{1A4B4C9F-00D7-473A-8988-2CD5DC7A7C6A}"
+Project("{F088123C-0E9E-452A-89E6-6BA2F21D5CAC}") = "Everyware", "Everyware\Everyware.modelproj", "{1A4B4C9F-00D7-473A-8988-2CD5DC7A7C6A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
