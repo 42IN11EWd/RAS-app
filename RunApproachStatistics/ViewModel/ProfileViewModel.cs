@@ -13,7 +13,7 @@ namespace RunApproachStatistics.ViewModel
     public class ProfileViewModel : AbstractViewModel
     {
         private IApplicationController _app;
-        private UserModule userModule = new UserModule();
+        private IUserModule userModule = new UserModule();
         private PropertyChangedBase menu;
 
         #region DataBinding
@@ -40,12 +40,7 @@ namespace RunApproachStatistics.ViewModel
             Menu = menuViewModel;
 
             // Get the user profile
-            getProfile(userModule);
-        }
-
-        public static object getProfile(IUserModule userModuleInterface)
-        {
-            return userModuleInterface.get();
+            userModule.read();
         }
 
         protected override void initRelayCommands()

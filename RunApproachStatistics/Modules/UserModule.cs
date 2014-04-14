@@ -9,12 +9,12 @@ namespace RunApproachStatistics.Modules
 {
     public class UserModule : IUserModule
     {
-        public void add()
+        public void create()
         {
             throw new NotImplementedException();
         }
 
-        public object get()
+        public object read()
         {
             return "";
         }

@@ -8,8 +8,8 @@ namespace RunApproachStatistics.Modules.Interfaces
 {
     public interface ICRUDModule
     {
-        void add();
-        Object get();
+        void create();
+        Object read();
         void update();
         void delete();
     }
