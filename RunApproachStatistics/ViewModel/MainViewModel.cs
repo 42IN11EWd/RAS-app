@@ -37,6 +37,7 @@ namespace RunApproachStatistics.ViewModel
 
         protected override void initRelayCommands()
         {
+
         }
     }
 }
