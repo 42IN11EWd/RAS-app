@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<useCaseModelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/SimpleShapesModel" dslVersion="1.0.0.0" Id="c52b6211-fb05-4b4e-9439-42f34ed73c72" name="Mobile" linkedPackageId="6c9b80ba-39e5-4001-925a-eaba9a49898a" xmlns="http://schemas.microsoft.com/dsltools/UseCaseModel">
+  <packagedElements>
+    <useCaseModelRootHasTypes>
+      <subsystem Id="fc4371f3-2993-4e92-bec6-aeab35a4a685" name="Mobiele applicatie" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="48ea430f-82a9-43be-a0bb-18d3939a84bd" />
+      </subsystem>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="2af6d2e6-9449-4ff9-b778-051a8cddd87c" name="Inloggen" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="cff6d330-2e6c-4e4c-bc77-16a817dac4ba" />
+        <targetEnds>
+          <association Id="6dfe4794-ec93-466e-82f8-0d0541061cb3" isDerived="false" sourceEndRoleName="Inloggen" targetEndRoleName="functionaliteiten sporter" isLeaf="false" isAbstract="false">
+            <subsystemMoniker Id="0c19345a-3115-450a-a6bc-50f5611ce49f" LastKnownName="functionaliteiten sporter" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="d50113be-a826-4722-97c7-271ef0dc4993" name="Inloggen" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="6ca437e6-fb2e-4cd5-b049-e2c5784b8a88" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="0860902b-70f0-4bb8-b4b2-6c4898c64e54" name="functionaliteiten sporter" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="cd786c17-708a-4cbb-a68e-ff641eb31e89" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="4305ad64-0749-40ad-a480-0667a217140a" />
+          </association>
+        </targetEnds>
+        <subjects>
+          <subsystemMoniker Id="fc4371f3-2993-4e92-bec6-aeab35a4a685" LastKnownName="Mobiele applicatie" />
+        </subjects>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <subsystem Id="0c19345a-3115-450a-a6bc-50f5611ce49f" name="functionaliteiten sporter" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="fb766549-1131-463e-bc56-fffdea5c2950" />
+      </subsystem>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <subsystem Id="edf21274-2341-4d4d-bb5c-bcfc65244650" name="functionaliteiten coach" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="e2c7ba7c-3552-48ce-86f0-0e805acaaacb" />
+      </subsystem>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <actor Id="6fc8709d-194c-4368-a548-98e1191ee48e" name="Sporter" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="a1331fb1-80b3-406a-a6be-e92f22914abc" />
+        <targetEnds>
+          <association Id="1b52faf8-7daa-4e5f-a0c2-0aa39fa29b62" isDerived="false" sourceEndRoleName="Sporter" targetEndRoleName="Inloggen" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="2af6d2e6-9449-4ff9-b778-051a8cddd87c" LastKnownName="Inloggen" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="d40ee4d4-3aa5-4d2c-91db-420dc6fd59c3" name="Sporter" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="d0dfb0c3-bdf8-4341-8c29-0585fab8f4cd" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="21ddc901-ebe1-4a5d-b4d3-bd9793ad79c3" name="Inloggen" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="5354d9a0-81b5-45e5-89c0-7d51535151ee" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="15159577-bf1b-4589-804c-6a21178a2857" />
+          </association>
+        </targetEnds>
+      </actor>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <actor Id="d977ea28-6482-4fa9-9407-045dfda0d0e0" name="Coach" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="f731c422-f0aa-475b-b088-da20e81db3e9" />
+        <generalsInternal>
+          <generalization Id="c809d29f-e85e-4be5-a3c1-b7bf5c6c6341" isSubstitutable="false">
+            <actorMoniker Id="6fc8709d-194c-4368-a548-98e1191ee48e" LastKnownName="Sporter" />
+            <elementDefinition Id="d5a03290-f24b-4f3f-b5ce-b4fbbac32b41" />
+          </generalization>
+        </generalsInternal>
+        <targetEnds>
+          <association Id="0e9a8f6a-ad37-486e-b164-c931c450af1f" isDerived="false" sourceEndRoleName="Coach" targetEndRoleName="Inloggen" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="359ee5be-1bb6-48b8-91d1-374ba66b1de5" LastKnownName="Inloggen" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="30de3019-3e04-4db3-ac0c-578435e9e3a5" name="Coach" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="dec74bff-fac0-4b70-9821-ecf22dada5f2" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="1d22b3a6-0c53-4ae4-8668-b48333e69095" name="Inloggen" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="2601f4c2-8645-45a2-b0ac-7fbf4ee45ad1" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="3bef0f87-b0de-491c-b558-d4c8e26da9c4" />
+          </association>
+        </targetEnds>
+      </actor>
+    </useCaseModelRootHasTypes>
+    <packageHasNamedElement>
+      <useCase Id="359ee5be-1bb6-48b8-91d1-374ba66b1de5" name="Inloggen" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="b63ad14a-2331-4610-a5e9-bc858efa3b77" />
+        <targetEnds>
+          <association Id="2a1d06b5-8a57-4738-bddb-894757088a25" isDerived="false" sourceEndRoleName="Inloggen" targetEndRoleName="functionaliteiten coach" isLeaf="false" isAbstract="false">
+            <subsystemMoniker Id="edf21274-2341-4d4d-bb5c-bcfc65244650" LastKnownName="functionaliteiten coach" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="f67283c1-3ec8-4855-91fb-38a046ee6304" name="Inloggen" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="a33ceabf-25cf-461b-9f40-4acdc2d214c2" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="2ddd72b5-422c-4249-8521-0c5ac79789da" name="functionaliteiten coach" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="9eaaaad1-80a1-45d0-834e-4bb2760794b1" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="c42db7bb-3eb2-4154-9b82-d5057bcd3d0c" />
+          </association>
+        </targetEnds>
+        <subjects>
+          <subsystemMoniker Id="fc4371f3-2993-4e92-bec6-aeab35a4a685" LastKnownName="Mobiele applicatie" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="3dedf992-8ced-4ee9-abe1-4f0036e25df1" name="Eigen sprongen vergelijken" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="e3273880-7504-4b79-bfeb-18775a7a99e2" />
+        <subjects>
+          <subsystemMoniker Id="0c19345a-3115-450a-a6bc-50f5611ce49f" LastKnownName="functionaliteiten sporter" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="956a1f6e-4f5f-4b8a-ada9-7b60849fac99" name="Eigen sprongen bekijken" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="b1268746-0a88-4588-8632-bdff8c39e168" />
+        <subjects>
+          <subsystemMoniker Id="0c19345a-3115-450a-a6bc-50f5611ce49f" LastKnownName="functionaliteiten sporter" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="546caab8-5fc9-4409-b4bd-fdee89b73d0a" name="Eigen profiel bekijken" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="86dfe198-81c3-411d-a2b5-09849f3324f2" />
+        <subjects>
+          <subsystemMoniker Id="0c19345a-3115-450a-a6bc-50f5611ce49f" LastKnownName="functionaliteiten sporter" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="b62f4141-1cb7-4acc-ad2f-77232c89c663" name="Alle sprongen terugkijken" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="e2eb90eb-4bda-450f-9b5d-981b0d75315b" />
+        <subjects>
+          <subsystemMoniker Id="edf21274-2341-4d4d-bb5c-bcfc65244650" LastKnownName="functionaliteiten coach" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="eecbeffb-d6d7-4dcf-9284-5c2d75d19052" name="Vergelijken sprongen" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="e8c50720-8039-4ede-8ec4-edfe4ee13a32" />
+        <subjects>
+          <subsystemMoniker Id="edf21274-2341-4d4d-bb5c-bcfc65244650" LastKnownName="functionaliteiten coach" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+  </packagedElements>
+  <package Id="6c9b80ba-39e5-4001-925a-eaba9a49898a" name="Everyware">
+    <elementDefinition Id="bedd8b0a-628b-4680-b70e-a6c69f3e9872" />
+    <profileInstances>
+      <packageHasProfileInstances Id="5eb38676-d932-4489-91d3-22aff659959a">
+        <profileInstance Id="a8a006d8-5daf-412a-92e5-c135c72d1440" name="StandardProfileL2">
+          <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+        </profileInstance>
+        <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="279e5cb6-fddd-4c0c-9a58-f0ebf32e1be2">
+        <profileInstance Id="e6ac16c3-feb9-49d9-8787-fc2fce3c08d5" name="StandardProfileL3">
+          <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+        </profileInstance>
+        <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+      </packageHasProfileInstances>
+    </profileInstances>
+  </package>
+</useCaseModelRoot>

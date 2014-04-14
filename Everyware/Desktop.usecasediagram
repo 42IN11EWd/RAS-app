@@ -1,0 +1,315 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<useCaseModelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/SimpleShapesModel" dslVersion="1.0.0.0" Id="cfd83d68-25d0-4418-b27f-643a4671339d" name="UMLUseCaseDiagram1" linkedPackageId="e44a6f20-5a26-42a2-84b3-2fc6c275921d" xmlns="http://schemas.microsoft.com/dsltools/UseCaseModel">
+  <packagedElements>
+    <useCaseModelRootHasTypes>
+      <actor Id="72cff980-0d4f-4ec9-98e7-627b5e08ce4e" name="Gebruiker" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="e2de2ffb-f69b-4d95-a6e8-ad8e2723d385" />
+        <targetEnds>
+          <association Id="1bc87ad9-855f-4311-bd0b-d4615966d6ab" isDerived="false" sourceEndRoleName="Gebruiker" targetEndRoleName="Gebruiker functionaliteiten" isLeaf="false" isAbstract="false">
+            <subsystemMoniker Id="e1de2c4b-c9d3-42e2-b72f-f7431efdff19" LastKnownName="Gebruiker functionaliteiten" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="d30e1ef7-6b2d-4d8c-9d9c-b7a1b9f59e55" name="Gebruiker" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="b072a9a0-a991-4608-a1d4-ffaf4877ec04" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="be669ebc-85cc-42d1-b13f-d1f451cfe5ac" name="Gebruiker functionaliteiten" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="8fad8aeb-a9fe-4d77-915d-8e689504f119" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="3b5baeca-8de5-41a1-b6ac-5a4a88af603b" />
+          </association>
+        </targetEnds>
+      </actor>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <subsystem Id="2a1b3892-f3b8-4dff-954c-05feef16f6c7" name="Desktop applicatie" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="5960e095-0955-4872-8cc9-7736717f0e4d" />
+      </subsystem>
+    </useCaseModelRootHasTypes>
+    <packageHasNamedElement>
+      <useCase Id="1e66b532-a4cf-425a-bbbe-3e66d6bc671d" name="Inloggen" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="1cfa8bca-39ea-46fa-aa5d-3c635f581624" />
+        <targetEnds>
+          <association Id="352978cd-d4bd-49a2-bda2-e9ceeea3a1f4" isDerived="false" sourceEndRoleName="Inloggen" targetEndRoleName="Functionaliteiten wanneer ingelogd" isLeaf="false" isAbstract="false">
+            <subsystemMoniker Id="b84f413f-eae0-475f-950f-18cfe47160b3" LastKnownName="Functionaliteiten wanneer ingelogd" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="005ab53d-79ad-49b6-b01a-dc5d83383b98" name="Inloggen" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="65a0122f-9aed-448b-8bf2-192874238377" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="18ec0228-4a09-46be-9122-3068f8dd96f1" name="Functionaliteiten wanneer ingelogd" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="4f46f48c-9215-4346-a242-f551e39b79fe" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="33addb95-4cfe-4941-9036-749c2f05bf20" />
+          </association>
+        </targetEnds>
+        <subjects>
+          <subsystemMoniker Id="2a1b3892-f3b8-4dff-954c-05feef16f6c7" LastKnownName="Desktop applicatie" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <useCaseModelRootHasTypes>
+      <subsystem Id="e1de2c4b-c9d3-42e2-b72f-f7431efdff19" name="Gebruiker functionaliteiten" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="4c928492-48d4-40a8-8f2f-1113b2763b99" />
+      </subsystem>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <subsystem Id="b84f413f-eae0-475f-950f-18cfe47160b3" name="Functionaliteiten wanneer ingelogd" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="93f34194-6016-4e71-8207-ad9685528d3e" />
+      </subsystem>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <actor Id="daa7e3d7-ce56-489d-ba2b-0b8aeb5d6c8b" name="Admin" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="3260f6c1-1b9a-4152-bf49-1d00b8264c0b" />
+        <generalsInternal>
+          <generalization Id="6f5c250f-71b7-40e5-97ae-ff0a25550670" isSubstitutable="false">
+            <actorMoniker Id="72cff980-0d4f-4ec9-98e7-627b5e08ce4e" LastKnownName="Gebruiker" />
+            <elementDefinition Id="cc3097e9-4881-437c-9824-694233957e11" />
+          </generalization>
+        </generalsInternal>
+        <targetEnds>
+          <association Id="312a6fa8-b274-457b-a3a6-ef003e4b39ef" isDerived="false" sourceEndRoleName="Admin" targetEndRoleName="Inloggen" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="1e66b532-a4cf-425a-bbbe-3e66d6bc671d" LastKnownName="Inloggen" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="f9cc9fb4-691c-415f-895f-86b84aaf89b1" name="Admin" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="1d13c278-3098-4e80-a3e8-8a4c0f13cdc3" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="50dc1f80-0bce-4ccc-8195-c22196df27e1" name="Inloggen" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="f83ef919-b9d5-4779-be5b-39cdfa9c9d34" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="9f4bc6b2-dd74-4869-b666-539ccb988a8f" />
+          </association>
+        </targetEnds>
+      </actor>
+    </useCaseModelRootHasTypes>
+    <packageHasNamedElement>
+      <useCase Id="35b28eeb-b967-496a-a9c9-d95dfa06c416" name="Start meting" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="7651aba0-1321-4124-8529-3476d93bb312" />
+        <subjects>
+          <subsystemMoniker Id="e1de2c4b-c9d3-42e2-b72f-f7431efdff19" LastKnownName="Gebruiker functionaliteiten" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="4868c16b-63a8-463c-a3bf-627f77c56fcd" name="Stop meting" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="7cfe180f-cc9b-4953-93d4-fecaf156751a" />
+        <additions>
+          <include Id="efdfe794-93ec-47dc-94be-45c106b11db6">
+            <useCaseMoniker Id="35b28eeb-b967-496a-a9c9-d95dfa06c416" LastKnownName="Start meting" />
+            <elementDefinition Id="50b55d5c-10e0-42a9-835a-70454e7c3e20" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker Id="e1de2c4b-c9d3-42e2-b72f-f7431efdff19" LastKnownName="Gebruiker functionaliteiten" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="a9d83897-6f9a-410c-8552-9f33e9338059" name="Beheer sporters (CRU)" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="4277ceb3-06bc-436d-8ea0-7defef621486" />
+        <subjects>
+          <subsystemMoniker Id="e1de2c4b-c9d3-42e2-b72f-f7431efdff19" LastKnownName="Gebruiker functionaliteiten" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="3d965b5d-d34b-44f9-8d89-147c1ae8c3f9" name="Een sprong keuren" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="6ec6fab7-6823-492f-ae55-3285aad4a50d" />
+        <subjects>
+          <subsystemMoniker Id="e1de2c4b-c9d3-42e2-b72f-f7431efdff19" LastKnownName="Gebruiker functionaliteiten" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="fae193b5-fd86-4a34-9165-29dfdb6e449d" name="Beheer sprongen(CRU)" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="1454de4a-c3cb-4892-8384-4570ad2fc4c8" />
+        <subjects>
+          <subsystemMoniker Id="e1de2c4b-c9d3-42e2-b72f-f7431efdff19" LastKnownName="Gebruiker functionaliteiten" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="cda9883e-f5eb-4710-9d2b-9e5b81bc8e10" name="Zichtbare laser aan- uitzetten" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="1731dbb2-567b-47e2-b1e2-cc6fe1d81a33" />
+        <subjects>
+          <subsystemMoniker Id="e1de2c4b-c9d3-42e2-b72f-f7431efdff19" LastKnownName="Gebruiker functionaliteiten" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="c5831526-9746-48ad-951a-fafc554ca76f" name="Sprongen vergelijken" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="cc081230-3f4d-48b4-a5bf-aff307fa5d95" />
+        <subjects>
+          <subsystemMoniker Id="e1de2c4b-c9d3-42e2-b72f-f7431efdff19" LastKnownName="Gebruiker functionaliteiten" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="0a9ede25-83e9-4d7f-b0ee-056969d152f7" name="Instellingen aanassen lasersnelheidscamera" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="e23301eb-804e-4626-a16f-73b66f8d6456" />
+        <subjects>
+          <subsystemMoniker Id="b84f413f-eae0-475f-950f-18cfe47160b3" LastKnownName="Functionaliteiten wanneer ingelogd" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="9262651f-cbb3-4eb5-bf65-395ed1c20e4b" name="Een sprong bekijken" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="1c01eb0c-6f41-48a7-a38b-db41923c6f97" />
+        <subjects>
+          <subsystemMoniker Id="e1de2c4b-c9d3-42e2-b72f-f7431efdff19" LastKnownName="Gebruiker functionaliteiten" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="135c6742-8a08-4fb8-8346-22dd1ca1e25d" name="Verwijderen sporters" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="b12e81c5-9987-470d-8c41-c63db40fa5c3" />
+        <subjects>
+          <subsystemMoniker Id="b84f413f-eae0-475f-950f-18cfe47160b3" LastKnownName="Functionaliteiten wanneer ingelogd" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="c9a53f07-d169-4bf3-9ee2-a962c63d0e67" name="Sprong verwijderen" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="ca3e7aa8-5330-4fd1-b4fa-734641d1787a" />
+        <subjects>
+          <subsystemMoniker Id="b84f413f-eae0-475f-950f-18cfe47160b3" LastKnownName="Functionaliteiten wanneer ingelogd" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="affada6d-2452-4052-a405-cde1c32ef680" name="Gemiddelde meting " isAbstract="false" isLeaf="false">
+        <elementDefinition Id="5603a1a6-1bef-41e7-9ad5-04d49ecc804c" />
+        <extendedCases>
+          <extend Id="07b4b08c-25df-410f-870f-8e8f31b8c686">
+            <useCaseMoniker Id="0a9ede25-83e9-4d7f-b0ee-056969d152f7" LastKnownName="Instellingen aanassen lasersnelheidscamera" />
+            <elementDefinition Id="b2cc0912-a89c-48d2-86f1-3101d7629e22" />
+          </extend>
+        </extendedCases>
+        <subjects>
+          <subsystemMoniker Id="b84f413f-eae0-475f-950f-18cfe47160b3" LastKnownName="Functionaliteiten wanneer ingelogd" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="c7a95bb7-b1d9-4f97-86a5-007e6b804d02" name="De frequentie" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="b6f7e6a6-9e16-4408-b055-c1d657ca5211" />
+        <extendedCases>
+          <extend Id="625569d3-67d2-4b79-a569-9e173519be23">
+            <useCaseMoniker Id="0a9ede25-83e9-4d7f-b0ee-056969d152f7" LastKnownName="Instellingen aanassen lasersnelheidscamera" />
+            <elementDefinition Id="240cf56d-c4fc-44b4-8304-3c1b047a53a8" />
+          </extend>
+        </extendedCases>
+        <subjects>
+          <subsystemMoniker Id="b84f413f-eae0-475f-950f-18cfe47160b3" LastKnownName="Functionaliteiten wanneer ingelogd" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="a4dfdc1c-a73c-432b-9f23-00db96e83827" name="Camera positie" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="9beaa1fd-ab19-4ebb-9b97-882528cf29b3" />
+        <extendedCases>
+          <extend Id="70a84faa-9a1a-44ee-91bf-335851729c8c">
+            <useCaseMoniker Id="0a9ede25-83e9-4d7f-b0ee-056969d152f7" LastKnownName="Instellingen aanassen lasersnelheidscamera" />
+            <elementDefinition Id="53cce4f1-34dc-4419-b173-06e84eedd799" />
+          </extend>
+        </extendedCases>
+        <subjects>
+          <subsystemMoniker Id="b84f413f-eae0-475f-950f-18cfe47160b3" LastKnownName="Functionaliteiten wanneer ingelogd" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="3656f25a-50be-4573-a940-841bcc28b4cc" name="teruggave snelheid en of afstand" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="b8c324de-87cf-45f8-8261-b94254a66290" />
+        <extendedCases>
+          <extend Id="e10fb5a6-e412-4ff0-9a8b-4315b51b8047">
+            <useCaseMoniker Id="0a9ede25-83e9-4d7f-b0ee-056969d152f7" LastKnownName="Instellingen aanassen lasersnelheidscamera" />
+            <elementDefinition Id="d1cd7735-4cfb-4f49-86f6-178fb347e366" />
+          </extend>
+        </extendedCases>
+        <subjects>
+          <subsystemMoniker Id="b84f413f-eae0-475f-950f-18cfe47160b3" LastKnownName="Functionaliteiten wanneer ingelogd" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="b59e21cb-b549-4e10-8d75-0ffe33759350" name="Measurement window" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="61e3a75a-9246-42a0-914e-53ec523b315a" />
+        <extendedCases>
+          <extend Id="df544b5d-e38e-4ad4-bdcf-cb567ded207c">
+            <useCaseMoniker Id="0a9ede25-83e9-4d7f-b0ee-056969d152f7" LastKnownName="Instellingen aanassen lasersnelheidscamera" />
+            <elementDefinition Id="213eb3e9-0564-413c-91dc-73f0d33598a3" />
+          </extend>
+        </extendedCases>
+        <subjects>
+          <subsystemMoniker Id="b84f413f-eae0-475f-950f-18cfe47160b3" LastKnownName="Functionaliteiten wanneer ingelogd" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="0fc9e992-0a82-4337-8f68-22118376dffd" name="Jury keuring" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="9b952a0b-68ae-4cd1-a70f-8363b007c38f" />
+        <extendedCases>
+          <extend Id="f98926d4-d179-45a8-9312-39719e03bc09">
+            <useCaseMoniker Id="3d965b5d-d34b-44f9-8d89-147c1ae8c3f9" LastKnownName="Een sprong keuren" />
+            <elementDefinition Id="1a79c401-c4b5-4340-8162-54c6d7f492ec" />
+          </extend>
+        </extendedCases>
+        <subjects>
+          <subsystemMoniker Id="e1de2c4b-c9d3-42e2-b72f-f7431efdff19" LastKnownName="Gebruiker functionaliteiten" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="28341887-c94d-41b4-b988-5e5fc5f53fe2" name="sterren keuring" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="8e8f12c7-a11f-4eaf-8d22-97534305c757" />
+        <extendedCases>
+          <extend Id="50477adb-6ae2-4832-a798-4eb3e3bc4121">
+            <useCaseMoniker Id="3d965b5d-d34b-44f9-8d89-147c1ae8c3f9" LastKnownName="Een sprong keuren" />
+            <elementDefinition Id="c7dbb14e-6b20-424d-8595-9be16baf8623" />
+          </extend>
+        </extendedCases>
+        <subjects>
+          <subsystemMoniker Id="e1de2c4b-c9d3-42e2-b72f-f7431efdff19" LastKnownName="Gebruiker functionaliteiten" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="4f2c0c8d-ef29-40f9-80b1-4a199845b9fa" name="Instellingen sprong aanpassen" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="9d7d6032-afbd-4128-9291-5db5179a8add" />
+        <subjects>
+          <subsystemMoniker Id="e1de2c4b-c9d3-42e2-b72f-f7431efdff19" LastKnownName="Gebruiker functionaliteiten" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+  </packagedElements>
+  <package Id="e44a6f20-5a26-42a2-84b3-2fc6c275921d" name="Everyware">
+    <elementDefinition Id="bedd8b0a-628b-4680-b70e-a6c69f3e9872" />
+    <profileInstances>
+      <packageHasProfileInstances Id="06cfe513-ade9-410f-8929-ae12c212a180">
+        <profileInstance Id="5317f600-36d6-49d3-bfe3-52f489388a01" name="StandardProfileL2">
+          <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+        </profileInstance>
+        <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="f63d7d8d-1419-4220-8938-f00918133534">
+        <profileInstance Id="2b0d1b44-6be2-440b-8a11-6cec4b1d3f95" name="StandardProfileL3">
+          <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+        </profileInstance>
+        <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+      </packageHasProfileInstances>
+    </profileInstances>
+  </package>
+</useCaseModelRoot>

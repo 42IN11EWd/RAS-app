@@ -1,0 +1,1969 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<modelStoreModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner"
+  dslVersion="1.0.0.0"
+  Id="bedd8b0a-628b-4680-b70e-a6c69f3e9872"
+  name="Everyware" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <profileInstances>
+    <packageHasProfileInstances
+      Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b">
+      <profileInstance
+        Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791"
+        name="StandardProfileL2" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances
+      Id="29349502-908c-4fda-9054-c48619c59ed0">
+      <profileInstance
+        Id="532ea607-fb19-44b8-8502-3351b05452be"
+        name="StandardProfileL3" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <packageHasNamedElement>
+      <actor
+        Id="e2de2ffb-f69b-4d95-a6e8-ad8e2723d385"
+        name="Gebruiker"
+        isAbstract="false"
+        isLeaf="false">
+        <targetEnds>
+          <association
+            Id="3b5baeca-8de5-41a1-b6ac-5a4a88af603b"
+            isDerived="false"
+            sourceEndRoleName="Gebruiker"
+            targetEndRoleName="Gebruiker functionaliteiten"
+            isLeaf="false"
+            isAbstract="false">
+            <subsystemMoniker
+              Id="4c928492-48d4-40a8-8f2f-1113b2763b99"
+              LastKnownName="Gebruiker functionaliteiten"
+              LastKnownLocation="Everyware.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="b072a9a0-a991-4608-a1d4-ffaf4877ec04"
+                  name="Gebruiker"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="8fad8aeb-a9fe-4d77-915d-8e689504f119"
+                  name="Gebruiker functionaliteiten"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+      </actor>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <subsystem
+        Id="5960e095-0955-4872-8cc9-7736717f0e4d"
+        name="Desktop applicatie"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="1cfa8bca-39ea-46fa-aa5d-3c635f581624"
+        name="Inloggen"
+        isAbstract="false"
+        isLeaf="false">
+        <targetEnds>
+          <association
+            Id="33addb95-4cfe-4941-9036-749c2f05bf20"
+            isDerived="false"
+            sourceEndRoleName="Inloggen"
+            targetEndRoleName="Functionaliteiten wanneer ingelogd"
+            isLeaf="false"
+            isAbstract="false">
+            <subsystemMoniker
+              Id="93f34194-6016-4e71-8207-ad9685528d3e"
+              LastKnownName="Functionaliteiten wanneer ingelogd"
+              LastKnownLocation="Everyware.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="65a0122f-9aed-448b-8bf2-192874238377"
+                  name="Inloggen"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="4f46f48c-9215-4346-a242-f551e39b79fe"
+                  name="Functionaliteiten wanneer ingelogd"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <subjects>
+          <subsystemMoniker
+            Id="5960e095-0955-4872-8cc9-7736717f0e4d"
+            LastKnownName="Desktop applicatie"
+            LastKnownLocation="Everyware.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <subsystem
+        Id="4c928492-48d4-40a8-8f2f-1113b2763b99"
+        name="Gebruiker functionaliteiten"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <subsystem
+        Id="93f34194-6016-4e71-8207-ad9685528d3e"
+        name="Functionaliteiten wanneer ingelogd"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <actor
+        Id="3260f6c1-1b9a-4152-bf49-1d00b8264c0b"
+        name="Admin"
+        isAbstract="false"
+        isLeaf="false">
+        <generalsInternal>
+          <generalization
+            Id="cc3097e9-4881-437c-9824-694233957e11"
+            isSubstitutable="false">
+            <actorMoniker
+              Id="e2de2ffb-f69b-4d95-a6e8-ad8e2723d385"
+              LastKnownName="Gebruiker"
+              LastKnownLocation="Everyware.uml" />
+          </generalization>
+        </generalsInternal>
+        <targetEnds>
+          <association
+            Id="9f4bc6b2-dd74-4869-b666-539ccb988a8f"
+            isDerived="false"
+            sourceEndRoleName="Admin"
+            targetEndRoleName="Inloggen"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="1cfa8bca-39ea-46fa-aa5d-3c635f581624"
+              LastKnownName="Inloggen"
+              LastKnownLocation="Everyware.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="1d13c278-3098-4e80-a3e8-8a4c0f13cdc3"
+                  name="Admin"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="f83ef919-b9d5-4779-be5b-39cdfa9c9d34"
+                  name="Inloggen"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+      </actor>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="7651aba0-1321-4124-8529-3476d93bb312"
+        name="Start meting"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="4c928492-48d4-40a8-8f2f-1113b2763b99"
+            LastKnownName="Gebruiker functionaliteiten"
+            LastKnownLocation="Everyware.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="7cfe180f-cc9b-4953-93d4-fecaf156751a"
+        name="Stop meting"
+        isAbstract="false"
+        isLeaf="false">
+        <additions>
+          <include
+            Id="50b55d5c-10e0-42a9-835a-70454e7c3e20">
+            <useCaseMoniker
+              Id="7651aba0-1321-4124-8529-3476d93bb312"
+              LastKnownName="Start meting"
+              LastKnownLocation="Everyware.uml" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker
+            Id="4c928492-48d4-40a8-8f2f-1113b2763b99"
+            LastKnownName="Gebruiker functionaliteiten"
+            LastKnownLocation="Everyware.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="4277ceb3-06bc-436d-8ea0-7defef621486"
+        name="Beheer sporters (CRU)"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="4c928492-48d4-40a8-8f2f-1113b2763b99"
+            LastKnownName="Gebruiker functionaliteiten"
+            LastKnownLocation="Everyware.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="6ec6fab7-6823-492f-ae55-3285aad4a50d"
+        name="Een sprong keuren"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="4c928492-48d4-40a8-8f2f-1113b2763b99"
+            LastKnownName="Gebruiker functionaliteiten"
+            LastKnownLocation="Everyware.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="1454de4a-c3cb-4892-8384-4570ad2fc4c8"
+        name="Beheer sprongen(CRU)"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="4c928492-48d4-40a8-8f2f-1113b2763b99"
+            LastKnownName="Gebruiker functionaliteiten"
+            LastKnownLocation="Everyware.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="1731dbb2-567b-47e2-b1e2-cc6fe1d81a33"
+        name="Zichtbare laser aan- uitzetten"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="4c928492-48d4-40a8-8f2f-1113b2763b99"
+            LastKnownName="Gebruiker functionaliteiten"
+            LastKnownLocation="Everyware.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="cc081230-3f4d-48b4-a5bf-aff307fa5d95"
+        name="Sprongen vergelijken"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="4c928492-48d4-40a8-8f2f-1113b2763b99"
+            LastKnownName="Gebruiker functionaliteiten"
+            LastKnownLocation="Everyware.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="e23301eb-804e-4626-a16f-73b66f8d6456"
+        name="Instellingen aanassen lasersnelheidscamera"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="93f34194-6016-4e71-8207-ad9685528d3e"
+            LastKnownName="Functionaliteiten wanneer ingelogd"
+            LastKnownLocation="Everyware.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="1c01eb0c-6f41-48a7-a38b-db41923c6f97"
+        name="Een sprong bekijken"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="4c928492-48d4-40a8-8f2f-1113b2763b99"
+            LastKnownName="Gebruiker functionaliteiten"
+            LastKnownLocation="Everyware.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="b12e81c5-9987-470d-8c41-c63db40fa5c3"
+        name="Verwijderen sporters"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="93f34194-6016-4e71-8207-ad9685528d3e"
+            LastKnownName="Functionaliteiten wanneer ingelogd"
+            LastKnownLocation="Everyware.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="ca3e7aa8-5330-4fd1-b4fa-734641d1787a"
+        name="Sprong verwijderen"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="93f34194-6016-4e71-8207-ad9685528d3e"
+            LastKnownName="Functionaliteiten wanneer ingelogd"
+            LastKnownLocation="Everyware.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="5603a1a6-1bef-41e7-9ad5-04d49ecc804c"
+        name="Gemiddelde meting "
+        isAbstract="false"
+        isLeaf="false">
+        <extendedCases>
+          <extend
+            Id="b2cc0912-a89c-48d2-86f1-3101d7629e22">
+            <useCaseMoniker
+              Id="e23301eb-804e-4626-a16f-73b66f8d6456"
+              LastKnownName="Instellingen aanassen lasersnelheidscamera"
+              LastKnownLocation="Everyware.uml" />
+          </extend>
+        </extendedCases>
+        <subjects>
+          <subsystemMoniker
+            Id="93f34194-6016-4e71-8207-ad9685528d3e"
+            LastKnownName="Functionaliteiten wanneer ingelogd"
+            LastKnownLocation="Everyware.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="b6f7e6a6-9e16-4408-b055-c1d657ca5211"
+        name="De frequentie"
+        isAbstract="false"
+        isLeaf="false">
+        <extendedCases>
+          <extend
+            Id="240cf56d-c4fc-44b4-8304-3c1b047a53a8">
+            <useCaseMoniker
+              Id="e23301eb-804e-4626-a16f-73b66f8d6456"
+              LastKnownName="Instellingen aanassen lasersnelheidscamera"
+              LastKnownLocation="Everyware.uml" />
+          </extend>
+        </extendedCases>
+        <subjects>
+          <subsystemMoniker
+            Id="93f34194-6016-4e71-8207-ad9685528d3e"
+            LastKnownName="Functionaliteiten wanneer ingelogd"
+            LastKnownLocation="Everyware.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="9beaa1fd-ab19-4ebb-9b97-882528cf29b3"
+        name="Camera positie"
+        isAbstract="false"
+        isLeaf="false">
+        <extendedCases>
+          <extend
+            Id="53cce4f1-34dc-4419-b173-06e84eedd799">
+            <useCaseMoniker
+              Id="e23301eb-804e-4626-a16f-73b66f8d6456"
+              LastKnownName="Instellingen aanassen lasersnelheidscamera"
+              LastKnownLocation="Everyware.uml" />
+          </extend>
+        </extendedCases>
+        <subjects>
+          <subsystemMoniker
+            Id="93f34194-6016-4e71-8207-ad9685528d3e"
+            LastKnownName="Functionaliteiten wanneer ingelogd"
+            LastKnownLocation="Everyware.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="b8c324de-87cf-45f8-8261-b94254a66290"
+        name="teruggave snelheid en of afstand"
+        isAbstract="false"
+        isLeaf="false">
+        <extendedCases>
+          <extend
+            Id="d1cd7735-4cfb-4f49-86f6-178fb347e366">
+            <useCaseMoniker
+              Id="e23301eb-804e-4626-a16f-73b66f8d6456"
+              LastKnownName="Instellingen aanassen lasersnelheidscamera"
+              LastKnownLocation="Everyware.uml" />
+          </extend>
+        </extendedCases>
+        <subjects>
+          <subsystemMoniker
+            Id="93f34194-6016-4e71-8207-ad9685528d3e"
+            LastKnownName="Functionaliteiten wanneer ingelogd"
+            LastKnownLocation="Everyware.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="d7de5a96-9844-45f4-a7d0-852ebe662c88"
+        name="huidige sprong verwijderen"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="61e3a75a-9246-42a0-914e-53ec523b315a"
+        name="Measurement window"
+        isAbstract="false"
+        isLeaf="false">
+        <extendedCases>
+          <extend
+            Id="213eb3e9-0564-413c-91dc-73f0d33598a3">
+            <useCaseMoniker
+              Id="e23301eb-804e-4626-a16f-73b66f8d6456"
+              LastKnownName="Instellingen aanassen lasersnelheidscamera"
+              LastKnownLocation="Everyware.uml" />
+          </extend>
+        </extendedCases>
+        <subjects>
+          <subsystemMoniker
+            Id="93f34194-6016-4e71-8207-ad9685528d3e"
+            LastKnownName="Functionaliteiten wanneer ingelogd"
+            LastKnownLocation="Everyware.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="9b952a0b-68ae-4cd1-a70f-8363b007c38f"
+        name="Jury keuring"
+        isAbstract="false"
+        isLeaf="false">
+        <extendedCases>
+          <extend
+            Id="1a79c401-c4b5-4340-8162-54c6d7f492ec">
+            <useCaseMoniker
+              Id="6ec6fab7-6823-492f-ae55-3285aad4a50d"
+              LastKnownName="Een sprong keuren"
+              LastKnownLocation="Everyware.uml" />
+          </extend>
+        </extendedCases>
+        <subjects>
+          <subsystemMoniker
+            Id="4c928492-48d4-40a8-8f2f-1113b2763b99"
+            LastKnownName="Gebruiker functionaliteiten"
+            LastKnownLocation="Everyware.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="8e8f12c7-a11f-4eaf-8d22-97534305c757"
+        name="sterren keuring"
+        isAbstract="false"
+        isLeaf="false">
+        <extendedCases>
+          <extend
+            Id="c7dbb14e-6b20-424d-8595-9be16baf8623">
+            <useCaseMoniker
+              Id="6ec6fab7-6823-492f-ae55-3285aad4a50d"
+              LastKnownName="Een sprong keuren"
+              LastKnownLocation="Everyware.uml" />
+          </extend>
+        </extendedCases>
+        <subjects>
+          <subsystemMoniker
+            Id="4c928492-48d4-40a8-8f2f-1113b2763b99"
+            LastKnownName="Gebruiker functionaliteiten"
+            LastKnownLocation="Everyware.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="9d7d6032-afbd-4128-9291-5db5179a8add"
+        name="Instellingen sprong aanpassen"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="4c928492-48d4-40a8-8f2f-1113b2763b99"
+            LastKnownName="Gebruiker functionaliteiten"
+            LastKnownLocation="Everyware.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="89632e3b-7036-4234-9738-ba2546cb494c"
+        name="bepalen "
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="c8c82d1f-ca67-4fc5-9c38-99daf42a70ba"
+        name="UseCase2"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <actor
+        Id="695f7487-0dde-40f0-86f0-384fa0ee0a90"
+        name="Gebruiker1"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <actor
+        Id="90ed0ff9-a34d-48ff-b015-b93b0fdc81c7"
+        name="Admin1"
+        isAbstract="false"
+        isLeaf="false">
+        <generalsInternal>
+          <generalization
+            Id="4dc002ca-9afd-4ae8-8680-485d97eeb638"
+            isSubstitutable="false">
+            <actorMoniker
+              Id="695f7487-0dde-40f0-86f0-384fa0ee0a90"
+              LastKnownName="Gebruiker1"
+              LastKnownLocation="Everyware.uml" />
+          </generalization>
+        </generalsInternal>
+      </actor>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <subsystem
+        Id="48ea430f-82a9-43be-a0bb-18d3939a84bd"
+        name="Mobiele applicatie"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="cff6d330-2e6c-4e4c-bc77-16a817dac4ba"
+        name="Inloggen"
+        isAbstract="false"
+        isLeaf="false">
+        <targetEnds>
+          <association
+            Id="4305ad64-0749-40ad-a480-0667a217140a"
+            isDerived="false"
+            sourceEndRoleName="Inloggen"
+            targetEndRoleName="functionaliteiten sporter"
+            isLeaf="false"
+            isAbstract="false">
+            <subsystemMoniker
+              Id="fb766549-1131-463e-bc56-fffdea5c2950"
+              LastKnownName="functionaliteiten sporter"
+              LastKnownLocation="Everyware.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="6ca437e6-fb2e-4cd5-b049-e2c5784b8a88"
+                  name="Inloggen"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="cd786c17-708a-4cbb-a68e-ff641eb31e89"
+                  name="functionaliteiten sporter"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <subjects>
+          <subsystemMoniker
+            Id="48ea430f-82a9-43be-a0bb-18d3939a84bd"
+            LastKnownName="Mobiele applicatie"
+            LastKnownLocation="Everyware.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <subsystem
+        Id="fb766549-1131-463e-bc56-fffdea5c2950"
+        name="functionaliteiten sporter"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="26ea5076-98fb-418f-a677-8957aab3d023"
+        name="Start meting1"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="a73e22bf-337d-496f-bdd3-52a5a3af296c"
+        name="Stop meting1"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="492e8eab-6d6c-403d-8807-dfcf9128f647"
+        name="Beheer sporters (CRU)1"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="9510a222-492e-4e47-9d8a-7ecdc026b6bf"
+        name="Een sprong keuren1"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="281cab38-316c-42f0-ae72-6eae02200be5"
+        name="Beheer sprongen(CRU)1"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="68eacdfe-6f0c-42fc-85fd-3bd7bcb72b79"
+        name="Zichtbare laser aan- uitzetten1"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="9c8c5425-ca28-493a-9827-0b896cfc092c"
+        name="Een sprong bekijken1"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="52bff731-215a-4d47-bcb5-6d8b62133561"
+        name="huidige sprong verwijderen1"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="63f42a54-1a28-4ca5-9a18-618509214390"
+        name="Jury keuring1"
+        isAbstract="false"
+        isLeaf="false">
+        <extendedCases>
+          <extend
+            Id="36f34cda-9994-4e1b-afa1-082287437eee">
+            <useCaseMoniker
+              Id="9510a222-492e-4e47-9d8a-7ecdc026b6bf"
+              LastKnownName="Een sprong keuren1"
+              LastKnownLocation="Everyware.uml" />
+          </extend>
+        </extendedCases>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="2cfd6a22-a21a-40c3-98e2-4f0e9cb8728b"
+        name="sterren keuring1"
+        isAbstract="false"
+        isLeaf="false">
+        <extendedCases>
+          <extend
+            Id="9d78464d-8257-4139-8535-c92a35bbc287">
+            <useCaseMoniker
+              Id="9510a222-492e-4e47-9d8a-7ecdc026b6bf"
+              LastKnownName="Een sprong keuren1"
+              LastKnownLocation="Everyware.uml" />
+          </extend>
+        </extendedCases>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="79863155-605e-4c6b-a2de-e1a99e622cd0"
+        name="Instellingen sprong aanpassen1"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <subsystem
+        Id="e2c7ba7c-3552-48ce-86f0-0e805acaaacb"
+        name="functionaliteiten coach"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="fef1658b-c427-4746-a42b-8e773e34e8d8"
+        name="Sprongen vergelijken1"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="5aae2e51-b794-4034-b731-97b86af52ed6"
+        name="Instellingen aanassen lasersnelheidscamera1"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="440039c0-6e0c-4c4d-9de5-710bf6d4bcf4"
+        name="Verwijderen sporters1"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="4cabc026-935f-4fa9-af25-71390afc5f0f"
+        name="Sprong verwijderen1"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="65f72242-f927-41b0-be27-06c6150d43a3"
+        name="Gemiddelde meting 1"
+        isAbstract="false"
+        isLeaf="false">
+        <extendedCases>
+          <extend
+            Id="dfe861e6-518f-4c70-a00a-834dd94fcf4c">
+            <useCaseMoniker
+              Id="5aae2e51-b794-4034-b731-97b86af52ed6"
+              LastKnownName="Instellingen aanassen lasersnelheidscamera1"
+              LastKnownLocation="Everyware.uml" />
+          </extend>
+        </extendedCases>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="e52a1350-8eb1-4a8c-98d1-4d64edbdce46"
+        name="De frequentie1"
+        isAbstract="false"
+        isLeaf="false">
+        <extendedCases>
+          <extend
+            Id="47d44a1f-58df-440b-a5e9-59ee743660ab">
+            <useCaseMoniker
+              Id="5aae2e51-b794-4034-b731-97b86af52ed6"
+              LastKnownName="Instellingen aanassen lasersnelheidscamera1"
+              LastKnownLocation="Everyware.uml" />
+          </extend>
+        </extendedCases>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="30b73865-1e84-427c-9288-357b4cca6be8"
+        name="Camera positie1"
+        isAbstract="false"
+        isLeaf="false">
+        <extendedCases>
+          <extend
+            Id="45a8223e-98ec-4c20-b2f3-e94a381fa4df">
+            <useCaseMoniker
+              Id="5aae2e51-b794-4034-b731-97b86af52ed6"
+              LastKnownName="Instellingen aanassen lasersnelheidscamera1"
+              LastKnownLocation="Everyware.uml" />
+          </extend>
+        </extendedCases>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="5c77f6c4-0982-48c5-a4fc-3a43c83b9655"
+        name="teruggave snelheid en of afstand1"
+        isAbstract="false"
+        isLeaf="false">
+        <extendedCases>
+          <extend
+            Id="3e675401-eb67-4b55-9013-b29dabc2a3c9">
+            <useCaseMoniker
+              Id="5aae2e51-b794-4034-b731-97b86af52ed6"
+              LastKnownName="Instellingen aanassen lasersnelheidscamera1"
+              LastKnownLocation="Everyware.uml" />
+          </extend>
+        </extendedCases>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="19c941e8-8f8c-44fd-bd63-f7b99bf4b593"
+        name="Measurement window1"
+        isAbstract="false"
+        isLeaf="false">
+        <extendedCases>
+          <extend
+            Id="88030f37-a5e4-4ec3-8b8e-b28182f0b53e">
+            <useCaseMoniker
+              Id="5aae2e51-b794-4034-b731-97b86af52ed6"
+              LastKnownName="Instellingen aanassen lasersnelheidscamera1"
+              LastKnownLocation="Everyware.uml" />
+          </extend>
+        </extendedCases>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <actor
+        Id="a1331fb1-80b3-406a-a6be-e92f22914abc"
+        name="Sporter"
+        isAbstract="false"
+        isLeaf="false">
+        <targetEnds>
+          <association
+            Id="15159577-bf1b-4589-804c-6a21178a2857"
+            isDerived="false"
+            sourceEndRoleName="Sporter"
+            targetEndRoleName="Inloggen"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="cff6d330-2e6c-4e4c-bc77-16a817dac4ba"
+              LastKnownName="Inloggen"
+              LastKnownLocation="Everyware.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="d0dfb0c3-bdf8-4341-8c29-0585fab8f4cd"
+                  name="Sporter"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="5354d9a0-81b5-45e5-89c0-7d51535151ee"
+                  name="Inloggen"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+      </actor>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <actor
+        Id="f731c422-f0aa-475b-b088-da20e81db3e9"
+        name="Coach"
+        isAbstract="false"
+        isLeaf="false">
+        <generalsInternal>
+          <generalization
+            Id="d5a03290-f24b-4f3f-b5ce-b4fbbac32b41"
+            isSubstitutable="false">
+            <actorMoniker
+              Id="a1331fb1-80b3-406a-a6be-e92f22914abc"
+              LastKnownName="Sporter"
+              LastKnownLocation="Everyware.uml" />
+          </generalization>
+        </generalsInternal>
+        <targetEnds>
+          <association
+            Id="3bef0f87-b0de-491c-b558-d4c8e26da9c4"
+            isDerived="false"
+            sourceEndRoleName="Coach"
+            targetEndRoleName="Inloggen"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="b63ad14a-2331-4610-a5e9-bc858efa3b77"
+              LastKnownName="Inloggen"
+              LastKnownLocation="Everyware.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="dec74bff-fac0-4b70-9821-ecf22dada5f2"
+                  name="Coach"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="2601f4c2-8645-45a2-b0ac-7fbf4ee45ad1"
+                  name="Inloggen"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+      </actor>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="b63ad14a-2331-4610-a5e9-bc858efa3b77"
+        name="Inloggen"
+        isAbstract="false"
+        isLeaf="false">
+        <targetEnds>
+          <association
+            Id="c42db7bb-3eb2-4154-9b82-d5057bcd3d0c"
+            isDerived="false"
+            sourceEndRoleName="Inloggen"
+            targetEndRoleName="functionaliteiten coach"
+            isLeaf="false"
+            isAbstract="false">
+            <subsystemMoniker
+              Id="e2c7ba7c-3552-48ce-86f0-0e805acaaacb"
+              LastKnownName="functionaliteiten coach"
+              LastKnownLocation="Everyware.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="a33ceabf-25cf-461b-9f40-4acdc2d214c2"
+                  name="Inloggen"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="9eaaaad1-80a1-45d0-834e-4bb2760794b1"
+                  name="functionaliteiten coach"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <subjects>
+          <subsystemMoniker
+            Id="48ea430f-82a9-43be-a0bb-18d3939a84bd"
+            LastKnownName="Mobiele applicatie"
+            LastKnownLocation="Everyware.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="e4a952b1-bb06-458f-83df-8be03cf0b436"
+        name="Start meting"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="e3273880-7504-4b79-bfeb-18775a7a99e2"
+        name="Eigen sprongen vergelijken"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="fb766549-1131-463e-bc56-fffdea5c2950"
+            LastKnownName="functionaliteiten sporter"
+            LastKnownLocation="Everyware.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="b1268746-0a88-4588-8632-bdff8c39e168"
+        name="Eigen sprongen bekijken"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="fb766549-1131-463e-bc56-fffdea5c2950"
+            LastKnownName="functionaliteiten sporter"
+            LastKnownLocation="Everyware.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="86dfe198-81c3-411d-a2b5-09849f3324f2"
+        name="Eigen profiel bekijken"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="fb766549-1131-463e-bc56-fffdea5c2950"
+            LastKnownName="functionaliteiten sporter"
+            LastKnownLocation="Everyware.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="52bbf688-e431-42b9-9ba1-e97a0188edb1"
+        name="Eigen sprongen bekijken"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="1b037ebe-bc30-4011-9ccf-ad0a60c3eafc"
+        name="UseCase7"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="e2eb90eb-4bda-450f-9b5d-981b0d75315b"
+        name="Alle sprongen terugkijken"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="e2c7ba7c-3552-48ce-86f0-0e805acaaacb"
+            LastKnownName="functionaliteiten coach"
+            LastKnownLocation="Everyware.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="e8c50720-8039-4ede-8ec4-edfe4ee13a32"
+        name="Vergelijken sprongen"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="e2c7ba7c-3552-48ce-86f0-0e805acaaacb"
+            LastKnownName="functionaliteiten coach"
+            LastKnownLocation="Everyware.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="358bf8cc-092f-4bce-9e34-3b66c280301c"
+        name="UseCase10"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="a714931b-409f-4b32-91cc-c00fda61c1bd"
+        name="UseCase11"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="2095e651-f877-4f44-81bd-66b3cc451c37"
+        LastKnownName="ViewModels"
+        LastKnownLocation="Package_1101.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="56a9e2e5-f83c-4b3b-8c71-93998d063608"
+        LastKnownName="View"
+        LastKnownLocation="Package1_1101.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="50e80416-30ea-4ae5-a1ca-30fcb749e5f4"
+        LastKnownName="Model"
+        LastKnownLocation="Package2_1101.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="3e7e0eec-e95a-4e6a-9d15-552899599448"
+        LastKnownName="Services"
+        LastKnownLocation="Package_1102.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="012a7493-2eb3-43af-a1e9-db4ffe5cedc5"
+        LastKnownName="AppInterfaces"
+        LastKnownLocation="Package_1209.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="90900947-da95-4d5e-8a0a-ee9da71f6f33"
+        LastKnownName="MVVM"
+        LastKnownLocation="Package_1402.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="c2e7e85b-0ff8-49a4-a2fa-003bafdf59f4"
+        LastKnownName="Modules"
+        LastKnownLocation="Package_1623.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="a3ddb0c7-b1a5-4acb-b741-7ce0cdbf42cb"
+        LastKnownName="Processing"
+        LastKnownLocation="Package_1655.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="54936d87-204d-45cf-abf2-911d57feb483"
+        LastKnownName="Exceptions"
+        LastKnownLocation="Package1_1402.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <interaction
+        Id="5ff333a1-02f9-4727-ba5d-be16d685b29d"
+        name="MVVM"
+        collapseFragmentsFlag="false"
+        isActiveClass="false"
+        isAbstract="false"
+        isLeaf="false"
+        isReentrant="false">
+        <fragments>
+          <behaviorExecutionSpecification
+            Id="392a7bfa-2e4e-4cf2-a2e4-28791eb6f42a"
+            name="BehaviorExecutionSpecification3">
+            <coveredLifelines>
+              <lifelineMoniker
+                Id="0d494fd1-e659-4635-b8e7-35103ad6b417"
+                LastKnownName="ViewModel"
+                LastKnownLocation="Everyware.uml" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker
+                Id="74d3d05a-db68-422c-b268-d329b9765539"
+                LastKnownName="ExecutionOccurrenceSpecification6"
+                LastKnownLocation="Everyware.uml" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker
+                Id="1da3e894-995d-457c-8165-3aa8abaa91b6"
+                LastKnownName="ExecutionOccurrenceSpecification5"
+                LastKnownLocation="Everyware.uml" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker
+                Id="cc096ea3-aa21-47ec-be1f-90f43b65b357"
+                LastKnownName="MessageOccurrenceSpecification6"
+                LastKnownLocation="Everyware.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="05c51bff-b37f-46f5-bf80-124a4f28fe5d"
+                LastKnownName="MessageOccurrenceSpecification9"
+                LastKnownLocation="Everyware.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="d2188f0a-7515-4b52-a1e8-412d5590eda0"
+                LastKnownName="MessageOccurrenceSpecification12"
+                LastKnownLocation="Everyware.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="d441eb39-5bf7-4d43-ad5d-729165b1958a"
+                LastKnownName="MessageOccurrenceSpecification13"
+                LastKnownLocation="Everyware.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="f5e1e22e-4fc5-42c7-9d1a-e90bc86f7ffa"
+                LastKnownName="MessageOccurrenceSpecification16"
+                LastKnownLocation="Everyware.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="fa8a3e6b-b78b-4074-9602-77312acc528f"
+                LastKnownName="MessageOccurrenceSpecification7"
+                LastKnownLocation="Everyware.uml" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification
+            Id="1da3e894-995d-457c-8165-3aa8abaa91b6"
+            name="ExecutionOccurrenceSpecification5">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="decd56b0-2a17-4b83-8563-146fed9a7109"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Everyware.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="0d494fd1-e659-4635-b8e7-35103ad6b417"
+                LastKnownName="ViewModel"
+                LastKnownLocation="Everyware.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="cc096ea3-aa21-47ec-be1f-90f43b65b357"
+            name="MessageOccurrenceSpecification6">
+            <covered>
+              <lifelineMoniker
+                Id="0d494fd1-e659-4635-b8e7-35103ad6b417"
+                LastKnownName="ViewModel"
+                LastKnownLocation="Everyware.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="1212b854-d2b5-47a7-88f8-d5981dc93441"
+            name="MessageOccurrenceSpecification5">
+            <covered>
+              <lifelineMoniker
+                Id="b6887ffe-0c93-4265-b081-cf1c14eb2913"
+                LastKnownName="View"
+                LastKnownLocation="Everyware.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <behaviorExecutionSpecification
+            Id="9dd1b4de-4b90-47bf-a6d5-8b675f0e8b8a"
+            name="BehaviorExecutionSpecification4">
+            <coveredLifelines>
+              <lifelineMoniker
+                Id="5ab53437-fb28-4fc0-8007-8154a5ab32e8"
+                LastKnownName="RelayCommand"
+                LastKnownLocation="Everyware.uml" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker
+                Id="e06bc9ae-3b64-47fe-bca8-297e75423377"
+                LastKnownName="ExecutionOccurrenceSpecification8"
+                LastKnownLocation="Everyware.uml" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker
+                Id="667a0ec0-1ee9-4a0a-97d2-d86f171d260e"
+                LastKnownName="ExecutionOccurrenceSpecification7"
+                LastKnownLocation="Everyware.uml" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker
+                Id="dd9b8558-ab74-4865-bf9b-ad7208aca7c4"
+                LastKnownName="MessageOccurrenceSpecification10"
+                LastKnownLocation="Everyware.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="82835af2-1f88-4a43-911c-ea7838a58544"
+                LastKnownName="MessageOccurrenceSpecification11"
+                LastKnownLocation="Everyware.uml" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification
+            Id="667a0ec0-1ee9-4a0a-97d2-d86f171d260e"
+            name="ExecutionOccurrenceSpecification7">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="b798d918-9b75-46b9-b1b7-5e3f4513ad2e"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Everyware.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="5ab53437-fb28-4fc0-8007-8154a5ab32e8"
+                LastKnownName="RelayCommand"
+                LastKnownLocation="Everyware.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="05c51bff-b37f-46f5-bf80-124a4f28fe5d"
+            name="MessageOccurrenceSpecification9">
+            <covered>
+              <lifelineMoniker
+                Id="0d494fd1-e659-4635-b8e7-35103ad6b417"
+                LastKnownName="ViewModel"
+                LastKnownLocation="Everyware.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="dd9b8558-ab74-4865-bf9b-ad7208aca7c4"
+            name="MessageOccurrenceSpecification10">
+            <covered>
+              <lifelineMoniker
+                Id="5ab53437-fb28-4fc0-8007-8154a5ab32e8"
+                LastKnownName="RelayCommand"
+                LastKnownLocation="Everyware.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="d2188f0a-7515-4b52-a1e8-412d5590eda0"
+            name="MessageOccurrenceSpecification12">
+            <covered>
+              <lifelineMoniker
+                Id="0d494fd1-e659-4635-b8e7-35103ad6b417"
+                LastKnownName="ViewModel"
+                LastKnownLocation="Everyware.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="82835af2-1f88-4a43-911c-ea7838a58544"
+            name="MessageOccurrenceSpecification11">
+            <covered>
+              <lifelineMoniker
+                Id="5ab53437-fb28-4fc0-8007-8154a5ab32e8"
+                LastKnownName="RelayCommand"
+                LastKnownLocation="Everyware.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <executionOccurrenceSpecification
+            Id="e06bc9ae-3b64-47fe-bca8-297e75423377"
+            name="ExecutionOccurrenceSpecification8">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="97662dca-a7e6-4cc0-b7e5-86e5b4c9e89e"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Everyware.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="5ab53437-fb28-4fc0-8007-8154a5ab32e8"
+                LastKnownName="RelayCommand"
+                LastKnownLocation="Everyware.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <behaviorExecutionSpecification
+            Id="d0c25534-05ae-4780-89c1-d643dc4ab4ad"
+            name="BehaviorExecutionSpecification5">
+            <coveredLifelines>
+              <lifelineMoniker
+                Id="96c78820-dac3-4830-ad1a-0dc4c80a05b5"
+                LastKnownName="AbstractViewModel"
+                LastKnownLocation="Everyware.uml" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker
+                Id="28d54001-0377-471f-86c6-b0b5290059af"
+                LastKnownName="ExecutionOccurrenceSpecification10"
+                LastKnownLocation="Everyware.uml" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker
+                Id="ec2058d8-2d41-435d-886e-2a30e0dca60d"
+                LastKnownName="ExecutionOccurrenceSpecification9"
+                LastKnownLocation="Everyware.uml" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker
+                Id="76792a33-0764-4ee8-97c7-5a925bcdadcc"
+                LastKnownName="MessageOccurrenceSpecification14"
+                LastKnownLocation="Everyware.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="57b0a4b4-6251-4580-9ecb-dd4d64eb34af"
+                LastKnownName="MessageOccurrenceSpecification17"
+                LastKnownLocation="Everyware.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="15c39896-f327-4fc5-af21-020cff8166a8"
+                LastKnownName="MessageOccurrenceSpecification20"
+                LastKnownLocation="Everyware.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="1b1b1aa7-1423-417e-a7b8-d2091279b62d"
+                LastKnownName="MessageOccurrenceSpecification15"
+                LastKnownLocation="Everyware.uml" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification
+            Id="ec2058d8-2d41-435d-886e-2a30e0dca60d"
+            name="ExecutionOccurrenceSpecification9">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="26893865-8187-49c1-9bb5-16ee5d23967e"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Everyware.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="96c78820-dac3-4830-ad1a-0dc4c80a05b5"
+                LastKnownName="AbstractViewModel"
+                LastKnownLocation="Everyware.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="76792a33-0764-4ee8-97c7-5a925bcdadcc"
+            name="MessageOccurrenceSpecification14">
+            <covered>
+              <lifelineMoniker
+                Id="96c78820-dac3-4830-ad1a-0dc4c80a05b5"
+                LastKnownName="AbstractViewModel"
+                LastKnownLocation="Everyware.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="d441eb39-5bf7-4d43-ad5d-729165b1958a"
+            name="MessageOccurrenceSpecification13">
+            <covered>
+              <lifelineMoniker
+                Id="0d494fd1-e659-4635-b8e7-35103ad6b417"
+                LastKnownName="ViewModel"
+                LastKnownLocation="Everyware.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <behaviorExecutionSpecification
+            Id="0504e30d-71d1-471f-9a65-a164e36b2225"
+            name="BehaviorExecutionSpecification6">
+            <coveredLifelines>
+              <lifelineMoniker
+                Id="572d8cd7-e8f0-4946-9642-0a869df7c13e"
+                LastKnownName="PropertyChangedBase"
+                LastKnownLocation="Everyware.uml" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker
+                Id="54c8d972-c449-441a-9af9-6c99efd31b34"
+                LastKnownName="ExecutionOccurrenceSpecification12"
+                LastKnownLocation="Everyware.uml" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker
+                Id="7dfe8e78-00c4-42a8-bc62-36cd64dfc18f"
+                LastKnownName="ExecutionOccurrenceSpecification11"
+                LastKnownLocation="Everyware.uml" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker
+                Id="aa293c98-2a5b-4dfe-bc27-07974204ceec"
+                LastKnownName="MessageOccurrenceSpecification18"
+                LastKnownLocation="Everyware.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="6f17d019-df27-4ae4-8299-3edc08e4d32a"
+                LastKnownName="MessageOccurrenceSpecification19"
+                LastKnownLocation="Everyware.uml" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification
+            Id="7dfe8e78-00c4-42a8-bc62-36cd64dfc18f"
+            name="ExecutionOccurrenceSpecification11">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="de35cced-1feb-4aca-8d97-e3960a23fac5"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Everyware.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="572d8cd7-e8f0-4946-9642-0a869df7c13e"
+                LastKnownName="PropertyChangedBase"
+                LastKnownLocation="Everyware.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="aa293c98-2a5b-4dfe-bc27-07974204ceec"
+            name="MessageOccurrenceSpecification18">
+            <covered>
+              <lifelineMoniker
+                Id="572d8cd7-e8f0-4946-9642-0a869df7c13e"
+                LastKnownName="PropertyChangedBase"
+                LastKnownLocation="Everyware.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="57b0a4b4-6251-4580-9ecb-dd4d64eb34af"
+            name="MessageOccurrenceSpecification17">
+            <covered>
+              <lifelineMoniker
+                Id="96c78820-dac3-4830-ad1a-0dc4c80a05b5"
+                LastKnownName="AbstractViewModel"
+                LastKnownLocation="Everyware.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="15c39896-f327-4fc5-af21-020cff8166a8"
+            name="MessageOccurrenceSpecification20">
+            <covered>
+              <lifelineMoniker
+                Id="96c78820-dac3-4830-ad1a-0dc4c80a05b5"
+                LastKnownName="AbstractViewModel"
+                LastKnownLocation="Everyware.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="6f17d019-df27-4ae4-8299-3edc08e4d32a"
+            name="MessageOccurrenceSpecification19">
+            <covered>
+              <lifelineMoniker
+                Id="572d8cd7-e8f0-4946-9642-0a869df7c13e"
+                LastKnownName="PropertyChangedBase"
+                LastKnownLocation="Everyware.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <executionOccurrenceSpecification
+            Id="54c8d972-c449-441a-9af9-6c99efd31b34"
+            name="ExecutionOccurrenceSpecification12">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="ce26691a-6b95-49a0-9330-1589c3848a89"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Everyware.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="572d8cd7-e8f0-4946-9642-0a869df7c13e"
+                LastKnownName="PropertyChangedBase"
+                LastKnownLocation="Everyware.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="1b1b1aa7-1423-417e-a7b8-d2091279b62d"
+            name="MessageOccurrenceSpecification15">
+            <covered>
+              <lifelineMoniker
+                Id="96c78820-dac3-4830-ad1a-0dc4c80a05b5"
+                LastKnownName="AbstractViewModel"
+                LastKnownLocation="Everyware.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="f5e1e22e-4fc5-42c7-9d1a-e90bc86f7ffa"
+            name="MessageOccurrenceSpecification16">
+            <covered>
+              <lifelineMoniker
+                Id="0d494fd1-e659-4635-b8e7-35103ad6b417"
+                LastKnownName="ViewModel"
+                LastKnownLocation="Everyware.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <executionOccurrenceSpecification
+            Id="28d54001-0377-471f-86c6-b0b5290059af"
+            name="ExecutionOccurrenceSpecification10">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="8bd0a471-33ac-4f6c-904a-794f9cb4454e"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Everyware.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="96c78820-dac3-4830-ad1a-0dc4c80a05b5"
+                LastKnownName="AbstractViewModel"
+                LastKnownLocation="Everyware.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="3d3023ad-b7c8-4019-88e9-32b050f0eceb"
+            name="MessageOccurrenceSpecification8">
+            <covered>
+              <lifelineMoniker
+                Id="b6887ffe-0c93-4265-b081-cf1c14eb2913"
+                LastKnownName="View"
+                LastKnownLocation="Everyware.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="fa8a3e6b-b78b-4074-9602-77312acc528f"
+            name="MessageOccurrenceSpecification7">
+            <covered>
+              <lifelineMoniker
+                Id="0d494fd1-e659-4635-b8e7-35103ad6b417"
+                LastKnownName="ViewModel"
+                LastKnownLocation="Everyware.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <executionOccurrenceSpecification
+            Id="74d3d05a-db68-422c-b268-d329b9765539"
+            name="ExecutionOccurrenceSpecification6">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="73d7e77b-c120-4429-9a25-97b7bacc6ed4"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Everyware.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="0d494fd1-e659-4635-b8e7-35103ad6b417"
+                LastKnownName="ViewModel"
+                LastKnownLocation="Everyware.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+        </fragments>
+        <lifelines>
+          <lifeline
+            Id="b6887ffe-0c93-4265-b081-cf1c14eb2913"
+            name="View"
+            isActor="false"
+            lifelineDisplayName="View">
+            <topLevelOccurrences>
+              <messageOccurrenceSpecificationMoniker
+                Id="1212b854-d2b5-47a7-88f8-d5981dc93441"
+                LastKnownName="MessageOccurrenceSpecification5"
+                LastKnownLocation="Everyware.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="3d3023ad-b7c8-4019-88e9-32b050f0eceb"
+                LastKnownName="MessageOccurrenceSpecification8"
+                LastKnownLocation="Everyware.uml" />
+            </topLevelOccurrences>
+          </lifeline>
+          <lifeline
+            Id="0d494fd1-e659-4635-b8e7-35103ad6b417"
+            name="ViewModel"
+            isActor="false"
+            lifelineDisplayName="ViewModel">
+            <topLevelOccurrences>
+              <executionOccurrenceSpecificationMoniker
+                Id="1da3e894-995d-457c-8165-3aa8abaa91b6"
+                LastKnownName="ExecutionOccurrenceSpecification5"
+                LastKnownLocation="Everyware.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="74d3d05a-db68-422c-b268-d329b9765539"
+                LastKnownName="ExecutionOccurrenceSpecification6"
+                LastKnownLocation="Everyware.uml" />
+            </topLevelOccurrences>
+          </lifeline>
+          <lifeline
+            Id="5ab53437-fb28-4fc0-8007-8154a5ab32e8"
+            name="RelayCommand"
+            isActor="false"
+            lifelineDisplayName="RelayCommand">
+            <topLevelOccurrences>
+              <executionOccurrenceSpecificationMoniker
+                Id="667a0ec0-1ee9-4a0a-97d2-d86f171d260e"
+                LastKnownName="ExecutionOccurrenceSpecification7"
+                LastKnownLocation="Everyware.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="e06bc9ae-3b64-47fe-bca8-297e75423377"
+                LastKnownName="ExecutionOccurrenceSpecification8"
+                LastKnownLocation="Everyware.uml" />
+            </topLevelOccurrences>
+          </lifeline>
+          <lifeline
+            Id="96c78820-dac3-4830-ad1a-0dc4c80a05b5"
+            name="AbstractViewModel"
+            isActor="false"
+            lifelineDisplayName="AbstractViewModel">
+            <topLevelOccurrences>
+              <executionOccurrenceSpecificationMoniker
+                Id="ec2058d8-2d41-435d-886e-2a30e0dca60d"
+                LastKnownName="ExecutionOccurrenceSpecification9"
+                LastKnownLocation="Everyware.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="28d54001-0377-471f-86c6-b0b5290059af"
+                LastKnownName="ExecutionOccurrenceSpecification10"
+                LastKnownLocation="Everyware.uml" />
+            </topLevelOccurrences>
+          </lifeline>
+          <lifeline
+            Id="572d8cd7-e8f0-4946-9642-0a869df7c13e"
+            name="PropertyChangedBase"
+            isActor="false"
+            lifelineDisplayName="PropertyChangedBase">
+            <topLevelOccurrences>
+              <executionOccurrenceSpecificationMoniker
+                Id="7dfe8e78-00c4-42a8-bc62-36cd64dfc18f"
+                LastKnownName="ExecutionOccurrenceSpecification11"
+                LastKnownLocation="Everyware.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="54c8d972-c449-441a-9af9-6c99efd31b34"
+                LastKnownName="ExecutionOccurrenceSpecification12"
+                LastKnownLocation="Everyware.uml" />
+            </topLevelOccurrences>
+          </lifeline>
+        </lifelines>
+        <messages>
+          <message
+            Id="47e48796-c7c3-47bd-bcb3-57953f0db38d"
+            name="Button Clicked"
+            messageKind="Complete"
+            messageSort="SynchCall"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="1212b854-d2b5-47a7-88f8-d5981dc93441"
+                LastKnownName="MessageOccurrenceSpecification5"
+                LastKnownLocation="Everyware.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="cc096ea3-aa21-47ec-be1f-90f43b65b357"
+                LastKnownName="MessageOccurrenceSpecification6"
+                LastKnownLocation="Everyware.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="9f8994f9-7f7b-49bb-a849-cf54a266d83e"
+            name="Get"
+            messageKind="Complete"
+            messageSort="SynchCall"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="05c51bff-b37f-46f5-bf80-124a4f28fe5d"
+                LastKnownName="MessageOccurrenceSpecification9"
+                LastKnownLocation="Everyware.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="dd9b8558-ab74-4865-bf9b-ad7208aca7c4"
+                LastKnownName="MessageOccurrenceSpecification10"
+                LastKnownLocation="Everyware.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="28e7b945-63cd-491c-8103-31b63f79fb07"
+            name="&lt;&lt;return&gt;&gt;"
+            messageKind="Complete"
+            messageSort="Reply"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="82835af2-1f88-4a43-911c-ea7838a58544"
+                LastKnownName="MessageOccurrenceSpecification11"
+                LastKnownLocation="Everyware.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="d2188f0a-7515-4b52-a1e8-412d5590eda0"
+                LastKnownName="MessageOccurrenceSpecification12"
+                LastKnownLocation="Everyware.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="cd9c963b-20da-47aa-8bf5-6629a6fb7306"
+            name="OnPropertyChanged"
+            messageKind="Complete"
+            messageSort="SynchCall"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="d441eb39-5bf7-4d43-ad5d-729165b1958a"
+                LastKnownName="MessageOccurrenceSpecification13"
+                LastKnownLocation="Everyware.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="76792a33-0764-4ee8-97c7-5a925bcdadcc"
+                LastKnownName="MessageOccurrenceSpecification14"
+                LastKnownLocation="Everyware.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="e6a0f4b3-d095-4909-9315-468faae5339d"
+            name="OnPropertyChanged"
+            messageKind="Complete"
+            messageSort="SynchCall"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="57b0a4b4-6251-4580-9ecb-dd4d64eb34af"
+                LastKnownName="MessageOccurrenceSpecification17"
+                LastKnownLocation="Everyware.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="aa293c98-2a5b-4dfe-bc27-07974204ceec"
+                LastKnownName="MessageOccurrenceSpecification18"
+                LastKnownLocation="Everyware.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="ae49489c-7626-45e9-a1c4-f71b4295546b"
+            name="&lt;&lt;return&gt;&gt;"
+            messageKind="Complete"
+            messageSort="Reply"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="6f17d019-df27-4ae4-8299-3edc08e4d32a"
+                LastKnownName="MessageOccurrenceSpecification19"
+                LastKnownLocation="Everyware.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="15c39896-f327-4fc5-af21-020cff8166a8"
+                LastKnownName="MessageOccurrenceSpecification20"
+                LastKnownLocation="Everyware.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="f3fb185c-2d37-4106-bafd-33a564b42948"
+            name="&lt;&lt;return&gt;&gt;"
+            messageKind="Complete"
+            messageSort="Reply"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="1b1b1aa7-1423-417e-a7b8-d2091279b62d"
+                LastKnownName="MessageOccurrenceSpecification15"
+                LastKnownLocation="Everyware.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="f5e1e22e-4fc5-42c7-9d1a-e90bc86f7ffa"
+                LastKnownName="MessageOccurrenceSpecification16"
+                LastKnownLocation="Everyware.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="341f509e-2dc2-43fe-a16e-f7a5922c4a0c"
+            name="&lt;&lt;return&gt;&gt;"
+            messageKind="Complete"
+            messageSort="Reply"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="fa8a3e6b-b78b-4074-9602-77312acc528f"
+                LastKnownName="MessageOccurrenceSpecification7"
+                LastKnownLocation="Everyware.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="3d3023ad-b7c8-4019-88e9-32b050f0eceb"
+                LastKnownName="MessageOccurrenceSpecification8"
+                LastKnownLocation="Everyware.uml" />
+            </receiveEvent>
+          </message>
+        </messages>
+      </interaction>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="decd56b0-2a17-4b83-8563-146fed9a7109"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="73d7e77b-c120-4429-9a25-97b7bacc6ed4"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="b798d918-9b75-46b9-b1b7-5e3f4513ad2e"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="97662dca-a7e6-4cc0-b7e5-86e5b4c9e89e"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="26893865-8187-49c1-9bb5-16ee5d23967e"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="8bd0a471-33ac-4f6c-904a-794f9cb4454e"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="de35cced-1feb-4aca-8d97-e3960a23fac5"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="ce26691a-6b95-49a0-9330-1589c3848a89"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+  </packagedElements>
+  <primitiveType
+    Id="220a3521-e091-4221-bae9-3ef9018e845c"
+    name="Integer"
+    isAbstract="false"
+    isLeaf="false" />
+  <primitiveType
+    Id="8943dc84-709e-4f62-b15a-a3273aa6f165"
+    name="Boolean"
+    isAbstract="false"
+    isLeaf="false" />
+  <primitiveType
+    Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+    name="String"
+    isAbstract="false"
+    isLeaf="false" />
+  <primitiveType
+    Id="3ab42e7d-4969-445a-b209-471f5cb8209c"
+    name="UnlimitedNatural"
+    isAbstract="false"
+    isLeaf="false" />
+</modelStoreModel>
