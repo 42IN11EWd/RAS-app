@@ -12,7 +12,7 @@ namespace RunApproachStatistics.Modules
         #region Modules
 
         private IUserModule userModule = new UserModule();
-        private IVaultModule userModule = new VaultModule();
+        private IVaultModule vaultModule = new VaultModule();
 
         #endregion
     }

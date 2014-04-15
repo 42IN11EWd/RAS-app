@@ -1,4 +1,6 @@
 ﻿using RunApproachStatistics.Controllers;
+using RunApproachStatistics.Modules;
+using RunApproachStatistics.Modules.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
