@@ -1,4 +1,6 @@
 ﻿using RunApproachStatistics.Controllers;
+using RunApproachStatistics.Modules;
+using RunApproachStatistics.Modules.Interfaces;
 using RunApproachStatistics.MVVM;
 using System;
 using System.Collections.Generic;
@@ -12,6 +14,13 @@ namespace RunApproachStatistics.ViewModel
     {
         private IApplicationController _app;
         private PropertyChangedBase content;
+
+        #region Modules
+
+        private IVideoCameraSettingsModule videoCameraSettingsModule = new SettingsModule();
+        private ILaserCameraSettingsModule laserCameraSettingsModule = new SettingsModule();
+
+        #endregion
 
         #region DataBinding
 

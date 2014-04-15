@@ -9,5 +9,11 @@ namespace RunApproachStatistics.Modules
 {
     class MeasurementModule : IMeasurementModule
     {
+        #region Modules
+
+        private IUserModule userModule = new UserModule();
+        private IVaultModule userModule = new VaultModule();
+
+        #endregion
     }
 }

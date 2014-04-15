@@ -1,4 +1,6 @@
 ﻿using RunApproachStatistics.Controllers;
+using RunApproachStatistics.Modules;
+using RunApproachStatistics.Modules.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +12,12 @@ namespace RunApproachStatistics.ViewModel
     public class CameraViewModel : AbstractViewModel
     {
         private IApplicationController _app;
+
+        #region Modules
+
+        private ICameraModule cameraModule = new CameraModule();
+
+        #endregion
 
         public CameraViewModel(IApplicationController app) : base()
         {

@@ -1,4 +1,6 @@
 ﻿using RunApproachStatistics.Controllers;
+using RunApproachStatistics.Modules;
+using RunApproachStatistics.Modules.Interfaces;
 using RunApproachStatistics.MVVM;
 using System;
 using System.Collections.Generic;
@@ -11,6 +13,13 @@ namespace RunApproachStatistics.ViewModel
     public class MeasurementViewModel : AbstractViewModel
     {
         private IApplicationController _app;
+
+        #region Modules
+
+        private ICameraModule cameraModule = new CameraModule();
+        private IMeasurementModule measurementModule = new MeasurementModule();
+
+        #endregion
 
         #region DataBinding
 

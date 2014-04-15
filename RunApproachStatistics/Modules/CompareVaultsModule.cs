@@ -9,5 +9,11 @@ namespace RunApproachStatistics.Modules
 {
     class CompareVaultsModule : ICompareVaultsModule
     {
+        #region Modules
+
+        private IUserModule userModule = new UserModule();
+        private IVaultModule userModule = new VaultModule();
+
+        #endregion
     }
 }

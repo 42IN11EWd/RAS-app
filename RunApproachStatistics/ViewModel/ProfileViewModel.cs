@@ -13,8 +13,13 @@ namespace RunApproachStatistics.ViewModel
     public class ProfileViewModel : AbstractViewModel
     {
         private IApplicationController _app;
-        private IUserModule userModule = new UserModule();
         private PropertyChangedBase menu;
+
+        #region Modules
+
+        private IUserModule userModule = new UserModule();
+        
+        #endregion
 
         #region DataBinding
 

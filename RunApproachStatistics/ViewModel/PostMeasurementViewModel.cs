@@ -11,6 +11,12 @@ namespace RunApproachStatistics.ViewModel
     {
         private IApplicationController _app;
 
+        #region Modules
+
+        private IVaultModule vaultModule = new VaultModule();
+
+        #endregion
+
         public PostMeasurementViewModel(IApplicationController app) : base()
         {
             _app = app;

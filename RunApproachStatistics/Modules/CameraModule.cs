@@ -9,5 +9,11 @@ namespace RunApproachStatistics.Modules
 {
     class CameraModule : ICameraModule
     {
+        #region Modules
+
+        private IVaultModule userModule = new VaultModule();
+
+        #endregion
+
     }
 }

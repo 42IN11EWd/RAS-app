@@ -1,4 +1,6 @@
 ﻿using RunApproachStatistics.Controllers;
+using RunApproachStatistics.Modules;
+using RunApproachStatistics.Modules.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +12,12 @@ namespace RunApproachStatistics.ViewModel
     public class CompareVaultsViewModel : AbstractViewModel
     {
         private IApplicationController _app;
+
+        #region Modules
+
+        private ICompareVaultsModule compareVaultsModule = new CompareVaultsModule();
+
+        #endregion
 
         public CompareVaultsViewModel(IApplicationController app) : base()
         {

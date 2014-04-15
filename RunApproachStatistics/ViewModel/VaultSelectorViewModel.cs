@@ -1,4 +1,6 @@
 ﻿using RunApproachStatistics.Controllers;
+using RunApproachStatistics.Modules;
+using RunApproachStatistics.Modules.Interfaces;
 using RunApproachStatistics.MVVM;
 using System;
 using System.Collections.Generic;
@@ -12,6 +14,12 @@ namespace RunApproachStatistics.ViewModel
     {
         private IApplicationController _app;
         private PropertyChangedBase menu;
+
+        #region Modules
+
+        private IVaultModule vaultModule = new VaultModule();
+
+        #endregion
 
         #region DataBinding
 
