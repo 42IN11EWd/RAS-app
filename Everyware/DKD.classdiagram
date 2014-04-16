@@ -1,0 +1,845 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="6391a874-0337-4d87-9038-69f47aa8b72e" name="DKD" linkedPackageId="a490136b-b689-41d8-960b-81bb65172700" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+  <packagedElements>
+    <logicalClassDesignerModelHasPackages>
+      <package Id="140e31be-b9f5-4efe-9974-825944899fb5" name="ViewModels">
+        <elementDefinition Id="2095e651-f877-4f44-81bd-66b3cc451c37" />
+        <importedPackagesInternal>
+          <packageImport Id="71d53d45-2457-4025-8a30-987848f82dbd" visibility="Public">
+            <packageMoniker Id="3441de01-ff6a-4ebf-84f0-e273b7e904c7" LastKnownName="MVVM" />
+            <elementDefinition Id="d040c636-fca4-4df7-85c2-41203aaa49f7" />
+          </packageImport>
+        </importedPackagesInternal>
+        <packagedElements>
+          <packageHasNamedElement>
+            <class Id="0a454031-1bdb-416b-8f3c-f348546bd90b" name="MainViewModel" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="87349a26-0116-401e-ac1b-d84cdd9ef994" />
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="1e5c158a-d226-4e49-8d0f-f4f51089b83d" name="CompareVaultsViewModel" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="0c29bb98-8a22-4f7d-893a-223fe7641b5a" />
+              <targetEnds>
+                <association Id="76ecbd53-c79d-4c93-b24a-aa7c91b659ca" isDerived="false" sourceEndRoleName="" targetEndRoleName="" isLeaf="false" isAbstract="false">
+                  <interfaceMoniker Id="07424dbd-fd9a-411b-9fe0-3d03d1065e06" LastKnownName="ICompareVaultsModule" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="bb454e81-0c61-4d8a-9642-b11fd7d887c0" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="4fe3b203-596b-4b66-960d-46025d6081b9" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="629d6d91-211e-421f-9a06-58eec1ae0329" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="41e0d0cb-3559-4c54-b36d-bad512f8baa3" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="6b1d9392-73b8-43d8-8b8d-737ad2c05696" />
+                </association>
+              </targetEnds>
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="b5eadf19-11a8-43bf-a792-7793762d1768" name="ProfileViewModel" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="b82c4b83-ca64-49c3-bb66-92776b16a18c" />
+              <targetEnds>
+                <association Id="9692a342-5a52-460e-88b6-915e7c8e2fd3" isDerived="false" sourceEndRoleName="" targetEndRoleName="" isLeaf="false" isAbstract="false">
+                  <interfaceMoniker Id="cc17c667-683f-42f1-98d2-41f5d3cfbc04" LastKnownName="IUserModule" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="e2f2e119-6887-409a-ab9a-d7095b165637" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="e83108e8-8390-4489-aa71-1382011d4ead" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="9df8e911-4516-4fe7-a3c5-815c5e16fe69" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="8771ec59-94bc-4cb8-85db-e32e426595c1" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="0c097e2d-aa0d-419c-962b-59ea4b4981bc" />
+                </association>
+              </targetEnds>
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="c9b704cb-c522-4e99-8e6f-d867abdcfb10" name="MeasurementViewModel" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="57b9d0fd-1cfc-4909-98e2-b9681f4e97e4" />
+              <targetEnds>
+                <association Id="d7e6f829-62ec-4d72-907e-eca35c414efa" isDerived="false" sourceEndRoleName="" targetEndRoleName="" isLeaf="false" isAbstract="false">
+                  <interfaceMoniker Id="75ae2e2d-638b-4288-af1d-e82382a3825a" LastKnownName="IMeasurementModule" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="fda7bce8-ddb9-45bd-af19-71d2d7500f6f" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="3afb638f-b2e5-4f97-af37-eabf185fd8d3" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="b7bc2408-fe39-4da8-aca8-52ff98b382d3" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="3f92d9c0-4471-498f-bbd8-67513d4a39d5" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="b6292940-7bc6-4ab9-b1b7-562a72b3dade" />
+                </association>
+                <association Id="b7a64770-eb39-4477-bbb5-f7ebb40513b0" isDerived="false" sourceEndRoleName="" targetEndRoleName="" isLeaf="false" isAbstract="false">
+                  <interfaceMoniker Id="f4c5dad1-80fa-4533-8bbb-098583fd46e4" LastKnownName="ICameraModule" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="7eb81c2a-9d52-4e52-beec-bfabccebff7c" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="5c64bee6-9c87-47c3-a2d6-9f70b8aec8b0" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="984c5bcd-2fc6-4f93-9090-097199402d5c" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="f7f81c85-513d-4fdc-a2d4-652ccf6f48af" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="a1981129-aee1-4fe8-a248-3cb53d068ee2" />
+                </association>
+              </targetEnds>
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="b382e133-7062-49b3-8e35-42bbaa6bcc95" name="VaultSelectorViewModel" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="779f2db6-0284-4235-bd26-436c5d2ad23f" />
+              <targetEnds>
+                <association Id="93b144ae-45d9-4a62-ad9b-52b29d11cb35" isDerived="false" sourceEndRoleName="" targetEndRoleName="" isLeaf="false" isAbstract="false">
+                  <interfaceMoniker Id="94a15321-cb05-402a-8ea3-91b7cc8b7c4c" LastKnownName="IVaultModule" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="e9d429b9-6249-4775-915e-70025e2cd287" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="c4998811-244d-4251-a751-723ba6292b37" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="17efb3cf-b1fe-43d8-a7bc-26ab970ad4bb" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="9322d081-fc15-4980-b94a-77adca390583" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="9187ce09-2f7b-4ca5-ba61-21a01f1977b6" />
+                </association>
+              </targetEnds>
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="def87751-b0c3-458d-92d5-3c47463e4f10" name="SettingsViewModel" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="2a37d1bf-19fe-4371-837a-5a5e11355a64" />
+              <targetEnds>
+                <association Id="056a955d-ed01-434e-ba44-50c45df02498" isDerived="false" sourceEndRoleName="" targetEndRoleName="" isLeaf="false" isAbstract="false">
+                  <interfaceMoniker Id="3a3d67b2-26b3-4320-adb9-809f5fc82d27" LastKnownName="IVideoCameraSettingsModule" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="a988d57e-f8ba-470e-98d0-9fb96d429334" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="c0df7fda-ef9f-44c7-9dd1-04e7291fac72" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="4c013653-a7b0-4c6e-8fa4-1b4b5c709f2e" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="f7afe8f1-7517-4a61-816a-24e091163328" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="beb0818d-efba-42f9-87f0-3a0a8b48d827" />
+                </association>
+                <association Id="ff9193db-cbf3-4042-a7ba-b6ada7032493" isDerived="false" sourceEndRoleName="" targetEndRoleName="" isLeaf="false" isAbstract="false">
+                  <interfaceMoniker Id="5a33b327-202c-44da-bdcc-4ca51019a672" LastKnownName="ILaserCameraSettingModule" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="1a96e72d-9485-45a4-a8fe-0b87ec6bd0c2" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="8462dd55-b576-4a04-b499-967c1778577c" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="7918dbd9-1236-44c5-9bfd-984f6175f0da" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="5d0fee5c-336b-431b-adeb-7f686d29ffae" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="fee7cbbf-e353-446e-b091-c7044e67ac20" />
+                </association>
+              </targetEnds>
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="d5e55149-5c9d-45c9-8f00-d3a33301abff" name="PostMeasurementViewModel" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="981a357b-ab2d-4fac-aae6-2b88065b8a48" />
+              <targetEnds>
+                <association Id="bd3a6e35-4987-4896-ae46-9ba9bea6c1ec" isDerived="false" sourceEndRoleName="" targetEndRoleName="" isLeaf="false" isAbstract="false">
+                  <interfaceMoniker Id="94a15321-cb05-402a-8ea3-91b7cc8b7c4c" LastKnownName="IVaultModule" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="b31d06c1-4f09-4de6-b13f-b9485c088b04" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="8583de67-1a3e-4477-9ee4-be48fd2d51c5" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="322e47f8-475c-4f95-8585-97fab9142bef" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="4997fde3-153e-476e-b083-41da76560268" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="df8007d3-50c1-4f0b-b943-2b213f848c30" />
+                </association>
+              </targetEnds>
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="6f816baa-852b-4be8-9c0e-326ac35a6511" name="CameraViewModel" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="8005d684-0406-401f-af83-5de0f47a52fc" />
+              <targetEnds>
+                <association Id="0a35d01c-7d4a-4d3e-b71e-45dc878959bd" isDerived="false" sourceEndRoleName="" targetEndRoleName="" isLeaf="false" isAbstract="false">
+                  <interfaceMoniker Id="f4c5dad1-80fa-4533-8bbb-098583fd46e4" LastKnownName="ICameraModule" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="9554cd2a-d5fc-43c7-baad-777fe7851730" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="8fa8321b-a67c-49ca-b7d2-5403d6b83cb7" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="96a14e8f-6956-4dac-95f2-0744adec65c7" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="8f455135-73be-40bc-a326-1e3f4779f895" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="27d7ce5e-9b0c-4c46-b91c-2c04a7237a5d" />
+                </association>
+              </targetEnds>
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="e2390a4b-c352-48f5-b484-969953978c1c" name="LoginViewModel" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="674c7a93-e3dc-49b9-8c74-ea4398a8e1bc" />
+            </class>
+          </packageHasNamedElement>
+        </packagedElements>
+      </package>
+    </logicalClassDesignerModelHasPackages>
+    <logicalClassDesignerModelHasPackages>
+      <package Id="6c063f24-137a-4343-8cbe-46d08800392b" name="View">
+        <elementDefinition Id="56a9e2e5-f83c-4b3b-8c71-93998d063608" />
+        <packagedElements>
+          <packageHasNamedElement>
+            <class Id="9b55aa50-975b-4cc6-b771-f08839b1278e" name="MainView" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="f1f36424-202e-4417-b0ed-294f10df37ea" />
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="00ee75cd-b3f0-4b19-a605-acf08f9f87b9" name="CompareVaultsView" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="ff770a1f-1125-4531-bfc4-a5b83e2a7327" />
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="d877acfc-9034-421a-8e74-cd9c41038302" name="ProfileView" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="854e9ac8-db9c-4924-92dc-a163d44c69f0" />
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="51a3abb7-a00e-40d2-b5fd-40d9dd985c1c" name="MeasurementView" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="9cc718f7-5864-4140-9d18-862cceaf02ed" />
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="70f247e0-760d-4dc7-a166-2a5d427d2a38" name="VaultSelectorView" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="9b79e196-391a-4f8c-8c0e-43c4fbd39447" />
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="b74e3622-db4a-400b-a218-f08c4147ed41" name="PostMeasurementView" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="5306ec22-d856-44c9-8485-10c3e9e3bf53" />
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="dcc16b1a-e744-494b-bd39-11ec5b8ff153" name="SettingsView" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="72fc7b82-1ebe-4730-ba2c-705b5d1e3d92" />
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="b4eb9b45-e1f1-4ce8-8b4b-fb6c7dfe1c9c" name="CameraView" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="14d6ea3e-25b1-4bc5-a2d2-bca9f95f8142" />
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="76195adb-96f5-4dd3-a392-9d48f28ae343" name="LoginView" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="b2d1baf7-9237-47da-8ca3-0bcf8961ea17" />
+            </class>
+          </packageHasNamedElement>
+        </packagedElements>
+      </package>
+    </logicalClassDesignerModelHasPackages>
+    <logicalClassDesignerModelHasPackages>
+      <package Id="6224ee25-336f-46f9-836f-61c9cac3defb" name="Model">
+        <elementDefinition Id="50e80416-30ea-4ae5-a1ca-30fcb749e5f4" />
+        <packagedElements>
+          <packageHasNamedElement>
+            <class Id="3e0471c5-0932-4d01-88a4-c065e0d9862f" name="Gymnast" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="7bf6814e-a6b5-4ec9-9f53-cacddf7095b8" />
+              <generalsInternal>
+                <generalization Id="e0ecb7ed-c042-43c0-af51-f8b3d44b08fd" isSubstitutable="false">
+                  <classMoniker Id="e59bd787-addf-4bf4-abb2-f35c97b5ddec" LastKnownName="User" />
+                  <elementDefinition Id="b376a8d6-1ae2-4b41-8098-0c93d0233dab" />
+                </generalization>
+              </generalsInternal>
+              <targetEnds>
+                <association Id="f2572213-ce32-4a35-b4f3-464e0978199b" isDerived="false" sourceEndRoleName="Gymnast" targetEndRoleName="Vault" isLeaf="false" isAbstract="false">
+                  <classMoniker Id="132e7be9-aa73-4fb4-acf4-7f7c076cfd05" LastKnownName="Vault" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="65e504fe-518b-4ccc-a4ab-d5a3f8f89ae1" name="Gymnast" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="ce6bfb04-99de-43cc-a2fd-9d91d0bb0863" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="f44df648-99ab-4edb-9445-fa32ff3df77c" name="Vault" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <lowerValueInternal>
+                          <literalString Id="3374accf-70b4-4384-b4ad-b67abd44f6e4" name="Lower" value="0">
+                            <elementDefinition Id="bcc4b49a-f21b-4b2a-963d-561a67ab873c" />
+                          </literalString>
+                        </lowerValueInternal>
+                        <upperValueInternal>
+                          <literalString Id="a92ff01c-6098-437e-99ec-74028bf32401" name="Upper" value="*">
+                            <elementDefinition Id="f71dd060-8e53-4e5e-a890-c4bc297ee106" />
+                          </literalString>
+                        </upperValueInternal>
+                        <elementDefinition Id="b3fa6039-14d0-4c9d-a13c-9857b26c16c0" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="7550482b-1b9d-48f7-911a-9a98d05d388c" />
+                </association>
+                <association Id="02dd38e4-f31f-43ed-a726-9f9db3e86963" isDerived="false" sourceEndRoleName="Gymnast" targetEndRoleName="Gender" isLeaf="false" isAbstract="false">
+                  <enumerationMoniker Id="8e3bfe67-99e5-4ed9-9a67-a2edfe5f0ac2" LastKnownName="Gender" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="5beec4dc-56cb-4d5c-a970-60d781dabb49" name="Gymnast" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="ae900e8f-5f1d-4121-8f84-e6fd0194020a" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="ba233978-34dc-41ea-a448-5e45263ad4bf" name="Gender" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="bb022593-380f-4613-99dd-089489d21d7b" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="9f108377-d781-4ebf-abad-7d86af5ffa8d" />
+                </association>
+              </targetEnds>
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="132e7be9-aa73-4fb4-acf4-7f7c076cfd05" name="Vault" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="f320c063-2989-414e-b7ce-2571b89e70f6" />
+              <targetEnds>
+                <association Id="a283379e-8cf9-4d8f-b8ad-b927d145d45b" isDerived="false" sourceEndRoleName="Vault" targetEndRoleName="Video" isLeaf="false" isAbstract="false">
+                  <classMoniker Id="7ff9e3ff-f5b0-459b-99bc-a5fb1e6e9953" LastKnownName="Video" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="a6b0ba0d-8050-4e83-82a0-5f5f23eaa030" name="Vault" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="5779aff6-acc8-4bd8-a11b-2b5cef3d4fef" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="7155dd15-3a32-4a23-80a0-f20042e2d313" name="Video" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="25216a60-e0a6-46ab-bf11-edf390e9d1d5" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="48f55d7a-787c-45d6-a202-2a9f3c85d210" />
+                </association>
+                <association Id="ef2a2606-e3a1-4fb4-b104-0b5302d96858" isDerived="false" sourceEndRoleName="Vault" targetEndRoleName="VaultContext" isLeaf="false" isAbstract="false">
+                  <enumerationMoniker Id="c4cda239-c88a-4516-9bd8-a7a7dc2df487" LastKnownName="VaultContext" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="e01e7284-e032-4fcb-b287-b8e56850a6d1" name="Vault" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="59216e63-cd50-48c4-a3e4-5377f8957583" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="5846d465-7dde-440e-9fa8-7d4c70bab56d" name="VaultContext" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="9cb15a7e-9c88-4c58-aa39-a61718d14082" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="ffdf7dad-c059-4115-82fa-4430e683485d" />
+                </association>
+                <association Id="17605262-8f4a-4da8-831b-5caa41a64c56" isDerived="false" sourceEndRoleName="Vault" targetEndRoleName="Location" isLeaf="false" isAbstract="false">
+                  <classMoniker Id="4e90afbb-7f3b-417c-a8b7-81246f1c7980" LastKnownName="Location" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="14942c7a-74c6-4686-8537-7106869e2457" name="Vault" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="3003079f-8c2e-4b3f-aef8-115aa91661d8" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="8e36e412-ae76-4af3-8fe5-c4423bb54fb2" name="Location" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="79c30607-6ec5-4de1-b0f9-296d0f0ab24f" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="6226f032-5700-4472-9d61-5133b1724efb" />
+                </association>
+              </targetEnds>
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="7ff9e3ff-f5b0-459b-99bc-a5fb1e6e9953" name="Video" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="5513fa63-73e8-429b-b980-529775b5b8b8" />
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="9f0dd97f-a91f-4e93-9845-2b1f29714ba4" name="Admin" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="a95bc2f7-4d0e-4c7f-861a-c40145bda20b" />
+              <generalsInternal>
+                <generalization Id="1261dddf-9fa3-4652-a175-b7023da52ab8" isSubstitutable="false">
+                  <classMoniker Id="e59bd787-addf-4bf4-abb2-f35c97b5ddec" LastKnownName="User" />
+                  <elementDefinition Id="1f5175cf-47b1-4468-b70a-0c8fae6d7d25" />
+                </generalization>
+              </generalsInternal>
+              <targetEnds>
+                <association Id="8bd48fe2-1a6d-44c7-87d9-188026d5df19" isDerived="false" sourceEndRoleName="Admin" targetEndRoleName="LoginCredentials" isLeaf="false" isAbstract="false">
+                  <classMoniker Id="1dc0a915-2ef9-4bfc-a2bd-67d40a66fd32" LastKnownName="LoginCredentials" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="774c2ae7-77be-4bf3-91bd-f6f4913ce163" name="Admin" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="dd686406-24e2-4db6-81da-b1e3b111fdaa" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="65aa4fb3-016a-49d5-bb39-6cf2a345bc4b" name="LoginCredentials" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="487fc1d5-217b-4e10-a9b3-fab31087d6d4" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="33ed01c2-f2f9-4c65-9574-f44773aac5e4" />
+                </association>
+              </targetEnds>
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="e59bd787-addf-4bf4-abb2-f35c97b5ddec" name="User" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="d84b59f1-fd9b-4f5a-ba92-20f555d7e119" />
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="06d6415d-4dd0-49ea-ac68-505ce55c43d7" name="VaultType" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="06b375a0-0f7a-456e-ac0b-214147d6a5a6" />
+              <targetEnds>
+                <association Id="35681830-65b9-4b30-9969-41143cbc079c" isDerived="false" sourceEndRoleName="VaultType" targetEndRoleName="Gender" isLeaf="false" isAbstract="false">
+                  <enumerationMoniker Id="8e3bfe67-99e5-4ed9-9a67-a2edfe5f0ac2" LastKnownName="Gender" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="3ac0cc82-39f6-4fdb-8146-568b74edab26" name="VaultType" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="fdab9324-c7eb-4b19-a062-6e8df4462556" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="c9a05215-a308-4f84-a2a9-2e82cb541727" name="Gender" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="ad9af78d-8b0e-41ab-be8c-8f2af4a1b4fe" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="6dd81537-80a8-4274-8365-060e602491eb" />
+                </association>
+              </targetEnds>
+              <ownedAttributesInternal>
+                <property Id="dae38a66-fb03-4630-bfca-3b9664ded2e5" name="Id" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="be8dea0d-e7aa-4d7e-aba0-9f61f89b22ba" />
+                </property>
+                <property Id="2d088d79-07c8-49c7-8180-8080f87589e0" name="Description" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="2ff5f8c8-9f88-48eb-b6f5-45e5e3cb589c" />
+                </property>
+                <property Id="c5862987-ef7c-4628-8b19-5a019d95ffed" name="Score" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="ee4369c7-7719-47a7-a999-d21e3a6c096b" />
+                </property>
+                <property Id="3ec957e8-1c77-47bd-95e3-bfdb73e81315" name="Gender" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="5afbf067-4fb4-4dab-8567-52eac1e50c63" />
+                </property>
+              </ownedAttributesInternal>
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="850bd3eb-e5e3-4e0c-b7a3-9be8f7a03dce" name="VaultTypeCollection" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <description>static</description>
+              <elementDefinition Id="ff183fbd-361e-4857-a643-702393a50030" />
+              <targetEnds>
+                <association Id="81fdd0c9-1fe7-4f5a-95b3-e5af4ae05b40" isDerived="false" sourceEndRoleName="VaultTypeCollection" targetEndRoleName="VaultType" isLeaf="false" isAbstract="false">
+                  <classMoniker Id="06d6415d-4dd0-49ea-ac68-505ce55c43d7" LastKnownName="VaultType" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="264fdf8d-9039-4d44-9fc3-3ddeaf460c8e" name="VaultTypeCollection" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="966f278b-8f5d-477c-b28f-f7c6180c395e" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="8ee8ac49-8730-49b1-a34e-9996286f763d" name="VaultType" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <lowerValueInternal>
+                          <literalString Id="5ab63d37-29e0-4a6a-bb8c-b83bd3c3e68c" name="Lower" value="0">
+                            <elementDefinition Id="c198b66a-1229-4d03-a4af-fa42ea2c79c7" />
+                          </literalString>
+                        </lowerValueInternal>
+                        <upperValueInternal>
+                          <literalString Id="653ef17c-fa21-43fb-a094-caa7128379c3" name="Upper" value="*">
+                            <elementDefinition Id="c212397d-eb0b-4ccc-ae4e-33c457f148eb" />
+                          </literalString>
+                        </upperValueInternal>
+                        <elementDefinition Id="b0bb5507-2f1e-4d4d-ad19-63555a58f456" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="318e2d63-d52d-4264-aa13-0d935a51bbfb" />
+                </association>
+              </targetEnds>
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <enumeration Id="8e3bfe67-99e5-4ed9-9a67-a2edfe5f0ac2" name="Gender" isAbstract="false" isLeaf="false">
+              <elementDefinition Id="6f019187-5493-4125-a677-7c1d6dc8a7f2" />
+              <ownedLiterals>
+                <enumerationLiteral Id="159a8a0a-3e30-43d2-b63f-d7c61399ffa9" name="Male">
+                  <elementDefinition Id="46a477f0-9a0d-49f8-a466-909c5a5e18fc" />
+                </enumerationLiteral>
+                <enumerationLiteral Id="2f0bfa27-cd1c-4ab1-85eb-04c9a961e965" name="Female">
+                  <elementDefinition Id="b56b7da2-1512-4a7d-a73f-fb31ee6bd0ed" />
+                </enumerationLiteral>
+              </ownedLiterals>
+            </enumeration>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <enumeration Id="c4cda239-c88a-4516-9bd8-a7a7dc2df487" name="VaultContext" isAbstract="false" isLeaf="false">
+              <elementDefinition Id="23df726d-63bb-418b-b385-e3f8b6c0a44b" />
+              <ownedLiterals>
+                <enumerationLiteral Id="9ee363eb-705a-41de-a18b-b9102872cef1" name="Training">
+                  <elementDefinition Id="d00b8b41-3a43-4cda-84d6-c9020fcb23b2" />
+                </enumerationLiteral>
+                <enumerationLiteral Id="06bbc661-0a10-442e-aac1-8e7782fb31e7" name="Contest">
+                  <elementDefinition Id="23455fcd-3682-486b-8491-c93d7468c674" />
+                </enumerationLiteral>
+              </ownedLiterals>
+            </enumeration>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="4e90afbb-7f3b-417c-a8b7-81246f1c7980" name="Location" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="511027f4-de05-4f9e-950c-7a6dd775a046" />
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="1dc0a915-2ef9-4bfc-a2bd-67d40a66fd32" name="LoginCredentials" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="3f73d462-52d3-44c4-b782-6b1ec7be105f" />
+            </class>
+          </packageHasNamedElement>
+        </packagedElements>
+      </package>
+    </logicalClassDesignerModelHasPackages>
+    <logicalClassDesignerModelHasPackages>
+      <package Id="1583477c-cc0f-49a0-8247-036b34d6bd71" name="Services">
+        <elementDefinition Id="3e7e0eec-e95a-4e6a-9d15-552899599448" />
+        <packagedElements>
+          <packageHasNamedElement>
+            <class Id="8717a516-6c58-4f17-bc14-fe53325db6e1" name="Camera" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="815005ad-bd89-4c75-8c79-17b3a8a97694" />
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="e689e2ca-d37d-406f-89ae-119c50d193f0" name="WritePort" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="f4cf2fc5-0743-4b67-a829-0b02da330cf3" />
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="49cfc838-3800-4023-b712-03d01cca3501" name="ReadPort" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="99b8f86e-6176-4c88-85c6-c85f981f2526" />
+            </class>
+          </packageHasNamedElement>
+        </packagedElements>
+      </package>
+    </logicalClassDesignerModelHasPackages>
+    <logicalClassDesignerModelHasPackages>
+      <package Id="0345f0da-3877-42bf-8e55-9c3306dd850e" name="AppInterfaces">
+        <elementDefinition Id="012a7493-2eb3-43af-a1e9-db4ffe5cedc5" />
+        <packagedElements>
+          <packageHasNamedElement>
+            <Interface Id="7a1a36b4-824e-40c1-9726-62a96a91a057" name="IApplicationController" isAbstract="false" isLeaf="false">
+              <elementDefinition Id="7cb2b189-77de-41c7-9d45-5d0436bc74f9" />
+            </Interface>
+          </packageHasNamedElement>
+        </packagedElements>
+      </package>
+    </logicalClassDesignerModelHasPackages>
+    <logicalClassDesignerModelHasPackages>
+      <package Id="3441de01-ff6a-4ebf-84f0-e273b7e904c7" name="MVVM">
+        <elementDefinition Id="90900947-da95-4d5e-8a0a-ee9da71f6f33" />
+        <packagedElements>
+          <packageHasNamedElement>
+            <class Id="0bad4752-b63d-4ebc-bea1-56826269cdfc" name="RelayCommand" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="217401be-d7dc-4b5f-a968-a2ac71cedbcb" />
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="51cd7045-7780-448f-b7f7-362c0e0aa832" name="PropertyChangedBase" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="7587f871-8473-4a90-b2aa-ecfd4523a32e" />
+            </class>
+          </packageHasNamedElement>
+        </packagedElements>
+      </package>
+    </logicalClassDesignerModelHasPackages>
+    <logicalClassDesignerModelHasPackages>
+      <package Id="583536de-bc6e-45d0-9e16-d307c4bec514" name="Modules">
+        <elementDefinition Id="c2e7e85b-0ff8-49a4-a2fa-003bafdf59f4" />
+        <packagedElements>
+          <packageHasNamedElement>
+            <class Id="4197122a-4f26-4f31-a913-5468d5254f45" name="VaultModule" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="bad1267f-76a9-4f30-9ba1-e3757a775b3b" />
+              <suppliersInternal>
+                <interfaceRealization Id="dec97524-d800-41d5-8e3f-256558387acc">
+                  <interfaceMoniker Id="94a15321-cb05-402a-8ea3-91b7cc8b7c4c" LastKnownName="IVaultModule" />
+                  <elementDefinition Id="d703ea83-f1e2-4248-b7b3-64da359ebc00" />
+                </interfaceRealization>
+              </suppliersInternal>
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="b5ad70ba-b91a-4977-9f33-cdbbb60c812e" name="UserModule" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="6875fa0e-cd75-408b-be8c-3450caed559c" />
+              <suppliersInternal>
+                <interfaceRealization Id="f9acdaaa-73fc-46bf-98f6-c68355a04e6d">
+                  <interfaceMoniker Id="cc17c667-683f-42f1-98d2-41f5d3cfbc04" LastKnownName="IUserModule" />
+                  <elementDefinition Id="5f82b73a-dddb-4940-931e-07ef480135d7" />
+                </interfaceRealization>
+              </suppliersInternal>
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <package Id="5e6fd83e-002f-4d5c-99a6-df83c5abac30" name="Interfaces">
+              <elementDefinition Id="f8a42bb3-e360-4df3-b6e0-23fefe8311ad" />
+              <packagedElements>
+                <packageHasNamedElement>
+                  <Interface Id="cd67e6ff-3f00-4a29-a49e-29b4c83c5c52" name="ICRUDModule" isAbstract="false" isLeaf="false">
+                    <elementDefinition Id="da7f390c-3b15-43cf-a126-8946e85adfd0" />
+                  </Interface>
+                </packageHasNamedElement>
+                <packageHasNamedElement>
+                  <Interface Id="cc17c667-683f-42f1-98d2-41f5d3cfbc04" name="IUserModule" isAbstract="false" isLeaf="false">
+                    <elementDefinition Id="d4c11af0-614f-4d48-8fd9-7154dd716163" />
+                    <generalsInternal>
+                      <generalization Id="479b7a24-7ab3-4f67-ae70-0c6301c9487d" isSubstitutable="false">
+                        <interfaceMoniker Id="cd67e6ff-3f00-4a29-a49e-29b4c83c5c52" LastKnownName="ICRUDModule" />
+                        <elementDefinition Id="19623a0e-41f6-4a7b-a3ff-2477d68cdddb" />
+                      </generalization>
+                    </generalsInternal>
+                  </Interface>
+                </packageHasNamedElement>
+                <packageHasNamedElement>
+                  <Interface Id="94a15321-cb05-402a-8ea3-91b7cc8b7c4c" name="IVaultModule" isAbstract="false" isLeaf="false">
+                    <elementDefinition Id="edb5cec2-cf2b-4344-b4f3-e362fd1acea4" />
+                    <generalsInternal>
+                      <generalization Id="b20c675b-2da4-4e7c-bd7c-11d3419ac58a" isSubstitutable="false">
+                        <interfaceMoniker Id="cd67e6ff-3f00-4a29-a49e-29b4c83c5c52" LastKnownName="ICRUDModule" />
+                        <elementDefinition Id="83c5837e-e68a-4ffc-891f-37b20afc2091" />
+                      </generalization>
+                    </generalsInternal>
+                  </Interface>
+                </packageHasNamedElement>
+              </packagedElements>
+            </package>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="8a5ba9ea-50dc-4c2e-ae87-70429be6e15f" name="CompareVaultsModule" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="ab601a05-10fb-4be6-8c8e-56cabe70a5b6" />
+              <suppliersInternal>
+                <interfaceRealization Id="32c27848-f7db-4d40-8446-79f947d0b4b6">
+                  <interfaceMoniker Id="07424dbd-fd9a-411b-9fe0-3d03d1065e06" LastKnownName="ICompareVaultsModule" />
+                  <elementDefinition Id="81ad9ad0-0b2b-40bf-894b-2f7a81b721c1" />
+                </interfaceRealization>
+              </suppliersInternal>
+              <targetEnds>
+                <association Id="14d471c2-0e82-4d06-ad05-61ac0160bce9" isDerived="false" sourceEndRoleName="" targetEndRoleName="" isLeaf="false" isAbstract="false">
+                  <interfaceMoniker Id="cc17c667-683f-42f1-98d2-41f5d3cfbc04" LastKnownName="IUserModule" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="db9ecfde-a308-4844-a033-940547af1444" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="2dc87adf-6179-41f0-8401-56972036a86e" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="06525988-e1d4-4005-a756-57bb804f07b5" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="1cdf6544-45a4-4af8-adfe-bc6be1147725" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="a5466c2b-a2d3-49fb-bf8c-8b28c88a9e29" />
+                </association>
+                <association Id="ae067f90-837e-43d8-ba8d-a6c10f0aa066" isDerived="false" sourceEndRoleName="" targetEndRoleName="" isLeaf="false" isAbstract="false">
+                  <interfaceMoniker Id="94a15321-cb05-402a-8ea3-91b7cc8b7c4c" LastKnownName="IVaultModule" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="0cfc4a54-dba6-45d6-8819-400f97926f5f" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="86f2018a-b6b4-424b-8965-e57eb91fca68" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="20b208bb-39b7-4adf-8b74-2a9d40b9be48" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="0fde132b-9c97-4407-b89f-910a3b0d007e" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="c12d5919-666c-49eb-9b05-c71d73f2c872" />
+                </association>
+              </targetEnds>
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="78106643-a473-4e24-a278-535867ea05a3" name="CameraModule" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="78806fd3-ea90-4aa2-9428-5614f8865010" />
+              <suppliersInternal>
+                <interfaceRealization Id="7a136511-ea13-4f5a-8f0b-f82f77f917d2">
+                  <interfaceMoniker Id="f4c5dad1-80fa-4533-8bbb-098583fd46e4" LastKnownName="ICameraModule" />
+                  <elementDefinition Id="2199d3d0-3c94-4dfb-8c03-781328aee381" />
+                </interfaceRealization>
+              </suppliersInternal>
+              <targetEnds>
+                <association Id="0273a905-2c8b-4bfe-a154-0abf9a0bbb49" isDerived="false" sourceEndRoleName="CameraModule" targetEndRoleName="" isLeaf="false" isAbstract="false">
+                  <interfaceMoniker Id="94a15321-cb05-402a-8ea3-91b7cc8b7c4c" LastKnownName="IVaultModule" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="a08d5d0e-7b03-41c5-9c32-e34e1c0f4881" name="CameraModule" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="e16290f5-8839-42d5-ab80-d0d77b3ee1ce" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="e2465293-3ca6-42ee-b7af-829b12856014" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="c8b9ccae-3f7c-424e-9e28-28d36f215a58" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="467becd1-35f1-4cd9-bc02-89825a950290" />
+                </association>
+              </targetEnds>
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="1a2d2a1c-3923-40bc-a1ee-b89abe680040" name="MeasurementModule" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="898e9b0c-ea9a-4cb9-8595-31d0ab51b1d2" />
+              <suppliersInternal>
+                <interfaceRealization Id="7251c0f1-eb19-4615-aeaf-010c3512996b">
+                  <interfaceMoniker Id="75ae2e2d-638b-4288-af1d-e82382a3825a" LastKnownName="IMeasurementModule" />
+                  <elementDefinition Id="08eff448-543e-4076-a6e7-5408f682162b" />
+                </interfaceRealization>
+              </suppliersInternal>
+              <targetEnds>
+                <association Id="75b1086e-663b-453d-b84d-2d55b51d9b2d" isDerived="false" sourceEndRoleName="" targetEndRoleName="" isLeaf="false" isAbstract="false">
+                  <interfaceMoniker Id="cc17c667-683f-42f1-98d2-41f5d3cfbc04" LastKnownName="IUserModule" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="8dfa6afe-5630-4d5f-92cc-cd218bb2777f" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="32d24b61-6d1a-4e4a-8186-6f97c850b765" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="9ce76b24-d702-4dd5-8d7c-702b2295bd81" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="f9c1256e-5b81-48b0-9df7-b1475e01f6f0" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="64e6e423-6628-4798-8839-62ddfb77087f" />
+                </association>
+                <association Id="181d7e61-6661-4b89-a738-04fa5f9760a6" isDerived="false" sourceEndRoleName="" targetEndRoleName="" isLeaf="false" isAbstract="false">
+                  <interfaceMoniker Id="94a15321-cb05-402a-8ea3-91b7cc8b7c4c" LastKnownName="IVaultModule" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="ffb322af-e19a-41b1-8f0f-e3074a0577b9" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="cfafb5b4-15aa-42b2-9e21-07c3a1787448" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="ce73c64a-687c-4b34-9669-c4818bcf6df4" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="93da14f3-69e9-4a3c-a958-9e3f24eee1f4" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="da53616d-12ae-4029-8bda-c29cde67fe01" />
+                </association>
+              </targetEnds>
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <package Id="12cbe3a0-4cbf-411a-82b3-28505c82351e" name="Interfaces">
+              <elementDefinition Id="a0e61acd-3100-414d-9a38-9b2b7ed24630" />
+              <packagedElements>
+                <packageHasNamedElement>
+                  <Interface Id="f4c5dad1-80fa-4533-8bbb-098583fd46e4" name="ICameraModule" isAbstract="false" isLeaf="false">
+                    <elementDefinition Id="8e62baca-fd8b-4365-9ef4-fe43ba436724" />
+                  </Interface>
+                </packageHasNamedElement>
+                <packageHasNamedElement>
+                  <Interface Id="75ae2e2d-638b-4288-af1d-e82382a3825a" name="IMeasurementModule" isAbstract="false" isLeaf="false">
+                    <elementDefinition Id="a6014dd3-3178-4b84-ad17-d9ddb94bac44" />
+                  </Interface>
+                </packageHasNamedElement>
+                <packageHasNamedElement>
+                  <Interface Id="07424dbd-fd9a-411b-9fe0-3d03d1065e06" name="ICompareVaultsModule" isAbstract="false" isLeaf="false">
+                    <elementDefinition Id="a64147fe-24a4-497d-90fa-3a92b5899815" />
+                  </Interface>
+                </packageHasNamedElement>
+                <packageHasNamedElement>
+                  <Interface Id="3a3d67b2-26b3-4320-adb9-809f5fc82d27" name="IVideoCameraSettingsModule" isAbstract="false" isLeaf="false">
+                    <elementDefinition Id="258652da-98e0-4609-b731-00c8bfea4347" />
+                  </Interface>
+                </packageHasNamedElement>
+                <packageHasNamedElement>
+                  <Interface Id="5a33b327-202c-44da-bdcc-4ca51019a672" name="ILaserCameraSettingModule" isAbstract="false" isLeaf="false">
+                    <elementDefinition Id="2d27fd77-b764-456e-8a40-85cbfe77cdd4" />
+                  </Interface>
+                </packageHasNamedElement>
+              </packagedElements>
+            </package>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="61dbe0f5-14e6-4dc5-bc8d-7bd39fa51958" name="SettingsModule" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="82995c29-816b-4da5-bc6f-f347a7f56c20" />
+              <suppliersInternal>
+                <interfaceRealization Id="95a859a0-fbbf-4e0d-af7c-14e9c908d8bb">
+                  <interfaceMoniker Id="3a3d67b2-26b3-4320-adb9-809f5fc82d27" LastKnownName="IVideoCameraSettingsModule" />
+                  <elementDefinition Id="2767b152-a59b-47d5-8932-df240e8cfb02" />
+                </interfaceRealization>
+                <interfaceRealization Id="b530e612-5a64-4497-b5eb-d8e54be228dd">
+                  <interfaceMoniker Id="5a33b327-202c-44da-bdcc-4ca51019a672" LastKnownName="ILaserCameraSettingModule" />
+                  <elementDefinition Id="01cc4a66-a8a5-4ade-bc95-f430822fb5c6" />
+                </interfaceRealization>
+              </suppliersInternal>
+            </class>
+          </packageHasNamedElement>
+        </packagedElements>
+      </package>
+    </logicalClassDesignerModelHasPackages>
+    <logicalClassDesignerModelHasPackages>
+      <package Id="6444d0a8-0145-4ce5-b967-ebb4b81aa37c" name="Exceptions">
+        <elementDefinition Id="54936d87-204d-45cf-abf2-911d57feb483" />
+        <packagedElements>
+          <packageHasNamedElement>
+            <class Id="b78ebafb-1d71-4a75-9861-2821180b2ea5" name="NotImplementedException" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="a6d5cdbe-747d-49cb-a611-9473beab281b" />
+            </class>
+          </packageHasNamedElement>
+        </packagedElements>
+      </package>
+    </logicalClassDesignerModelHasPackages>
+  </packagedElements>
+  <package Id="a490136b-b689-41d8-960b-81bb65172700" name="Everyware">
+    <elementDefinition Id="bedd8b0a-628b-4680-b70e-a6c69f3e9872" />
+    <profileInstances>
+      <packageHasProfileInstances Id="9000376d-8ac4-40a7-bc11-bf71db899ed6">
+        <profileInstance Id="b479c3e7-8f19-4160-b53f-77a885493780" name="StandardProfileL2">
+          <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+        </profileInstance>
+        <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="6cf602b1-f953-4ffa-999d-ab5ca0652f6d">
+        <profileInstance Id="41e54369-c2a5-4f68-932d-0f24db8c90a8" name="StandardProfileL3">
+          <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+        </profileInstance>
+        <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+      </packageHasProfileInstances>
+    </profileInstances>
+  </package>
+</logicalClassDesignerModel>

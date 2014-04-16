@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<useCaseDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="Mobile">
+  <useCaseModelRootMoniker Id="c52b6211-fb05-4b4e-9439-42f34ed73c72" />
+  <nestedChildShapes>
+    <actorShape Id="dad158aa-8722-487e-8507-fc9c32a033d4" absoluteBounds="1.5, 2.25, 0.5, 0.5" isReference="false" heightOffset="0">
+      <actorMoniker Id="6fc8709d-194c-4368-a548-98e1191ee48e" LastKnownName="Sporter" />
+      <relativeChildShapes />
+    </actorShape>
+    <actorShape Id="f8cff219-f37f-43a7-aaab-694f94fbd8a6" absoluteBounds="1.5, 5.625, 0.5, 0.5" isReference="false" heightOffset="0">
+      <actorMoniker Id="d977ea28-6482-4fa9-9407-045dfda0d0e0" LastKnownName="Coach" />
+      <relativeChildShapes />
+    </actorShape>
+    <useCaseGeneralizationConnector edgePoints="[(1.75 : 5.625); (1.75 : 2.75)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="113, 111, 110">
+      <generalizationMoniker Id="c809d29f-e85e-4be5-a3c1-b7bf5c6c6341" />
+      <relativeChildShapes />
+      <nodes>
+        <actorShapeMoniker Id="f8cff219-f37f-43a7-aaab-694f94fbd8a6" />
+        <actorShapeMoniker Id="dad158aa-8722-487e-8507-fc9c32a033d4" />
+      </nodes>
+    </useCaseGeneralizationConnector>
+    <SubsystemShape Id="0f59f941-8fab-466a-9e40-4b8634d862bd" absoluteBounds="3.25, 0.5, 3.75, 7.375" customColor="White">
+      <subsystemMoniker Id="fc4371f3-2993-4e92-bec6-aeab35a4a685" LastKnownName="Mobiele applicatie" />
+      <nestedChildShapes>
+        <useCaseShape Id="f827dd02-8aa6-47f3-ac5d-958edbb95826" absoluteBounds="3.5, 2.125, 1.5, 0.75" customColor="192, 192, 255" heightOffset="0">
+          <useCaseMoniker Id="2af6d2e6-9449-4ff9-b778-051a8cddd87c" LastKnownName="Inloggen" />
+          <relativeChildShapes />
+        </useCaseShape>
+        <useCaseShape Id="c63f4ac8-2e87-4a06-892d-cec3d3550d0e" absoluteBounds="3.5, 5.5, 1.5, 0.75" customColor="192, 192, 255" heightOffset="0">
+          <useCaseMoniker Id="359ee5be-1bb6-48b8-91d1-374ba66b1de5" LastKnownName="Inloggen" />
+          <relativeChildShapes />
+        </useCaseShape>
+      </nestedChildShapes>
+    </SubsystemShape>
+    <useCaseAssociationConnector edgePoints="[(2 : 2.5); (3.5 : 2.5)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
+      <associationMoniker Id="1b52faf8-7daa-4e5f-a0c2-0aa39fa29b62" />
+      <relativeChildShapes />
+      <nodes>
+        <actorShapeMoniker Id="dad158aa-8722-487e-8507-fc9c32a033d4" />
+        <useCaseShapeMoniker Id="f827dd02-8aa6-47f3-ac5d-958edbb95826" />
+      </nodes>
+    </useCaseAssociationConnector>
+    <useCaseAssociationConnector edgePoints="[(2 : 5.875); (3.5 : 5.875)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
+      <associationMoniker Id="0e9a8f6a-ad37-486e-b164-c931c450af1f" />
+      <relativeChildShapes />
+      <nodes>
+        <actorShapeMoniker Id="f8cff219-f37f-43a7-aaab-694f94fbd8a6" />
+        <useCaseShapeMoniker Id="c63f4ac8-2e87-4a06-892d-cec3d3550d0e" />
+      </nodes>
+    </useCaseAssociationConnector>
+    <SubsystemShape Id="2cf56b5d-8a84-4921-a4f0-9e968c728af8" absoluteBounds="5.25, 1, 1.5, 3" customColor="255, 192, 128">
+      <subsystemMoniker Id="0c19345a-3115-450a-a6bc-50f5611ce49f" LastKnownName="functionaliteiten sporter" />
+      <nestedChildShapes>
+        <useCaseShape Id="f8665038-2ad5-4dd9-9a1e-f56186cbcfc4" absoluteBounds="5.375, 1.5, 1, 0.75" customColor="192, 192, 255" heightOffset="0">
+          <useCaseMoniker Id="3dedf992-8ced-4ee9-abe1-4f0036e25df1" LastKnownName="Eigen sprongen vergelijken" />
+          <relativeChildShapes />
+        </useCaseShape>
+        <useCaseShape Id="32f1f189-4773-4e5c-b2e9-9cc100d5e6a6" absoluteBounds="5.375, 2.375, 1, 0.75" customColor="192, 192, 255" heightOffset="0">
+          <useCaseMoniker Id="956a1f6e-4f5f-4b8a-ada9-7b60849fac99" LastKnownName="Eigen sprongen bekijken" />
+          <relativeChildShapes />
+        </useCaseShape>
+        <useCaseShape Id="622f4e57-d192-4263-9c7c-4f7db5af09a8" absoluteBounds="5.375, 3.25, 1, 0.5" customColor="192, 192, 255" heightOffset="0">
+          <useCaseMoniker Id="546caab8-5fc9-4409-b4bd-fdee89b73d0a" LastKnownName="Eigen profiel bekijken" />
+          <relativeChildShapes />
+        </useCaseShape>
+      </nestedChildShapes>
+    </SubsystemShape>
+    <useCaseAssociationConnector edgePoints="[(5 : 2.5); (5.25 : 2.5)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
+      <associationMoniker Id="6dfe4794-ec93-466e-82f8-0d0541061cb3" />
+      <relativeChildShapes />
+      <nodes>
+        <useCaseShapeMoniker Id="f827dd02-8aa6-47f3-ac5d-958edbb95826" />
+        <SubsystemShapeMoniker Id="2cf56b5d-8a84-4921-a4f0-9e968c728af8" />
+      </nodes>
+    </useCaseAssociationConnector>
+    <SubsystemShape Id="50bee5fa-9fad-4483-a3a2-362bf92faeb5" absoluteBounds="5.25, 4.5, 1.5, 2.75" customColor="255, 192, 128">
+      <subsystemMoniker Id="edf21274-2341-4d4d-bb5c-bcfc65244650" LastKnownName="functionaliteiten coach" />
+      <nestedChildShapes>
+        <useCaseShape Id="64943258-602f-4d0b-a1bc-4273f211c9d2" absoluteBounds="5.375, 5, 1, 0.75" customColor="192, 192, 255" heightOffset="0">
+          <useCaseMoniker Id="b62f4141-1cb7-4acc-ad2f-77232c89c663" LastKnownName="Alle sprongen terugkijken" />
+          <relativeChildShapes />
+        </useCaseShape>
+        <useCaseShape Id="e9e0019d-f6c8-4952-8553-1eb55edb2466" absoluteBounds="5.375, 5.875, 1, 0.5" customColor="192, 192, 255" heightOffset="0">
+          <useCaseMoniker Id="eecbeffb-d6d7-4dcf-9284-5c2d75d19052" LastKnownName="Vergelijken sprongen" />
+          <relativeChildShapes />
+        </useCaseShape>
+      </nestedChildShapes>
+    </SubsystemShape>
+    <useCaseAssociationConnector edgePoints="[(5 : 5.875); (5.25 : 5.875)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
+      <associationMoniker Id="2a1d06b5-8a57-4738-bddb-894757088a25" />
+      <relativeChildShapes />
+      <nodes>
+        <useCaseShapeMoniker Id="c63f4ac8-2e87-4a06-892d-cec3d3550d0e" />
+        <SubsystemShapeMoniker Id="50bee5fa-9fad-4483-a3a2-362bf92faeb5" />
+      </nodes>
+    </useCaseAssociationConnector>
+  </nestedChildShapes>
+</useCaseDiagram>

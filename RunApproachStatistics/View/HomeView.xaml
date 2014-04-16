@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="RunApproachStatistics.View.HomeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:RunApproachStatistics.View"
+             mc:Ignorable="d" Background="White" d:DesignWidth="1920" d:DesignHeight="1080">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition x:Name="MenuColumn" Width="325"/>
+            <ColumnDefinition x:Name="ContentColumn" Width="437*" MinWidth="500"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- START Column 0 -->
+        <ContentControl x:Name="menuContainer"
+			    Content="{Binding Menu}" Margin="0,0,0,0" />
+        <!-- END Column 0 -->
+
+        <!-- START Column 1 -->
+        <Grid Name="cameraGrid" Margin="10,10,10,260" Background="Black" Grid.Column="1">
+
+        </Grid>
+        <Button Content="Graph" Background="AliceBlue" Margin="10,0,10,10" VerticalAlignment="Bottom" Height="245" RenderTransformOrigin="0.5,0.501" Grid.Column="1"/>
+        <!-- END Column 1 -->
+    </Grid>
+</UserControl>

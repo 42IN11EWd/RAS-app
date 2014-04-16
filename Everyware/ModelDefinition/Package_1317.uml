@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="f8a42bb3-e360-4df3-b6e0-23fefe8311ad"
+  name="Interfaces" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <packagedElements>
+    <packageHasNamedElement>
+      <Interface
+        Id="da7f390c-3b15-43cf-a126-8946e85adfd0"
+        name="ICRUDModule"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="d4c11af0-614f-4d48-8fd9-7154dd716163"
+        name="IUserModule"
+        isAbstract="false"
+        isLeaf="false">
+        <generalsInternal>
+          <generalization
+            Id="19623a0e-41f6-4a7b-a3ff-2477d68cdddb"
+            isSubstitutable="false">
+            <interfaceMoniker
+              Id="da7f390c-3b15-43cf-a126-8946e85adfd0"
+              LastKnownName="ICRUDModule"
+              LastKnownLocation="Package_1317.uml" />
+          </generalization>
+        </generalsInternal>
+      </Interface>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="edb5cec2-cf2b-4344-b4f3-e362fd1acea4"
+        name="IVaultModule"
+        isAbstract="false"
+        isLeaf="false">
+        <generalsInternal>
+          <generalization
+            Id="83c5837e-e68a-4ffc-891f-37b20afc2091"
+            isSubstitutable="false">
+            <interfaceMoniker
+              Id="da7f390c-3b15-43cf-a126-8946e85adfd0"
+              LastKnownName="ICRUDModule"
+              LastKnownLocation="Package_1317.uml" />
+          </generalization>
+        </generalsInternal>
+      </Interface>
+    </packageHasNamedElement>
+  </packagedElements>
+</package>
