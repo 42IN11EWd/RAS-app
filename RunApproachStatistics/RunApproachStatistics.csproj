@@ -87,6 +87,7 @@
     <Compile Include="location.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\User.cs" />
     <Compile Include="Modules\CameraModule.cs" />
     <Compile Include="Modules\CompareVaultsModule.cs" />
     <Compile Include="Modules\Interfaces\ICameraModule.cs" />
@@ -271,7 +272,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Model\" />
     <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>

@@ -555,7 +555,7 @@
         <elementDefinition Id="3e7e0eec-e95a-4e6a-9d15-552899599448" />
         <packagedElements>
           <packageHasNamedElement>
-            <class Id="8717a516-6c58-4f17-bc14-fe53325db6e1" name="Camera" isAbstract="false" isLeaf="false" isActiveClass="false">
+            <class Id="8717a516-6c58-4f17-bc14-fe53325db6e1" name="VideoCamera" isAbstract="false" isLeaf="false" isActiveClass="false">
               <elementDefinition Id="815005ad-bd89-4c75-8c79-17b3a8a97694" />
             </class>
           </packageHasNamedElement>

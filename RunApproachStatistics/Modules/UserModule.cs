@@ -1,4 +1,5 @@
-﻿using RunApproachStatistics.Modules.Interfaces;
+﻿using RunApproachStatistics.Model;
+using RunApproachStatistics.Modules.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,17 +16,19 @@ namespace RunApproachStatistics.Modules
     /// </summary>
     public class UserModule : IUserModule, ILoginModule
     {
-        public void create()
+        private static Boolean isLoggedIn;
+
+        public void create(User user)
         {
             throw new NotImplementedException();
         }
 
-        public object read(int id)
+        Model.User IUserModule.read(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void update(int id)
+        public void update(User user)
         {
             throw new NotImplementedException();
         }
@@ -35,9 +38,23 @@ namespace RunApproachStatistics.Modules
             throw new NotImplementedException();
         }
 
-        public void login()
+        #region Login Methods
+
+        public Boolean login(string username, string password)
+        {
+            return isLoggedIn;
+        }
+
+        public void logout()
         {
             throw new NotImplementedException();
         }
+
+        public bool ILoginModule.isLoggedIn()
+        {
+            return isLoggedIn;
+        }        
+
+        #endregion
     }
 }
