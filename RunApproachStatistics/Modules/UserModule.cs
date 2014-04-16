@@ -16,7 +16,7 @@ namespace RunApproachStatistics.Modules
     /// </summary>
     public class UserModule : IUserModule, ILoginModule
     {
-        private static Boolean isLoggedIn;
+        private static Boolean IsLoggedIn;
 
         public void create(Gymnast gymnast)
         {
@@ -42,7 +42,7 @@ namespace RunApproachStatistics.Modules
 
         public Boolean login(string username, string password)
         {
-            return isLoggedIn;
+            return IsLoggedIn;
         }
 
         public void logout()
@@ -50,9 +50,9 @@ namespace RunApproachStatistics.Modules
             throw new NotImplementedException();
         }
 
-        public bool ILoginModule.isLoggedIn()
+        public bool isLoggedIn()
         {
-            return isLoggedIn;
+            return IsLoggedIn;
         }        
 
         #endregion

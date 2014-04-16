@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RunApproachStatistics.Model
 {
-    class Gymnast
+    public class Gymnast
     {
     }
 }
