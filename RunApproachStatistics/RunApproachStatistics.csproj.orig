@@ -15,7 +15,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -123,15 +123,7 @@
     <Compile Include="Modules\SettingsModule.cs" />
     <Compile Include="Modules\UserModule.cs" />
     <Compile Include="Modules\VaultModule.cs" />
-    <Compile Include="user.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="vault.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="vaultnumber.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
-    </Compile>
+<<<<<<< HEAD
     <Compile Include="Services\CaptureBuffer.cs" />
     <Compile Include="Services\VideoCamera.cs" />
     <Compile Include="Services\VideocameraController.cs" />
@@ -149,6 +141,8 @@
     <Compile Include="vaultnumber.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+=======
+>>>>>>> d64293cb5e99c81684c217b6ad27838f6ad5435f
     <Compile Include="ViewModel\CameraViewModel.cs" />
     <Compile Include="ViewModel\CompareVaultsViewModel.cs" />
     <Compile Include="ViewModel\HomeViewModel.cs" />
@@ -286,12 +280,14 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="DataModel.edmx">
+<<<<<<< HEAD
     <EmbeddedResource Include="View\CameraWindow.resx">
       <DependentUpon>CameraWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EntityDeploy Include="DataModel.edmx">
+=======
     <EntityDeploy Include="Model\Entity\DataModel.edmx">
+>>>>>>> d64293cb5e99c81684c217b6ad27838f6ad5435f
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>DataModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
@@ -321,9 +317,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <Folder Include="DLL\" />
     <Folder Include="Model\" />
+=======
     <Folder Include="Services\" />
+>>>>>>> d64293cb5e99c81684c217b6ad27838f6ad5435f
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

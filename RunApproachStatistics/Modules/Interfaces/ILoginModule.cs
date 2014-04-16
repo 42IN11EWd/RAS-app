@@ -8,6 +8,10 @@ namespace RunApproachStatistics.Modules.Interfaces
 {
     interface ILoginModule
     {
-        void login();
+        Boolean login(String username, String password);
+
+        void logout();
+
+        Boolean isLoggedIn();
     }
 }

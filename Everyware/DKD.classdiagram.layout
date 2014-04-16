@@ -302,7 +302,7 @@
       <packageMoniker Id="1583477c-cc0f-49a0-8247-036b34d6bd71" LastKnownName="Services" />
       <nestedChildShapes>
         <classShape Id="54e79cf5-2555-4ad2-906a-28a5b6637ef7" absoluteBounds="20.125, 5.375, 1.5, 0.90234373509883881" hideQualifiedName="false" increaseHeight="0" customColor="181, 193, 223">
-          <classMoniker Id="8717a516-6c58-4f17-bc14-fe53325db6e1" LastKnownName="Camera" />
+          <classMoniker Id="8717a516-6c58-4f17-bc14-fe53325db6e1" LastKnownName="VideoCamera" />
           <nestedChildShapes>
             <AttributeElementListCompartment Id="b28580fd-0b95-4d46-8f0b-fbcb1e2c823b" absoluteBounds="20.14, 5.765, 1.4700000000000002, 0.2011718675494194" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
             <OperationElementListCompartment Id="b1e8d31b-0b22-4997-bf16-6ee7e09dbfc0" absoluteBounds="20.14, 5.97617186754942, 1.4700000000000002, 0.2011718675494194" name="OperationsCompartment" titleTextColor="Black" itemTextColor="Black" />

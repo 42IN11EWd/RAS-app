@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RunApproachStatistics.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,11 +9,11 @@ namespace RunApproachStatistics.Modules.Interfaces
 {
     public interface IUserModule
     {
-        void create();
+        void create(Gymnast gymnast);
 
-        object read(int id);
+        Gymnast read(int id);
 
-        void update(int id);
+        void update(Gymnast gymnast);
 
         void delete();
     }
