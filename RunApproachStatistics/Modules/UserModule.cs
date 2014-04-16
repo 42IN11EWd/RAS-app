@@ -18,17 +18,17 @@ namespace RunApproachStatistics.Modules
     {
         private static Boolean isLoggedIn;
 
-        public void create(User user)
+        public void create(Gymnast gymnast)
         {
             throw new NotImplementedException();
         }
 
-        Model.User IUserModule.read(int id)
+        Gymnast IUserModule.read(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void update(User user)
+        public void update(Gymnast gymnast)
         {
             throw new NotImplementedException();
         }

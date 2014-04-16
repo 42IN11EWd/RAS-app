@@ -9,11 +9,11 @@ namespace RunApproachStatistics.Modules.Interfaces
 {
     public interface IUserModule
     {
-        void create(User user);
+        void create(Gymnast gymnast);
 
-        User read(int id);
+        Gymnast read(int id);
 
-        void update(User user);
+        void update(Gymnast gymnast);
 
         void delete();
     }
