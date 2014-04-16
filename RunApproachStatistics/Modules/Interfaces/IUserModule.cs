@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RunApproachStatistics.Modules.Interfaces
 {
-    public interface IUserModule
+    interface IUserModule
     {
         void create(Gymnast gymnast);
 
