@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms.Integration;
 
 namespace RunApproachStatistics.ViewModel
 {
@@ -39,6 +40,13 @@ namespace RunApproachStatistics.ViewModel
         public SettingsViewModel(IApplicationController app) : base()
         {
             _app = app;
+        }
+
+        public void openVideoSource(CameraWindow cameraWindow)
+        {
+            WindowsFormsHost host = new WindowsFormsHost();
+
+            host.Child = cameraWindow;
         }
 
         protected override void initRelayCommands()
