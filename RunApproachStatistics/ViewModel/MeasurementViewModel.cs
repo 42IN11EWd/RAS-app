@@ -23,7 +23,7 @@ namespace RunApproachStatistics.ViewModel
 
         #region DataBinding
 
-        public RelayCommand HomeCommand { get; private set; }
+        public RelayCommand PostMeasurementCommand { get; private set; }
 
         #endregion
 
@@ -34,16 +34,16 @@ namespace RunApproachStatistics.ViewModel
 
         #region RelayCommands
 
-        public void LoadHomeScreen(object commandParam)
+        public void LoadPostMeasurementScreen(object commandParam)
         {
-            _app.ShowHomeView();
+            _app.ShowPostMeasurementView();
         }
 
         #endregion
 
         protected override void initRelayCommands()
         {
-            HomeCommand = new RelayCommand(LoadHomeScreen);
+            PostMeasurementCommand = new RelayCommand(LoadPostMeasurementScreen);
         }
     }
 }
