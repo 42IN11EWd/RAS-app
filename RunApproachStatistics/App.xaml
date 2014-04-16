@@ -42,6 +42,30 @@
             <v:ThumbnailView DataContext="{Binding}" />
         </DataTemplate>
         <!-- END Set the view models -->
+        
+        <!-- START UI Definitions -->
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#FFF6A201"/>
+            <Setter Property="Foreground" Value="#FF222222"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#7d7d7d"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="#dddddd"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <!-- END UI Definitions -->
     </Application.Resources>
     
 </Application>
