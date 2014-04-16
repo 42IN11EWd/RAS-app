@@ -14,12 +14,12 @@ namespace RunApproachStatistics.Modules
             throw new NotImplementedException();
         }
 
-        public object read()
+        public object read(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void update()
+        public void update(int id)
         {
             throw new NotImplementedException();
         }

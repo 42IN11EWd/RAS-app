@@ -45,7 +45,7 @@ namespace RunApproachStatistics.ViewModel
             Menu = menuViewModel;
 
             // Get the user profile
-            userModule.read();
+            //userModule.read();
         }
 
         protected override void initRelayCommands()

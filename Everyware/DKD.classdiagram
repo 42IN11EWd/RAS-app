@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="6391a874-0337-4d87-9038-69f47aa8b72e" name="DKD" linkedPackageId="a490136b-b689-41d8-960b-81bb65172700" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="6391a874-0337-4d87-9038-69f47aa8b72e" name="DKD" linkedPackageId="a490136b-b689-41d8-960b-81bb65172700" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
   <packagedElements>
     <logicalClassDesignerModelHasPackages>
       <package Id="140e31be-b9f5-4efe-9974-825944899fb5" name="ViewModels">
@@ -212,6 +212,24 @@
           <packageHasNamedElement>
             <class Id="e2390a4b-c352-48f5-b484-969953978c1c" name="LoginViewModel" isAbstract="false" isLeaf="false" isActiveClass="false">
               <elementDefinition Id="674c7a93-e3dc-49b9-8c74-ea4398a8e1bc" />
+              <targetEnds>
+                <association Id="c31408ef-99c2-485c-8466-188925d3d74e" isDerived="false" sourceEndRoleName="LoginViewModel" targetEndRoleName="ILoginModule" isLeaf="false" isAbstract="false">
+                  <interfaceMoniker Id="c4980767-a09d-4199-ad26-f55e1ed6134e" LastKnownName="ILoginModule" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="873fd23c-4ae3-452a-96bd-cc97cab86e8b" name="LoginViewModel" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="1f350f86-cb4a-4933-9d5f-fbc604775b3b" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="6b4d6ffd-0dff-410e-9301-7ca4e0170083" name="ILoginModule" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="5cd56a0e-361b-4a55-8aa9-1b9a1186c87f" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="cfe98fdb-18db-4953-8ea5-cf48cb98238b" />
+                </association>
+              </targetEnds>
             </class>
           </packageHasNamedElement>
         </packagedElements>
@@ -606,6 +624,10 @@
                   <interfaceMoniker Id="cc17c667-683f-42f1-98d2-41f5d3cfbc04" LastKnownName="IUserModule" />
                   <elementDefinition Id="5f82b73a-dddb-4940-931e-07ef480135d7" />
                 </interfaceRealization>
+                <interfaceRealization Id="4098d4b2-1d07-4f6f-82bb-de0580b1543e">
+                  <interfaceMoniker Id="c4980767-a09d-4199-ad26-f55e1ed6134e" LastKnownName="ILoginModule" />
+                  <elementDefinition Id="f8548ff9-ab6e-43a8-9fa9-1a44f3aaa218" />
+                </interfaceRealization>
               </suppliersInternal>
             </class>
           </packageHasNamedElement>
@@ -614,30 +636,18 @@
               <elementDefinition Id="f8a42bb3-e360-4df3-b6e0-23fefe8311ad" />
               <packagedElements>
                 <packageHasNamedElement>
-                  <Interface Id="cd67e6ff-3f00-4a29-a49e-29b4c83c5c52" name="ICRUDModule" isAbstract="false" isLeaf="false">
-                    <elementDefinition Id="da7f390c-3b15-43cf-a126-8946e85adfd0" />
-                  </Interface>
-                </packageHasNamedElement>
-                <packageHasNamedElement>
                   <Interface Id="cc17c667-683f-42f1-98d2-41f5d3cfbc04" name="IUserModule" isAbstract="false" isLeaf="false">
                     <elementDefinition Id="d4c11af0-614f-4d48-8fd9-7154dd716163" />
-                    <generalsInternal>
-                      <generalization Id="479b7a24-7ab3-4f67-ae70-0c6301c9487d" isSubstitutable="false">
-                        <interfaceMoniker Id="cd67e6ff-3f00-4a29-a49e-29b4c83c5c52" LastKnownName="ICRUDModule" />
-                        <elementDefinition Id="19623a0e-41f6-4a7b-a3ff-2477d68cdddb" />
-                      </generalization>
-                    </generalsInternal>
                   </Interface>
                 </packageHasNamedElement>
                 <packageHasNamedElement>
                   <Interface Id="94a15321-cb05-402a-8ea3-91b7cc8b7c4c" name="IVaultModule" isAbstract="false" isLeaf="false">
                     <elementDefinition Id="edb5cec2-cf2b-4344-b4f3-e362fd1acea4" />
-                    <generalsInternal>
-                      <generalization Id="b20c675b-2da4-4e7c-bd7c-11d3419ac58a" isSubstitutable="false">
-                        <interfaceMoniker Id="cd67e6ff-3f00-4a29-a49e-29b4c83c5c52" LastKnownName="ICRUDModule" />
-                        <elementDefinition Id="83c5837e-e68a-4ffc-891f-37b20afc2091" />
-                      </generalization>
-                    </generalsInternal>
+                  </Interface>
+                </packageHasNamedElement>
+                <packageHasNamedElement>
+                  <Interface Id="c4980767-a09d-4199-ad26-f55e1ed6134e" name="ILoginModule" isAbstract="false" isLeaf="false">
+                    <elementDefinition Id="04ec37ea-6f4c-49ae-a5d7-6b6177a01318" />
                   </Interface>
                 </packageHasNamedElement>
               </packagedElements>

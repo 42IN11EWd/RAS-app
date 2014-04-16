@@ -7,19 +7,25 @@ using System.Threading.Tasks;
 
 namespace RunApproachStatistics.Modules
 {
-    public class UserModule : IUserModule
+    /// <summary>
+    /// This module is responsible for the......
+    /// ........................................
+    /// ........................................
+    /// ........................................
+    /// </summary>
+    public class UserModule : IUserModule, ILoginModule
     {
         public void create()
         {
             throw new NotImplementedException();
         }
 
-        public object read()
+        public object read(int id)
         {
-            return "";
+            throw new NotImplementedException();
         }
 
-        public void update()
+        public void update(int id)
         {
             throw new NotImplementedException();
         }

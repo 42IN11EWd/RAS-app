@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 
 namespace RunApproachStatistics.Modules.Interfaces
 {
-    public interface IUserModule : ICRUDModule
+    public interface IUserModule
     {
-        void login();
+        void create();
+
+        object read(int id);
+
+        void update(int id);
+
+        void delete();
     }
 }

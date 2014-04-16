@@ -91,8 +91,8 @@
     <Compile Include="Modules\CompareVaultsModule.cs" />
     <Compile Include="Modules\Interfaces\ICameraModule.cs" />
     <Compile Include="Modules\Interfaces\ICompareVaultsModule.cs" />
-    <Compile Include="Modules\Interfaces\ICRUDModule.cs" />
     <Compile Include="Modules\Interfaces\ILaserCameraSettingsModule.cs" />
+    <Compile Include="Modules\Interfaces\ILoginModule.cs" />
     <Compile Include="Modules\Interfaces\IMeasurementModule.cs" />
     <Compile Include="Modules\Interfaces\IUserModule.cs" />
     <Compile Include="Modules\Interfaces\IVaultModule.cs" />
