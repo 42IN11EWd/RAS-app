@@ -58,8 +58,11 @@ namespace RunApproachStatistics
 
         public void ShowLoginView()
         {
+            DialogWindow dialogWindow = new DialogWindow();
             LoginViewModel loginViewModel = new LoginViewModel(this);
-            _setContent(loginViewModel);
+            loginViewModel.Content = loginViewModel;
+            dialogWindow.DataContext = loginViewModel;
+            dialogWindow.ShowDialog();
         }
 
         public void ShowMeasurementView()
