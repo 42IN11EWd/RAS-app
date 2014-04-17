@@ -286,11 +286,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="DataModel.edmx">
     <EmbeddedResource Include="View\CameraWindow.resx">
       <DependentUpon>CameraWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EntityDeploy Include="DataModel.edmx">
     <EntityDeploy Include="Model\Entity\DataModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>DataModel.Designer.cs</LastGenOutput>
