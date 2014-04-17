@@ -2,6 +2,7 @@
 using RunApproachStatistics.Modules;
 using RunApproachStatistics.Modules.Interfaces;
 using RunApproachStatistics.MVVM;
+using RunApproachStatistics.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,7 +47,7 @@ namespace RunApproachStatistics.ViewModel
         {
             WindowsFormsHost host = new WindowsFormsHost();
 
-            host.Child = cameraWindow;
+            //host.Child = cameraWindow;
         }
 
         protected override void initRelayCommands()

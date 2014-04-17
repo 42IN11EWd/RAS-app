@@ -1,6 +1,6 @@
-﻿namespace RunApproachStatistics
+﻿namespace RunApproachStatistics.View
 {
-    partial class CameraWindow
+    public partial class CameraWindow
     {
         /// <summary>
         /// Required designer variable.

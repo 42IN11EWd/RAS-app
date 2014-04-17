@@ -24,8 +24,8 @@
             <ComboBoxItem Content="On"/>
             <ComboBoxItem Content="Off"/>
         </ComboBox>
-        <Button Content="Save" HorizontalAlignment="Left" Margin="320,293,0,0" VerticalAlignment="Top" Width="115" Click="Close" Height="23"/>
-        <Button Content="Cancel" HorizontalAlignment="Right" Margin="0,292,12,0" VerticalAlignment="Top" Width="115" Click="Close" Height="24"/>
+        <Button Content="Save" HorizontalAlignment="Left" Margin="320,293,0,0" VerticalAlignment="Top" Width="115" Height="23"/>
+        <Button Content="Cancel" HorizontalAlignment="Right" Margin="0,292,12,0" VerticalAlignment="Top" Width="115" Height="24"/>
         <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,186,0,0" FontSize="21.333"><Run Language="en-gb" Text="Measurement Screen:"/></TextBlock>
         <TextBlock HorizontalAlignment="Left" Margin="20,267.536,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.512,1.733"><Run Language="en-gb" Text="Minimal"/></TextBlock>
         <TextBlock HorizontalAlignment="Left" Margin="20,296,0,0" Height="15" VerticalAlignment="Top"><Run Language="en-gb" Text="Maximum"/></TextBlock>

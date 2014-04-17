@@ -34,6 +34,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AForge.Imaging">
+      <HintPath>DLL\AForge.Imaging.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Math">
+      <HintPath>DLL\AForge.Math.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Video">
+      <HintPath>DLL\AForge.Video.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Video.FFMPEG">
+      <HintPath>DLL\AForge.Video.FFMPEG.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
@@ -47,8 +59,10 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -60,6 +74,7 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -110,6 +125,17 @@
     <Compile Include="Modules\SettingsModule.cs" />
     <Compile Include="Modules\UserModule.cs" />
     <Compile Include="Modules\VaultModule.cs" />
+    <Compile Include="Services\Camera.cs" />
+    <Compile Include="Services\CameraSource\ByteArrayUtils.cs" />
+    <Compile Include="Services\CameraSource\CameraEvents.cs" />
+    <Compile Include="Services\CameraSource\CaptureDevice.cs" />
+    <Compile Include="Services\CameraSource\IVideoSource.cs" />
+    <Compile Include="Services\CameraSource\VideoStream.cs" />
+    <Compile Include="Services\CaptureBuffer.cs" />
+    <Compile Include="Services\ReadPort.cs" />
+    <Compile Include="Services\VideoCamera.cs" />
+    <Compile Include="Services\VideocameraController.cs" />
+    <Compile Include="Services\WritePort.cs" />
     <Compile Include="ViewModel\CameraViewModel.cs" />
     <Compile Include="ViewModel\CompareVaultsViewModel.cs" />
     <Compile Include="ViewModel\HomeViewModel.cs" />
@@ -122,6 +148,12 @@
     <Compile Include="ViewModel\ThumbnailViewModel.cs" />
     <Compile Include="View\CameraView.xaml.cs">
       <DependentUpon>CameraView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CameraWindow.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="View\CameraWindow.Designer.cs">
+      <DependentUpon>CameraWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="View\CompareVaultsView.xaml.cs">
       <DependentUpon>CompareVaultsView.xaml</DependentUpon>
@@ -241,6 +273,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\CameraWindow.resx">
+      <DependentUpon>CameraWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EntityDeploy Include="Model\Entity\DataModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>DataModel.Designer.cs</LastGenOutput>
@@ -271,7 +306,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Services\" />
+    <ProjectReference Include="..\dshow\dshow.csproj">
+      <Project>{37b08afd-f4bc-4e13-9119-537ba6a12ccb}</Project>
+      <Name>dshow</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
