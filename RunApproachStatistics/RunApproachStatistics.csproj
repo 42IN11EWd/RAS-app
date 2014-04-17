@@ -111,17 +111,12 @@
     <Compile Include="Model\GenderEnum.cs" />
     <Compile Include="Model\Gymnast.cs" />
     <Compile Include="Model\Vault.cs" />
-    <Compile Include="Modules\CameraModule.cs" />
-    <Compile Include="Modules\CompareVaultsModule.cs" />
     <Compile Include="Modules\Interfaces\ICameraModule.cs" />
-    <Compile Include="Modules\Interfaces\ICompareVaultsModule.cs" />
     <Compile Include="Modules\Interfaces\ILaserCameraSettingsModule.cs" />
     <Compile Include="Modules\Interfaces\ILoginModule.cs" />
-    <Compile Include="Modules\Interfaces\IMeasurementModule.cs" />
     <Compile Include="Modules\Interfaces\IUserModule.cs" />
     <Compile Include="Modules\Interfaces\IVaultModule.cs" />
     <Compile Include="Modules\Interfaces\IVideoCameraSettingsModule.cs" />
-    <Compile Include="Modules\MeasurementModule.cs" />
     <Compile Include="Modules\SettingsModule.cs" />
     <Compile Include="Modules\UserModule.cs" />
     <Compile Include="Modules\VaultModule.cs" />

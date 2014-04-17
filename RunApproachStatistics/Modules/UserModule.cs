@@ -48,6 +48,16 @@ namespace RunApproachStatistics.Modules
             throw new NotImplementedException();
         }
 
+        public List<Gymnast> getGymnastCollection(string filter)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Gymnast> getGymnastCollection()
+        {
+            throw new NotImplementedException();
+        }
+
         #region Login Methods
 
         public Boolean login(string username, string password)

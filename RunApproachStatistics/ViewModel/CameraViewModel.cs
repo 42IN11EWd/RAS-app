@@ -28,7 +28,7 @@ namespace RunApproachStatistics.ViewModel
 
         #region Modules
 
-        private ICameraModule cameraModule = new CameraModule();
+        private ICameraModule cameraModule = new VaultModule();
 
         #endregion
 

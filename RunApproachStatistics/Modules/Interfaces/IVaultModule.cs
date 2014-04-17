@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RunApproachStatistics.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,10 +11,12 @@ namespace RunApproachStatistics.Modules.Interfaces
     {
         void create();
 
-        object read(int id);
+        Vault read(int id);
 
-        void update(int id);
+        void update(Vault vault);
 
         void delete();
+
+        List<Vault> getVaults(string filter);
     }
 }

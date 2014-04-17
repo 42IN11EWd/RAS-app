@@ -15,7 +15,7 @@ namespace RunApproachStatistics.ViewModel
 
         #region Modules
 
-        private ICompareVaultsModule compareVaultsModule = new CompareVaultsModule();
+        private IVaultModule vaultModule = new VaultModule();
 
         #endregion
 

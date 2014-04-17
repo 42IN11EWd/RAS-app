@@ -8,5 +8,10 @@ namespace RunApproachStatistics.Modules.Interfaces
 {
     interface ICameraModule
     {
+        Object getVideoData();
+
+        void createVideoData();
+
+        Object getLaserData();
     }
 }

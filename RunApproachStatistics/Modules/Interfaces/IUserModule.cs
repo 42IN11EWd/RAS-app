@@ -16,5 +16,9 @@ namespace RunApproachStatistics.Modules.Interfaces
         void update(Gymnast gymnast);
 
         void delete();
+
+        List<Gymnast> getGymnastCollection(String filter);
+
+        List<Gymnast> getGymnastCollection();
     }
 }
