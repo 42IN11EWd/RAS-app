@@ -13,6 +13,7 @@ namespace RunApproachStatistics.ViewModel
     public class MeasurementViewModel : AbstractViewModel
     {
         private IApplicationController _app;
+        private PropertyChangedBase ratingValue;
 
         #region Modules
 
@@ -24,6 +25,17 @@ namespace RunApproachStatistics.ViewModel
         #region DataBinding
 
         public RelayCommand PostMeasurementCommand { get; private set; }
+        public RelayCommand ClickRatingCommand { get; private set; }
+
+        public PropertyChangedBase RatingValue
+        {
+            get { return ratingValue; }
+            set
+            {
+                ratingValue = value;
+                OnPropertyChanged("RatingValue");
+            }
+        }
 
         #endregion
 
@@ -38,12 +50,19 @@ namespace RunApproachStatistics.ViewModel
         {
             _app.ShowPostMeasurementView();
         }
+        public void ClickRating(object commandParam)
+        {
+
+            //Console.WriteLine("clicked: " + commandParam.ToString());
+            Console.WriteLine("RatingValue: " + RatingValue);
+        }
 
         #endregion
 
         protected override void initRelayCommands()
         {
             PostMeasurementCommand = new RelayCommand(LoadPostMeasurementScreen);
+            ClickRatingCommand = new RelayCommand(ClickRating);
         }
     }
 }
