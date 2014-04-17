@@ -21,15 +21,43 @@ namespace RunApproachStatistics.Model
         public List<Vault> VaultCollection { get; set; }
 
         /// <summary>
-        /// This module is responsible for the......
-        /// ........................................
-        /// ........................................
-        /// ........................................
+        /// This constructor will be used to set a gymnast loaded from the database.
         /// </summary>
-        public Gymnast(int id, long gymnasticFederationId, GenderEnum gender, String nationality, int length, DateTime birthday, String name, 
+        public Gymnast(int id, long gymnasticsFederationId, GenderEnum gender, String nationality, int length, DateTime birthday, String name, 
                        String surname, String surnamePrefix, List<Vault> vaultCollection)
         {
+            Id = id;
+            GymnasticsFederationId = gymnasticsFederationId;
+            Gender = gender;
+            Nationality = nationality;
+            Length = length;
+            Birthday = birthday;
+            Name = name;
+            Surname = surname;
+            SurnamePrefix = surnamePrefix;
+            VaultCollection = vaultCollection;
+        }
 
+        /// <summary>
+        /// This constructor will be used to create a new gymnast that doesnt exist in the database.
+        /// </summary>
+        public Gymnast(long gymnasticsFederationId, GenderEnum gender, String nationality, int length, DateTime birthday, String name,
+                       String surname, String surnamePrefix, List<Vault> vaultCollection)
+        {
+            GymnasticsFederationId = gymnasticsFederationId;
+            Gender = gender;
+            Nationality = nationality;
+            Length = length;
+            Birthday = birthday;
+            Name = name;
+            Surname = surname;
+            SurnamePrefix = surnamePrefix;
+            VaultCollection = vaultCollection;
+        }
+
+        public Gymnast()
+        {
+            // TODO: Complete member initialization
         }
     }
 }

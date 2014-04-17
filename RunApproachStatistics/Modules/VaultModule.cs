@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RunApproachStatistics.Modules
 {
-    class VaultModule : IVaultModule
+    class VaultModule : IVaultModule : ICameraModule
     {
         public void create()
         {

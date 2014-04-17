@@ -1,4 +1,5 @@
 ﻿using RunApproachStatistics.Model;
+using RunApproachStatistics.Model.Entity;
 using RunApproachStatistics.Modules.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -9,10 +10,7 @@ using System.Threading.Tasks;
 namespace RunApproachStatistics.Modules
 {
     /// <summary>
-    /// This module is responsible for the......
-    /// ........................................
-    /// ........................................
-    /// ........................................
+    /// This module is responsible for...
     /// </summary>
     public class UserModule : IUserModule, ILoginModule
     {
@@ -25,7 +23,19 @@ namespace RunApproachStatistics.Modules
 
         Gymnast IUserModule.read(int id)
         {
-            throw new NotImplementedException();
+            using (var db = new Entities3())
+            {
+                var query = from loc in db.location
+                            orderby loc.name
+                            select loc;
+
+                foreach (var row in query)
+                {
+                    Console.WriteLine("{0}, {1}", row.name, row.description);
+                }
+            }
+
+            return new Gymnast();
         }
 
         public void update(Gymnast gymnast)
