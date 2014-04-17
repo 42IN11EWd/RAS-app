@@ -25,9 +25,11 @@ namespace RunApproachStatistics.View
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        protected override void OnClosed(EventArgs e)
         {
+            base.OnClosed(e);
 
+            Application.Current.Shutdown();
         }
     }
 }

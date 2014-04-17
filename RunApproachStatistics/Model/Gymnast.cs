@@ -54,10 +54,5 @@ namespace RunApproachStatistics.Model
             SurnamePrefix = surnamePrefix;
             VaultCollection = vaultCollection;
         }
-
-        public Gymnast()
-        {
-            // TODO: Complete member initialization
-        }
     }
 }

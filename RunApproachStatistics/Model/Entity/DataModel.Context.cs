@@ -13,9 +13,9 @@ namespace RunApproachStatistics.Model.Entity
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Entities3 : DbContext
+    public partial class DataContext : DbContext
     {
-        public Entities3()
+        public DataContext()
             : base("name=Entities3")
         {
         }

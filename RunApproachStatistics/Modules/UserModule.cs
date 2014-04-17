@@ -23,19 +23,14 @@ namespace RunApproachStatistics.Modules
 
         Gymnast IUserModule.read(int id)
         {
-            using (var db = new Entities3())
+            using (var db = new DataContext())
             {
-                var query = from loc in db.location
-                            orderby loc.name
-                            select loc;
-
-                foreach (var row in query)
-                {
-                    Console.WriteLine("{0}, {1}", row.name, row.description);
-                }
+                var query = from gym in db.gymnast
+                            where gym.gymnast_id == id
+                            select gym;
             }
 
-            return new Gymnast();
+            return null;
         }
 
         public void update(Gymnast gymnast)
@@ -55,7 +50,13 @@ namespace RunApproachStatistics.Modules
 
         public List<Gymnast> getGymnastCollection()
         {
-            throw new NotImplementedException();
+            using (var db = new DataContext())
+            {
+                return (from gym in db.gymnast
+                        select new Gymnast(gym.gymnast_id, gym.turnbondID, new GenderEnum(), gym.nationality,
+                                           0, new DateTime(), gym.name, gym.surname, gym.surname_prefix, null))
+                                           .ToList();
+            }
         }
 
         #region Login Methods
