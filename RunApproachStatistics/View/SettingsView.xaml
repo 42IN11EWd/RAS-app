@@ -1,10 +1,11 @@
-﻿<UserControl x:Class="RunApproachStatistics.View.SettingsView"
+﻿<UserControl
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RunApproachStatistics.View" x:Class="RunApproachStatistics.View.SettingsView" 
              mc:Ignorable="d" 
-             d:DesignWidth="600" d:DesignHeight="400" Background="White">
+             d:DesignWidth="850" d:DesignHeight="400" Background="White">
     <Grid>
         <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="24"><Run Language="en-gb" Text="S"/><Run Language="nl-nl" Text="ettings"/></TextBlock>
         <TextBlock HorizontalAlignment="Left" Margin="20,59,0,0" VerticalAlignment="Top"><Run Language="nl-nl" Text="Frequency"/></TextBlock>
@@ -15,29 +16,31 @@
             <ComboBoxItem Content="Front"/>
         </ComboBox>
         <TextBlock HorizontalAlignment="Left" Margin="20,144,0,0" VerticalAlignment="Top"><Run Language="nl-nl" Text="Measurements"/></TextBlock>
-        <TextBlock HorizontalAlignment="Left" Margin="20,241,0,0" VerticalAlignment="Top"><Run Language="nl-nl" Text="Visible laser"/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="20,280,0,0" VerticalAlignment="Top"><Run Language="nl-nl" Text="Visible laser"/></TextBlock>
         <ComboBox HorizontalAlignment="Left" Margin="123,141,0,0" VerticalAlignment="Top" Width="161" SelectedIndex="0">
             <ComboBoxItem Content="Distance + Speed"/>
             <ComboBoxItem Content="Distance"/>
         </ComboBox>
-        <ComboBox HorizontalAlignment="Left" Margin="123,238,0,0" VerticalAlignment="Top" Width="56" SelectedIndex="0" RenderTransformOrigin="0.125,6.409">
+        <ComboBox HorizontalAlignment="Left" Margin="123,277,0,0" VerticalAlignment="Top" Width="56" SelectedIndex="0" RenderTransformOrigin="0.125,6.409">
             <ComboBoxItem Content="On"/>
             <ComboBoxItem Content="Off"/>
         </ComboBox>
-        <Button Content="Save" HorizontalAlignment="Left" Margin="320,293,0,0" VerticalAlignment="Top" Width="115" Height="23"/>
-        <Button Content="Cancel" HorizontalAlignment="Right" Margin="0,292,12,0" VerticalAlignment="Top" Width="115" Height="24"/>
-        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,186,0,0" FontSize="21.333"><Run Language="en-gb" Text="Measurement Screen:"/></TextBlock>
-        <TextBlock HorizontalAlignment="Left" Margin="20,267.536,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.512,1.733"><Run Language="en-gb" Text="Minimal"/></TextBlock>
-        <TextBlock HorizontalAlignment="Left" Margin="20,296,0,0" Height="15" VerticalAlignment="Top"><Run Language="en-gb" Text="Maximum"/></TextBlock>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="123,264.982,0,0" TextWrapping="Wrap" Text="0.0" VerticalAlignment="Top" Width="56"/>
-        <TextBox HorizontalAlignment="Left" Margin="123,293,0,0" TextWrapping="Wrap" Text="35.0" Width="56" Height="23" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="180,267.536,0,0" VerticalAlignment="Top"><Run Language="en-gb" Text="m"/></TextBlock>
-        <TextBlock HorizontalAlignment="Left" Margin="180,297.536,0,0" VerticalAlignment="Top"><Run Language="en-gb" Text="m"/></TextBlock>
-        <Button Content="Calibrate" HorizontalAlignment="Left" Margin="204,265,0,0" Width="80" Height="23" VerticalAlignment="Top" />
+        <Button Content="Save" HorizontalAlignment="Left" Margin="320,366,0,0" VerticalAlignment="Top" Width="115" Height="24"/>
+        <Button Content="Cancel" HorizontalAlignment="Right" Margin="0,366,10,0" VerticalAlignment="Top" Width="115" Height="24"/>
+        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,227,0,0" FontSize="21.333"><Run Language="en-gb" Text="Measurement Screen:"/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="20,307,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.512,1.733"><Run Language="en-gb" Text="Minimal"/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="20,335,0,0" Height="15" VerticalAlignment="Top"><Run Language="en-gb" Text="Maximum"/></TextBlock>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="123,304,0,0" TextWrapping="Wrap" Text="0.0" VerticalAlignment="Top" Width="56"/>
+        <TextBox HorizontalAlignment="Left" Margin="123,332,0,0" TextWrapping="Wrap" Text="35.0" Width="56" Height="23" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="180,307,0,0" VerticalAlignment="Top"><Run Language="en-gb" Text="m"/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="180,337,0,0" VerticalAlignment="Top"><Run Language="en-gb" Text="m"/></TextBlock>
+        <Button Content="Calibrate" HorizontalAlignment="Left" Margin="204,304,0,0" Width="80" Height="23" VerticalAlignment="Top" />
         <TextBlock HorizontalAlignment="Left" Margin="20,87,0,0" VerticalAlignment="Top"><Run Language="nl-nl" Text="Mean Value"/></TextBlock>
         <TextBox Height="23" Margin="123,86.376,0,0" TextWrapping="Wrap" Text="20" VerticalAlignment="Top" HorizontalAlignment="Left" Width="161"/>
-        <Button Content="Calibrate" HorizontalAlignment="Left" Margin="204,293,0,0" Width="80" Height="23" VerticalAlignment="Top" />
-        
-        <ComboBox HorizontalAlignment="Left" Margin="320,60,0,0" VerticalAlignment="Top" Width="250" SelectedIndex="0" ItemsSource="{Binding Path=Devices}" />  
+        <Button Content="Calibrate" HorizontalAlignment="Left" Margin="204,332,0,0" Width="80" Height="23" VerticalAlignment="Top" />
+
+        <ComboBox HorizontalAlignment="Left" Margin="375,57,0,0" VerticalAlignment="Top" Width="315" SelectedIndex="{Binding Path=SelectedCameraIndex, Mode=TwoWay}" ItemsSource="{Binding Path=Devices}" />
+        <Label Content="Camera" HorizontalAlignment="Left" Margin="320,55,0,0" VerticalAlignment="Top"/>
+        <ContentControl x:Name="cameraView" Content="{Binding Path=CameraView}" Height="266" VerticalAlignment="Top" HorizontalAlignment="Right" Width="520" Margin="0,87,10,0" />
     </Grid>
 </UserControl>

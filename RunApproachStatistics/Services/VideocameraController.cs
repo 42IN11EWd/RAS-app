@@ -1,5 +1,6 @@
 ﻿using dshow;
 using dshow.Core;
+using RunApproachStatistics.View;
 using RunApproachStatistics.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,6 @@ namespace RunApproachStatistics.Services
         private CaptureBuffer captureBuffer = new CaptureBuffer();
         private bool save = false;
         private System.Timers.Timer timer;
-        private SettingsViewModel settingsViewModel;
 
         // fps
         private const int statLength = 15;
@@ -39,10 +39,8 @@ namespace RunApproachStatistics.Services
             }
         } 
 
-        public VideocameraController(SettingsViewModel settingsViewModel)
+        public VideocameraController()
         {
-            this.settingsViewModel = settingsViewModel;
-
             setDevices();
         }
 
@@ -53,44 +51,42 @@ namespace RunApproachStatistics.Services
             if (filters.Count == 0)
                 throw new ApplicationException();
 
-            devices     = new String[filters.Count];
+            devices     = new String[filters.Count + 1];
             int count   = 0;
+            devices[1] = "neppe camera";
             foreach (Filter filter in filters) 
             {
-                devices[count] = filter.Name;
-                count++;
+                devices[count++] = filter.Name;
             }
         }
 
-        public void setDevice(int deviceIndex)
+        public CameraWindow OpenVideoSource(int deviceIndex)
         {
-            if (deviceIndex > -1)
-            {
+            try {
                 this.device = filters[deviceIndex].MonikerString;
                 CaptureDevice localSource = new CaptureDevice();
                 localSource.VideoSource = device;
 
-                // open it
-                OpenVideoSource(localSource);
+                //close previous file
+                CloseFile();
+
+                // create camera
+                VideoCamera camera = new VideoCamera(localSource);
+                // start camera
+                camera.Start();
+
+                // attach camera to camera window
+                cameraWindow.Camera = camera;
+
+                // set event handlers
+                camera.NewFrame += new EventHandler(camera_NewFrame);
             }
-        }
-        public void OpenVideoSource(IVideoSource source)
-        {
-            //close previous file
-            CloseFile();
+            catch (Exception e)
+            {
+                return null;
+            }
 
-            // create camera
-            VideoCamera camera = new VideoCamera(source);
-            // start camera
-            camera.Start();
-
-            // attach camera to camera window
-
-            cameraWindow.Camera = camera;
-            settingsViewModel.openVideoSource(cameraWindow);
-
-            // set event handlers
-            camera.NewFrame += new EventHandler(camera_NewFrame);
+            return cameraWindow;
         }
 
         private void timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)

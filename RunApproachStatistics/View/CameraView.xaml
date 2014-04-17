@@ -6,6 +6,6 @@
              mc:Ignorable="d" 
               d:DesignWidth="600" d:DesignHeight="400">
     <Grid>
-            
+        <ContentControl x:Name="cameraContent" Content="{Binding Path=CameraHost}" />
     </Grid>
 </UserControl>
