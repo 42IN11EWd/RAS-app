@@ -160,6 +160,22 @@
                   </relationshipOwnedElementsInternal>
                   <elementDefinition Id="fee7cbbf-e353-446e-b091-c7044e67ac20" />
                 </association>
+                <association Id="88a22b78-9788-4d3d-bd7f-0f65be1427d2" isDerived="false" sourceEndRoleName="SettingsViewModel" targetEndRoleName="ICameraModule" isLeaf="false" isAbstract="false">
+                  <interfaceMoniker Id="f4c5dad1-80fa-4533-8bbb-098583fd46e4" LastKnownName="ICameraModule" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="e720209c-4922-421b-88dc-f5b158727e67" name="SettingsViewModel" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="2fc99df5-3188-4248-bbb8-1ff4c2fbc149" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="74002bb9-d7cb-4225-adde-794fa574f635" name="ICameraModule" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="8ad0bd1c-e7e6-45d1-abab-f104b637604f" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="a40b4a7f-0968-4995-af8d-d0489083ee71" />
+                </association>
               </targetEnds>
             </class>
           </packageHasNamedElement>

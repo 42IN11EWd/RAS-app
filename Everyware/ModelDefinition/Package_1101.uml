@@ -333,6 +333,45 @@
               </associationHasOwnedEnds>
             </relationshipOwnedElementsInternal>
           </association>
+          <association
+            Id="a40b4a7f-0968-4995-af8d-d0489083ee71"
+            isDerived="false"
+            sourceEndRoleName="SettingsViewModel"
+            targetEndRoleName="ICameraModule"
+            isLeaf="false"
+            isAbstract="false">
+            <interfaceMoniker
+              Id="8e62baca-fd8b-4365-9ef4-fe43ba436724"
+              LastKnownName="ICameraModule"
+              LastKnownLocation="Package_1333.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="2fc99df5-3188-4248-bbb8-1ff4c2fbc149"
+                  name="SettingsViewModel"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="8ad0bd1c-e7e6-45d1-abab-f104b637604f"
+                  name="ICameraModule"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
         </targetEnds>
       </class>
     </packageHasNamedElement>
