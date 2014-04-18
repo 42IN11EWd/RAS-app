@@ -8,5 +8,7 @@ namespace RunApproachStatistics.Modules.Interfaces
 {
     interface IVideoCameraSettingsModule
     {
+        void saveVideocameraIndex(int index);
+        int getVideocameraIndex();
     }
 }

@@ -4,9 +4,11 @@ using RunApproachStatistics.Modules.Interfaces;
 using RunApproachStatistics.View;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Windows.Forms.Integration;
 
 namespace RunApproachStatistics.ViewModel
@@ -35,6 +37,18 @@ namespace RunApproachStatistics.ViewModel
         public CameraViewModel(IApplicationController app) : base()
         {
             _app = app;
+
+            // Add loading label
+            Label loadingLabel      = new Label();
+            loadingLabel.Text       = "Camera is being loaded...";
+            loadingLabel.ForeColor  = Color.White;
+            loadingLabel.AutoSize   = false;
+            loadingLabel.Dock       = DockStyle.Fill;
+            loadingLabel.TextAlign  = ContentAlignment.MiddleCenter;
+
+            WindowsFormsHost host = new WindowsFormsHost();
+            host.Child = loadingLabel;
+            CameraHost = host;
         }
 
         protected override void initRelayCommands()

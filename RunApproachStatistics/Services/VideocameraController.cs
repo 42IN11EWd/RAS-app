@@ -15,13 +15,14 @@ using VideoSource;
 
 namespace RunApproachStatistics.Services
 {
-    class VideocameraController
+    public class VideoCameraController
     {
         private FilterCollection filters;
         private string device;
         private View.CameraWindow cameraWindow = new View.CameraWindow();
         private CaptureBuffer captureBuffer = new CaptureBuffer();
         private bool save = false;
+        private bool pausedCamera = false;
         private System.Timers.Timer timer;
 
         // fps
@@ -37,9 +38,17 @@ namespace RunApproachStatistics.Services
             {
                 return devices;
             }
-        } 
+        }
+ 
+        public CameraWindow CameraWindow
+        {
+            get
+            {
+                return cameraWindow;
+            }
+        }
 
-        public VideocameraController()
+        public VideoCameraController()
         {
             setDevices();
         }
@@ -51,9 +60,8 @@ namespace RunApproachStatistics.Services
             if (filters.Count == 0)
                 throw new ApplicationException();
 
-            devices     = new String[filters.Count + 1];
+            devices     = new String[filters.Count];
             int count   = 0;
-            devices[1] = "neppe camera";
             foreach (Filter filter in filters) 
             {
                 devices[count++] = filter.Name;
@@ -72,7 +80,8 @@ namespace RunApproachStatistics.Services
 
                 // create camera
                 VideoCamera camera = new VideoCamera(localSource);
-                // start camera
+
+                // Start camera
                 camera.Start();
 
                 // attach camera to camera window

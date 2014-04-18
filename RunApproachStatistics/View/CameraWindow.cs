@@ -89,6 +89,8 @@ namespace RunApproachStatistics.View
 			Rectangle	rc = this.ClientRectangle;
 			Pen			pen = new Pen( rectColor, 1 );
 
+            g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+
 			// draw rectangle
 			g.DrawRectangle( pen, rc.X, rc.Y, rc.Width - 1, rc.Height - 1 );
 
@@ -101,7 +103,9 @@ namespace RunApproachStatistics.View
 					// draw frame
 					if ( camera.LastFrame != null )
 					{
+                        g.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceCopy;
 						g.DrawImage( camera.LastFrame, rc.X + 1, rc.Y + 1, rc.Width - 2, rc.Height - 2 );
+                        g.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceOver;
 						firstFrame = false;
 					}
 					else

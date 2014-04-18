@@ -85,11 +85,31 @@ namespace RunApproachStatistics
 
         public void ShowSettingsView()
         {
+            SettingsViewModel settingsViewModel = null;
+            // If current view is HomeView then get the VideoCameraController from HomeView 
+            // and pass it on to SettingsView
+            if (_currentViewModel.GetType() == typeof(HomeViewModel))
+            {
+                HomeViewModel homeViewModel = (HomeViewModel)_currentViewModel;
+                homeViewModel.pauseVideoSource(true);
+                settingsViewModel = new SettingsViewModel(this, homeViewModel.VideoCameraController);
+            }
+            else
+            {
+                settingsViewModel = new SettingsViewModel(this);
+            }
+
             DialogWindow dialogWindow = new DialogWindow();
-            SettingsViewModel settingsViewModel = new SettingsViewModel(this);
             settingsViewModel.Content = settingsViewModel;
             dialogWindow.DataContext = settingsViewModel;
+            dialogWindow.Closed += settingsWindow_Closed;
             dialogWindow.ShowDialog();
+        }
+
+        private void settingsWindow_Closed(object sender, EventArgs e)
+        {
+            HomeViewModel homeViewModel = (HomeViewModel)_currentViewModel;
+            homeViewModel.pauseVideoSource(false);
         }
 
         public void ShowVaultSelectorView()

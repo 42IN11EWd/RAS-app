@@ -19,7 +19,7 @@
 
         <!-- START Column 1 -->
         <Grid Name="cameraGrid" Margin="10,10,10,260" Background="Black" Grid.Column="1">
-
+            <ContentControl x:Name="cameraView" Content="{Binding Path=CameraView}"/>
         </Grid>
         <Button Content="Graph" Background="AliceBlue" Margin="10,0,10,10" VerticalAlignment="Bottom" Height="245" RenderTransformOrigin="0.5,0.501" Grid.Column="1"/>
         <!-- END Column 1 -->

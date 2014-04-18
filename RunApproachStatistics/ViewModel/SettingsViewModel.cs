@@ -9,53 +9,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Forms.Integration;
 
 namespace RunApproachStatistics.ViewModel
 {
     public class SettingsViewModel : AbstractViewModel
     {
-        private IApplicationController _app;
-        private PropertyChangedBase content;
+        private IApplicationController  _app;
+        private PropertyChangedBase     content;
 
-        private CameraViewModel cameraView;
-        public  CameraViewModel CameraView
-        {
-            get { return cameraView; }
-            set
-            {
-                cameraView = value;
-                OnPropertyChanged("CameraView");
-            }
-        }
+        private CameraViewModel         cameraView;
+        private VideoCameraController   videoCameraController;
+        private ReadPort                readPort;
+        private WritePort               writePort;
 
-        private int selectedCameraIndex;
-        public int SelectedCameraIndex
-        {
-            get { return selectedCameraIndex; }
-            set
-            {
-                if (value > -1)
-                {
-                    selectedCameraIndex = value;
-                    OnPropertyChanged("SelectedCameraIndex");
-                    selectedCameraIndexChanged();
-                }
-            }
-        }
-
-        private String[] devices;
-        public String[] Devices
-        {
-            get { return devices; }
-            set
-            {
-                devices = value;
-                OnPropertyChanged("Devices");
-            }
-        }
-
-        private VideocameraController videocameraController;
+        private int         selectedCameraIndex;
+        private String[]    devices;
 
         #region Modules
 
@@ -76,22 +46,88 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
+        public CameraViewModel CameraView
+        {
+            get { return cameraView; }
+            set
+            {
+                cameraView = value;
+                OnPropertyChanged("CameraView");
+            }
+        }
+
+        public int SelectedCameraIndex
+        {
+            get { return selectedCameraIndex; }
+            set
+            {
+                if (value > -1)
+                {
+                    selectedCameraIndex = value;
+                    OnPropertyChanged("SelectedCameraIndex");
+                    selectedCameraIndexChanged();
+                }
+            }
+        }
+
+        public String[] Devices
+        {
+            get { return devices; }
+            set
+            {
+                devices = value;
+                OnPropertyChanged("Devices");
+            }
+        }
+
+
+        public RelayCommand SaveSettingsCommand { get; private set; }
+
         #endregion
 
-        public SettingsViewModel(IApplicationController app) : base()
+        public SettingsViewModel(IApplicationController app, VideoCameraController videoCameraController = null) : base()
         {
             _app = app;
 
             CameraView = new CameraViewModel(_app);
-            videocameraController = new VideocameraController();
-            Devices = videocameraController.Devices;
+            readPort  = new ReadPort();
+            writePort = new WritePort(); 
+            
+            // Set videocamera settings
+            if (videoCameraController != null)
+            {
+                this.videoCameraController = videoCameraController;
+                openVideoSource(this.videoCameraController.CameraWindow);
+            } 
+            else
+            {
+                videoCameraController = new VideoCameraController();
+
+                Devices = videoCameraController.Devices;
+                if (devices.Length == 0)
+                {
+                    MessageBox.Show("Er zijn geen camera's gevonden die aangesloten zijn op de computer", "Niet gevonden",
+                        MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+                }
+                else
+                {
+                    SelectedCameraIndex = videoCameraSettingsModule.getVideocameraIndex();
+                }
+            }
         }
 
         public void selectedCameraIndexChanged()
         {
-            CameraWindow cameraWindow = videocameraController.OpenVideoSource(selectedCameraIndex);
-            if (cameraWindow == null) { Console.WriteLine("Camera niet gevonden, popup maken");  return; }
-            openVideoSource(cameraWindow);
+            CameraWindow cameraWindow = videoCameraController.OpenVideoSource(selectedCameraIndex);
+            if (cameraWindow == null) 
+            {
+                MessageBox.Show("Camera is niet gevonden", "Niet gevonden", MessageBoxButton.OK, MessageBoxImage.Error, 
+                    MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+            else
+            {
+                openVideoSource(cameraWindow);
+            }
         }
 
         public void openVideoSource(CameraWindow cameraWindow)
@@ -101,8 +137,25 @@ namespace RunApproachStatistics.ViewModel
             cameraView.CameraHost = host;
         }
 
+        #region Relay Commands
+
+        private void saveSettings(object commandParam)
+        {
+            Object[] commandParams = (Object[]) commandParam;
+
+
+            if (commandParams[6] != null)
+            {
+                int cameraIndex = (int)commandParams[6];
+                videoCameraSettingsModule.saveVideocameraIndex(cameraIndex);
+            }
+        }
+
+        #endregion
+
         protected override void initRelayCommands()
         {
+            SaveSettingsCommand = new RelayCommand(saveSettings);
         }
     }
 }
