@@ -28,11 +28,11 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <ToggleButton Grid.Column="0" Tag="0" Cursor="Hand" Command="{Binding RatingValue}" Template="{StaticResource Startemplate}"/>
-                <ToggleButton Grid.Column="1" Tag="1" Cursor="Hand" Command="{Binding ClickRatingCommand}" Template="{StaticResource Startemplate}"/>
-                <ToggleButton Grid.Column="2" Tag="2" Cursor="Hand" Command="{Binding ClickRatingCommand}" Template="{StaticResource Startemplate}"/>
-                <ToggleButton Grid.Column="3" Tag="3" Cursor="Hand" Command="{Binding ClickRatingCommand}" Template="{StaticResource Startemplate}"/>
-                <ToggleButton Grid.Column="4" Tag="4" Cursor="Hand" Command="{Binding ClickRatingCommand}" Template="{StaticResource Startemplate}"/>
+                <ToggleButton Grid.Column="0" Tag="0" Cursor="Hand" IsChecked="{Binding Star1Checked}" Template="{StaticResource Startemplate}"/>
+                <ToggleButton Grid.Column="1" Tag="1" Cursor="Hand" IsChecked="{Binding Star2Checked}" Template="{StaticResource Startemplate}"/>
+                <ToggleButton Grid.Column="2" Tag="2" Cursor="Hand" IsChecked="{Binding Star3Checked}" Template="{StaticResource Startemplate}"/>
+                <ToggleButton Grid.Column="3" Tag="3" Cursor="Hand" IsChecked="{Binding Star4Checked}" Template="{StaticResource Startemplate}"/>
+                <ToggleButton Grid.Column="4" Tag="4" Cursor="Hand" IsChecked="{Binding Star5Checked}" Template="{StaticResource Startemplate}"/>
             </Grid>
             <ScrollViewer Height="1080" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300"/>
             <Grid Height="635" Margin="336,31,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1130" />
