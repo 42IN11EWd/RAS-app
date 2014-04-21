@@ -22,6 +22,7 @@ namespace RunApproachStatistics.Model.Entity
         public int location_id { get; set; }
         public string name { get; set; }
         public string description { get; set; }
+        public bool deleted { get; set; }
     
         public virtual ICollection<vault> vault { get; set; }
     }

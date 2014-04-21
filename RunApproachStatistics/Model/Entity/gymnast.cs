@@ -29,6 +29,7 @@ namespace RunApproachStatistics.Model.Entity
         public string name { get; set; }
         public string surname { get; set; }
         public string surname_prefix { get; set; }
+        public bool deleted { get; set; }
     
         public virtual ICollection<vault> vault { get; set; }
     }

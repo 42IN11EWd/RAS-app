@@ -24,6 +24,7 @@ namespace RunApproachStatistics.Model.Entity
         public string description { get; set; }
         public string male_female { get; set; }
         public Nullable<decimal> difficulty { get; set; }
+        public bool deleted { get; set; }
     
         public virtual ICollection<vault> vault { get; set; }
     }

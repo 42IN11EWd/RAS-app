@@ -13,9 +13,9 @@ namespace RunApproachStatistics.Model.Entity
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class DataContext : DbContext
+    public partial class Entities3 : DbContext
     {
-        public DataContext()
+        public Entities3()
             : base("name=Entities3")
         {
         }
@@ -27,7 +27,7 @@ namespace RunApproachStatistics.Model.Entity
     
         public virtual DbSet<gymnast> gymnast { get; set; }
         public virtual DbSet<location> location { get; set; }
-        public virtual DbSet<vault> vault { get; set; }
         public virtual DbSet<vaultnumber> vaultnumber { get; set; }
+        public virtual DbSet<vault> vault { get; set; }
     }
 }

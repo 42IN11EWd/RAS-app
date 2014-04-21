@@ -16,18 +16,20 @@ namespace RunApproachStatistics.Model.Entity
     {
         public int vault_id { get; set; }
         public int gymnast_id { get; set; }
-        public long duration { get; set; }
+        public decimal duration { get; set; }
         public string graphdata { get; set; }
         public string videopath { get; set; }
         public Nullable<int> rating_star { get; set; }
         public Nullable<int> rating_official_D { get; set; }
         public Nullable<int> rating_official_E { get; set; }
+        public Nullable<decimal> penalty { get; set; }
         public System.DateTime timestamp { get; set; }
         public string context { get; set; }
-        public Nullable<bool> good_jump_indication { get; set; }
         public string note { get; set; }
-        public Nullable<int> vaulttype_id { get; set; }
-        public int location_id { get; set; }
+        public Nullable<int> vaultnumber_id { get; set; }
+        public Nullable<int> location_id { get; set; }
+        public bool deleted { get; set; }
+        public byte[] thumbnail { get; set; }
     
         public virtual gymnast gymnast { get; set; }
         public virtual location location { get; set; }

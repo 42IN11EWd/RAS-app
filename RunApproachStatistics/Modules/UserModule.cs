@@ -23,7 +23,7 @@ namespace RunApproachStatistics.Modules
 
         Gymnast IUserModule.read(int id)
         {
-            using (var db = new DataContext())
+            using (var db = new Entities3())
             {
                 var query = from gym in db.gymnast
                             where gym.gymnast_id == id
@@ -50,7 +50,7 @@ namespace RunApproachStatistics.Modules
 
         public List<Gymnast> getGymnastCollection()
         {
-            using (var db = new DataContext())
+            using (var db = new Entities3())
             {
                 return (from gym in db.gymnast
                         select new Gymnast(gym.gymnast_id, gym.turnbondID, new GenderEnum(), gym.nationality,
