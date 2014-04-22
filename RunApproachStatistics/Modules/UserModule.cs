@@ -10,7 +10,12 @@ using System.Threading.Tasks;
 namespace RunApproachStatistics.Modules
 {
     /// <summary>
-    /// This module is responsible for...
+    /// This module is responsible for managing the gymnasts by deleting, updating, creating
+    /// and reading gymnasts. This will be done by a combination of Linq and the Entity framework.
+    /// 
+    /// The last thing that will be done in this module is the login feature.
+    /// This module will manage if the user is logged in, if the user can login and if 
+    /// it can logout.
     /// </summary>
     public class UserModule : IUserModule, ILoginModule
     {

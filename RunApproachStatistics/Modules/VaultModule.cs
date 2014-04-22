@@ -8,6 +8,16 @@ using System.Threading.Tasks;
 
 namespace RunApproachStatistics.Modules
 {
+    /// <summary>
+    /// This module is responsible for managing the vaults. In this module 
+    /// you can create, read, update and delete vaults.
+    /// 
+    /// Another thing this module does is managing the laser and video data.
+    /// You can read and create video data. And you can get the laser data, when
+    /// the user needs the laser data for graphs.
+    /// 
+    /// This will be done by a combination of Linq and the Entity framework.
+    /// </summary>
     class VaultModule : IVaultModule, ICameraModule
     {
         public void create()
