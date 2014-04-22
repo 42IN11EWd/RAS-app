@@ -28,7 +28,7 @@
             <ComboBoxItem Content="Distance"/>
         </ComboBox>
         <!-- End Main settings-->
-        
+
         <!-- Measurement Screen XAML -->
         <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,227,0,0" FontSize="21.333"><Run Language="en-gb" Text="Measurement Screen:"/></TextBlock>
         <TextBlock HorizontalAlignment="Left" Margin="20,280,0,0" VerticalAlignment="Top"><Run Language="en-gb" Text="Visible laser"/></TextBlock>
@@ -40,20 +40,20 @@
         <TextBlock HorizontalAlignment="Left" Margin="20,307,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.512,1.733"><Run Language="en-gb" Text="Minimum"/></TextBlock>
         <TextBox x:Name="measurementMinBox" HorizontalAlignment="Left" Height="23" Margin="123,304,0,0" TextWrapping="Wrap" Text="0.0" VerticalAlignment="Top" Width="56"/>
         <TextBlock HorizontalAlignment="Left" Margin="180,307,0,0" VerticalAlignment="Top"><Run Language="en-gb" Text="m"/></TextBlock>
-        <Button Content="Calibrate" HorizontalAlignment="Left" Margin="204,304,0,0" Width="80" Height="23" VerticalAlignment="Top" />
-        
+        <Button Content="Calibrate" Command="{Binding CalibrateMinimumDistance }" HorizontalAlignment="Left" Margin="204,304,0,0" Width="80" Height="23" VerticalAlignment="Top" />
+
         <TextBlock HorizontalAlignment="Left" Margin="20,335,0,0" Height="15" VerticalAlignment="Top"><Run Language="en-gb" Text="Maximum"/></TextBlock>
         <TextBox x:Name="measurementMaxBox" HorizontalAlignment="Left" Margin="123,332,0,0" TextWrapping="Wrap" Text="35.0" Width="56" Height="23" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="180,337,0,0" VerticalAlignment="Top"><Run Language="en-gb" Text="m"/></TextBlock>
-        <Button Content="Calibrate" HorizontalAlignment="Left" Margin="204,332,0,0" Width="80" Height="23" VerticalAlignment="Top" />
+        <Button Content="Calibrate" Command="{Binding CalibrateMimumDistance}" HorizontalAlignment="Left" Margin="204,332,0,0" Width="80" Height="23" VerticalAlignment="Top" />
         <!-- End Measurement Screen-->
-        
+
         <!-- Camera XAML -->
-        <ComboBox x:Name="videocameraBox" HorizontalAlignment="Right" Margin="0,57,120,0" VerticalAlignment="Top" Width="355" SelectedIndex="{Binding Path=SelectedCameraIndex, Mode=TwoWay}" ItemsSource="{Binding Path=Devices}" />
+        <ComboBox x:Name="videocameraBox" HorizontalAlignment="Right" Margin="0,57,10,0" VerticalAlignment="Top" Width="465" SelectedIndex="{Binding Path=SelectedCameraIndex, Mode=TwoWay}" ItemsSource="{Binding Path=Devices}" />
         <Label Content="Camera" HorizontalAlignment="Right" Margin="0,55,480,0" VerticalAlignment="Top"/>
         <ContentControl x:Name="cameraView" Content="{Binding Path=CameraView}" Height="293" VerticalAlignment="Top" HorizontalAlignment="Right" Width="520" Margin="0,87,10,0" Background="Black" />
         <!-- End Camera XAML -->
-        
+
         <!-- Window Buttons XAML -->
         <Button Command="{Binding SaveSettingsCommand}" Content="Save" HorizontalAlignment="Right" Margin="0,387,415,10" Width="115">
             <Button.CommandParameter>

@@ -21,8 +21,7 @@ namespace RunApproachStatistics.ViewModel
 
         private CameraViewModel         cameraView;
         private VideoCameraController   videoCameraController;
-        private ReadPort                readPort;
-        private WritePort               writePort;
+        private PortController          portController;
 
         private int         selectedCameraIndex;
         private String[]    devices;
@@ -80,8 +79,9 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-
         public RelayCommand SaveSettingsCommand { get; private set; }
+        public RelayCommand CalibrateMinimumDistance { get; private set; }
+        public RelayCommand CalibrateMaximumDistance { get; private set; }
 
         #endregion
 
@@ -89,24 +89,24 @@ namespace RunApproachStatistics.ViewModel
         {
             _app = app;
 
-            CameraView = new CameraViewModel(_app);
-            readPort  = new ReadPort();
-            writePort = new WritePort(); 
+            CameraView     = new CameraViewModel(_app);
+            portController = new PortController(); 
             
             // Set videocamera settings
             if (videoCameraController != null)
             {
                 this.videoCameraController = videoCameraController;
                 openVideoSource(this.videoCameraController.CameraWindow);
+                Devices = videoCameraController.Devices;
             } 
             else
             {
                 videoCameraController = new VideoCameraController();
-
                 Devices = videoCameraController.Devices;
+
                 if (devices.Length == 0)
                 {
-                    MessageBox.Show("Er zijn geen camera's gevonden die aangesloten zijn op de computer", "Niet gevonden",
+                    MessageBox.Show("There are no camera's connected to the computer", "Not Found",
                         MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
                 }
                 else
@@ -121,7 +121,7 @@ namespace RunApproachStatistics.ViewModel
             CameraWindow cameraWindow = videoCameraController.OpenVideoSource(selectedCameraIndex);
             if (cameraWindow == null) 
             {
-                MessageBox.Show("Camera is niet gevonden", "Niet gevonden", MessageBoxButton.OK, MessageBoxImage.Error, 
+                MessageBox.Show("Camera could not be found", "Not Found", MessageBoxButton.OK, MessageBoxImage.Error, 
                     MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
             }
             else
@@ -146,16 +146,31 @@ namespace RunApproachStatistics.ViewModel
 
             if (commandParams[6] != null)
             {
+                //
+                
+                // Save selected videocamera
                 int cameraIndex = (int)commandParams[6];
                 videoCameraSettingsModule.saveVideocameraIndex(cameraIndex);
             }
+        }
+
+        private void calibrateMinimumDistance(object commandParam)
+        {
+
+        }
+
+        private void calibrateMaximumDistance(object commandParam)
+        {
+
         }
 
         #endregion
 
         protected override void initRelayCommands()
         {
-            SaveSettingsCommand = new RelayCommand(saveSettings);
+            SaveSettingsCommand         = new RelayCommand(saveSettings);
+            CalibrateMinimumDistance    = new RelayCommand(calibrateMinimumDistance);
+            CalibrateMaximumDistance    = new RelayCommand(calibrateMaximumDistance);
         }
     }
 }
