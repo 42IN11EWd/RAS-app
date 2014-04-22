@@ -4,14 +4,17 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="300" Background="White">
-    
-    <StackPanel>
-        <Button Visibility="{Binding VisibilityLaser, Converter={StaticResource BoolToVis}}" Content="{Binding PilotLaserTitle}" Margin="35,20,35,0" FontSize="26" VerticalAlignment="Top" Height="50" Command="{Binding SetPilotLaserCommand}"/>
-        <Button Content="Start Session" Margin="35,20,35,0" FontSize="26" VerticalAlignment="Top" Height="50" Command="{Binding StartSessionCommand}"/>
-        <Button Content="Select Vault" Margin="35,20,35,0" FontSize="26" VerticalAlignment="Top" Height="50" Command="{Binding SelectVaultCommand}"/>
-        <Button Content="Gymnast Profiles" Margin="35,20,35,0" FontSize="26" VerticalAlignment="Top" Height="50" Command="{Binding GymnastProfilesCommand}"/>
-        <Button Content="Settings" Margin="35,20,35,0" FontSize="26" VerticalAlignment="Top" Height="50" Command="{Binding SettingsCommand}"/>
-        <Button Content="Home" Margin="35,20,35,0" FontSize="26" VerticalAlignment="Top" Height="50" Command="{Binding HomeCommand}"/>
-    </StackPanel>
+             d:DesignHeight="600" d:DesignWidth="325" Background="White">
+    <Viewbox Stretch="Uniform">
+        <Grid Width="325" Height="600" >
+            <StackPanel>
+                <Button Visibility="{Binding VisibilityLaser, Converter={StaticResource BoolToVis}}" Content="{Binding PilotLaserTitle}" Margin="35,20,35,0" FontSize="26" VerticalAlignment="Top" Height="50" Command="{Binding SetPilotLaserCommand}"/>
+                <Button Content="Start Session" Margin="35,20,35,0" FontSize="26" VerticalAlignment="Top" Height="50" Command="{Binding StartSessionCommand}"/>
+                <Button Content="Select Vault" Margin="35,20,35,0" FontSize="26" VerticalAlignment="Top" Height="50" Command="{Binding SelectVaultCommand}"/>
+                <Button Content="Gymnast Profiles" Margin="35,20,35,0" FontSize="26" VerticalAlignment="Top" Height="50" Command="{Binding GymnastProfilesCommand}"/>
+                <Button Content="Settings" Margin="35,20,35,0" FontSize="26" VerticalAlignment="Top" Height="50" Command="{Binding SettingsCommand}"/>
+                <Button Content="Home" Margin="35,20,35,0" FontSize="26" VerticalAlignment="Top" Height="50" Command="{Binding HomeCommand}"/>
+            </StackPanel>
+        </Grid>
+    </Viewbox>
 </UserControl>
