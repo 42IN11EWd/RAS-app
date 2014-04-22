@@ -4,6 +4,7 @@ using RunApproachStatistics.Modules.Interfaces;
 using RunApproachStatistics.MVVM;
 using System;
 
+
 namespace RunApproachStatistics.ViewModel
 {
     public class MeasurementViewModel : AbstractViewModel
@@ -17,6 +18,18 @@ namespace RunApproachStatistics.ViewModel
         private bool star5Checked;
         private bool[] starArray = new bool[6];
 
+        private string location;
+        private string gymnast;
+        private string vaultNumber;
+        private string dscore;
+        private string escore;
+        private string penalty;
+        private string totalscore;
+
+        private bool manualModeChecked;
+        private bool measuring;
+        private string measurementButtonContent;
+
         #region Modules
 
         private ICameraModule cameraModule = new VaultModule();
@@ -26,6 +39,122 @@ namespace RunApproachStatistics.ViewModel
         #region DataBinding
 
         public RelayCommand PostMeasurementCommand { get; private set; }
+        public RelayCommand StartMeasurementCommand { get; private set; }
+
+        public bool Measuring
+        {
+            get { return measuring; }
+            set
+            {
+                measuring = value;
+                if(value == true && ManualModeChecked)
+                {
+                    MeasurementButtonContent = "Stop Measurement";
+                }
+                else if(value == false && ManualModeChecked) 
+                {
+                    MeasurementButtonContent = "Start Measurement";
+                }
+                else
+                {
+                    MeasurementButtonContent = "";
+                }
+                
+                OnPropertyChanged("Measuring");
+            }
+        }
+
+        public bool ManualModeChecked
+        {
+            get { return manualModeChecked; }
+            set
+            {
+                manualModeChecked = value;
+                //turn manual mode on
+                Measuring = false;
+                OnPropertyChanged("ManualModeChecked");
+            }
+        }
+
+        public string MeasurementButtonContent
+        {
+            get { return measurementButtonContent; }
+            set
+            {
+                measurementButtonContent = value;
+                OnPropertyChanged("MeasurementButtonContent");
+            }
+        }
+
+        public string Location
+        {
+            get { return location; }
+            set
+            {
+                location = value;
+                OnPropertyChanged("Location");
+            }
+        }
+
+        public string Gymnast
+        {
+            get { return gymnast; }
+            set
+            {
+                gymnast = value;
+                OnPropertyChanged("Gymnast");
+            }
+        }
+
+        public string VaultNumber
+        {
+            get { return vaultNumber; }
+            set
+            {
+                vaultNumber = value;
+                OnPropertyChanged("VaultNumber");
+            }
+        }
+
+        public string Dscore
+        {
+            get { return dscore; }
+            set
+            {
+                dscore = value;
+                OnPropertyChanged("Dscore");
+            }
+        }
+
+        public string Escore
+        {
+            get { return escore; }
+            set
+            {
+                escore = value;
+                OnPropertyChanged("Escore");
+            }
+        }
+
+        public string Penalty
+        {
+            get { return penalty; }
+            set
+            {
+                penalty = value;
+                OnPropertyChanged("Penalty");
+            }
+        }
+
+        public string Totalscore
+        {
+            get { return totalscore; }
+            set
+            {
+                totalscore = value;
+                OnPropertyChanged("Totalscore");
+            }
+        }
 
         public int RatingValue
         {
@@ -117,6 +246,7 @@ namespace RunApproachStatistics.ViewModel
         public MeasurementViewModel(IApplicationController app) : base()
         {
             _app = app;
+            Measuring = false;
         }
 
         #region RelayCommands
@@ -125,12 +255,28 @@ namespace RunApproachStatistics.ViewModel
         {
             _app.ShowPostMeasurementView();
         }
+        public void StartMeasurement(object commandParam)
+        {
+            //start measurement
+            if(Measuring)
+            {
+                Measuring = false;
+            }
+            else
+            {
+                Measuring = true;
+            }
+            
+
+
+        }
 
         #endregion
 
         protected override void initRelayCommands()
         {
             PostMeasurementCommand = new RelayCommand(LoadPostMeasurementScreen);
+            StartMeasurementCommand = new RelayCommand(StartMeasurement);
         }
        
     }

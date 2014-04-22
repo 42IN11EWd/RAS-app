@@ -35,17 +35,19 @@
                 <ToggleButton Grid.Column="4" Tag="4" Cursor="Hand" IsChecked="{Binding Star5Checked}" Template="{StaticResource Startemplate}"/>
             </Grid>
             <ScrollViewer Height="1080" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300"/>
-            <Grid Height="635" Margin="336,31,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1130" />
+            <Grid Height="635" Width="1130" Name="cameraGrid" Margin="336,31,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Background="Black" Grid.Column="1">
+                <ContentControl x:Name="cameraView" Content="{Binding Path=CameraView}"/>
+            </Grid>
             <ComboBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,29,800" >
                 <ComboBoxItem Content="Practice" IsSelected="True"/>
                 <ComboBoxItem Content="NK"/>
             </ComboBox>
-            <CheckBox Margin="0,0,29,195" FontSize="14" Content="Manual mode"   Height="23" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="198">
+            <CheckBox IsChecked="{Binding ManualModeChecked}" Margin="0,0,29,195" FontSize="14" Content="Manual mode"   Height="23" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="198">
                 <CheckBox.LayoutTransform>
                     <ScaleTransform ScaleX="2" ScaleY="2" />
                 </CheckBox.LayoutTransform>
             </CheckBox>
-            <Button  Content="Start Measurement" Width="398" Margin="0,0,29,114" FontSize="32" IsEnabled="False" HorizontalAlignment="Right" Height="64" VerticalAlignment="Bottom"/>
+            <Button  Content="{Binding MeasurementButtonContent}" Width="398" Margin="0,0,29,114" FontSize="32" IsEnabled="{Binding ManualModeChecked}" Command="{Binding StartMeasurementCommand}" HorizontalAlignment="Right" Height="64" VerticalAlignment="Bottom"/>
             <Button Content="Stop Session" Margin="0,0,29,25" FontSize="32" VerticalAlignment="Bottom" Height="64" Command="{Binding PostMeasurementCommand}" RenderTransformOrigin="0.804,0.1" HorizontalAlignment="Right" Width="398"/>
             <Label Height="45" Content="Total Score" FontSize="24" Width="160" HorizontalAlignment="Right" Margin="0,0,265,280" VerticalAlignment="Bottom"/>
             <Label Content="Penalty" Height="45" FontSize="24" Margin="0,0,265,345"  VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="160"/>
@@ -56,14 +58,13 @@
             <Label Content="Gymnast" Height="45" FontSize="24" Width="160" HorizontalAlignment="Right" Margin="0,0,265,670" VerticalAlignment="Bottom"/>
             <Label Content="Location" Height="45" FontSize="24" Width="160" HorizontalAlignment="Right" Margin="0,0,265,735" VerticalAlignment="Bottom"/>
             <Label Content="Vault kind" Height="45" FontSize="24" Margin="0,0,265,800" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="160"/>
-            <TextBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right"  Margin="0,0,29,280" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Bottom" />
-            <TextBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right"  Margin="0,0,29,345" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Bottom"/>
-            <TextBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right" Margin="0,0,29,410" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Bottom" />
-            <TextBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right"  Margin="0,0,29,475" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Bottom" />
-
-            <TextBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right"  Margin="0,0,29,605" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Bottom"/>
-            <TextBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right"  Margin="0,0,29,670" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Bottom"/>
-            <TextBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right"  Margin="0,0,29,735" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Bottom" />
+            <TextBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right"  Margin="0,0,29,280" TextWrapping="Wrap" Text="{Binding Totalscore}" VerticalAlignment="Bottom" />
+            <TextBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right"  Margin="0,0,29,345" TextWrapping="Wrap" Text="{Binding Penalty}" VerticalAlignment="Bottom"/>
+            <TextBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right" Margin="0,0,29,410" TextWrapping="Wrap" Text="{Binding Escore}" VerticalAlignment="Bottom" />
+            <TextBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right"  Margin="0,0,29,475" TextWrapping="Wrap" Text="{Binding Dscore}" VerticalAlignment="Bottom" />
+            <TextBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right"  Margin="0,0,29,605" TextWrapping="Wrap" Text="{Binding VaultNumber}" VerticalAlignment="Bottom"/>
+            <TextBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right"  Margin="0,0,29,670" TextWrapping="Wrap" Text="{Binding Gymnast}" VerticalAlignment="Bottom"/>
+            <TextBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right"  Margin="0,0,29,735" TextWrapping="Wrap" Text="{Binding Location}" VerticalAlignment="Bottom" />
 
         </Grid>
     </Viewbox>
