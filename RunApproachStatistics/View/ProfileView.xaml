@@ -3,17 +3,71 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
-             d:DesignWidth="1920" d:DesignHeight="1080" Background="Green">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition x:Name="MenuColumn" Width="325"/>
-            <ColumnDefinition x:Name="ContentColumn" Width="437*" MinWidth="500"/>
-        </Grid.ColumnDefinitions>
+             mc:Ignorable="d" d:DesignWidth="1920" d:DesignHeight="1080" Background="White">
+    <Viewbox Stretch="Uniform">
+        <Grid Height="1080" Width="1920">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="MenuColumn" Width="325"/>
+                <ColumnDefinition x:Name="ContentColumn" Width="*" MinWidth="500"/>
+            </Grid.ColumnDefinitions>
 
-        <!-- START Column 0 -->
-        <ContentControl x:Name="menuContainer"
+            <!-- START Column 0 -->
+            <ContentControl x:Name="menuContainer"
 			    Content="{Binding Menu}" Margin="0,0,0,0" />
-        <!-- END Column 0 -->
-    </Grid>
+            <!-- END Column 0 -->
+
+            <!-- START Column 1 -->
+            <!-- Start profile -->
+            <TextBox FontSize="32" Grid.Column="1" Height="380" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="620,100,0,0" Text="Picture" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="280" />
+            <TextBlock FontSize="64" Grid.Column="1" HorizontalAlignment="Left" Margin="70,100,0,0" Text="Patrick van Luijk" VerticalAlignment="Top" />
+            <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="70,270,0,0" Text="Name:" VerticalAlignment="Top" />
+            <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="70,310,0,0" Text="Surname Prefix:" VerticalAlignment="Top" />
+            <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="70,350,0,0" Text="Surname:" VerticalAlignment="Top" />
+            <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="70,390,0,0" Text="FIG Number:" VerticalAlignment="Top" />
+            
+            <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="70,450,0,0" Text="Date Of Birth:" VerticalAlignment="Top" />
+            <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="70,490,0,0" Text="Nationalitiy:" VerticalAlignment="Top" />
+            <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="70,530,0,0" Text="Gender:" VerticalAlignment="Top" />
+            
+            <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="70,630,0,0" Text="Length:" VerticalAlignment="Top" />
+            <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="70,670,0,0" Text="Weight:" VerticalAlignment="Top" />
+
+            <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="70,745,0,0" Text="Memo:" VerticalAlignment="Top" />
+            <TextBox FontSize="24" Grid.Column="1" Height="200" HorizontalAlignment="Left" Margin="70,780,0,0" Text="Blessure gehad september 2013" TextWrapping="Wrap" VerticalAlignment="Top" Width="420" />
+
+            <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,270,0,0" Text="Patrick" VerticalAlignment="Top" />
+            <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,310,0,0" Text="van" VerticalAlignment="Top" />
+            <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,350,0,0" Text="Luijk" VerticalAlignment="Top" />
+            <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,390,0,0" Text="123456" VerticalAlignment="Top" />
+            
+            <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,450,0,0" Text="17-09-1987" VerticalAlignment="Top" />
+            <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,490,0,0" Text="Dutch" VerticalAlignment="Top" />
+            <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,530,0,0" Text="Male" VerticalAlignment="Top" />
+            
+            <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,630,0,0" Text="185 cm" VerticalAlignment="Top" />
+            <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,670,0,0" Text="80 kg" VerticalAlignment="Top" />
+            <!-- End profile -->
+
+            <!-- Start edit buttons -->
+            <Button Content="Save"              Command="{Binding SaveChangesCommand}"      FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="450,0,0,10" VerticalAlignment="Bottom" Width="225"/>
+            <Button Content="Cancel"            Command="{Binding CancelChangesCommand}"    FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="700,0,0,10" VerticalAlignment="Bottom" Width="225"/>
+            <Button Content="Delete Gymnast"    Command="{Binding DeleteGymnastCommand}"    FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="950,0,0,10" VerticalAlignment="Bottom" Width="225"/>
+            <!-- End edit buttons -->
+
+            <!-- Start filter -->
+            <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Right" Height="1080" VerticalAlignment="Center" Width="390" Grid.Column="1">
+                <Grid>
+                    <TextBox FontSize="24" Height="38" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Gymnast name" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="369"/>
+                    <ListBox FontSize="22" HorizontalAlignment="Left" Height="970" VerticalAlignment="Top" Width="368" Margin="10,52,0,0">
+                        <ListBoxItem Content="Patrick van Luijk"/>
+                        <ListBoxItem Content="Petertje van Lagenband"/>
+                    </ListBox>
+                    <Button Content=" To mainscreen"     FontSize="24" HorizontalAlignment="Left"    Margin="10,0,0,10" VerticalAlignment="Bottom" Width="175"/>
+                    <Button Content="See vaults"    FontSize="24" HorizontalAlignment="Right"   Margin="0,0,10,10" VerticalAlignment="Bottom" Width="175"/>
+                </Grid>
+            </Border>
+            <!-- End filter -->
+            <!-- END Column 1 -->
+        </Grid>
+    </Viewbox>
 </UserControl>

@@ -5,15 +5,99 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignWidth="1920" d:DesignHeight="1080" Background="White">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition x:Name="MenuColumn" Width="325"/>
-            <ColumnDefinition x:Name="ContentColumn" Width="437*" MinWidth="500"/>
-        </Grid.ColumnDefinitions>
+    <Viewbox Stretch="Uniform">
+        <Grid Height="1080" Width="1920">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="MenuColumn" Width="325"/>
+                <ColumnDefinition x:Name="ContentColumn" Width="*" MinWidth="500"/>
+            </Grid.ColumnDefinitions>
 
-        <!-- START Column 0 -->
-        <ContentControl x:Name="menuContainer"
+            <!-- START Column 0 -->
+            <ContentControl x:Name="menuContainer"
 			    Content="{Binding Menu}" Margin="0,0,0,0" />
-        <!-- END Column 0 -->
-    </Grid>
+            <!-- END Column 0 -->
+
+            <!-- START Column 1 -->
+            <!-- Start scrollviewer -->
+            <ScrollViewer Background="White" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="720" VerticalAlignment="Top" Width="1200" Grid.Column="1">
+                <Grid>
+                    <Rectangle Fill="#FFF4F4F5" Height="243" Stroke="Black" Width="276" Margin="291,10,0,0"     VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                    <Rectangle Fill="#FFF4F4F5" Height="243" Stroke="Black" Width="276" Margin="10,10,0,0"      VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                    <Rectangle Fill="#FFF4F4F5" Height="243" Stroke="Black" Width="276" Margin="572,10,0,0"     VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                    <Rectangle Fill="#FFF4F4F5" Height="243" Stroke="Black" Width="276" Margin="853,10,0,0"     VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                    <Rectangle Fill="#FFF4F4F5" Height="243" Stroke="Black" Width="276" Margin="10,258,0,0"     VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                    <Rectangle Fill="#FFF4F4F5" Height="243" Stroke="Black" Width="276" Margin="291,258,0,0"    VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                    <Rectangle Fill="#FFF4F4F5" Height="243" Stroke="Black" Width="276" Margin="572,258,0,0"    VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                    <Rectangle Fill="#FFF4F4F5" Height="243" Stroke="Black" Width="276" Margin="853,258,0,0"    VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                    <Rectangle Fill="#FFF4F4F5" Height="243" Stroke="Black" Width="276" Margin="10,506,0,-231"  VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                    <Rectangle Fill="#FFF4F4F5" Height="243" Stroke="Black" Width="276" Margin="291,506,0,-231" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                    <Rectangle Fill="#FFF4F4F5" Height="243" Stroke="Black" Width="276" Margin="572,506,0,-231" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                </Grid>
+            </ScrollViewer>
+            <!-- End scrollviewer -->
+
+            <!-- Start 'static' labels -->
+            <Label Content="Gymnast:"           FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="10,735,0,0"    VerticalAlignment="Top"/>
+            <Label Content="Date &amp; Time:"   FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="10,782,0,0"    VerticalAlignment="Top"/>
+            <Label Content="Timespan:"          FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="10,829,0,0"    VerticalAlignment="Top"/>
+            <Label Content="Vault Number:"      FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="10,876,0,0"    VerticalAlignment="Top"/>
+            <Label Content="Location:"          FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="10,923,0,0"    VerticalAlignment="Top"/>
+            <Label Content="Competetion:"       FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="575,735,0,0"   VerticalAlignment="Top"/>
+            <Label Content="Rating:"            FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="575,782,0,0"   VerticalAlignment="Top"/>
+            <Label Content="D-Score:"           FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="575,829,0,0"   VerticalAlignment="Top"/>
+            <Label Content="E-Score:"           FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="575,876,0,0"   VerticalAlignment="Top"/>
+            <Label Content="Penalty:"           FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="575,923,0,0"   VerticalAlignment="Top"/>
+            <Label Content="Total score:"       FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="575,970,0,0"   VerticalAlignment="Top"/>
+            <!-- End 'static' labels -->
+
+            <!-- Start 'non-static' labels & textboxes -->
+            <TextBox Text="{Binding SelectionGymnast}" FontSize="24" Grid.Column="1" Height="42" HorizontalAlignment="Left" Margin="250,735,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250" TextWrapping="Wrap"/>
+            <Label  Content="{Binding SelectionDatetime}" FontSize="24" Grid.Column="1" Height="42" HorizontalAlignment="Left" Margin="250,782,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250"/>
+            <Label  Content="{Binding SelectionTimespan}" FontSize="24" Grid.Column="1" Height="42" HorizontalAlignment="Left" Margin="250,829,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250"/>
+            <TextBox Text="{Binding SelectionVaultNumber}" FontSize="24" Grid.Column="1" Height="42" HorizontalAlignment="Left" Margin="250,876,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250" TextWrapping="Wrap" />
+            <TextBox Text="{Binding SelectionLocation}" FontSize="24" Grid.Column="1" Height="42" HorizontalAlignment="Left" Margin="250,923,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250" TextWrapping="Wrap"/>
+            <ComboBox FontSize="24" Grid.Column="1" Height="42" HorizontalAlignment="Left" Margin="800,735,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250">
+                <!-- ItemSource={Binding List} Selecteditem={Binding ItemSelected} -->
+                <ComboBoxItem Content="Practice Vault"/>
+                <ComboBoxItem Content="Competitive Vault" IsSelected="True"/>
+            </ComboBox>
+            <TextBox Text="Rating Stars" FontSize="24" Grid.Column="1" Height="42" HorizontalAlignment="Left" Margin="800,782,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250" TextWrapping="Wrap"/>
+            <TextBox Text="{Binding SelectionDScore}" FontSize="24" Grid.Column="1" Height="42" HorizontalAlignment="Left" Margin="800,829,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250" TextWrapping="Wrap"/>
+            <TextBox Text="{Binding SelectionEScore}" FontSize="24" Grid.Column="1" Height="42" HorizontalAlignment="Left" Margin="800,876,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250" TextWrapping="Wrap"/>
+            <TextBox Text="{Binding SelectionPenalty}" FontSize="24" Grid.Column="1" Height="42" HorizontalAlignment="Left" Margin="800,923,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250" TextWrapping="Wrap"/>
+            <Label Content="{Binding SelectionTotalScore}" FontSize="24" Grid.Column="1" Height="42" HorizontalAlignment="Left" Margin="800,970,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250"/>
+            <!-- End 'non-static' labels -->
+
+            <!-- Start edit buttons -->
+            <Button Content="Save"      Command="{Binding SaveChangesCommand}"      FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="575,0,0,10" VerticalAlignment="Bottom" Width="125"/>
+            <Button Content="Cancel"    Command="{Binding CancelChangesCommand}"    FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="750,0,0,10" VerticalAlignment="Bottom" Width="125"/>
+            <Button Content="Delete"    Command="{Binding DeleteVaultCommand}"      FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="925,0,0,10" VerticalAlignment="Bottom" Width="125"/>
+            <!-- End edit buttons -->
+
+            <!-- Start filter -->
+            <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Right" Height="1080" VerticalAlignment="Center" Width="390" Grid.Column="1">
+                <Grid>
+                    <TextBox FontSize="24" Height="38" HorizontalAlignment="Left" Margin="9,9,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="200"/>
+                    <ComboBox FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Top" Width="169" Margin="209,9,0,0">
+                        <ComboBoxItem Content="Gymnast" IsSelected="True"/>
+                        <ComboBoxItem Content="Location"/>
+                        <ComboBoxItem Content="Official Rating"/>
+                        <ComboBoxItem Content="Date &amp; Time"/>
+                    </ComboBox>
+                    <ListBox FontSize="22" HorizontalAlignment="Left" Height="666" VerticalAlignment="Top" Width="368" Margin="10,52,0,0">
+                        <ListBoxItem Content="Patrick van Luijk"/>
+                        <ListBoxItem Content="Petertje van Lagenband"/>
+                    </ListBox>
+                    <ListBox FontSize="22" HorizontalAlignment="Left" Height="303" VerticalAlignment="Top" Width="368" Margin="10,723,0,0">
+                        <Button Content="Gymnast: Patrick van Luijk"/>
+                        <Button Content="Location: Flik flak"/>
+                    </ListBox>
+                    <Button Content="To mainscreen"     FontSize="24" HorizontalAlignment="Left"    Margin="10,0,0,10" VerticalAlignment="Bottom" Width="175"/>
+                    <Button Content="Remove Filters"    FontSize="24" HorizontalAlignment="Right"   Margin="0,0,10,10" VerticalAlignment="Bottom" Width="175"/>
+                </Grid>
+            </Border>
+            <!-- End filter -->
+            <!-- END Column 1 -->
+        </Grid>
+    </Viewbox>
 </UserControl>
