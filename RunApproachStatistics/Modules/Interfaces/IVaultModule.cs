@@ -9,13 +9,13 @@ namespace RunApproachStatistics.Modules.Interfaces
 {
     interface IVaultModule
     {
-        void create();
+        void create(Vault vault);
 
         Vault read(int id);
 
-        void update(Vault vault);
+        void update(Vault vault, int id);
 
-        void delete();
+        void delete(int id);
 
         List<Vault> getVaults(string filter);
     }
