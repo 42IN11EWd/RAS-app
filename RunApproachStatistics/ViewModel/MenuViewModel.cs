@@ -56,6 +56,7 @@ namespace RunApproachStatistics.ViewModel
         public void LoadGymnastProfiles(object commandParam)
         {
             _app.ShowProfileView();
+            
         }
         public void LoadSelectVault(object commandParam)
         {
@@ -63,7 +64,8 @@ namespace RunApproachStatistics.ViewModel
         }
         public void LoadSettings(object commandParam)
         {
-            _app.ShowSettingsView();
+           // _app.ShowSettingsView();
+            _app.ShowLoginView();
         }
         public void LoadHomeScreen(object commandParam)
         {

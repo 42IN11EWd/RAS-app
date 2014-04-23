@@ -1,6 +1,7 @@
 ﻿using RunApproachStatistics.Controllers;
 using RunApproachStatistics.Modules;
 using RunApproachStatistics.Modules.Interfaces;
+using RunApproachStatistics.MVVM;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace RunApproachStatistics.ViewModel
     public class CompareVaultsViewModel : AbstractViewModel
     {
         private IApplicationController _app;
+        private PropertyChangedBase menu;
 
         #region Modules
 
@@ -19,9 +21,25 @@ namespace RunApproachStatistics.ViewModel
 
         #endregion
 
+        #region DataBinding
+        public PropertyChangedBase Menu
+        {
+            get { return menu; }
+            set
+            {
+                menu = value;
+                OnPropertyChanged("Menu");
+            }
+        }
+        #endregion
         public CompareVaultsViewModel(IApplicationController app) : base()
         {
             _app = app;
+
+            // Set menu
+            MenuViewModel menuViewModel = new MenuViewModel(_app);
+            menuViewModel.VisibilityLaser = true;
+            Menu = menuViewModel;
         }
 
         protected override void initRelayCommands()
