@@ -23,12 +23,36 @@ namespace RunApproachStatistics.Modules
 
         public void create(Gymnast gymnast)
         {
-            throw new NotImplementedException();
+            RunApproachStatistics.Model.Entity.gymnast eGymnast = new gymnast();
+
+            eGymnast.turnbondID = gymnast.GymnasticsFederationId;
+            eGymnast.gender = ""; // gymnast.Gender;
+            eGymnast.nationality = gymnast.Nationality;
+            eGymnast.length = gymnast.Length;
+            eGymnast.picture = null;
+            eGymnast.birthdate = gymnast.Birthday;
+            eGymnast.name = gymnast.Name;
+            eGymnast.surname = gymnast.Surname;
+            eGymnast.surname_prefix = gymnast.SurnamePrefix;
+            
+            using (var db = new DataContext())
+            {
+                db.gymnast.Add(eGymnast);
+
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+            }
         }
 
         Gymnast IUserModule.read(int id)
         {
-            using (var db = new Entities3())
+            using (var db = new DataContext())
             {
                 var query = from gym in db.gymnast
                             where gym.gymnast_id == id
@@ -55,7 +79,7 @@ namespace RunApproachStatistics.Modules
 
         public List<Gymnast> getGymnastCollection()
         {
-            using (var db = new Entities3())
+            using (var db = new DataContext())
             {
                 return (from gym in db.gymnast
                         select new Gymnast(gym.gymnast_id, gym.turnbondID, new GenderEnum(), gym.nationality,

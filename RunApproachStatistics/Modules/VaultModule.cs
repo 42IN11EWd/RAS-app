@@ -41,7 +41,7 @@ namespace RunApproachStatistics.Modules
             eVault.deleted = vault.deleted;
             eVault.thumbnail = vault.thumbnail;
 
-            using (var db = new Entities3())
+            using (var db = new DataContext())
             {
                 db.vault.Add(eVault);
 
@@ -58,7 +58,7 @@ namespace RunApproachStatistics.Modules
 
         public Vault read(int id)
         {
-            using (var db = new Entities3())
+            using (var db = new DataContext())
             {
                 var query = from qVault in db.vault
                             where qVault.vaultnumber_id == id
@@ -93,7 +93,7 @@ namespace RunApproachStatistics.Modules
 
         public void update(Vault vault, int id)
         {
-            using (var db = new Entities3())
+            using (var db = new DataContext())
             {
                 var query = from qVault in db.vault
                             where qVault.vaultnumber_id == id
@@ -131,7 +131,7 @@ namespace RunApproachStatistics.Modules
 
         public void delete(int id)
         {
-            using (var db = new Entities3())
+            using (var db = new DataContext())
             {
                 var query = from qVault in db.vault
                             where qVault.vaultnumber_id == id
@@ -155,7 +155,7 @@ namespace RunApproachStatistics.Modules
 
         public List<Vault> getVaults(string filter)
         {
-            using (var db = new Entities3())
+            using (var db = new DataContext())
             {
                 return (from qVault in db.vault
                         select new Vault { 
@@ -193,7 +193,7 @@ namespace RunApproachStatistics.Modules
 
         public String getLaserData(int id)
         {
-            using (var db = new Entities3())
+            using (var db = new DataContext())
             {
                 var query = from qVault in db.vault
                             where qVault.vaultnumber_id == id
