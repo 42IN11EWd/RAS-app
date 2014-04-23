@@ -3,6 +3,7 @@ using RunApproachStatistics.Model.Entity;
 using RunApproachStatistics.Modules.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -186,7 +187,7 @@ namespace RunApproachStatistics.Modules
             throw new NotImplementedException();
         }
 
-        public void createVideoData(int id)
+        public void createVideoData(Vault vault, Bitmap[] frames)
         {
             throw new NotImplementedException();
         }
