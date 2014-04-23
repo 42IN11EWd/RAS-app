@@ -8,7 +8,7 @@
     <Viewbox Stretch="Uniform">
         <Grid Width="1920" Height="1080">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition x:Name="MenuColumn" Width="175*"/>
+                <ColumnDefinition x:Name="MenuColumn" Width="325"/>
                 <ColumnDefinition x:Name="ContentColumn" Width="437*" MinWidth="500"/>
             </Grid.ColumnDefinitions>
 
