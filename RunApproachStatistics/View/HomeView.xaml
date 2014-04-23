@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:RunApproachStatistics.View"
              mc:Ignorable="d" Background="White" d:DesignWidth="1920" d:DesignHeight="1080">
 
     <Grid>
@@ -18,9 +17,33 @@
         <!-- END Column 0 -->
 
         <!-- START Column 1 -->
-        <Grid Name="cameraGrid" Margin="10,10,10,260" Background="Black" Grid.Column="1">
-            <ContentControl x:Name="cameraView" Content="{Binding Path=CameraView}"/>
-        </Grid>
+        <Grid Name="cameraGrid" Margin="10,10,10,260" Background="Gainsboro" Grid.Column="1">
+            <StackPanel Background="Black" VerticalAlignment="Stretch">
+                <Viewbox VerticalAlignment="Center" Stretch="UniformToFill" StretchDirection="Both">
+                    <!--<ContentControl x:Name="cameraView" Content="{Binding Path=CameraView}"/>-->
+                    <MediaElement  Name="VideoControl" Source="Movie.mp4" MediaOpened="Element_MediaOpened" MediaEnded="Element_MediaEnded" VerticalAlignment="Stretch" Stretch="Fill" 
+     LoadedBehavior="Manual"></MediaElement>
+                </Viewbox>
+                    
+            </StackPanel>
+            <!-- START VIDEO CONTROLS-->
+
+            <Rectangle Fill="#8D000000" Height="103" VerticalAlignment="Bottom" />
+            <Slider x:Name="TimeSlider" Margin="48,0,48,66" Foreground="#FFD4D4D4" Height="22" VerticalAlignment="Bottom"/>
+
+            <Button Foreground="#FFFFFFFF" Background="#00000000" Name="btnPlay" Content=">" Click="OnMouseDownPlayMedia" Margin="0,0,0,4" HorizontalAlignment="Center" Width="64" Height="64" VerticalAlignment="Bottom" />
+            <Button Foreground="#FFFFFFFF" Background="#00000000" Name="btnMoveForward" Content="&gt;&gt;" Margin="192,0,0,12" HorizontalAlignment="Center" Width="48" Height="48" VerticalAlignment="Bottom"/>
+            <Button Foreground="#FFFFFFFF" Background="#00000000" Name="btnMoveBack" Content="&lt;&lt;" HorizontalAlignment="Center" Margin="-192,0,0,12" Width="48" Height="48" VerticalAlignment="Bottom" />
+
+            <!--<Image Name="btnPlay" Margin="0,0,0,4" Source="play2.png" HorizontalAlignment="Center" Width="64" VerticalAlignment="Bottom" />
+            <Image Name="btnMoveForward" Margin="192,0,0,12" Source="next2.png" Height="48" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+            <Image Name="btnMoveBack" HorizontalAlignment="Center" Margin="-192,0,0,12"  Source="prev2.png" Width="64" Height="806" VerticalAlignment="Bottom" />
+           -->
+            <TextBlock HorizontalAlignment="Left" Margin="48,0,0,4" Name="Timetext" FontSize="37.333" Foreground="White" Text="00:00:000" Height="50" VerticalAlignment="Bottom"/>
+            <TextBlock HorizontalAlignment="Left" Margin="240,0,0,4" Name="TotalTimetext" FontSize="37.333" Foreground="White" Text="00:00:000" Height="50" VerticalAlignment="Bottom"/>
+
+            <!-- END VIDEO CONTROLS-->
+            </Grid>
         <Button Content="Graph" Background="AliceBlue" Margin="10,0,10,10" VerticalAlignment="Bottom" Height="245" RenderTransformOrigin="0.5,0.501" Grid.Column="1"/>
         <!-- END Column 1 -->
     </Grid>
