@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" Background="White" d:DesignWidth="1920" d:DesignHeight="1080">
-    <Grid>
+    <Viewbox Stretch="Uniform">
+        <Grid Width="1920" Height="1080">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition x:Name="MenuColumn" Width="325"/>
                 <ColumnDefinition x:Name="ContentColumn" Width="437*" MinWidth="500"/>
@@ -16,23 +17,24 @@
             <!-- END Column 0 -->
 
             <!-- START Column 1 -->
-            <Grid Name="cameraGrid" Margin="10,10,10,10" Background="Gainsboro" Grid.Column="1">
+            <Grid Name="cameraGrid"  Grid.Column="1">
                 <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="200"></RowDefinition>
+                    <RowDefinition Height="456"></RowDefinition>
                     <RowDefinition></RowDefinition>
                     <RowDefinition Height="103"></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <Grid Grid.Column="0" Grid.Row="0">
+                <!-- START Column 0 -->
+                <Grid Grid.Column="0" Grid.Row="0" Margin="10,10,10,10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
-                        <ColumnDefinition Width="180"/>
+                        <ColumnDefinition Width="100"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -40,85 +42,91 @@
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Full name:"/>
-                    <TextBlock Grid.Column="0" Grid.Row="1" Text="Date:"/>
-                    <TextBlock Grid.Column="0" Grid.Row="2" Text="Vault Number:"/>
-                    <TextBlock Grid.Column="0" Grid.Row="3" Text="Total Score:"/>
+                    <TextBlock Grid.Column="0" Grid.Row="0" FontSize="24" Text="Full name:"/>
+                    <TextBlock Grid.Column="0" Grid.Row="1" FontSize="24" Text="Date:"/>
+                    <TextBlock Grid.Column="0" Grid.Row="2" FontSize="24" Text="Vault Number:"/>
+                    <TextBlock Grid.Column="0" Grid.Row="3" FontSize="24" Text="Total Score:"/>
 
-                    <TextBlock Grid.Column="1" Grid.Row="0" Text="NAME"/>
-                    <TextBlock Grid.Column="1" Grid.Row="1" Text="DATE"/>
-                    <TextBlock Grid.Column="1" Grid.Row="2" Text="VAULTNUMBER"/>
-                    <TextBlock Grid.Column="1" Grid.Row="3" Text="TOTALSCORE"/>
+                    <TextBlock Grid.Column="1" Grid.Row="0" FontSize="24" Text="NAME"/>
+                    <TextBlock Grid.Column="1" Grid.Row="1" FontSize="24" Text="DATE"/>
+                    <TextBlock Grid.Column="1" Grid.Row="2" FontSize="24" Text="VAULTNUMBER"/>
+                    <TextBlock Grid.Column="1" Grid.Row="3" FontSize="24" Text="TOTALSCORE"/>
 
-                <Button Grid.Column="2" Grid.RowSpan="4"/>
+                    <Button Grid.Column="2" Grid.RowSpan="4"/>
                 </Grid>
 
-
-            <Grid Grid.Column="1" Grid.Row="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="180"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <TextBlock Grid.Column="0" Grid.Row="0" Text="Full name:"/>
-                <TextBlock Grid.Column="0" Grid.Row="1" Text="Date:"/>
-                <TextBlock Grid.Column="0" Grid.Row="2" Text="Vault Number:"/>
-                <TextBlock Grid.Column="0" Grid.Row="3" Text="Total Score:"/>
-
-                <TextBlock Grid.Column="1" Grid.Row="0" Text="NAME"/>
-                <TextBlock Grid.Column="1" Grid.Row="1" Text="DATE"/>
-                <TextBlock Grid.Column="1" Grid.Row="2" Text="VAULTNUMBER"/>
-                <TextBlock Grid.Column="1" Grid.Row="3" Text="TOTALSCORE"/>
-
-                <Button Grid.Column="2" Grid.RowSpan="4"/>
-            </Grid>
-
-
-            <StackPanel Grid.Row="1" Background="Black" VerticalAlignment="Stretch">
+                <!-- VIDEO -->
+                <StackPanel Grid.Column="0" Grid.Row="1" Background="Black" VerticalAlignment="Stretch" Margin="10,10,10,10">
                     <Viewbox VerticalAlignment="Center" Stretch="UniformToFill" StretchDirection="Both">
                         <MediaElement  Name="VideoControl1" Source="Movie.mp4" MediaOpened="Element_MediaOpened" MediaEnded="Element_MediaEnded" VerticalAlignment="Stretch" Stretch="Fill" 
      LoadedBehavior="Manual"></MediaElement>
                     </Viewbox>
                 </StackPanel>
 
-            <StackPanel Grid.Row="1" Grid.Column="1" Background="Black" VerticalAlignment="Stretch">
-                <Viewbox VerticalAlignment="Center" Stretch="UniformToFill" StretchDirection="Both">
-                    <MediaElement  Name="VideoControl" Source="Movie.mp4" MediaOpened="Element_MediaOpened" MediaEnded="Element_MediaEnded" VerticalAlignment="Stretch" Stretch="Fill" 
+                <!-- GRAPH -->
+                <Button Grid.Column="0" Grid.Row="2" Content="Graph" Background="AliceBlue" Margin="10,10,10,10"/>
+
+
+                <!-- START Column 1 -->
+                <Grid Grid.Column="1" Grid.Row="0" Margin="10,10,10,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="100"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Column="0" Grid.Row="0" FontSize="24" Text="Full name:"/>
+                    <TextBlock Grid.Column="0" Grid.Row="1" FontSize="24" Text="Date:"/>
+                    <TextBlock Grid.Column="0" Grid.Row="2" FontSize="24" Text="Vault Number:"/>
+                    <TextBlock Grid.Column="0" Grid.Row="3" FontSize="24" Text="Total Score:"/>
+
+                    <TextBlock Grid.Column="1" Grid.Row="0" FontSize="24" Text="NAME"/>
+                    <TextBlock Grid.Column="1" Grid.Row="1" FontSize="24" Text="DATE"/>
+                    <TextBlock Grid.Column="1" Grid.Row="2" FontSize="24" Text="VAULTNUMBER"/>
+                    <TextBlock Grid.Column="1" Grid.Row="3" FontSize="24" Text="TOTALSCORE"/>
+
+                    <Button Grid.Column="2" Grid.RowSpan="4"/>
+                </Grid>
+
+                <!-- VIDEO -->
+                <StackPanel Grid.Row="1" Grid.Column="1" Background="Black" VerticalAlignment="Stretch" Margin="10,10,10,10">
+                    <Viewbox VerticalAlignment="Center" Stretch="UniformToFill" StretchDirection="Both">
+                <MediaElement Name="VideoControl" Source="Movie.mp4" MediaOpened="Element_MediaOpened" MediaEnded="Element_MediaEnded" VerticalAlignment="Stretch" Stretch="Fill" 
      LoadedBehavior="Manual"></MediaElement>
-                </Viewbox>
-            </StackPanel>
+                    </Viewbox>
+                </StackPanel>
 
-            <Button Grid.Row="2" Content="Graph" Background="AliceBlue" Margin="10,10,10,10" Grid.Column="0"/>
-            <Button Grid.Row="2" Content="Graph" Background="AliceBlue" Margin="10,10,10,10" Grid.Column="1"/>
-
-
+                <!-- GRAPH -->
+                <Button Grid.Column="1" Grid.Row="2" Content="Graph" Background="AliceBlue" Margin="10,10,10,10"/>
 
 
-            <!-- START VIDEO CONTROLS-->
-            <Grid Grid.ColumnSpan="2" Grid.Row="3">
-                <Rectangle Fill="#8D000000" Height="103" VerticalAlignment="Bottom" />
-                <Slider x:Name="TimeSlider" Margin="48,0,48,66" Foreground="#FFD4D4D4" Height="22" VerticalAlignment="Bottom"/>
 
-                <Button Foreground="#FFFFFFFF" Background="#00000000" Name="btnPlay" Content=">" Click="OnMouseDownPlayMedia" Margin="0,0,0,4" HorizontalAlignment="Center" Width="64" Height="64" VerticalAlignment="Bottom" />
-                <Button Foreground="#FFFFFFFF" Background="#00000000" Name="btnMoveForward" Content="&gt;&gt;" Margin="192,0,0,12" HorizontalAlignment="Center" Width="48" Height="48" VerticalAlignment="Bottom"/>
-                <Button Foreground="#FFFFFFFF" Background="#00000000" Name="btnMoveBack" Content="&lt;&lt;" HorizontalAlignment="Center" Margin="-192,0,0,12" Width="48" Height="48" VerticalAlignment="Bottom" />
 
-                <!--<Image Name="btnPlay" Margin="0,0,0,4" Source="play2.png" HorizontalAlignment="Center" Width="64" VerticalAlignment="Bottom" />
+                <!-- START VIDEO CONTROLS-->
+                <Grid Grid.ColumnSpan="2" Grid.Row="3" Margin="10,0,10,0">
+                    <Rectangle Fill="#8D000000" Height="103" VerticalAlignment="Bottom" />
+                    <Slider x:Name="TimeSlider" Margin="48,0,48,66" Foreground="#FFD4D4D4" Height="22" VerticalAlignment="Bottom"/>
+
+                    <Button Foreground="#FFFFFFFF" Background="#00000000" Name="btnPlay" Content=">" Click="OnMouseDownPlayMedia" Margin="0,0,0,4" HorizontalAlignment="Center" Width="64" Height="64" VerticalAlignment="Bottom" />
+                    <Button Foreground="#FFFFFFFF" Background="#00000000" Name="btnMoveForward" Content="&gt;&gt;" Margin="192,0,0,12" HorizontalAlignment="Center" Width="48" Height="48" VerticalAlignment="Bottom"/>
+                    <Button Foreground="#FFFFFFFF" Background="#00000000" Name="btnMoveBack" Content="&lt;&lt;" HorizontalAlignment="Center" Margin="-192,0,0,12" Width="48" Height="48" VerticalAlignment="Bottom" />
+
+                    <!--<Image Name="btnPlay" Margin="0,0,0,4" Source="play2.png" HorizontalAlignment="Center" Width="64" VerticalAlignment="Bottom" />
             <Image Name="btnMoveForward" Margin="192,0,0,12" Source="next2.png" Height="48" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
             <Image Name="btnMoveBack" HorizontalAlignment="Center" Margin="-192,0,0,12"  Source="prev2.png" Width="64" Height="806" VerticalAlignment="Bottom" />
            -->
-                <TextBlock HorizontalAlignment="Left" Margin="48,0,0,4" Name="Timetext" FontSize="37.333" Foreground="White" Text="00:00:000" Height="50" VerticalAlignment="Bottom"/>
-                <TextBlock HorizontalAlignment="Left" Margin="240,0,0,4" Name="TotalTimetext" FontSize="37.333" Foreground="White" Text="00:00:000" Height="50" VerticalAlignment="Bottom"/>
-            </Grid>
-            <!-- END VIDEO CONTROLS-->
+                    <TextBlock HorizontalAlignment="Left" Margin="48,0,0,4" Name="Timetext" FontSize="37.333" Foreground="White" Text="00:00:000" Height="50" VerticalAlignment="Bottom"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="240,0,0,4" Name="TotalTimetext" FontSize="37.333" Foreground="White" Text="00:00:000" Height="50" VerticalAlignment="Bottom"/>
+                </Grid>
+                <!-- END VIDEO CONTROLS-->
             </Grid>
             <!--<Button Content="Graph" Background="AliceBlue" Margin="10,0,10,10" VerticalAlignment="Bottom" Height="245" RenderTransformOrigin="0.5,0.501" Grid.Column="1"/>-->
-            <!-- END Column 1 -->        
-    </Grid>
+            <!-- END Column 1 -->
+        </Grid>
+    </Viewbox>
 </UserControl>
