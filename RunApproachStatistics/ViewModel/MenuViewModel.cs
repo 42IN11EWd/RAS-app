@@ -38,16 +38,16 @@ namespace RunApproachStatistics.ViewModel
         {
             if (!ToggleLaser) 
             {
-                ToggleLaser = !ToggleLaser;
                 PilotLaserTitle = "Set Pilot Laser Off";
             } 
             else 
             {
-                ToggleLaser = !ToggleLaser;
                 PilotLaserTitle = "Set Pilot Laser On";
             }
-            
+            ToggleLaser = !ToggleLaser;
+
             OnPropertyChanged("PilotLaserTitle");
+            _app.ShowCompareVaultsView();
         }
         public void StartSession(object commandParam)
         {
