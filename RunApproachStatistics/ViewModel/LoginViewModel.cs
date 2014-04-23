@@ -1,4 +1,5 @@
 ﻿using RunApproachStatistics.Controllers;
+using RunApproachStatistics.Modules;
 using RunApproachStatistics.MVVM;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace RunApproachStatistics.ViewModel
         private PropertyChangedBase content;
         private string username;
         private string password;
+        private string errorMessage;
 
 
         #region DataBinding
@@ -32,6 +34,36 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
+        public string ErrorMessage
+        {
+            get { return errorMessage; }
+            set
+            {
+                errorMessage = value;
+                OnPropertyChanged("ErrorMessage");
+            }
+        }
+
+        public string Username
+        {
+            get { return username; }
+            set
+            {
+                username = value;
+                OnPropertyChanged("Username");
+            }
+        }
+
+        public string Password
+        {
+            get { return password; }
+            set
+            {
+                password = value;
+                OnPropertyChanged("Password");
+            }
+        }
+
         #endregion
 
         public LoginViewModel(IApplicationController app) : base()
@@ -47,7 +79,11 @@ namespace RunApproachStatistics.ViewModel
         }
         public void LoginAction(object commandParam)
         {
-           
+            UserModule usermodule = new UserModule();
+            if(!usermodule.login(username, password))
+            {
+                ErrorMessage = "Logincredentials are wrong";
+            }
         }
 
         #endregion
