@@ -21,23 +21,11 @@ namespace RunApproachStatistics.Modules
     {
         private static Boolean IsLoggedIn;
 
-        public void create(Gymnast gymnast)
+        public void create(gymnast gymnast)
         {
-            RunApproachStatistics.Model.Entity.gymnast eGymnast = new gymnast();
-
-            eGymnast.turnbondID = gymnast.GymnasticsFederationId;
-            eGymnast.gender = ""; // gymnast.Gender;
-            eGymnast.nationality = gymnast.Nationality;
-            eGymnast.length = gymnast.Length;
-            eGymnast.picture = null;
-            eGymnast.birthdate = gymnast.Birthday;
-            eGymnast.name = gymnast.Name;
-            eGymnast.surname = gymnast.Surname;
-            eGymnast.surname_prefix = gymnast.SurnamePrefix;
-            
             using (var db = new DataContext())
             {
-                db.gymnast.Add(eGymnast);
+                db.gymnast.Add(gymnast);
 
                 try
                 {
@@ -50,7 +38,7 @@ namespace RunApproachStatistics.Modules
             }
         }
 
-        Gymnast IUserModule.read(int id)
+        public gymnast read(int id)
         {
             using (var db = new DataContext())
             {
@@ -62,7 +50,7 @@ namespace RunApproachStatistics.Modules
             return null;
         }
 
-        public void update(Gymnast gymnast)
+        public void update(gymnast gymnast)
         {
             throw new NotImplementedException();
         }
@@ -72,19 +60,18 @@ namespace RunApproachStatistics.Modules
             throw new NotImplementedException();
         }
 
-        public List<Gymnast> getGymnastCollection(string filter)
+        public List<gymnast> getGymnastCollection(string filter)
         {
             throw new NotImplementedException();
         }
 
-        public List<Gymnast> getGymnastCollection()
+        public List<gymnast> getGymnastCollection()
         {
             using (var db = new DataContext())
             {
-                return (from gym in db.gymnast
-                        select new Gymnast(gym.gymnast_id, gym.turnbondID, new GenderEnum(), gym.nationality,
-                                           0, new DateTime(), gym.name, gym.surname, gym.surname_prefix, null))
-                                           .ToList();
+                return (from qGymnast in db.gymnast
+                        select qGymnast
+                ).ToList();
             }
         }
 

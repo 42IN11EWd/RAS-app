@@ -108,9 +108,6 @@
     <Compile Include="Model\Entity\vaultnumber.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\GenderEnum.cs" />
-    <Compile Include="Model\Gymnast.cs" />
-    <Compile Include="Model\Vault.cs" />
     <Compile Include="Modules\Interfaces\ICameraModule.cs" />
     <Compile Include="Modules\Interfaces\ILaserCameraSettingsModule.cs" />
     <Compile Include="Modules\Interfaces\ILoginModule.cs" />
