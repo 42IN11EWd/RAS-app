@@ -22,29 +22,11 @@ namespace RunApproachStatistics.Modules
     /// </summary>
     class VaultModule : IVaultModule, ICameraModule
     {
-        public void create(Vault vault)
+        public void create(vault vault)
         {
-            RunApproachStatistics.Model.Entity.vault eVault = new vault();
-
-            eVault.gymnast_id = vault.gymnast_id;
-            eVault.duration = vault.duration;
-            eVault.graphdata = vault.graphdata;
-            eVault.videopath = vault.videopath;
-            eVault.rating_star = vault.rating_star;
-            eVault.rating_official_D = vault.rating_official_D;
-            eVault.rating_official_E = vault.rating_official_E;
-            eVault.penalty = vault.penalty;
-            eVault.timestamp = vault.timestamp;
-            eVault.context = vault.context;
-            eVault.note = vault.note;
-            eVault.vaultnumber_id = vault.vaultnumber_id;
-            eVault.location_id = vault.location_id;
-            eVault.deleted = vault.deleted;
-            eVault.thumbnail = vault.thumbnail;
-
-            using (var db = new Entities3())
+            using (var db = new DataContext())
             {
-                db.vault.Add(eVault);
+                db.vault.Add(vault);
 
                 try
                 {
@@ -57,34 +39,16 @@ namespace RunApproachStatistics.Modules
             }
         }
 
-        public Vault read(int id)
+        public vault read(int id)
         {
-            using (var db = new Entities3())
+            using (var db = new DataContext())
             {
                 var query = from qVault in db.vault
                             where qVault.vaultnumber_id == id
                             select qVault;
 
-                foreach (vault eVault in query)
+                foreach (vault vault in query)
                 {
-                    Vault vault = new Vault();
-
-                    vault.gymnast_id = eVault.gymnast_id;
-                    vault.duration = eVault.duration;
-                    vault.graphdata = eVault.graphdata;
-                    vault.videopath = eVault.videopath;
-                    vault.rating_star = eVault.rating_star;
-                    vault.rating_official_D = eVault.rating_official_D;
-                    vault.rating_official_E = eVault.rating_official_E;
-                    vault.penalty = eVault.penalty;
-                    vault.timestamp = eVault.timestamp;
-                    vault.context = eVault.context;
-                    vault.note = eVault.note;
-                    vault.vaultnumber_id = eVault.vaultnumber_id;
-                    vault.location_id = eVault.location_id;
-                    vault.deleted = eVault.deleted;
-                    vault.thumbnail = eVault.thumbnail;
-
                     return vault;
                 }
 
@@ -92,9 +56,9 @@ namespace RunApproachStatistics.Modules
             }
         }
 
-        public void update(Vault vault, int id)
+        public void update(vault vault, int id)
         {
-            using (var db = new Entities3())
+            using (var db = new DataContext())
             {
                 var query = from qVault in db.vault
                             where qVault.vaultnumber_id == id
@@ -117,6 +81,10 @@ namespace RunApproachStatistics.Modules
                     eVault.location_id = vault.location_id;
                     eVault.deleted = vault.deleted;
                     eVault.thumbnail = vault.thumbnail;
+
+                    eVault.gymnast = vault.gymnast;
+                    eVault.location = vault.location;
+                    eVault.vaultnumber = vault.vaultnumber;
                 }
 
                 try
@@ -132,7 +100,7 @@ namespace RunApproachStatistics.Modules
 
         public void delete(int id)
         {
-            using (var db = new Entities3())
+            using (var db = new DataContext())
             {
                 var query = from qVault in db.vault
                             where qVault.vaultnumber_id == id
@@ -154,28 +122,12 @@ namespace RunApproachStatistics.Modules
             }
         }
 
-        public List<Vault> getVaults(string filter)
+        public List<vault> getVaults(string filter)
         {
-            using (var db = new Entities3())
+            using (var db = new DataContext())
             {
                 return (from qVault in db.vault
-                        select new Vault { 
-                            gymnast_id = qVault.gymnast_id,
-                            duration = qVault.duration,
-                            graphdata = qVault.graphdata,
-                            videopath = qVault.videopath,
-                            rating_star = qVault.rating_star,
-                            rating_official_D = qVault.rating_official_D,
-                            rating_official_E = qVault.rating_official_E,
-                            penalty = qVault.penalty,
-                            timestamp = qVault.timestamp,
-                            context = qVault.context,
-                            note = qVault.note,
-                            vaultnumber_id = qVault.vaultnumber_id,
-                            location_id = qVault.location_id,
-                            deleted = qVault.deleted,
-                            thumbnail = qVault.thumbnail
-                        }
+                        select qVault
                 ).ToList();
             }
         }
@@ -187,14 +139,14 @@ namespace RunApproachStatistics.Modules
             throw new NotImplementedException();
         }
 
-        public void createVideoData(Vault vault, Bitmap[] frames)
+        public void createVideoData(vault vault, Bitmap[] frames)
         {
             throw new NotImplementedException();
         }
 
         public String getLaserData(int id)
         {
-            using (var db = new Entities3())
+            using (var db = new DataContext())
             {
                 var query = from qVault in db.vault
                             where qVault.vaultnumber_id == id

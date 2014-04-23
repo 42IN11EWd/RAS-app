@@ -21,7 +21,7 @@ namespace RunApproachStatistics.ViewModel
 
         private CameraViewModel         cameraView;
         private VideoCameraController   videoCameraController;
-        private PortController          portController;
+        // private PortController          portController;
 
         private int         selectedCameraIndex;
         private String[]    devices;
@@ -90,7 +90,7 @@ namespace RunApproachStatistics.ViewModel
             _app = app;
 
             CameraView     = new CameraViewModel(_app);
-            portController = new PortController(); 
+            // portController = new PortController(); 
             
             // Set videocamera settings
             if (videoCameraController != null)

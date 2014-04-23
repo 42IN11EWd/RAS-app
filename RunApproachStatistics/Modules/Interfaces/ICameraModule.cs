@@ -1,4 +1,5 @@
 ﻿using RunApproachStatistics.Model;
+using RunApproachStatistics.Model.Entity;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -12,7 +13,7 @@ namespace RunApproachStatistics.Modules.Interfaces
     {
         Object getVideoData(int id);
 
-        void createVideoData(Vault vault, Bitmap[] frames);
+        void createVideoData(vault vault, Bitmap[] frames);
 
         String getLaserData(int id);
     }
