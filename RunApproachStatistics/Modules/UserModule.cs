@@ -126,21 +126,24 @@ namespace RunApproachStatistics.Modules
 
         public Boolean login(string username, string password)
         {
-            var query = from qUser in db.user
-                        where user.username == username 
-                        && user.password = password
-                        select qUser;
-
             Boolean correctLoginVariables = false;
-            foreach(user eUser in query)
+            using (var db = new DataContext())
             {
-                if (eUser != null) {
-                    _isLoggedIn = true;
-                    return true;
+                var query = from qUser in db.user
+                            where qUser.username == username && qUser.password == password
+                            select qUser;
+                
+                foreach (user eUser in query)
+                {
+                    if (eUser != null)
+                    {
+                        _isLoggedIn = true;
+                        correctLoginVariables = true;
+                    }
                 }
             }
 
-            return false;
+            return correctLoginVariables;
         }
 
         public void logout()
