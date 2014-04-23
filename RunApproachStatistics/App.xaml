@@ -21,7 +21,7 @@
             <v:CompareVaultsView DataContext="{Binding}" />
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:LoginViewModel}">
-            <v:LoginView DataContext="{Binding}" />
+            <v:LoginDialog DataContext="{Binding}" />
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:MeasurementViewModel}">
             <v:MeasurementView DataContext="{Binding}" />

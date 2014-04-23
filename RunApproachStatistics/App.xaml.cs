@@ -63,6 +63,7 @@ namespace RunApproachStatistics
             LoginViewModel loginViewModel = new LoginViewModel(this);
             loginViewModel.Content = loginViewModel;
             loginWindow.DataContext = loginViewModel;
+            loginViewModel.PasswordBox = loginWindow.PasswordBox;
             loginWindow.ShowDialog();
         }
 

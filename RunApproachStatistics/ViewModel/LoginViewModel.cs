@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace RunApproachStatistics.ViewModel
 {
@@ -14,8 +15,8 @@ namespace RunApproachStatistics.ViewModel
         private IApplicationController _app;
         private PropertyChangedBase content;
         private string username;
-        private string password;
         private string errorMessage;
+        private PasswordBox _passwordBox;
 
 
         #region DataBinding
@@ -54,13 +55,17 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
+        public PasswordBox PasswordBox
+        {
+            get { return _passwordBox; }
+            set { _passwordBox = value; }
+        }
+
         public string Password
         {
-            get { return password; }
-            set
+            get
             {
-                password = value;
-                OnPropertyChanged("Password");
+                return _passwordBox.Password;
             }
         }
 
@@ -80,9 +85,21 @@ namespace RunApproachStatistics.ViewModel
         public void LoginAction(object commandParam)
         {
             UserModule usermodule = new UserModule();
-            if(!usermodule.login(username, password))
+            Console.WriteLine("pass: " + Password);
+            if (Password != null)
             {
-                ErrorMessage = "Logincredentials are wrong";
+                if (!usermodule.login(username, Password))
+                {
+                    ErrorMessage = "Logincredentials are wrong";
+                }
+                else
+                {
+                    _app.CloseLoginWindow();
+                }
+            }
+            else
+            {
+                ErrorMessage = "Please fill in all fields";
             }
         }
 
