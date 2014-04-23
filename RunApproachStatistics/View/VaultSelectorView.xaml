@@ -21,17 +21,7 @@
             <!-- Start scrollviewer -->
             <ScrollViewer Background="White" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="720" VerticalAlignment="Top" Width="1200" Grid.Column="1">
                 <Grid>
-                    <Rectangle Fill="#FFF4F4F5" Height="243" Stroke="Black" Width="276" Margin="291,10,0,0"     VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                    <Rectangle Fill="#FFF4F4F5" Height="243" Stroke="Black" Width="276" Margin="10,10,0,0"      VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                    <Rectangle Fill="#FFF4F4F5" Height="243" Stroke="Black" Width="276" Margin="572,10,0,0"     VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                    <Rectangle Fill="#FFF4F4F5" Height="243" Stroke="Black" Width="276" Margin="853,10,0,0"     VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                    <Rectangle Fill="#FFF4F4F5" Height="243" Stroke="Black" Width="276" Margin="10,258,0,0"     VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                    <Rectangle Fill="#FFF4F4F5" Height="243" Stroke="Black" Width="276" Margin="291,258,0,0"    VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                    <Rectangle Fill="#FFF4F4F5" Height="243" Stroke="Black" Width="276" Margin="572,258,0,0"    VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                    <Rectangle Fill="#FFF4F4F5" Height="243" Stroke="Black" Width="276" Margin="853,258,0,0"    VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                    <Rectangle Fill="#FFF4F4F5" Height="243" Stroke="Black" Width="276" Margin="10,506,0,-231"  VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                    <Rectangle Fill="#FFF4F4F5" Height="243" Stroke="Black" Width="276" Margin="291,506,0,-231" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                    <Rectangle Fill="#FFF4F4F5" Height="243" Stroke="Black" Width="276" Margin="572,506,0,-231" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                    <Rectangle Fill="#FFF4F4F5" Height="243" Stroke="Black" Width="276" Margin="10,10,0,0" VerticalAlignment="Top"  HorizontalAlignment="Left"/>
                 </Grid>
             </ScrollViewer>
             <!-- End scrollviewer -->
