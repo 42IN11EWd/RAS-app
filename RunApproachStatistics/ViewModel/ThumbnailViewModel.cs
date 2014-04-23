@@ -34,10 +34,10 @@ namespace RunApproachStatistics.ViewModel
         private string datetime;
         public String Datetime
         {
-            get { return name; }
+            get { return datetime; }
             set
             {
-                name = value;
+                datetime = value;
                 OnPropertyChanged("Datetime");
             }
         }
@@ -45,16 +45,16 @@ namespace RunApproachStatistics.ViewModel
         private string vaultnumber;
         public String VaultNumber
         {
-            get { return name; }
+            get { return vaultnumber; }
             set
             {
-                name = value;
+                vaultnumber = value;
                 OnPropertyChanged("VaultNumber");
             }
         }
 
-        private Brush selectionBackground;
-        public Brush SelectionBackground
+        private System.Drawing.Brush selectionBackground;
+        public System.Drawing.Brush SelectionBackground
         {
             get { return selectionBackground; }
             set
@@ -62,6 +62,23 @@ namespace RunApproachStatistics.ViewModel
                 selectionBackground = value;
                 OnPropertyChanged("SelectionBackground");
             }
+        }
+
+        private ImageSource thumbnailImage;
+        public ImageSource ThumbnailImage
+        {
+            get { return thumbnailImage; }
+            set
+            {
+                thumbnailImage = value;
+                OnPropertyChanged("ThumbnailImage");
+                OnPropertyChanged("HasThumnailImage");
+            }
+        }
+
+        public Visibility HasThumnailImage
+        {
+            get { return ThumbnailImage != null ? Visibility.Visible : Visibility.Hidden; }
         }
 
         private Visibility liveVaultText;
@@ -86,15 +103,15 @@ namespace RunApproachStatistics.ViewModel
         {
             if (typeOfSelection.Equals("Missing"))
             {
-                SelectionBackground = Brushes.Red;
+                SelectionBackground = System.Drawing.Brushes.Red;
             }
             else if (typeOfSelection.Equals("Select"))
             {
-                SelectionBackground = Brushes.LightBlue;
+                SelectionBackground = System.Drawing.Brushes.LightBlue;
             }
             else
             {
-                SelectionBackground = Brushes.Transparent;
+                SelectionBackground = System.Drawing.Brushes.Transparent;
             }
         }
 

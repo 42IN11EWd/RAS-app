@@ -4,11 +4,12 @@
              Width="276" Height="243">
     <Grid>
         <Border Background="{Binding SelectionBackground}" CornerRadius="5" Margin="5,5,5,5"/>
-        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="133" Stroke="Black" VerticalAlignment="Top" Width="256" Margin="10,10,0,0"/>
-        <TextBlock FontSize="18" HorizontalAlignment="Center" Margin="0,0,0,90" TextWrapping="Wrap" Text="Live vault" VerticalAlignment="Center" Visibility="{Binding LiveVaultText}"/>
-        <TextBox BorderBrush="Black" BorderThickness="1,0,1,1" FontSize="16" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Height="30" IsReadOnly="True" Margin="10,143,0,0" MaxLines="1" TextWrapping="NoWrap" Text="{Binding Name}" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="256"/>
-        <TextBox BorderBrush="Black" BorderThickness="1,0,1,1" FontSize="16" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Height="30" IsReadOnly="True" Margin="10,173,0,0" MaxLines="1" TextWrapping="NoWrap" Text="{Binding Datetime}" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="256"/>
-        <TextBox BorderBrush="Black" BorderThickness="1,0,1,1" FontSize="16" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Height="30" IsReadOnly="True" Margin="10,203,0,0" MaxLines="1" TextWrapping="NoWrap" Text="{Binding VaultNumber}" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="256"/>
+        <Image HorizontalAlignment="Left" Height="133" Source="{Binding ThumbnailImage}" Margin="10,10,0,0" VerticalAlignment="Top" Visibility="{Binding HasThumnailImage}" Width="256"/>
+        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="133" Margin="10,10,0,0" Stroke="Black" VerticalAlignment="Top" Visibility="{Binding LiveVaultText}" Width="256"/>
+        <TextBlock FontSize="18" HorizontalAlignment="Center" Margin="0,0,0,90" Text="Live vault" TextWrapping="Wrap" Visibility="{Binding LiveVaultText}" VerticalAlignment="Center"/>
+        <Label Background="White" BorderBrush="Black" BorderThickness="1,0,1,1" Content="{Binding Name}" FontSize="16" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Height="30" Margin="10,143,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="256"/>
+        <Label Background="White" BorderBrush="Black" BorderThickness="1,0,1,1" Content="{Binding Datetime}" FontSize="16" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Height="30" Margin="10,173,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="256"/>
+        <Label Background="White" BorderBrush="Black" BorderThickness="1,0,1,1" Content="{Binding VaultNumber}" FontSize="16" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Height="30" Margin="10,203,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="256"/>
         <Button Background="Transparent" Command="{Binding VaultClickCommand}" Margin="0,0,0,0"/>
     </Grid>
 </UserControl>
