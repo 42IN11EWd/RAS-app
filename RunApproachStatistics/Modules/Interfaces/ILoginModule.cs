@@ -11,7 +11,5 @@ namespace RunApproachStatistics.Modules.Interfaces
         Boolean login(String username, String password);
 
         void logout();
-
-        Boolean isLoggedIn();
     }
 }

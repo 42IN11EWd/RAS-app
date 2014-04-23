@@ -19,7 +19,7 @@ namespace RunApproachStatistics.Modules
     /// </summary>
     public class UserModule : IUserModule, ILoginModule
     {
-        private static Boolean IsLoggedIn;
+        private static Boolean _isLoggedIn;
 
         public void create(gymnast gymnast)
         {
@@ -52,17 +52,59 @@ namespace RunApproachStatistics.Modules
 
         public void update(gymnast gymnast)
         {
-            throw new NotImplementedException();
+            using (var db = new DataContext())
+            {
+                var query = from qGymnast in db.gymnast
+                            where qGymnast.gymnast_id == gymnast.gymnast_id
+                            select qGymnast;
+
+                foreach(gymnast eGymnast in query)
+                {
+                    eGymnast.turnbondID = gymnast.turnbondID;
+                    eGymnast.gender = gymnast.gender;
+                    eGymnast.nationality = gymnast.nationality;
+                    eGymnast.length = gymnast.length;
+                    eGymnast.picture = gymnast.picture;
+                    eGymnast.birthdate = gymnast.birthdate;
+                    eGymnast.name = gymnast.name;
+                    eGymnast.surname = gymnast.surname;
+                    eGymnast.surname_prefix = gymnast.surname_prefix;
+                    eGymnast.vault = gymnast.vault;
+                }
+
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+            }
         }
 
-        public void delete()
+        public void delete(int id)
         {
-            throw new NotImplementedException();
-        }
+            using (var db = new DataContext())
+            {
+                var query = from qGymnast in db.gymnast
+                            where qGymnast.gymnast_id == id
+                            select qGymnast;
 
-        public List<gymnast> getGymnastCollection(string filter)
-        {
-            throw new NotImplementedException();
+                foreach (gymnast eGymnast in query)
+                {
+                    eGymnast.deleted = true;
+                }
+
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+            }
         }
 
         public List<gymnast> getGymnastCollection()
@@ -75,21 +117,43 @@ namespace RunApproachStatistics.Modules
             }
         }
 
-        #region Login Methods
-
-        public Boolean login(string username, string password)
-        {
-            return IsLoggedIn;
-        }
-
-        public void logout()
+        public List<gymnast> getGymnastCollection(string filter)
         {
             throw new NotImplementedException();
         }
 
-        public bool isLoggedIn()
+        #region Login Methods
+
+        public Boolean login(string username, string password)
         {
-            return IsLoggedIn;
+            Boolean correctLoginVariables = false;
+            using (var db = new DataContext())
+            {
+                var query = from qUser in db.user
+                            where qUser.username == username && qUser.password == password
+                            select qUser;
+                
+                foreach (user eUser in query)
+                {
+                    if (eUser != null)
+                    {
+                        _isLoggedIn = true;
+                        correctLoginVariables = true;
+                    }
+                }
+            }
+
+            return correctLoginVariables;
+        }
+
+        public void logout()
+        {
+            _isLoggedIn = false;
+        }
+
+        public static bool isLoggedIn()
+        {
+            return _isLoggedIn;
         }        
 
         #endregion

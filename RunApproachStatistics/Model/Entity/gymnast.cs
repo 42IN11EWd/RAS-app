@@ -17,6 +17,7 @@ namespace RunApproachStatistics.Model.Entity
         public gymnast()
         {
             this.vault = new HashSet<vault>();
+            this.user = new HashSet<user>();
         }
     
         public int gymnast_id { get; set; }
@@ -32,5 +33,6 @@ namespace RunApproachStatistics.Model.Entity
         public bool deleted { get; set; }
     
         public virtual ICollection<vault> vault { get; set; }
+        public virtual ICollection<user> user { get; set; }
     }
 }
