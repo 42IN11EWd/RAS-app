@@ -4,9 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="325" Background="White">
+             d:DesignHeight="1080" d:DesignWidth="325" Background="White">
     <Viewbox Stretch="Uniform">
-        <Grid Width="325" Height="600" >
+        <Grid Width="325" Height="1080" >
             <StackPanel>
                 <Button Visibility="{Binding VisibilityLaser, Converter={StaticResource BoolToVis}}" Content="{Binding PilotLaserTitle}" Margin="35,20,35,0" FontSize="26" VerticalAlignment="Top" Height="50" Command="{Binding SetPilotLaserCommand}"/>
                 <Button Content="Start Session" Margin="35,20,35,0" FontSize="26" VerticalAlignment="Top" Height="50" Command="{Binding StartSessionCommand}"/>
