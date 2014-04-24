@@ -42,6 +42,12 @@
         <DataTemplate DataType="{x:Type vm:RatingViewModel}">
             <v:RatingView DataContext="{Binding}" />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:LocationEditorViewModel}">
+            <v:LocationEditorView DataContext="{Binding}" />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:VaultNumberEditorViewModel}">
+            <v:VaultNumberEditorView DataContext="{Binding}" />
+        </DataTemplate>
         <!-- END Set the view models -->
         
         <!-- START UI Definitions -->
