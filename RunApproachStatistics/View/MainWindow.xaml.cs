@@ -29,7 +29,7 @@ namespace RunApproachStatistics.View
         {
             base.OnClosed(e);
 
-            Application.Current.Shutdown();
+            Environment.Exit(-1);
         }
     }
 }
