@@ -17,6 +17,8 @@ namespace RunApproachStatistics.Services
         private float measurementWindowMin;
         private int   pilotLaser;
 
+        public event EventHandler<String> PortDataReceived;
+
         #region Databinding
         
         public float MeasurementFrequency
@@ -53,8 +55,20 @@ namespace RunApproachStatistics.Services
 
         public PortController()
         {
-            readport    = new ReadPort();
+            readport    = new ReadPort(this);
             writePort   = new WritePort();
+
+            readport.PortDataReceived += readport_PortDataReceived;
+        }
+
+
+        void readport_PortDataReceived(object sender, string e)
+        {
+            EventHandler<String> handler = PortDataReceived;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
         }
         
         public void getSettings()

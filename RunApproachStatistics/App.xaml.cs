@@ -29,8 +29,6 @@ namespace RunApproachStatistics
         private VideoCameraController videoCameraController;
         private IVideoCameraSettingsModule videoCameraSettingsModule = new SettingsModule();
 
-
-
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
@@ -107,14 +105,7 @@ namespace RunApproachStatistics
             settingsWindow = new DialogWindow();
             settingsViewModel.Content = settingsViewModel;
             settingsWindow.DataContext = settingsViewModel;
-            settingsWindow.Closed += settingsWindow_Closed;
             settingsWindow.ShowDialog();
-        }
-
-        private void settingsWindow_Closed(object sender, EventArgs e)
-        {
-            HomeViewModel homeViewModel = (HomeViewModel)_currentViewModel;
-            homeViewModel.pauseVideoSource(false);
         }
 
         public void ShowVaultSelectorView()
