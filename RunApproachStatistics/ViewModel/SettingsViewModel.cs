@@ -93,27 +93,9 @@ namespace RunApproachStatistics.ViewModel
             // portController = new PortController(); 
             
             // Set videocamera settings
-            if (videoCameraController != null)
-            {
-                this.videoCameraController = videoCameraController;
-                openVideoSource(this.videoCameraController.CameraWindow);
-                Devices = videoCameraController.Devices;
-            } 
-            else
-            {
-                videoCameraController = new VideoCameraController();
-                Devices = videoCameraController.Devices;
-
-                if (devices.Length == 0)
-                {
-                    MessageBox.Show("There are no camera's connected to the computer", "Not Found",
-                        MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-                }
-                else
-                {
-                    SelectedCameraIndex = videoCameraSettingsModule.getVideocameraIndex();
-                }
-            }
+            this.videoCameraController = videoCameraController;
+            openVideoSource(this.videoCameraController.CameraWindow);
+            Devices = videoCameraController.Devices;
         }
 
         public void selectedCameraIndexChanged()

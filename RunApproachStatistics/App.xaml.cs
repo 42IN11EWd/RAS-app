@@ -1,4 +1,7 @@
 ﻿using RunApproachStatistics.Controllers;
+using RunApproachStatistics.Modules;
+using RunApproachStatistics.Modules.Interfaces;
+using RunApproachStatistics.Services;
 using RunApproachStatistics.View;
 using RunApproachStatistics.ViewModel;
 using System;
@@ -20,11 +23,20 @@ namespace RunApproachStatistics
         private MainWindow mainWindow;
         private AbstractViewModel _currentViewModel;
         private MainViewModel mainViewModel;
-        LoginDialog loginWindow;
+        private LoginDialog loginWindow;
+
+        private VideoCameraController videoCameraController;
+        private IVideoCameraSettingsModule videoCameraSettingsModule = new SettingsModule();
 
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+
+            // init VideoCameraController
+            videoCameraController = new VideoCameraController();
+            int videoCameraIndex = videoCameraSettingsModule.getVideocameraIndex();
+            videoCameraController.OpenVideoSource(videoCameraIndex);
+
 
             //Add a function to show the first screen
             ShowMainScreen();
@@ -41,7 +53,7 @@ namespace RunApproachStatistics
 
         public void ShowHomeView()
         {
-            HomeViewModel homeViewModel = new HomeViewModel(this);
+            HomeViewModel homeViewModel = new HomeViewModel(this, videoCameraController);
             _setContent(homeViewModel);
         }
 
@@ -87,19 +99,7 @@ namespace RunApproachStatistics
 
         public void ShowSettingsView()
         {
-            SettingsViewModel settingsViewModel = null;
-            // If current view is HomeView then get the VideoCameraController from HomeView 
-            // and pass it on to SettingsView
-            if (_currentViewModel.GetType() == typeof(HomeViewModel))
-            {
-                HomeViewModel homeViewModel = (HomeViewModel)_currentViewModel;
-                homeViewModel.pauseVideoSource(true);
-                settingsViewModel = new SettingsViewModel(this, homeViewModel.VideoCameraController);
-            }
-            else
-            {
-                settingsViewModel = new SettingsViewModel(this);
-            }
+            SettingsViewModel settingsViewModel = new SettingsViewModel(this, videoCameraController);
 
             DialogWindow dialogWindow = new DialogWindow();
             settingsViewModel.Content = settingsViewModel;

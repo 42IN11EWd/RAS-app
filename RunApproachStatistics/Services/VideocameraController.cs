@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Threading;
+using System.Windows;
 using VideoSource;
 
 namespace RunApproachStatistics.Services
@@ -58,7 +59,10 @@ namespace RunApproachStatistics.Services
             filters = new FilterCollection(FilterCategory.VideoInputDevice);
 
             if (filters.Count == 0)
-                throw new ApplicationException();
+            {
+                MessageBox.Show("No camera's found", "Not Found", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
 
             devices     = new String[filters.Count];
             int count   = 0;
