@@ -47,11 +47,7 @@
             <Label  Content="{Binding SelectionTimespan}" FontSize="24" Grid.Column="1" Height="42" HorizontalAlignment="Left" Margin="250,829,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250"/>
             <TextBox Text="{Binding SelectionVaultNumber}" FontSize="24" Grid.Column="1" Height="42" HorizontalAlignment="Left" Margin="250,876,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250" TextWrapping="Wrap" />
             <TextBox Text="{Binding SelectionLocation}" FontSize="24" Grid.Column="1" Height="42" HorizontalAlignment="Left" Margin="250,923,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250" TextWrapping="Wrap"/>
-            <ComboBox FontSize="24" Grid.Column="1" Height="42" HorizontalAlignment="Left" Margin="800,735,0,0" SelectedItem="{Binding VaultKindSelected}" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250">
-                <!-- ItemsSource="{Binding List}" -->
-                <ComboBoxItem Content="Practice Vault"/>
-                <ComboBoxItem Content="Competitive Vault" IsSelected="True"/>
-            </ComboBox>
+            <ComboBox FontSize="24" Grid.Column="1" Height="42" HorizontalAlignment="Left" Margin="800,735,0,0" ItemsSource="{Binding VaultKindList}" SelectedItem="{Binding VaultKindSelected}" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250"/>
             <ContentControl x:Name="RatingContainer"
 			    Content="{Binding RatingControl}" Margin="800,782,545,256" Grid.Column="1" />
             <TextBox Text="{Binding SelectionDScore}" FontSize="24" Grid.Column="1" Height="42" HorizontalAlignment="Left" Margin="800,829,0,0" TextWrapping="Wrap" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250"/>
@@ -76,14 +72,10 @@
                         <ComboBoxItem Content="Official Rating"/>
                         <ComboBoxItem Content="Date &amp; Time"/>
                     </ComboBox>
-                    <ListBox FontSize="22" HorizontalAlignment="Left" Height="643" Margin="10,52,0,0" SelectedItem="{Binding SelectedFilterItem}" VerticalAlignment="Top" Width="368">
-                        <!-- ItemsSource="{Binding FilterItems}" -->
-                        <ListBoxItem Content="Patrick van Luijk"/>
-                        <ListBoxItem Content="Petertje van Lagenband"/>
-                    </ListBox>
+                    <ListBox FontSize="22" HorizontalAlignment="Left" Height="643" Margin="10,52,0,0" ItemsSource="{Binding FilterItems}" SelectedItem="{Binding SelectedFilterItem}" VerticalAlignment="Top" Width="368"/>
                     <ListBox FontSize="22" HorizontalAlignment="Left" Height="300" ItemsSource="{Binding FilterList}" Margin="10,705,0,0" VerticalAlignment="Top" Width="368" />
                     <Button Command="{Binding DynamicToVaultCommand}"   Content="{Binding DynamicToVaultText}"  FontSize="24" Height="50" HorizontalAlignment="Left"    Margin="10,0,0,10" VerticalAlignment="Bottom" Width="175"/>
-                    <Button Command="{Binding RemoveAllFilters}"        Content="Remove Filters"                FontSize="24" Height="50" HorizontalAlignment="Right"   Margin="0,0,10,10" VerticalAlignment="Bottom" Width="175"/>
+                    <Button Command="{Binding RemoveAllFiltersCommand}"        Content="Remove Filters"                FontSize="24" Height="50" HorizontalAlignment="Right"   Margin="0,0,10,10" VerticalAlignment="Bottom" Width="175"/>
                 </Grid>
             </Border>
             <!-- End filter -->
