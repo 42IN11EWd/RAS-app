@@ -18,6 +18,8 @@ namespace RunApproachStatistics.ViewModel
         private bool star5Checked;
         private bool[] starArray = new bool[6];
 
+        private string vaultKind;
+        public string[] vaultKindArray;
         private string location;
         private string gymnast;
         private string vaultNumber;
@@ -83,6 +85,31 @@ namespace RunApproachStatistics.ViewModel
             {
                 measurementButtonContent = value;
                 OnPropertyChanged("MeasurementButtonContent");
+            }
+        }
+        public string SelectedVaultKind
+        {
+            get
+            {
+                if (vaultKind == null) return "";
+                return vaultKind;
+            }
+            set
+            {
+                vaultKind = value;
+                OnPropertyChanged("VaultKind");
+            }
+
+        }
+
+        
+        public string[] VaultKind
+        {
+            get { return vaultKindArray; }
+            set
+            {
+                vaultKindArray = value;
+                OnPropertyChanged("VaultKind");
             }
         }
 
@@ -247,6 +274,10 @@ namespace RunApproachStatistics.ViewModel
         {
             _app = app;
             Measuring = false;
+            vaultKindArray = new string[3];
+            vaultKindArray[0] = "practice";
+            vaultKindArray[1] = "nk";
+            vaultKindArray[2] = "ek";
         }
 
         #region RelayCommands

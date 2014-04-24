@@ -38,10 +38,8 @@
             <Grid Height="635" Width="1130" Name="cameraGrid" Margin="336,31,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Background="Black" Grid.Column="1">
                 <ContentControl x:Name="cameraView" Content="{Binding Path=CameraView}"/>
             </Grid>
-            <ComboBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,29,800" >
-                <ComboBoxItem Content="Practice" IsSelected="True"/>
-                <ComboBoxItem Content="NK"/>
-            </ComboBox>
+            <ComboBox SelectedValue="{Binding SelectedVaultKind, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Path=VaultKind, UpdateSourceTrigger=PropertyChanged}" FontSize="24" Width="218" Height="45" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,29,800" />
+
             <CheckBox IsChecked="{Binding ManualModeChecked}" Margin="0,0,29,195" FontSize="14" Content="Manual mode"   Height="23" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="198">
                 <CheckBox.LayoutTransform>
                     <ScaleTransform ScaleX="2" ScaleY="2" />
@@ -65,6 +63,7 @@
             <TextBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right"  Margin="0,0,29,605" TextWrapping="Wrap" Text="{Binding VaultNumber}" VerticalAlignment="Bottom"/>
             <TextBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right"  Margin="0,0,29,670" TextWrapping="Wrap" Text="{Binding Gymnast}" VerticalAlignment="Bottom"/>
             <TextBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right"  Margin="0,0,29,735" TextWrapping="Wrap" Text="{Binding Location}" VerticalAlignment="Bottom" />
+            <Grid Name="Graphgrid" HorizontalAlignment="Left" Height="384" Margin="336,671,0,0" VerticalAlignment="Top" Width="1130"/>
 
         </Grid>
     </Viewbox>
