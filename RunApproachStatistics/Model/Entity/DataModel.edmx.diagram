@@ -5,13 +5,15 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="216605d79fb2455d9701668ea17defd3" Name="Diagram1">
-        <EntityTypeShape EntityType="in11ewd_dbModel.gymnast" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="in11ewd_dbModel.location" Width="1.5" PointX="0.75" PointY="5.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="in11ewd_dbModel.vaultnumber" Width="1.5" PointX="6.125" PointY="2.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="in11ewd_dbModel.vault" Width="1.5" PointX="3.5" PointY="1.375" />
+        <EntityTypeShape EntityType="in11ewd_dbModel.gymnast" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="in11ewd_dbModel.location" Width="1.5" PointX="6.25" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="in11ewd_dbModel.vaultnumber" Width="1.5" PointX="6.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="in11ewd_dbModel.vault" Width="1.5" PointX="3.5" PointY="1" />
         <AssociationConnector Association="in11ewd_dbModel.fk_Sprong_Sporter" />
         <AssociationConnector Association="in11ewd_dbModel.fk_Sprong_Locatie1" />
         <AssociationConnector Association="in11ewd_dbModel.fk_Sprong_sprongtype1" />
+        <EntityTypeShape EntityType="in11ewd_dbModel.user" Width="1.5" PointX="0.75" PointY="5.375" />
+        <AssociationConnector Association="in11ewd_dbModel.fk_User_Sporter1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

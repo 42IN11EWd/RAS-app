@@ -38,16 +38,16 @@ namespace RunApproachStatistics.ViewModel
         {
             if (!ToggleLaser) 
             {
-                ToggleLaser = !ToggleLaser;
                 PilotLaserTitle = "Set Pilot Laser Off";
             } 
             else 
             {
-                ToggleLaser = !ToggleLaser;
                 PilotLaserTitle = "Set Pilot Laser On";
             }
-            
+            ToggleLaser = !ToggleLaser;
+
             OnPropertyChanged("PilotLaserTitle");
+            _app.ShowCompareVaultsView();
         }
         public void StartSession(object commandParam)
         {
@@ -56,6 +56,7 @@ namespace RunApproachStatistics.ViewModel
         public void LoadGymnastProfiles(object commandParam)
         {
             _app.ShowProfileView();
+            
         }
         public void LoadSelectVault(object commandParam)
         {
@@ -63,7 +64,8 @@ namespace RunApproachStatistics.ViewModel
         }
         public void LoadSettings(object commandParam)
         {
-            _app.ShowSettingsView();
+           // _app.ShowSettingsView();
+            _app.ShowLoginView();
         }
         public void LoadHomeScreen(object commandParam)
         {

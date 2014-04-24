@@ -3,17 +3,73 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
-             d:DesignWidth="1920" d:DesignHeight="1080" Background="Green">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition x:Name="MenuColumn" Width="325"/>
-            <ColumnDefinition x:Name="ContentColumn" Width="437*" MinWidth="500"/>
-        </Grid.ColumnDefinitions>
+             mc:Ignorable="d" d:DesignWidth="1920" d:DesignHeight="1080" Background="White">
+    <Viewbox Stretch="Uniform">
+        <Grid Height="1080" Width="1920">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="MenuColumn" Width="325"/>
+                <ColumnDefinition x:Name="ContentColumn" Width="*" MinWidth="500"/>
+            </Grid.ColumnDefinitions>
 
-        <!-- START Column 0 -->
-        <ContentControl x:Name="menuContainer"
+            <!-- START Column 0 -->
+            <ContentControl x:Name="menuContainer"
 			    Content="{Binding Menu}" Margin="0,0,0,0" />
-        <!-- END Column 0 -->
-    </Grid>
+            <!-- END Column 0 -->
+
+            <!-- START Column 1 -->
+            <!-- Start profile -->
+            <Image Grid.Column="1" HorizontalAlignment="Left" Height="380" Source="{Binding Picture}" Margin="620,240,0,0" VerticalAlignment="Top" Visibility="{Binding PictureAvailable}" Width="280"/>
+            <Button Background="Transparent" Command="{Binding PictureCommand}" Content="{Binding PictureText}" FontSize="32" Grid.Column="1" Height="380" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="620,240,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="280" />
+
+            <TextBlock FontSize="64" Grid.Column="1" HorizontalAlignment="Left" Margin="70,100,0,0" Text="{Binding Fullname}" VerticalAlignment="Top" />
+            <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="70,270,0,0" Text="Name:" VerticalAlignment="Top" />
+            <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="70,310,0,0" Text="Surname Prefix:" VerticalAlignment="Top" />
+            <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="70,350,0,0" Text="Surname:" VerticalAlignment="Top" />
+            <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="70,390,0,0" Text="FIG Number:" VerticalAlignment="Top" />
+
+            <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="70,450,0,0" Text="Date Of Birth:" VerticalAlignment="Top" />
+            <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="70,490,0,0" Text="Nationalitiy:" VerticalAlignment="Top" />
+            <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="70,530,0,0" Text="Gender:" VerticalAlignment="Top" />
+
+            <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="70,630,0,0" Text="Length:" VerticalAlignment="Top" />
+            <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="70,670,0,0" Text="Weight:" VerticalAlignment="Top" />
+
+            <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="70,745,0,0" Text="Memo:" VerticalAlignment="Top" />
+
+            <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,270,0,0" Text="{Binding Name}" VerticalAlignment="Top" />
+            <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,310,0,0" Text="{Binding Prefix}" VerticalAlignment="Top" />
+            <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,350,0,0" Text="{Binding Surname}" VerticalAlignment="Top" />
+            <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,390,0,0" Text="{Binding FIGNumber}" VerticalAlignment="Top" />
+
+            <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,450,0,0" Text="{Binding DateOfBirth}" VerticalAlignment="Top" />
+            <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,490,0,0" Text="{Binding Nationality}" VerticalAlignment="Top" />
+            <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,530,0,0" Text="{Binding Gender}" VerticalAlignment="Top" />
+
+            <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,630,0,0" Text="{Binding Length}" VerticalAlignment="Top" />
+            <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,670,0,0" Text="{Binding Weight}" VerticalAlignment="Top" />
+
+            <TextBox FontSize="24" Grid.Column="1" Height="200" HorizontalAlignment="Left" Margin="70,780,0,0" Text="{Binding Memos}" TextWrapping="Wrap" VerticalAlignment="Top" Width="420" />
+            <!-- End profile -->
+
+            <!-- Start edit buttons -->
+            <Button Command="{Binding SaveChangesCommand}"      Content="Save"              FontSize="24" Grid.Column="1" Height="50" HorizontalAlignment="Left" Margin="550,0,0,10" VerticalAlignment="Bottom" Width="175"/>
+            <Button Command="{Binding CancelChangesCommand}"    Content="Cancel"            FontSize="24" Grid.Column="1" Height="50" HorizontalAlignment="Left" Margin="775,0,0,10" VerticalAlignment="Bottom" Width="175"/>
+            <Button Command="{Binding DeleteGymnastCommand}"    Content="Delete Gymnast"    FontSize="24" Grid.Column="1" Height="50" HorizontalAlignment="Left" Margin="1000,0,0,10" VerticalAlignment="Bottom" Width="175"/>
+            <!-- End edit buttons -->
+
+            <!-- Start filter -->
+            <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Right" Height="1080" VerticalAlignment="Center" Width="390" Grid.Column="1">
+                <Grid>
+                    <Button Command="{Binding EditGymnastCommand}" Content="Edit Gymnast" FontSize="24" Height="40" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="175"/>
+                    <Button Command="{Binding NewGymnastCommand}" Content="New Gymnast" FontSize="24" Height="40" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" Width="175"/>
+                    <TextBox FontSize="24" Height="38" HorizontalAlignment="Left" Margin="10,55,0,0" TextWrapping="Wrap" Text="{Binding FilterField}" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="368"/>
+                    <ListBox FontSize="22" HorizontalAlignment="Left" Height="915" ItemsSource="{Binding FilterList}" Margin="10,100,0,0" SelectedItem="{Binding SelectedFilterItem}" VerticalAlignment="Top" Width="368" />
+                    <Button Command="{Binding ToMainscreenCommand}" Content="To mainscreen" FontSize="24" Height="50" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="175"/>
+                    <Button Command="{Binding SeeVaultsCommand}" Content="See vaults" FontSize="24" Height="50" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="175"/>
+                </Grid>
+            </Border>
+            <!-- End filter -->
+            <!-- END Column 1 -->
+        </Grid>
+    </Viewbox>
 </UserControl>

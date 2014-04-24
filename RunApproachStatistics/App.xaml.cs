@@ -20,6 +20,7 @@ namespace RunApproachStatistics
         private MainWindow mainWindow;
         private AbstractViewModel _currentViewModel;
         private MainViewModel mainViewModel;
+        LoginDialog loginWindow;
 
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -58,11 +59,12 @@ namespace RunApproachStatistics
 
         public void ShowLoginView()
         {
-            LoginDialog dialogWindow = new LoginDialog();
+            loginWindow = new LoginDialog();
             LoginViewModel loginViewModel = new LoginViewModel(this);
             loginViewModel.Content = loginViewModel;
-            dialogWindow.DataContext = loginViewModel;
-            dialogWindow.ShowDialog();
+            loginWindow.DataContext = loginViewModel;
+            loginViewModel.PasswordBox = loginWindow.PasswordBox;
+            loginWindow.ShowDialog();
         }
 
         public void ShowMeasurementView()
@@ -118,6 +120,13 @@ namespace RunApproachStatistics
             _setContent(vaultSelectorViewModel);
         }
 
+        public void CloseLoginWindow()
+        {
+            if(loginWindow != null)
+            {
+                loginWindow.Close();
+            }
+        }
         private void _setContent(AbstractViewModel viewModel)
         {
             if (_currentViewModel != viewModel)
