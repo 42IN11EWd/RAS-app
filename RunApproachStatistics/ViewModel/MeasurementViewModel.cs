@@ -13,19 +13,19 @@ namespace RunApproachStatistics.ViewModel
         private IApplicationController _app;
         private PropertyChangedBase ratingControl;
 
-        private string vaultKind;
-        public string[] vaultKindArray;
-        private string location;
-        private string gymnast;
-        private string vaultNumber;
-        private string dscore;
-        private string escore;
-        private string penalty;
-        private string totalscore;
-
-        private bool manualModeChecked;
-        private bool measuring;
-        private string measurementButtonContent;
+        private String vaultKind;
+        public String[] vaultKindArray;
+        private String location;
+        private String gymnast;
+        private String vaultNumber;
+        private String dscore;
+        private String escore;
+        private String penalty;
+        private String totalscore;
+        
+        private Boolean manualModeChecked;
+        private Boolean measuring;
+        private String measurementButtonContent;
 
         #region Modules
 
@@ -48,7 +48,7 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        public bool Measuring
+        public Boolean Measuring
         {
             get { return measuring; }
             set
@@ -71,7 +71,7 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        public bool ManualModeChecked
+        public Boolean ManualModeChecked
         {
             get { return manualModeChecked; }
             set
@@ -83,7 +83,7 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        public string MeasurementButtonContent
+        public String MeasurementButtonContent
         {
             get { return measurementButtonContent; }
             set
@@ -92,7 +92,7 @@ namespace RunApproachStatistics.ViewModel
                 OnPropertyChanged("MeasurementButtonContent");
             }
         }
-        public string SelectedVaultKind
+        public String SelectedVaultKind
         {
             get
             {
@@ -108,7 +108,7 @@ namespace RunApproachStatistics.ViewModel
         }
 
         
-        public string[] VaultKind
+        public String[] VaultKind
         {
             get { return vaultKindArray; }
             set
@@ -118,7 +118,7 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        public string Location
+        public String Location
         {
             get { return location; }
             set
@@ -128,7 +128,7 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        public string Gymnast
+        public String Gymnast
         {
             get { return gymnast; }
             set
@@ -138,7 +138,7 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        public string VaultNumber
+        public String VaultNumber
         {
             get { return vaultNumber; }
             set
@@ -148,7 +148,7 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        public string Dscore
+        public String Dscore
         {
             get { return dscore; }
             set
@@ -158,7 +158,7 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        public string Escore
+        public String Escore
         {
             get { return escore; }
             set
@@ -168,7 +168,7 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        public string Penalty
+        public String Penalty
         {
             get { return penalty; }
             set
@@ -178,7 +178,7 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        public string Totalscore
+        public String Totalscore
         {
             get { return totalscore; }
             set
@@ -197,12 +197,11 @@ namespace RunApproachStatistics.ViewModel
             _app = app;
             Measuring = false;
             RatingViewModel ratingVM = new RatingViewModel(_app);
-            RatingControl = ratingVM;
-            
+            RatingControl = ratingVM;            
             
 
             //put data in array for testing
-            vaultKindArray = new string[3];
+            vaultKindArray = new String[3];
             vaultKindArray[0] = "practice";
             vaultKindArray[1] = "nk";
             vaultKindArray[2] = "ek";
