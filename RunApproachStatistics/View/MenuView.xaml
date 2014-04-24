@@ -8,7 +8,8 @@
     <Viewbox Stretch="Uniform">
         <Grid Width="325" Height="1080" >
             <StackPanel>
-                <Button Visibility="{Binding VisibilityLaser, Converter={StaticResource BoolToVis}}" Content="{Binding PilotLaserTitle}" Margin="35,80,35,0" FontSize="26"  Height="50" Command="{Binding SetPilotLaserCommand}"/>
+                <Label Height="50"/>
+                <Button Visibility="{Binding VisibilityLaser, Converter={StaticResource BoolToVis}}" Content="{Binding PilotLaserTitle}" Margin="35,30,35,0" FontSize="26"  Height="50" Command="{Binding SetPilotLaserCommand}"/>
                 <Button Content="Start Session" Margin="35,30,35,0" FontSize="26" Height="50" Command="{Binding StartSessionCommand}"/>
                 <Button Content="Select Vault" Margin="35,30,35,0" FontSize="26" Height="50" Command="{Binding SelectVaultCommand}"/>
                 <Button Content="Gymnast Profiles" Margin="35,30,35,0" FontSize="26"  Height="50" Command="{Binding GymnastProfilesCommand}"/>

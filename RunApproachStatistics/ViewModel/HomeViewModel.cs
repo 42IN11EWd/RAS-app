@@ -96,7 +96,7 @@ namespace RunApproachStatistics.ViewModel
         }
         #endregion
 
-        public HomeViewModel(IApplicationController app) : base()
+        public HomeViewModel(IApplicationController app, VideoCameraController videoCameraController) : base()
         {
             _app = app;
 
@@ -107,8 +107,7 @@ namespace RunApproachStatistics.ViewModel
 
             // Set VideoCamera
             CameraView = new CameraViewModel(_app);
-            videoCameraController = new VideoCameraController();
-            videoCameraSettingsModule = new SettingsModule();
+            this.videoCameraController = videoCameraController;
             openVideoSource();
 
             // Set ReplayVideo
@@ -118,8 +117,7 @@ namespace RunApproachStatistics.ViewModel
 
         private void openVideoSource()
         {
-            int cameraIndex = videoCameraSettingsModule.getVideocameraIndex();
-            cameraWindow = videoCameraController.OpenVideoSource(cameraIndex);
+            cameraWindow = videoCameraController.CameraWindow;
 
             if (cameraWindow != null)
             {

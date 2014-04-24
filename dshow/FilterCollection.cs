@@ -38,7 +38,7 @@ namespace dshow
 				// Create an enumerator to find filters of specified category
 				hr = enumDev.CreateClassEnumerator(ref category, out enumMon, 0);
                 if (hr != 0)
-                    throw new ApplicationException("No devices of the category");
+                    return;
 
 				// Collect all filters
 				int n;

@@ -23,12 +23,13 @@ namespace RunApproachStatistics.ViewModel
         private bool star5Checked;
         private bool[] starArray = new bool[6];
 
+        private string vaultKind;
+        public string[] vaultKindArray;
         private string gymnast;
         private string datetime;
         private string timespan;
         private string vaultNumber;
         private string location;
-        private string vaultKind;
         private string dscore;
         private string escore;
         private string penalty;
@@ -55,6 +56,32 @@ namespace RunApproachStatistics.ViewModel
             {
                 menu = value;
                 OnPropertyChanged("Menu");
+            }
+        }
+
+        public string SelectedVaultKind
+        {
+            get
+            {
+                if (vaultKind == null) return "";
+                return vaultKind;
+            }
+            set
+            {
+                vaultKind = value;
+                OnPropertyChanged("VaultKind");
+            }
+
+        }
+
+
+        public string[] VaultKind
+        {
+            get { return vaultKindArray; }
+            set
+            {
+                vaultKindArray = value;
+                OnPropertyChanged("VaultKind");
             }
         }
 
@@ -104,16 +131,6 @@ namespace RunApproachStatistics.ViewModel
             {
                 location = value;
                 OnPropertyChanged("Location");
-            }
-        }
-
-        public string VaultKind
-        {
-            get { return vaultKind; }
-            set
-            {
-                vaultKind = value;
-                OnPropertyChanged("VaultKind");
             }
         }
 
