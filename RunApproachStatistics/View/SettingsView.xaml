@@ -70,7 +70,8 @@
                 </MultiBinding>
             </Button.CommandParameter>
         </Button>
-        <Button Content="Cancel" HorizontalAlignment="Right" Margin="0,387,10,10" Width="115"/>
+        <Button Command="{Binding CancelCommand}" Content="Cancel" HorizontalAlignment="Right" Margin="0,387,10,10" Width="115"/>
+        <Button Command="{Binding Command}" Content="Button" HorizontalAlignment="Left" Margin="10,387,0,0" VerticalAlignment="Top" Width="115" Height="24"/>
         <!-- End Window Buttons-->
     </Grid>
 </UserControl>

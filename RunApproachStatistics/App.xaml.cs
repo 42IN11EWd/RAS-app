@@ -24,9 +24,12 @@ namespace RunApproachStatistics
         private AbstractViewModel _currentViewModel;
         private MainViewModel mainViewModel;
         private LoginDialog loginWindow;
+        private DialogWindow settingsWindow;
 
         private VideoCameraController videoCameraController;
         private IVideoCameraSettingsModule videoCameraSettingsModule = new SettingsModule();
+
+
 
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -101,11 +104,11 @@ namespace RunApproachStatistics
         {
             SettingsViewModel settingsViewModel = new SettingsViewModel(this, videoCameraController);
 
-            DialogWindow dialogWindow = new DialogWindow();
+            settingsWindow = new DialogWindow();
             settingsViewModel.Content = settingsViewModel;
-            dialogWindow.DataContext = settingsViewModel;
-            dialogWindow.Closed += settingsWindow_Closed;
-            dialogWindow.ShowDialog();
+            settingsWindow.DataContext = settingsViewModel;
+            settingsWindow.Closed += settingsWindow_Closed;
+            settingsWindow.ShowDialog();
         }
 
         private void settingsWindow_Closed(object sender, EventArgs e)
@@ -125,6 +128,15 @@ namespace RunApproachStatistics
             if(loginWindow != null)
             {
                 loginWindow.Close();
+                loginWindow = null;
+            }
+        }
+        public void CloseSettingsWindow()
+        {
+            if(settingsWindow != null)
+            {
+                settingsWindow.Close();
+                settingsWindow = null;
             }
         }
         private void _setContent(AbstractViewModel viewModel)

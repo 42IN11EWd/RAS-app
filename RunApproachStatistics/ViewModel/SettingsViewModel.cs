@@ -80,6 +80,7 @@ namespace RunApproachStatistics.ViewModel
         }
 
         public RelayCommand SaveSettingsCommand { get; private set; }
+        public RelayCommand CancelCommand { get; private set; }
         public RelayCommand CalibrateMinimumDistance { get; private set; }
         public RelayCommand CalibrateMaximumDistance { get; private set; }
 
@@ -124,7 +125,7 @@ namespace RunApproachStatistics.ViewModel
         private void saveSettings(object commandParam)
         {
             Object[] commandParams = (Object[]) commandParam;
-
+            _app.ShowLoginView();
 
             if (commandParams[6] != null)
             {
@@ -134,6 +135,10 @@ namespace RunApproachStatistics.ViewModel
                 int cameraIndex = (int)commandParams[6];
                 videoCameraSettingsModule.saveVideocameraIndex(cameraIndex);
             }
+        }
+        private void CancelAction(object commandParam)
+        {
+            _app.CloseSettingsWindow();
         }
 
         private void calibrateMinimumDistance(object commandParam)
@@ -151,6 +156,7 @@ namespace RunApproachStatistics.ViewModel
         protected override void initRelayCommands()
         {
             SaveSettingsCommand         = new RelayCommand(saveSettings);
+            CancelCommand               = new RelayCommand(CancelAction);
             CalibrateMinimumDistance    = new RelayCommand(calibrateMinimumDistance);
             CalibrateMaximumDistance    = new RelayCommand(calibrateMaximumDistance);
         }

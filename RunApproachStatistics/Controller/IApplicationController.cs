@@ -32,5 +32,7 @@ namespace RunApproachStatistics.Controllers
         void ShowVaultSelectorView();
 
         void CloseLoginWindow();
+
+        void CloseSettingsWindow();
     }
 }
