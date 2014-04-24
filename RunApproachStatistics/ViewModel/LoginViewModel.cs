@@ -90,7 +90,7 @@ namespace RunApproachStatistics.ViewModel
             {
                 if (!usermodule.login(username, Password))
                 {
-                    ErrorMessage = "Logincredentials are wrong";
+                    ErrorMessage = "Invalid credentials";
                 }
                 else
                 {

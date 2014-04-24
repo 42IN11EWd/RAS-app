@@ -52,7 +52,8 @@
                 <ComboBoxItem Content="Practice Vault"/>
                 <ComboBoxItem Content="Competitive Vault" IsSelected="True"/>
             </ComboBox>
-            <TextBox FontSize="24" Grid.Column="1" Height="42" HorizontalAlignment="Left" Margin="800,782,0,0" Text="Rating Stars" TextWrapping="Wrap" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250"/>
+            <ContentControl x:Name="RatingContainer"
+			    Content="{Binding RatingControl}" Margin="800,782,545,256" Grid.Column="1" />
             <TextBox Text="{Binding SelectionDScore}" FontSize="24" Grid.Column="1" Height="42" HorizontalAlignment="Left" Margin="800,829,0,0" TextWrapping="Wrap" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250"/>
             <TextBox Text="{Binding SelectionEScore}" FontSize="24" Grid.Column="1" Height="42" HorizontalAlignment="Left" Margin="800,876,0,0" TextWrapping="Wrap" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250"/>
             <TextBox Text="{Binding SelectionPenalty}" FontSize="24" Grid.Column="1" Height="42" HorizontalAlignment="Left" Margin="800,923,0,0" TextWrapping="Wrap" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250"/>

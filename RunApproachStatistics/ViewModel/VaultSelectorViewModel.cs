@@ -14,6 +14,7 @@ namespace RunApproachStatistics.ViewModel
     {
         private IApplicationController _app;
         private PropertyChangedBase menu;
+        private PropertyChangedBase ratingControl;
 
         #region Modules
 
@@ -33,6 +34,16 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
+        public PropertyChangedBase RatingControl
+        {
+            get { return ratingControl; }
+            set
+            {
+                ratingControl = value;
+                OnPropertyChanged("RatingControl");
+            }
+        }
+
         #endregion
 
         public VaultSelectorViewModel(IApplicationController app) : base()
@@ -43,6 +54,9 @@ namespace RunApproachStatistics.ViewModel
             MenuViewModel menuViewModel = new MenuViewModel(_app);
             menuViewModel.VisibilityLaser = false;
             Menu = menuViewModel;
+
+            RatingViewModel ratingVM = new RatingViewModel(_app);
+            RatingControl = ratingVM;
         }
 
         protected override void initRelayCommands()
