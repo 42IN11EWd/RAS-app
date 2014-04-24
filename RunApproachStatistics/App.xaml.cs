@@ -142,12 +142,28 @@ namespace RunApproachStatistics
 
         public void ShowLocationEditorView()
         {
-            throw new NotImplementedException();
+            if(settingsWindow == null)
+            {
+                settingsWindow = new DialogWindow();
+            }
+            LocationEditorViewModel locationEditorViewModel = new LocationEditorViewModel(this);
+            locationEditorViewModel.Content = locationEditorViewModel;
+            settingsWindow.DataContext = locationEditorViewModel;
+            settingsWindow.Closed += settingsWindow_Closed;
+            settingsWindow.Content = locationEditorViewModel;
         }
 
         public void ShowVaultNumberEditorView()
         {
-            throw new NotImplementedException();
+            if (settingsWindow == null)
+            {
+                settingsWindow = new DialogWindow();
+            }
+            VaultNumberEditorViewModel vaultNumberEditorViewModel = new VaultNumberEditorViewModel(this);
+            vaultNumberEditorViewModel.Content = vaultNumberEditorViewModel;
+            settingsWindow.DataContext = vaultNumberEditorViewModel;
+            settingsWindow.Closed += settingsWindow_Closed;
+            settingsWindow.Content = vaultNumberEditorViewModel;
         }
     }
 }
