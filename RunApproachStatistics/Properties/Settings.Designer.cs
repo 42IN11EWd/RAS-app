@@ -34,5 +34,17 @@ namespace RunApproachStatistics.Properties {
                 this["VideocameraIndex"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int MeasurementIndex {
+            get {
+                return ((int)(this["MeasurementIndex"]));
+            }
+            set {
+                this["MeasurementIndex"] = value;
+            }
+        }
     }
 }

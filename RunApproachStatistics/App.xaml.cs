@@ -25,6 +25,7 @@ namespace RunApproachStatistics
         private MainViewModel mainViewModel;
         private LoginDialog loginWindow;
         private DialogWindow settingsWindow;
+        private PortController portController;
 
         private VideoCameraController videoCameraController;
         private IVideoCameraSettingsModule videoCameraSettingsModule = new SettingsModule();
@@ -38,6 +39,8 @@ namespace RunApproachStatistics
             int videoCameraIndex = videoCameraSettingsModule.getVideocameraIndex();
             videoCameraController.OpenVideoSource(videoCameraIndex);
 
+            // set portcontroller
+            portController = new PortController();
 
             //Add a function to show the first screen
             ShowMainScreen();
@@ -100,7 +103,7 @@ namespace RunApproachStatistics
 
         public void ShowSettingsView()
         {
-            SettingsViewModel settingsViewModel = new SettingsViewModel(this, videoCameraController);
+            SettingsViewModel settingsViewModel = new SettingsViewModel(this, portController, videoCameraController);
 
             settingsWindow = new DialogWindow();
             settingsViewModel.Content = settingsViewModel;
@@ -149,7 +152,6 @@ namespace RunApproachStatistics
             LocationEditorViewModel locationEditorViewModel = new LocationEditorViewModel(this);
             locationEditorViewModel.Content = locationEditorViewModel;
             settingsWindow.DataContext = locationEditorViewModel;
-            settingsWindow.Closed += settingsWindow_Closed;
             settingsWindow.Content = locationEditorViewModel;
         }
 
@@ -162,7 +164,6 @@ namespace RunApproachStatistics
             VaultNumberEditorViewModel vaultNumberEditorViewModel = new VaultNumberEditorViewModel(this);
             vaultNumberEditorViewModel.Content = vaultNumberEditorViewModel;
             settingsWindow.DataContext = vaultNumberEditorViewModel;
-            settingsWindow.Closed += settingsWindow_Closed;
             settingsWindow.Content = vaultNumberEditorViewModel;
         }
     }

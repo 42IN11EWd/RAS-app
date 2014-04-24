@@ -24,6 +24,35 @@ namespace RunApproachStatistics.Services
 
         }
 
+        public float getLatestBufferDistance()
+        {
+            while (modifiyingBuffer)
+            {
+
+            }
+
+            int count = Convert.ToInt32((portController.MeasurementFrequency / portController.MeanValue) * 3);
+            string result = null;
+
+            while (result == null || count < 0)
+            {
+                result = dynamicBuffer.ElementAt(count);
+                count--;
+            }
+
+            if (result == null)
+            {
+                return -1;
+            }
+            else
+            {
+                int spaceIndex = result.IndexOf(" ");
+                result = result.Substring(0, spaceIndex);
+
+                return (float)Convert.ToDouble(result);
+            }
+        }
+
         /// <summary>
         /// DataReceived event for reading the data from the SerialPort
         /// </summary>

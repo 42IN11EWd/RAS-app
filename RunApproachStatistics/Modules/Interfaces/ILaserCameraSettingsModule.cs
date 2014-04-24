@@ -8,5 +8,7 @@ namespace RunApproachStatistics.Modules.Interfaces
 {
     interface ILaserCameraSettingsModule
     {
+        void setMeasurementIndex(int measurementIndex);
+        int getMeasurementIndex();
     }
 }

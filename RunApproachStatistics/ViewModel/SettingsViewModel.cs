@@ -31,6 +31,7 @@ namespace RunApproachStatistics.ViewModel
         private float measurementWindowMax;
         private float measurementWindowMin;
         private int   pilotLaser;
+        private int   measurementIndex;
 
         #region Modules
 
@@ -135,6 +136,16 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
+        public int MeasurementIndex
+        {
+            get { return measurementIndex; }
+            set
+            {
+                pilotLaser = value;
+                OnPropertyChanged("MeasurementIndex");
+            }
+        }
+
         public RelayCommand SaveSettingsCommand { get; private set; }
         public RelayCommand CancelCommand { get; private set; }
         public RelayCommand CalibrateMinimumDistance { get; private set; }
@@ -146,8 +157,8 @@ namespace RunApproachStatistics.ViewModel
         #endregion
 
         public SettingsViewModel(IApplicationController app, 
-            VideoCameraController videoCameraController = null, 
-            PortController portController) : base()
+            PortController portController,
+            VideoCameraController videoCameraController = null) : base()
         {
             _app = app;
 
@@ -160,6 +171,16 @@ namespace RunApproachStatistics.ViewModel
             this.videoCameraController = videoCameraController;
             openVideoSource(this.videoCameraController.CameraWindow);
             Devices = videoCameraController.Devices;
+        }
+
+        private void setSettingsProperties()
+        {
+            MeasurementFrequency = portController.MeasurementFrequency;
+            MeanValue            = portController.MeanValue;
+            MeasurementWindowMax = portController.MeasurementWindowMax;
+            MeasurementWindowMin = portController.MeasurementWindowMin;
+
+            MeasurementIndex     = laserCameraSettingsModule.getMeasurementIndex();
         }
 
         public void selectedCameraIndexChanged()
@@ -192,7 +213,18 @@ namespace RunApproachStatistics.ViewModel
 
             if (commandParams[6] != null)
             {
-                //
+                // 0: Frequency
+                // 1: Meanvalue
+                // 2: camera position
+                // 3: Measurement index
+                // 4: Measurement window min
+                // 5: Measurement window max
+                // 6: videocamera index
+                portController.writeSettings(commandParams);
+
+                // save measurement index
+                int measureIndex = (int)commandParams[3];
+                laserCameraSettingsModule.setMeasurementIndex(measureIndex);
                 
                 // Save selected videocamera
                 int cameraIndex = (int)commandParams[6];

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using RunApproachStatistics.Modules;
+using RunApproachStatistics.Modules.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RunApproachStatistics.Services
 {
-    class PortController
+    public class PortController
     {
         private ReadPort  readport;
         private WritePort writePort;
@@ -16,6 +18,9 @@ namespace RunApproachStatistics.Services
         private float measurementWindowMax;
         private float measurementWindowMin;
         private int   pilotLaser;
+        private int   measurementIndex;
+
+        private ILaserCameraSettingsModule laserCameraSettingsModule = new SettingsModule();
 
         public event EventHandler<String> PortDataReceived;
 
@@ -59,8 +64,26 @@ namespace RunApproachStatistics.Services
             writePort   = new WritePort();
 
             readport.PortDataReceived += readport_PortDataReceived;
+
+            measurementIndex = laserCameraSettingsModule.getMeasurementIndex();
         }
 
+        public void startMeasurement()
+        {
+            if (measurementIndex == 0)
+            {
+                writePort.startContinousMeasurement(true);
+            }
+            else if (measurementIndex == 1)
+            {
+                writePort.startContinousMeasurement(false);
+            }
+        }
+
+        /*public float calibrateMeasurementWindow()
+        {
+            return readPort.
+        }*/
 
         void readport_PortDataReceived(object sender, string e)
         {
@@ -74,6 +97,36 @@ namespace RunApproachStatistics.Services
         public void getSettings()
         {
             writePort.sendSettingsCommand();
+        }
+
+        public void writeSettings(Object[] settings)
+        {
+            // 0: Frequency
+            // 1: Meanvalue
+            // 2: camera position
+            // 3: Measurement index
+            // 4: Measurement window min
+            // 5: Measurement window max
+            // 6: videocamera index
+
+            float measurementFrequency = (float)settings[0];
+            if (measurementFrequency != this.measurementFrequency)
+            {
+                writePort.setMeasurementFrequency(measurementFrequency);
+            }
+
+            float meanValue = (float)settings[1];
+            if(meanValue != this.meanValue)
+            {
+                writePort.setMeanValue((float)settings[1]);
+            }
+
+            float measurementWindowMin = (float)settings[4];
+            float measurementWindowMax = (float)settings[5];
+            if(measurementWindowMin != this.measurementWindowMin || measurementWindowMax != this.measurementWindowMax)
+            {
+                writePort.setMeasurementWindow(measurementWindowMin, measurementWindowMax);
+            }
         }
     }
 }
