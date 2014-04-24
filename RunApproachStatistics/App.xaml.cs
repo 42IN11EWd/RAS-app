@@ -138,5 +138,16 @@ namespace RunApproachStatistics
                 _currentViewModel = viewModel;
             }
         }
+
+
+        public void ShowLocationEditorView()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ShowVaultNumberEditorView()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

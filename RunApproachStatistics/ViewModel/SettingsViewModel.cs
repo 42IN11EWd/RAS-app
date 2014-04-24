@@ -140,6 +140,9 @@ namespace RunApproachStatistics.ViewModel
         public RelayCommand CalibrateMinimumDistance { get; private set; }
         public RelayCommand CalibrateMaximumDistance { get; private set; }
 
+        public RelayCommand ShowLocationEditerCommand { get; private set; }
+        public RelayCommand ShowVaultNumberEditerCommand { get; private set; }
+
         #endregion
 
         public SettingsViewModel(IApplicationController app, 
@@ -208,7 +211,16 @@ namespace RunApproachStatistics.ViewModel
 
         private void calibrateMaximumDistance(object commandParam)
         {
+            
+        }
 
+        private void ShowVaultNumberEditer(object commandParam)
+        {
+            _app.ShowVaultNumberEditorView();
+        }
+        private void ShowLocationEditer(object commandParam)
+        {
+            _app.ShowLocationEditorView();
         }
 
         #endregion
@@ -219,6 +231,10 @@ namespace RunApproachStatistics.ViewModel
             CancelCommand               = new RelayCommand(CancelAction);
             CalibrateMinimumDistance    = new RelayCommand(calibrateMinimumDistance);
             CalibrateMaximumDistance    = new RelayCommand(calibrateMaximumDistance);
+
+            ShowLocationEditerCommand = new RelayCommand(ShowLocationEditer);
+            ShowVaultNumberEditerCommand = new RelayCommand(ShowVaultNumberEditer);
+
         }
     }
 }
