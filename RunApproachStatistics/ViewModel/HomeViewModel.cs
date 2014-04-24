@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Forms.Integration;
+using System.Windows.Threading;
 
 namespace RunApproachStatistics.ViewModel
 {
@@ -25,6 +26,17 @@ namespace RunApproachStatistics.ViewModel
         private VideoCameraController videoCameraController;
         private IVideoCameraSettingsModule videoCameraSettingsModule;
 
+        private DispatcherTimer timer;
+        private bool dragging = false;
+
+        private string totalTime;
+        private string currentTime;
+        private double videoPosition;
+
+        
+
+
+        
         public VideoCameraController VideoCameraController
         {
             get { return videoCameraController; }
@@ -52,6 +64,36 @@ namespace RunApproachStatistics.ViewModel
                 OnPropertyChanged("CameraView");
             }
         }
+
+        public string CurrentTime
+        {
+            get { return currentTime; }
+            set 
+            {
+                currentTime = value;
+                OnPropertyChanged("CurrentTime");
+            }
+        }
+
+        public String TotalTime
+        {
+            get { return totalTime; }
+            set
+            {
+                totalTime = value;
+                OnPropertyChanged("TotalTime");
+            }
+        }
+
+        public double VideoPosition
+        {
+            get { return videoPosition; }
+            set 
+            {
+                videoPosition = value;
+                OnPropertyChanged("VideoPosition");
+            }
+        }
         #endregion
 
         public HomeViewModel(IApplicationController app) : base()
@@ -68,6 +110,10 @@ namespace RunApproachStatistics.ViewModel
             videoCameraController = new VideoCameraController();
             videoCameraSettingsModule = new SettingsModule();
             openVideoSource();
+
+            // Set ReplayVideo
+           
+
         }
 
         private void openVideoSource()

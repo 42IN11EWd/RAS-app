@@ -22,18 +22,18 @@ namespace RunApproachStatistics.View
     public partial class HomeView : UserControl
     {
         DispatcherTimer timer;
-        bool dragging =false;
+        bool dragging = false;
         public HomeView()
         {
             InitializeComponent();
-            TimeSlider.AddHandler(MouseLeftButtonUpEvent, new MouseButtonEventHandler(timeSlider_MouseLeftButtonUp), true);
-            
+           /* TimeSlider.AddHandler(MouseLeftButtonUpEvent, new MouseButtonEventHandler(timeSlider_MouseLeftButtonUp), true);
+
             TimeSlider.AddHandler(MouseLeftButtonDownEvent, new MouseButtonEventHandler(timeSlider_MouseLeftButtonDown), true);
             IsPlaying(false);
 
-            btnPlay.IsEnabled = true;
+            btnPlay.IsEnabled = true;*/
         }
-
+        /*
         private void timeSlider_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             dragging = true;
@@ -61,7 +61,7 @@ namespace RunApproachStatistics.View
             btnMoveForward.IsEnabled = flag;
         }
 
-       
+
         void OnMouseDownPlayMedia(object sender, RoutedEventArgs args)
         {
 
@@ -78,20 +78,16 @@ namespace RunApproachStatistics.View
                 btnPlay.Content = ">";
                 VideoControl.Pause();
             }
-            
-            // Initialize the MediaElement property values.
-            //InitializePropertyValues();
-
         }
         private void Element_MediaOpened(object sender, EventArgs e)
         {
-           
-            
+
+
             if (VideoControl.NaturalDuration.HasTimeSpan)
             {
                 TimeSlider.Maximum = VideoControl.NaturalDuration.TimeSpan.TotalMilliseconds;
                 TimeSlider.SmallChange = 100;
-                TimeSlider.LargeChange = Math.Min(1000, VideoControl.NaturalDuration.TimeSpan.Milliseconds /10);
+                TimeSlider.LargeChange = Math.Min(1000, VideoControl.NaturalDuration.TimeSpan.Milliseconds / 10);
                 TotalTimetext.Text = MillisecondsToTimespan(TimeSlider.Maximum);
             }
 
@@ -103,9 +99,9 @@ namespace RunApproachStatistics.View
         // When the media playback is finished. Stop() the media to seek to media start. 
         private void Element_MediaEnded(object sender, EventArgs e)
         {
-           //VideoControl.Stop();
+            //VideoControl.Stop();
         }
-        /*// Jump to different parts of the media (seek to).  
+        /* // Jump to different parts of the media (seek to).  
         private void SeekToMediaPosition(object sender, RoutedPropertyChangedEventArgs<double> args)
         {
             int SliderValue = (int)TimeSlider.Value;
@@ -113,7 +109,7 @@ namespace RunApproachStatistics.View
             TimeSpan ts = TimeSpan.FromMilliseconds(SliderValue);
             VideoControl.Position = ts;
         }*/
-
+        /*
         private String MillisecondsToTimespan(double ms)
         {
             TimeSpan t = TimeSpan.FromMilliseconds(ms);
@@ -141,6 +137,6 @@ namespace RunApproachStatistics.View
             }
         }
 
-        
+        */
     }
 }
