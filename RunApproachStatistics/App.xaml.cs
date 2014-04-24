@@ -21,7 +21,7 @@ namespace RunApproachStatistics
     {
         // Fields
         private MainWindow mainWindow;
-        private AbstractViewModel _currentViewModel;
+        private AbstractViewModel currentViewModel;
         private MainViewModel mainViewModel;
         private LoginDialog loginWindow;
         private DialogWindow settingsWindow;
@@ -29,7 +29,7 @@ namespace RunApproachStatistics
         private VideoCameraController videoCameraController;
         private IVideoCameraSettingsModule videoCameraSettingsModule = new SettingsModule();
 
-
+        private Boolean isLocked;
 
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -113,7 +113,7 @@ namespace RunApproachStatistics
 
         private void settingsWindow_Closed(object sender, EventArgs e)
         {
-            HomeViewModel homeViewModel = (HomeViewModel)_currentViewModel;
+            HomeViewModel homeViewModel = (HomeViewModel)currentViewModel;
             homeViewModel.pauseVideoSource(false);
         }
 
@@ -123,35 +123,9 @@ namespace RunApproachStatistics
             _setContent(vaultSelectorViewModel);
         }
 
-        public void CloseLoginWindow()
-        {
-            if(loginWindow != null)
-            {
-                loginWindow.Close();
-                loginWindow = null;
-            }
-        }
-        public void CloseSettingsWindow()
-        {
-            if(settingsWindow != null)
-            {
-                settingsWindow.Close();
-                settingsWindow = null;
-            }
-        }
-        private void _setContent(AbstractViewModel viewModel)
-        {
-            if (_currentViewModel != viewModel)
-            {
-                mainViewModel.Content = viewModel;
-                _currentViewModel = viewModel;
-            }
-        }
-
-
         public void ShowLocationEditorView()
         {
-            if(settingsWindow == null)
+            if (settingsWindow == null)
             {
                 settingsWindow = new DialogWindow();
             }
@@ -173,6 +147,48 @@ namespace RunApproachStatistics
             settingsWindow.DataContext = vaultNumberEditorViewModel;
             settingsWindow.Closed += settingsWindow_Closed;
             settingsWindow.Content = vaultNumberEditorViewModel;
+        }
+
+        public void ToggleLockScreen()
+        {
+            if (!isLocked)
+            {
+                LockViewModel lockViewModel = new LockViewModel(this);
+                mainViewModel.Content = lockViewModel;
+            }
+            else
+            {
+                mainViewModel.Content = currentViewModel;
+            }
+
+            isLocked = !isLocked;
+        }
+
+        public void CloseLoginWindow()
+        {
+            if(loginWindow != null)
+            {
+                loginWindow.Close();
+                loginWindow = null;
+            }
+        }
+
+        public void CloseSettingsWindow()
+        {
+            if(settingsWindow != null)
+            {
+                settingsWindow.Close();
+                settingsWindow = null;
+            }
+        }
+
+        private void _setContent(AbstractViewModel viewModel)
+        {
+            if (currentViewModel != viewModel)
+            {
+                mainViewModel.Content = viewModel;
+                currentViewModel = viewModel;
+            }
         }
     }
 }

@@ -12,8 +12,11 @@ namespace RunApproachStatistics.ViewModel
     {
         private IApplicationController _app;
         private PropertyChangedBase content;
+        private Boolean toggleLockScreen;
 
         #region DataBinding
+
+        public RelayCommand LockScreenCommand { get; set; }
 
         public PropertyChangedBase Content
         {
@@ -35,9 +38,18 @@ namespace RunApproachStatistics.ViewModel
             MenuViewModel menuViewModel = new MenuViewModel(_app);
         }
 
+        #region RelayCommands
+
+        public void ToggleLockScreen(object commandParam)
+        {
+            _app.ToggleLockScreen();
+        }
+
+        #endregion
+
         protected override void initRelayCommands()
         {
-
+            LockScreenCommand = new RelayCommand(ToggleLockScreen);
         }
     }
 }

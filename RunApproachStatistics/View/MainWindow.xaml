@@ -7,6 +7,12 @@
             x:Class="RunApproachStatistics.View.MainWindow" MinWidth="1024" MinHeight="576"
         Title="MainView" WindowState="Maximized" d:DesignWidth="1920" d:DesignHeight="1080">
 
+    <Window.InputBindings>
+        <KeyBinding Key="L"
+                    Modifiers="Control"
+                    Command="{Binding LockScreenCommand}" />
+    </Window.InputBindings>
+    
     <Grid>
         <ContentControl x:Name="ContentContainer"
 			    Content="{Binding Content}" Margin="0,0,0,0" />

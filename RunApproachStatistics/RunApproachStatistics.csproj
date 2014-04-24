@@ -137,6 +137,7 @@
     <Compile Include="ViewModel\CompareVaultsViewModel.cs" />
     <Compile Include="ViewModel\HomeViewModel.cs" />
     <Compile Include="ViewModel\LocationEditorViewModel.cs" />
+    <Compile Include="ViewModel\LockViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MeasurementViewModel.cs" />
     <Compile Include="ViewModel\MenuViewModel.cs" />
@@ -163,6 +164,9 @@
     </Compile>
     <Compile Include="View\LocationEditorView.xaml.cs">
       <DependentUpon>LocationEditorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\LockView.xaml.cs">
+      <DependentUpon>LockView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\LoginDialog.xaml.cs">
       <DependentUpon>LoginDialog.xaml</DependentUpon>
@@ -211,6 +215,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\LocationEditorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LockView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
