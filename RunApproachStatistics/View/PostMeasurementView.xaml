@@ -17,7 +17,7 @@
 			    Content="{Binding Menu}" Margin="0,0,0,0" />
             <!-- END Column 0 -->
 
-            <Grid Height="45" Width="300" Margin="0,0,82,359" VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.Column="1">
+            <Grid Height="45" Width="300" Margin="0,0,162,375" VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.Column="1">
                 <Grid.Resources>
                     <ControlTemplate x:Key="Startemplate" TargetType="{x:Type ToggleButton}">
                         <Viewbox>
@@ -43,32 +43,32 @@
                 <ToggleButton Grid.Column="3" Tag="3" Cursor="Hand" IsChecked="{Binding Star4Checked}" Template="{StaticResource Startemplate}"/>
                 <ToggleButton Grid.Column="4" Tag="4" Cursor="Hand" IsChecked="{Binding Star5Checked}" Template="{StaticResource Startemplate}"/>
             </Grid>
-            <Label FontSize="24" Width="200" Height="45" Content="Gymnast"  HorizontalAlignment="Right" Margin="0,0,1092,424" VerticalAlignment="Bottom" Grid.Column="1"/>
-            <Label FontSize="24" Width="200" Height="45" Content="Date and Time" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,1092,359" VerticalAlignment="Bottom"/>
-            <Label FontSize="24" Width="200" Height="45" Content="Timespan" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,1092,294" VerticalAlignment="Bottom"/>
-            <Label FontSize="24" Width="200" Height="45" Content="Vault number" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,1092,229" VerticalAlignment="Bottom"/>
-            <Label FontSize="24" Width="200" Height="45" Content="Location" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,1092,164" VerticalAlignment="Bottom"/>
-            <Label FontSize="24" Width="200" Height="45" Content="Vault kind" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,422,424" VerticalAlignment="Bottom"/>
-            <Label FontSize="24" Width="200" Height="45" Content="Rating" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,422,359" VerticalAlignment="Bottom"/>
-            <Label FontSize="24" Width="200" Height="45" Content="D-score" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,422,294" VerticalAlignment="Bottom"/>
-            <Label FontSize="24" Width="200" Height="45" Content="E-score" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,422,229" VerticalAlignment="Bottom"/>
-            <Label FontSize="24" Width="200" Height="45" Content="Penalty" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,422,164" VerticalAlignment="Bottom"/>
-            <Label FontSize="24" Width="200" Height="45" Content="Total score" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,422,99" VerticalAlignment="Bottom"/>
-            <TextBox FontSize="24" Width="300" Height="45" Grid.Column="1" HorizontalAlignment="Right"  Margin="0,0,752,424" TextWrapping="Wrap" Text="{Binding Gymnast}" VerticalAlignment="Bottom" />
-            <Label FontSize="24" Width="300" Height="45" Content="{Binding DateTime}" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,752,359" VerticalAlignment="Bottom"/>
-            <Label FontSize="24" Width="300" Height="45" Content="{Binding Timespan}" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,752,294" VerticalAlignment="Bottom"/>
-            <TextBox FontSize="24" Width="300" Height="45" Grid.Column="1" HorizontalAlignment="Right"  Margin="0,0,752,229" TextWrapping="Wrap" Text="{Binding Vaultnumber}" VerticalAlignment="Bottom" />
-            <TextBox FontSize="24" Width="300" Height="45" Grid.Column="1" HorizontalAlignment="Right"  Margin="0,0,752,164" TextWrapping="Wrap" Text="{Binding Location}" VerticalAlignment="Bottom" />
-            <TextBox FontSize="24" Width="300" Height="45" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,82,424" TextWrapping="Wrap" Text="{Binding Vaultkind}" VerticalAlignment="Bottom" />
-            <TextBox FontSize="24" Width="300" Height="45" Grid.Column="1" HorizontalAlignment="Right"  Margin="0,0,82,294" TextWrapping="Wrap" Text="{Binding Dscore}" VerticalAlignment="Bottom" />
-            <TextBox FontSize="24" Width="300" Height="45" Grid.Column="1" HorizontalAlignment="Right"  Margin="0,0,82,229" TextWrapping="Wrap" Text="{Binding Escore}" VerticalAlignment="Bottom"/>
-            <TextBox FontSize="24" Width="300" Height="45" Grid.Column="1" HorizontalAlignment="Right"  Margin="0,0,82,164" TextWrapping="Wrap" Text="{Binding Penalty}" VerticalAlignment="Bottom" />
-            <TextBox FontSize="24" Width="300" Height="45" Grid.Column="1" HorizontalAlignment="Right"  Margin="0,0,82,99" TextWrapping="Wrap" Text="{Binding Totalscore}" VerticalAlignment="Bottom"/>
-            <ScrollViewer Grid.Column="1" Height="580" Margin="10,10,10,0" VerticalAlignment="Top"/>
+            <Label FontSize="24" Width="200" Height="45" Content="Gymnast"  HorizontalAlignment="Right" Margin="0,0,1217,440" VerticalAlignment="Bottom" Grid.Column="1"/>
+            <Label FontSize="24" Width="200" Height="45" Content="Date and Time" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,1217,375" VerticalAlignment="Bottom"/>
+            <Label FontSize="24" Width="200" Height="45" Content="Timespan" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,1217,310" VerticalAlignment="Bottom"/>
+            <Label FontSize="24" Width="200" Height="45" Content="Vault number" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,1217,245" VerticalAlignment="Bottom"/>
+            <Label FontSize="24" Width="200" Height="45" Content="Location" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,1217,180" VerticalAlignment="Bottom"/>
+            <Label FontSize="24" Width="200" Height="45" Content="Vault kind" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,502,440" VerticalAlignment="Bottom"/>
+            <Label FontSize="24" Width="200" Height="45" Content="Rating" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,502,375" VerticalAlignment="Bottom"/>
+            <Label FontSize="24" Width="200" Height="45" Content="D-score" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,502,310" VerticalAlignment="Bottom"/>
+            <Label FontSize="24" Width="200" Height="45" Content="E-score" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,502,245" VerticalAlignment="Bottom"/>
+            <Label FontSize="24" Width="200" Height="45" Content="Penalty" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,502,180" VerticalAlignment="Bottom"/>
+            <Label FontSize="24" Width="200" Height="45" Content="Total score" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,502,115" VerticalAlignment="Bottom"/>
+            <TextBox FontSize="24" Width="300" Height="45" Grid.Column="1" HorizontalAlignment="Right"  Margin="0,0,877,440" TextWrapping="Wrap" Text="{Binding Gymnast}" VerticalAlignment="Bottom" />
+            <Label FontSize="24" Width="300" Height="45" Content="{Binding DateTime}" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,877,375" VerticalAlignment="Bottom"/>
+            <Label FontSize="24" Width="300" Height="45" Content="{Binding Timespan}" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,877,310" VerticalAlignment="Bottom"/>
+            <TextBox FontSize="24" Width="300" Height="45" Grid.Column="1" HorizontalAlignment="Right"  Margin="0,0,877,245" TextWrapping="Wrap" Text="{Binding Vaultnumber}" VerticalAlignment="Bottom" />
+            <TextBox FontSize="24" Width="300" Height="45" Grid.Column="1" HorizontalAlignment="Right"  Margin="0,0,877,180" TextWrapping="Wrap" Text="{Binding Location}" VerticalAlignment="Bottom" />
+            <TextBox FontSize="24" Width="300" Height="45" Grid.Column="1" HorizontalAlignment="Right"  Margin="0,0,162,310" TextWrapping="Wrap" Text="{Binding Dscore}" VerticalAlignment="Bottom" />
+            <TextBox FontSize="24" Width="300" Height="45" Grid.Column="1" HorizontalAlignment="Right"  Margin="0,0,162,245" TextWrapping="Wrap" Text="{Binding Escore}" VerticalAlignment="Bottom"/>
+            <TextBox FontSize="24" Width="300" Height="45" Grid.Column="1" HorizontalAlignment="Right"  Margin="0,0,162,180" TextWrapping="Wrap" Text="{Binding Penalty}" VerticalAlignment="Bottom" />
+            <TextBox FontSize="24" Width="300" Height="45" Grid.Column="1" HorizontalAlignment="Right"  Margin="0,0,162,115" TextWrapping="Wrap" Text="{Binding Totalscore}" VerticalAlignment="Bottom"/>
+            <ScrollViewer Grid.Column="1" Height="552" Margin="10,10,10,0" VerticalAlignment="Top"/>
             <Button Content="Finish" FontSize="24" Grid.Column="1" Command="{Binding FinishCommand}" HorizontalAlignment="Right" Margin="0,0,82,27" VerticalAlignment="Bottom" Width="175" Height="50"/>
             <Button Content="Delete" FontSize="24" Grid.Column="1" Command="{Binding DeleteCommand}" HorizontalAlignment="Right" Margin="0,0,422,27" VerticalAlignment="Bottom" Width="175" Height="50"/>
             <Button Content="Cancel" FontSize="24" Grid.Column="1" Command="{Binding CancelCommand}" HorizontalAlignment="Right" Margin="0,0,653,27" VerticalAlignment="Bottom" Width="175" Height="50"/>
             <Button Content="Save" FontSize="24" Grid.Column="1" Command="{Binding SaveCommand}" HorizontalAlignment="Right" Margin="0,0,877,27" VerticalAlignment="Bottom" Width="175" Height="50"/>
+            <ComboBox SelectedValue="{Binding SelectedVaultKind, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Path=VaultKind, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" HorizontalAlignment="Left" Margin="1133,595,0,0" VerticalAlignment="Top" Width="300" Height="45"/>
 
         </Grid>
     </Viewbox>
