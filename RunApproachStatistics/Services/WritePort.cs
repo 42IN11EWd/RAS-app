@@ -17,6 +17,12 @@ namespace RunApproachStatistics.Services
             escapeCharacter = stringToByteArray("1B");
         }
 
+        public WritePort(SerialPort port)
+        {
+            this.port = port;
+            escapeCharacter = stringToByteArray("1B");
+        }
+
         /// <summary>
         /// Start a continous measurement
         /// </summary>

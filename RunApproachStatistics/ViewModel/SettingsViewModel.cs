@@ -238,12 +238,12 @@ namespace RunApproachStatistics.ViewModel
 
         private void calibrateMinimumDistance(object commandParam)
         {
-
+            MeasurementWindowMin = portController.calibrateMeasurementWindow();
         }
 
         private void calibrateMaximumDistance(object commandParam)
         {
-            
+            MeasurementWindowMax = portController.calibrateMeasurementWindow();
         }
 
         private void ShowVaultNumberEditer(object commandParam)

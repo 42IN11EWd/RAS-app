@@ -2,6 +2,7 @@
 using RunApproachStatistics.Modules.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,9 @@ namespace RunApproachStatistics.Services
 {
     public class PortController
     {
-        private ReadPort  readport;
+        private Boolean isLive = true;
+
+        private ReadPort  readPort;
         private WritePort writePort;
 
         private float measurementFrequency;
@@ -60,12 +63,26 @@ namespace RunApproachStatistics.Services
 
         public PortController()
         {
-            readport    = new ReadPort(this);
-            writePort   = new WritePort();
-
-            readport.PortDataReceived += readport_PortDataReceived;
-
             measurementIndex = laserCameraSettingsModule.getMeasurementIndex();
+
+            if (isLive)
+            {
+                SerialPort port = new SerialPort("COM5", 115200, Parity.None, 8, StopBits.One);
+                port.Open();
+                readPort = new ReadPort(this, port);
+                writePort = new WritePort(port);
+
+                getSettings();
+
+                startMeasurement();
+            }
+            else
+            {
+                readPort = new ReadPort(this);
+                writePort = new WritePort();
+            }
+
+            readPort.PortDataReceived += readport_PortDataReceived;
         }
 
         public void startMeasurement()
@@ -80,10 +97,10 @@ namespace RunApproachStatistics.Services
             }
         }
 
-        /*public float calibrateMeasurementWindow()
+        public float calibrateMeasurementWindow()
         {
-            return readPort.
-        }*/
+            return readPort.getLatestBufferDistance();
+        }
 
         void readport_PortDataReceived(object sender, string e)
         {

@@ -19,9 +19,15 @@ namespace RunApproachStatistics.Services
         private Boolean save;
         private Boolean modifiyingBuffer;
 
+        public ReadPort(PortController portController, SerialPort port)
+        {
+            this.portController = portController;
+            this.port = port;
+        }
+
         public ReadPort(PortController portController)
         {
-
+            this.portController = portController;
         }
 
         public float getLatestBufferDistance()
@@ -132,6 +138,8 @@ namespace RunApproachStatistics.Services
         /// <param name="line">Measurement data line</param>
         public void writeMeasurement(String line)
         {
+            Console.WriteLine(line);
+
             String distance,
                    speed = "-";
             try
