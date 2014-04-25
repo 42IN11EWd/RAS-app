@@ -33,7 +33,7 @@
             <!-- Measurement Screen XAML -->
             <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,227,0,0" FontSize="21.333"><Run Language="en-gb" Text="Measurement Screen:"/></TextBlock>
             <TextBlock HorizontalAlignment="Left" Margin="20,280,0,0" VerticalAlignment="Top"><Run Language="en-gb" Text="Visible laser"/></TextBlock>
-            <ComboBox x:Name="pilotlaserBox" HorizontalAlignment="Left" Margin="123,277,0,0" VerticalAlignment="Top" Width="56" SelectedIndex="{Binding Path=PilotLaser}" RenderTransformOrigin="0.125,6.409">
+            <ComboBox x:Name="pilotlaserBox" HorizontalAlignment="Left" Margin="123,277,0,0" VerticalAlignment="Top" Width="56" SelectedIndex="{Binding Path=PilotLaser, Mode=TwoWay}" RenderTransformOrigin="0.125,6.409">
                 <ComboBoxItem Content="Off"/>
                 <ComboBoxItem Content="On"/>
             </ComboBox>
@@ -46,7 +46,7 @@
             <TextBlock HorizontalAlignment="Left" Margin="20,335,0,0" Height="15" VerticalAlignment="Top"><Run Language="en-gb" Text="Maximum"/></TextBlock>
             <TextBox x:Name="measurementMaxBox" HorizontalAlignment="Left" Margin="123,332,0,0" TextWrapping="Wrap" Text="{Binding Path=MeasurementWindowMax}" Width="56" Height="23" VerticalAlignment="Top"/>
             <TextBlock HorizontalAlignment="Left" Margin="180,337,0,0" VerticalAlignment="Top"><Run Language="en-gb" Text="m"/></TextBlock>
-            <Button Content="Calibrate" Command="{Binding CalibrateMimumDistance}" HorizontalAlignment="Left" Margin="204,332,0,0" Width="80" Height="23" VerticalAlignment="Top" />
+            <Button Content="Calibrate" Command="{Binding CalibrateMaximumDistance}" HorizontalAlignment="Left" Margin="204,332,0,0" Width="80" Height="23" VerticalAlignment="Top" />
             <!-- End Measurement Screen-->
 
             <!-- Camera XAML -->

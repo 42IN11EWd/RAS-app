@@ -2,15 +2,20 @@
 using RunApproachStatistics.Modules.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO.Ports;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace RunApproachStatistics.Services
 {
     public class PortController
     {
-        private ReadPort  readport;
+        private Boolean isLive = false;
+
+        private ReadPort  readPort;
         private WritePort writePort;
 
         private float measurementFrequency;
@@ -53,19 +58,56 @@ namespace RunApproachStatistics.Services
         public int PilotLaser
         {
             get { return pilotLaser; }
-            set { pilotLaser = value; }
+            set 
+            { 
+                pilotLaser = value;
+
+                Stopwatch sw = new Stopwatch();
+                TimeSpan milliseconds = TimeSpan.FromMilliseconds(10);
+
+                //while (!readPort.lastCommandReceived.Equals("PilotLaser"))
+                //{
+                    //Thread.Sleep(10);
+                    writePort.togglePilotLaser((value == 1) ? true : false);
+                //}
+
+                if(value == 0)
+                {
+                    startMeasurement();
+                }
+            }
         }
 
         #endregion
 
         public PortController()
         {
-            readport    = new ReadPort(this);
-            writePort   = new WritePort();
-
-            readport.PortDataReceived += readport_PortDataReceived;
-
             measurementIndex = laserCameraSettingsModule.getMeasurementIndex();
+
+            if (isLive)
+            {
+                SerialPort port = new SerialPort("COM4", 115200, Parity.None, 8, StopBits.One);
+                port.Open();
+                readPort = new ReadPort(this, port);
+                writePort = new WritePort(port);
+
+                readPort.PortDataReceived += readport_PortDataReceived;
+
+                writePort.stopMeasurement();
+
+                while(!readPort.settingsReceived)
+                {
+                    // wait for settings
+                    getSettings();
+                }
+
+                startMeasurement();
+            }
+            else
+            {
+                readPort = new ReadPort(this);
+                writePort = new WritePort();
+            }
         }
 
         public void startMeasurement()
@@ -80,10 +122,10 @@ namespace RunApproachStatistics.Services
             }
         }
 
-        /*public float calibrateMeasurementWindow()
+        public float calibrateMeasurementWindow()
         {
-            return readPort.
-        }*/
+            return readPort.getLatestBufferDistance();
+        }
 
         void readport_PortDataReceived(object sender, string e)
         {
