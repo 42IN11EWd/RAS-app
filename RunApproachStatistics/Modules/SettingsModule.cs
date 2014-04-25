@@ -37,5 +37,16 @@ namespace RunApproachStatistics.Modules
         {
             return settings.VideocameraIndex;
         }
+
+        public void setMeasurementIndex(int measurementIndex)
+        {
+            settings.MeasurementIndex = measurementIndex;
+            settings.Save();
+        }
+
+        public int getMeasurementIndex()
+        {
+            return settings.MeasurementIndex;
+        }
     }
 }
