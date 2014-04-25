@@ -26,10 +26,10 @@ namespace RunApproachStatistics.ViewModel
         private int         selectedCameraIndex;
         private String[]    devices;
 
-        private float measurementFrequency;
-        private float meanValue;
-        private float measurementWindowMax;
-        private float measurementWindowMin;
+        private String measurementFrequency;
+        private String meanValue;
+        private String measurementWindowMax;
+        private String measurementWindowMin;
         private int   pilotLaser;
         private int   measurementIndex;
 
@@ -86,7 +86,7 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        public float MeasurementFrequency
+        public String MeasurementFrequency
         {
             get { return measurementFrequency; }
             set 
@@ -96,7 +96,7 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        public float MeanValue
+        public String MeanValue
         {
             get { return meanValue; }
             set 
@@ -106,7 +106,7 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        public float MeasurementWindowMax
+        public String MeasurementWindowMax
         {
             get { return measurementWindowMax; }
             set 
@@ -116,7 +116,7 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        public float MeasurementWindowMin
+        public String MeasurementWindowMin
         {
             get { return measurementWindowMin; }
             set 
@@ -132,6 +132,7 @@ namespace RunApproachStatistics.ViewModel
             set 
             { 
                 pilotLaser = value;
+                portController.PilotLaser = value;
                 OnPropertyChanged("PilotLaser");
             }
         }
@@ -171,14 +172,16 @@ namespace RunApproachStatistics.ViewModel
             this.videoCameraController = videoCameraController;
             openVideoSource(this.videoCameraController.CameraWindow);
             Devices = videoCameraController.Devices;
+
+            setSettingsProperties();
         }
 
         private void setSettingsProperties()
         {
-            MeasurementFrequency = portController.MeasurementFrequency;
-            MeanValue            = portController.MeanValue;
-            MeasurementWindowMax = portController.MeasurementWindowMax;
-            MeasurementWindowMin = portController.MeasurementWindowMin;
+            MeasurementFrequency = String.Format("{0:0000.000}", portController.MeasurementFrequency);
+            MeanValue = String.Format("{0:0000.000}", portController.MeanValue);
+            MeasurementWindowMax = String.Format("{0:0000.000}", portController.MeasurementWindowMax);
+            MeasurementWindowMin = String.Format("{0:0000.000}", portController.MeasurementWindowMin);
 
             MeasurementIndex     = laserCameraSettingsModule.getMeasurementIndex();
         }
@@ -238,12 +241,12 @@ namespace RunApproachStatistics.ViewModel
 
         private void calibrateMinimumDistance(object commandParam)
         {
-            MeasurementWindowMin = portController.calibrateMeasurementWindow();
+            MeasurementWindowMin = String.Format("{0:0000.000}", portController.calibrateMeasurementWindow());
         }
 
         private void calibrateMaximumDistance(object commandParam)
         {
-            MeasurementWindowMax = portController.calibrateMeasurementWindow();
+            MeasurementWindowMax = String.Format("{0:0000.000}", portController.calibrateMeasurementWindow());
         }
 
         private void ShowVaultNumberEditer(object commandParam)

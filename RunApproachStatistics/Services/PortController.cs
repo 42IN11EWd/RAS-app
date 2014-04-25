@@ -2,16 +2,18 @@
 using RunApproachStatistics.Modules.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace RunApproachStatistics.Services
 {
     public class PortController
     {
-        private Boolean isLive = true;
+        private Boolean isLive = false;
 
         private ReadPort  readPort;
         private WritePort writePort;
@@ -56,7 +58,24 @@ namespace RunApproachStatistics.Services
         public int PilotLaser
         {
             get { return pilotLaser; }
-            set { pilotLaser = value; }
+            set 
+            { 
+                pilotLaser = value;
+
+                Stopwatch sw = new Stopwatch();
+                TimeSpan milliseconds = TimeSpan.FromMilliseconds(10);
+
+                //while (!readPort.lastCommandReceived.Equals("PilotLaser"))
+                //{
+                    //Thread.Sleep(10);
+                    writePort.togglePilotLaser((value == 1) ? true : false);
+                //}
+
+                if(value == 0)
+                {
+                    startMeasurement();
+                }
+            }
         }
 
         #endregion
@@ -67,12 +86,20 @@ namespace RunApproachStatistics.Services
 
             if (isLive)
             {
-                SerialPort port = new SerialPort("COM5", 115200, Parity.None, 8, StopBits.One);
+                SerialPort port = new SerialPort("COM4", 115200, Parity.None, 8, StopBits.One);
                 port.Open();
                 readPort = new ReadPort(this, port);
                 writePort = new WritePort(port);
 
-                getSettings();
+                readPort.PortDataReceived += readport_PortDataReceived;
+
+                writePort.stopMeasurement();
+
+                while(!readPort.settingsReceived)
+                {
+                    // wait for settings
+                    getSettings();
+                }
 
                 startMeasurement();
             }
@@ -81,8 +108,6 @@ namespace RunApproachStatistics.Services
                 readPort = new ReadPort(this);
                 writePort = new WritePort();
             }
-
-            readPort.PortDataReceived += readport_PortDataReceived;
         }
 
         public void startMeasurement()

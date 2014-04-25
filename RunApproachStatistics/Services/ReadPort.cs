@@ -18,11 +18,18 @@ namespace RunApproachStatistics.Services
         private List<String> dynamicBuffer;
         private Boolean save;
         private Boolean modifiyingBuffer;
+        public Boolean settingsReceived = false;
+        public String lastCommandReceived = "";
 
         public ReadPort(PortController portController, SerialPort port)
         {
             this.portController = portController;
             this.port = port;
+            this.port.DataReceived += dataReceived;
+
+            writeBuffer = new List<String>();
+            dynamicBuffer = new List<String>();
+            modifiyingBuffer = false;
         }
 
         public ReadPort(PortController portController)
@@ -37,14 +44,10 @@ namespace RunApproachStatistics.Services
 
             }
 
-            int count = Convert.ToInt32((portController.MeasurementFrequency / portController.MeanValue) * 3);
+            int count = (dynamicBuffer.Count - 1);
             string result = null;
 
-            while (result == null || count < 0)
-            {
-                result = dynamicBuffer.ElementAt(count);
-                count--;
-            }
+            result = dynamicBuffer[count];
 
             if (result == null)
             {
@@ -52,10 +55,12 @@ namespace RunApproachStatistics.Services
             }
             else
             {
-                int spaceIndex = result.IndexOf(" ");
-                result = result.Substring(0, spaceIndex);
-
-                return (float)Convert.ToDouble(result);
+                String[] spaceIndex = result.Split(' ');
+                result = spaceIndex[1];
+                result = result.Replace(",", "");
+                
+                float fResult = float.Parse(result, CultureInfo.InvariantCulture);
+                return fResult;
             }
         }
 
@@ -66,15 +71,21 @@ namespace RunApproachStatistics.Services
         /// <param name="e"> - </param>
         private async void dataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            if (port.BytesToRead > 2)
+            try
             {
-                byte[] data = new byte[port.BytesToRead];
-                int bytesRead = await port.BaseStream.ReadAsync(data, 0, port.BytesToRead);
+                if (port.BytesToRead > 2)
+                {
+                    byte[] data = new byte[port.BytesToRead];
+                    int bytesRead = await port.BaseStream.ReadAsync(data, 0, port.BytesToRead);
 
-                String line = Encoding.ASCII.GetString(data);
-                line = line.Trim(new char[] { '\r', '\n', '\x1B' });
+                    String line = Encoding.ASCII.GetString(data);
+                    line = line.Trim(new char[] { '\r', '\n', '\x1B' });
 
-                checkReceivedData(line);
+                    checkReceivedData(line);
+                }
+            }catch(Exception ex)
+            {
+
             }
         }
 
@@ -92,11 +103,11 @@ namespace RunApproachStatistics.Services
                 {
                     case "D-":
                     case "D ": writeMeasurement(line); break;
-                    case "PL": portController.PilotLaser = Convert.ToInt32(line.Substring(2, 1)); break;
+                    case "PL": portController.PilotLaser = Convert.ToInt32(line.Substring(2, 1)); lastCommandReceived = "PilotLaser";  break;
                     case "DT": Console.WriteLine("Single distance measurement started"); break;
                     case "VT": Console.WriteLine("Continous distance + speed measurement started"); break;
                     case "MF": portController.MeasurementFrequency = (float)Convert.ToDouble(line.Substring(2, 4)); break;
-                    case "re": onSettingsRecieved(line); break;
+                    case "me": onSettingsRecieved(line); break;
                 }
             }
         }
@@ -130,6 +141,7 @@ namespace RunApproachStatistics.Services
                 Console.WriteLine(line);
                 Console.WriteLine("Settings werken niet!");
             }
+            settingsReceived = true;
         }
 
         /// <summary>
@@ -138,7 +150,6 @@ namespace RunApproachStatistics.Services
         /// <param name="line">Measurement data line</param>
         public void writeMeasurement(String line)
         {
-            Console.WriteLine(line);
 
             String distance,
                    speed = "-";
