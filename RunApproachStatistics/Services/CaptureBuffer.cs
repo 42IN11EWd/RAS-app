@@ -17,9 +17,9 @@ namespace RunApproachStatistics.Services
         private int dynamicBufferSize;
         private int framesCounter;
         private int dynamicBufferCounter;
-        private int fps;
-        private int width;
-        private int height;
+        public static int fps { get; set; }
+        public static int width { get; set; }
+        public static int height { get; set; }
         private VideoFileWriter writer;
         private bool modifyingBuffer;
 
@@ -37,7 +37,7 @@ namespace RunApproachStatistics.Services
 
         public void updateFPS(float fps)
         {
-            this.fps = (int)Math.Round(fps);
+            CaptureBuffer.fps = (int)Math.Round(fps);
         }
 
         public void AddCaptureBufferFrame(Bitmap bmp)
@@ -95,16 +95,16 @@ namespace RunApproachStatistics.Services
                 }
             }
 
-            this.width = width;
-            this.height = height;
+            CaptureBuffer.width = width;
+            CaptureBuffer.height = height;
 
             if (fps > 17)
             {
-                this.fps = (int)Math.Round(fps) - 2;
+                CaptureBuffer.fps = (int)Math.Round(fps) - 2;
             }
             else
             {
-                this.fps = (int)Math.Round(fps);
+                CaptureBuffer.fps = (int)Math.Round(fps);
             }
         }
 
