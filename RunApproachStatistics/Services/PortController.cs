@@ -15,8 +15,9 @@ namespace RunApproachStatistics.Services
     {
         private Boolean isLive = false;
 
-        private ReadPort  readPort;
-        private WritePort writePort;
+        public static volatile ReadPort  readPort;
+        public static volatile WritePort writePort;
+        private PortEmulator portEmulator;
 
         private float measurementFrequency;
         private float meanValue;
@@ -62,18 +63,18 @@ namespace RunApproachStatistics.Services
             { 
                 pilotLaser = value;
 
-                Stopwatch sw = new Stopwatch();
-                TimeSpan milliseconds = TimeSpan.FromMilliseconds(10);
-
-                //while (!readPort.lastCommandReceived.Equals("PilotLaser"))
-                //{
-                    //Thread.Sleep(10);
-                    writePort.togglePilotLaser((value == 1) ? true : false);
-                //}
+                if (isLive)
+                {
+                    while (!readPort.lastCommandReceived.Equals("PL"))
+                    {
+                        Thread.Sleep(10);
+                        writePort.togglePilotLaser((value == 1) ? true : false);
+                    }
+                }
 
                 if(value == 0)
                 {
-                    startMeasurement();
+                    initializeMeasurement();
                 }
             }
         }
@@ -88,8 +89,11 @@ namespace RunApproachStatistics.Services
             {
                 SerialPort port = new SerialPort("COM4", 115200, Parity.None, 8, StopBits.One);
                 port.Open();
-                readPort = new ReadPort(this, port);
-                writePort = new WritePort(port);
+
+                Thread readThread = new Thread(() => { readPort = new ReadPort(this, port); });
+                Thread writeThread = new Thread(() => { writePort = new WritePort(port); });
+                readThread.Start();
+                writeThread.Start();
 
                 readPort.PortDataReceived += readport_PortDataReceived;
 
@@ -101,25 +105,50 @@ namespace RunApproachStatistics.Services
                     getSettings();
                 }
 
-                startMeasurement();
+                initializeMeasurement();
             }
             else
             {
-                readPort = new ReadPort(this);
-                writePort = new WritePort();
+                Thread readThread = new Thread(() => { readPort = new ReadPort(this); });
+                Thread writeThread = new Thread(() => { writePort = new WritePort(); });
+                readThread.Start();
+                writeThread.Start();
+
+                readThread.Join();
+                writeThread.Join();
+                portEmulator = new PortEmulator(readPort, this);
+                
+                getSettings();
+                initializeMeasurement();
+            }
+        }
+
+        public void initializeMeasurement()
+        {
+            if (isLive)
+            {
+                if (measurementIndex == 0)
+                {
+                    writePort.startContinousMeasurement(true);
+                }
+                else if (measurementIndex == 1)
+                {
+                    writePort.startContinousMeasurement(false);
+                }
+            }
+            else
+            {
+                portEmulator.startEmulationMeasurement(true);
             }
         }
 
         public void startMeasurement()
         {
-            if (measurementIndex == 0)
+            if (!isLive)
             {
-                writePort.startContinousMeasurement(true);
+                portEmulator.startEmulationMeasurement(false);
             }
-            else if (measurementIndex == 1)
-            {
-                writePort.startContinousMeasurement(false);
-            }
+            readPort.startMeasurement(false);
         }
 
         public float calibrateMeasurementWindow()
@@ -138,7 +167,14 @@ namespace RunApproachStatistics.Services
         
         public void getSettings()
         {
-            writePort.sendSettingsCommand();
+            if(isLive)
+            {
+                writePort.sendSettingsCommand();
+            }
+            else
+            {
+                portEmulator.sendSettingsCommand();
+            }
         }
 
         public void writeSettings(Object[] settings)
@@ -151,24 +187,45 @@ namespace RunApproachStatistics.Services
             // 5: Measurement window max
             // 6: videocamera index
 
-            float measurementFrequency = (float)settings[0];
-            if (measurementFrequency != this.measurementFrequency)
+            float measurementFrequency = (float)Convert.ToDouble(settings[0]);
+            float meanValue = (float)Convert.ToDouble(settings[1]);
+            float measurementWindowMin = (float)Convert.ToDouble(settings[4]);
+            float measurementWindowMax = (float)Convert.ToDouble(settings[5]);
+
+            if (isLive)
             {
-                writePort.setMeasurementFrequency(measurementFrequency);
+                if (measurementFrequency != this.measurementFrequency)
+                {
+                    while (!readPort.lastCommandReceived.Equals("MF"))
+                    {
+                        Thread.Sleep(10);
+                        writePort.setMeasurementFrequency(measurementFrequency);
+                    }
+                }
+
+                if (meanValue != this.meanValue)
+                {
+                    while (!readPort.lastCommandReceived.Equals("SA"))
+                    {
+                        Thread.Sleep(10);
+                        writePort.setMeanValue((float)settings[1]);
+                    }
+                }
+
+                if (measurementWindowMin != this.measurementWindowMin || measurementWindowMax != this.measurementWindowMax)
+                {
+                    while (!readPort.lastCommandReceived.Equals("MW"))
+                    {
+                        Thread.Sleep(10);
+                        writePort.setMeasurementWindow(measurementWindowMin, measurementWindowMax);
+                    }
+                }
             }
 
-            float meanValue = (float)settings[1];
-            if(meanValue != this.meanValue)
-            {
-                writePort.setMeanValue((float)settings[1]);
-            }
-
-            float measurementWindowMin = (float)settings[4];
-            float measurementWindowMax = (float)settings[5];
-            if(measurementWindowMin != this.measurementWindowMin || measurementWindowMax != this.measurementWindowMax)
-            {
-                writePort.setMeasurementWindow(measurementWindowMin, measurementWindowMax);
-            }
+            MeanValue = meanValue;
+            MeasurementFrequency = measurementFrequency;
+            MeasurementWindowMax = measurementWindowMax;
+            MeasurementWindowMin = measurementWindowMin;
         }
     }
 }

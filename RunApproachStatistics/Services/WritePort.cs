@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RunApproachStatistics.Services
 {
-    class WritePort
+    public class WritePort
     {
         private SerialPort port;
         private Byte[] escapeCharacter;

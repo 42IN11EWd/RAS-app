@@ -62,18 +62,18 @@
                         <MultiBinding.Bindings>
                             <Binding ElementName="frequencyBox"      Path="Text"/>
                             <Binding ElementName="meanBox"           Path="Text" />
-                            <Binding ElementName="positionBox"       Path="SelectedItem" />
-                            <Binding ElementName="measurementBox"    Path="SelectedItem" />
+                            <Binding ElementName="positionBox"       Path="SelectedIndex" />
+                            <Binding ElementName="measurementBox"    Path="SelectedIndex" />
                             <Binding ElementName="measurementMinBox" Path="Text" />
                             <Binding ElementName="measurementMaxBox" Path="Text" />
-                            <Binding ElementName="videocameraBox"    Path="SelectedItem" />
+                            <Binding ElementName="videocameraBox"    Path="SelectedIndex" />
                         </MultiBinding.Bindings>
                     </MultiBinding>
                 </Button.CommandParameter>
             </Button>
             <Button Command="{Binding CancelCommand}" Content="Cancel" HorizontalAlignment="Right" Margin="0,387,10,10" Width="115"/>
-            <Button Command="{Binding ShowLocationEditerCommand}" Content="Location editer" HorizontalAlignment="Left" Margin="10,387,0,0" VerticalAlignment="Top" Width="115" Height="24"/>
-            <Button Command="{Binding ShowVaultNumberEditerCommand}" Content="Vault number editer" HorizontalAlignment="Left" Margin="145,387,0,0" VerticalAlignment="Top" Width="115" Height="24"/>
+            <Button Command="{Binding ShowLocationEditerCommand}" Content="Location editor" HorizontalAlignment="Left" Margin="10,387,0,0" VerticalAlignment="Top" Width="115" Height="24"/>
+            <Button Command="{Binding ShowVaultNumberEditerCommand}" Content="Vault number editor" HorizontalAlignment="Left" Margin="145,387,0,0" VerticalAlignment="Top" Width="115" Height="24"/>
             <!-- End Window Buttons-->
         </Grid>
     </Viewbox>

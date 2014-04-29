@@ -94,6 +94,7 @@ namespace RunApproachStatistics.ViewModel
                 }
                 else
                 {
+                    _app.IsLoggedIn = true;
                     _app.CloseLoginWindow();
                 }
             }

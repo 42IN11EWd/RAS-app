@@ -39,6 +39,10 @@ namespace RunApproachStatistics.Controllers
 
         void CloseLoginWindow();
 
-        void CloseSettingsWindow();
+        void CloseSettingsWindow(Boolean isClosed = false);
+
+        Boolean IsLoggedIn { get; set; }
+
+        Boolean IsLoginWindowOpen { get; set; }
     }
 }

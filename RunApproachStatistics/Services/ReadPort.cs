@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace RunApproachStatistics.Services
 {
-    class ReadPort
+    public class ReadPort
     {
         private PortController portController;
 
@@ -35,6 +35,10 @@ namespace RunApproachStatistics.Services
         public ReadPort(PortController portController)
         {
             this.portController = portController;
+
+            writeBuffer = new List<String>();
+            dynamicBuffer = new List<String>();
+            modifiyingBuffer = false;
         }
 
         public float getLatestBufferDistance()
@@ -93,7 +97,7 @@ namespace RunApproachStatistics.Services
         /// Called from DataReceived, calls the correct method for each function
         /// </summary>
         /// <param name="line">The line read from the SerialPort</param>
-        private void checkReceivedData(String line)
+        public void checkReceivedData(String line)
         {
             if (line.Length >= 2)
             {
@@ -103,10 +107,12 @@ namespace RunApproachStatistics.Services
                 {
                     case "D-":
                     case "D ": writeMeasurement(line); break;
-                    case "PL": portController.PilotLaser = Convert.ToInt32(line.Substring(2, 1)); lastCommandReceived = "PilotLaser";  break;
+                    case "PL": lastCommandReceived = "PL";  break;
                     case "DT": Console.WriteLine("Single distance measurement started"); break;
                     case "VT": Console.WriteLine("Continous distance + speed measurement started"); break;
-                    case "MF": portController.MeasurementFrequency = (float)Convert.ToDouble(line.Substring(2, 4)); break;
+                    case "MF": lastCommandReceived = "MF"; break;
+                    case "MW": lastCommandReceived = "MW"; break;
+                    case "SA": lastCommandReceived = "SA"; break;
                     case "me": onSettingsRecieved(line); break;
                 }
             }
@@ -150,7 +156,6 @@ namespace RunApproachStatistics.Services
         /// <param name="line">Measurement data line</param>
         public void writeMeasurement(String line)
         {
-
             String distance,
                    speed = "-";
             try
@@ -192,7 +197,7 @@ namespace RunApproachStatistics.Services
                 OnDataReceived(distance + " " + speed);
             }
 
-            if (!modifiyingBuffer)
+            lock (dynamicBuffer)
             {
                 dynamicBuffer.Add(distance + " " + speed + ",");
                 resetBuffer();
@@ -203,21 +208,9 @@ namespace RunApproachStatistics.Services
         {
             modifiyingBuffer = true;
 
-            List<String> tempBuffer = new List<String>();
-
             if (dynamicBuffer.Count > ((portController.MeasurementFrequency / portController.MeanValue) * 3))
             {
-                int counter = 0;
-                foreach (String s in dynamicBuffer)
-                {
-                    if (counter > 0)
-                    {
-                        tempBuffer.Add(s);
-                    }
-                    counter++;
-                }
-
-                dynamicBuffer = tempBuffer;
+                dynamicBuffer.RemoveAt(0);
             }
 
             modifiyingBuffer = false;

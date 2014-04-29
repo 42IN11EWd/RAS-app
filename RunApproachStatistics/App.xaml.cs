@@ -8,9 +8,12 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Markup;
 
 namespace RunApproachStatistics
 {
@@ -25,12 +28,26 @@ namespace RunApproachStatistics
         private MainViewModel mainViewModel;
         private LoginDialog loginWindow;
         private DialogWindow settingsWindow;
-        private PortController portController;
+        public static volatile PortController portController;
 
         private VideoCameraController videoCameraController;
         private IVideoCameraSettingsModule videoCameraSettingsModule = new SettingsModule();
 
         private Boolean isLocked;
+        private Boolean isLoggedIn;
+        private Boolean isLoginWindowOpen;
+
+        public Boolean IsLoggedIn
+        {
+            get { return isLoggedIn; }
+            set { isLoggedIn = value; }
+        }
+
+        public Boolean IsLoginWindowOpen
+        {
+            get { return isLoginWindowOpen; }
+            set { isLoginWindowOpen = value; }
+        }
 
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -42,11 +59,19 @@ namespace RunApproachStatistics
             videoCameraController.OpenVideoSource(videoCameraIndex);
 
             // set portcontroller
-            portController = new PortController();
+            Thread portThread = new Thread(() => { portController = new PortController(); });
+            portThread.Start();
+            portThread.Join();
 
             //Add a function to show the first screen
             ShowMainScreen();
             ShowHomeView();
+
+            isLoggedIn = false;
+            isLoginWindowOpen = false;
+
+            Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture("en-US");
+            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("en-US");
         }
 
         public void ShowMainScreen()
@@ -77,6 +102,8 @@ namespace RunApproachStatistics
 
         public void ShowLoginView()
         {
+            isLoginWindowOpen = true;
+
             loginWindow = new LoginDialog();
             LoginViewModel loginViewModel = new LoginViewModel(this);
             loginViewModel.Content = loginViewModel;
@@ -110,13 +137,13 @@ namespace RunApproachStatistics
             settingsWindow = new DialogWindow();
             settingsViewModel.Content = settingsViewModel;
             settingsWindow.DataContext = settingsViewModel;
+            settingsWindow.Closed += settingsWindow_Closed;
             settingsWindow.ShowDialog();
         }
 
         private void settingsWindow_Closed(object sender, EventArgs e)
         {
-            HomeViewModel homeViewModel = (HomeViewModel)currentViewModel;
-            homeViewModel.pauseVideoSource(false);
+            CloseSettingsWindow(true);
         }
 
         public void ShowVaultSelectorView()
@@ -168,17 +195,27 @@ namespace RunApproachStatistics
         {
             if(loginWindow != null)
             {
+                isLoginWindowOpen = false;
                 loginWindow.Close();
                 loginWindow = null;
             }
         }
 
-        public void CloseSettingsWindow()
+        public void CloseSettingsWindow(Boolean isClosed = false)
         {
             if(settingsWindow != null)
             {
-                settingsWindow.Close();
+                if(!isClosed)
+                {
+                    settingsWindow.Close();
+                }
                 settingsWindow = null;
+
+                if(currentViewModel.GetType() == typeof(HomeViewModel))
+                {
+                    HomeViewModel homeviewModel = (HomeViewModel)currentViewModel;
+                    homeviewModel.VideoCameraController = videoCameraController;
+                }
             }
         }
 
