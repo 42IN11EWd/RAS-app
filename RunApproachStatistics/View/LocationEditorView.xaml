@@ -4,8 +4,28 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-        <Label Content="Location editor"/>
-    </Grid>
+             d:DesignHeight="421" d:DesignWidth="850" Background="White">
+    <Viewbox Stretch="Uniform">
+        <Grid Height="421" Width="850">
+            <Label  FontSize="28" Content="Location editor" Margin="10,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" />
+            <Label FontSize="24" Width="195" Height="40" Content="Location name" HorizontalAlignment="Left" Margin="354,62,0,0" VerticalAlignment="Top"/>
+            <ListBox SelectedItem="{Binding Path=SelectedItem, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Locations}" FontSize="24" HorizontalAlignment="Left" Height="338" Margin="10,62,0,0" VerticalAlignment="Top" Width="261">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Name}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <TextBox FontSize="24" HorizontalAlignment="Left" Height="40" Margin="554,62,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="286"/>
+            <Label FontSize="24" Height="40" Width="195" Content="Description" HorizontalAlignment="Left" Margin="354,142,0,0" VerticalAlignment="Top"/>
+            <TextBox TextWrapping="Wrap" FontSize="24" Width="281"  HorizontalAlignment="Left" Margin="559,142,0,0"  Text="{Binding Description}" VerticalAlignment="Top" Height="149"/>
+            <Button FontSize="20" Content="Delete" Command="{Binding DeleteCommand}" HorizontalAlignment="Left" Margin="614,375,0,0" VerticalAlignment="Top" Height="25" Width="100"/>
+            <Button FontSize="20" Content="New" Command="{Binding NewCommand}" HorizontalAlignment="Left" Margin="482,375,0,0" VerticalAlignment="Top" Height="25" Width="100"/>
+            <Button FontSize="20" Content="Back" Command="{Binding BackCommand}" HorizontalAlignment="Left" Margin="296,375,0,0" VerticalAlignment="Top" Height="25" Width="100"/>
+            <Button FontSize="20" Content="Save" Command="{Binding SaveCommand}" HorizontalAlignment="Left" Margin="740,375,0,0" VerticalAlignment="Top" Height="25" Width="100"/>
+            <TextBox TextWrapping="Wrap" FontSize="24" Width="286"  HorizontalAlignment="Left" Margin="554,142,0,0"  Text="{Binding Description}" VerticalAlignment="Top" Height="149"/>
+        </Grid>
+    </Viewbox>
 </UserControl>

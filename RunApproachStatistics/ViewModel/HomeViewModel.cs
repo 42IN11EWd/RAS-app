@@ -33,14 +33,14 @@ namespace RunApproachStatistics.ViewModel
         private string currentTime;
         private double videoPosition;
 
-        
-
-
-        
         public VideoCameraController VideoCameraController
         {
             get { return videoCameraController; }
-            set { }
+            set 
+            { 
+                videoCameraController = value;
+                openVideoSource();
+            }
         }
 
         #region DataBinding
@@ -117,8 +117,7 @@ namespace RunApproachStatistics.ViewModel
 
             // Set VideoCamera
             CameraView = new CameraViewModel(_app);
-            this.videoCameraController = videoCameraController;
-            openVideoSource();
+            VideoCameraController = videoCameraController;
 
             // Set Graph
             GraphViewModel graphViewModel = new GraphViewModel(_app);

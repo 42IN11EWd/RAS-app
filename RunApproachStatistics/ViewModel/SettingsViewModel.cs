@@ -212,9 +212,18 @@ namespace RunApproachStatistics.ViewModel
         private void saveSettings(object commandParam)
         {
             Object[] commandParams = (Object[]) commandParam;
-            _app.ShowLoginView();
 
-            if (commandParams[6] != null)
+            if (!_app.IsLoggedIn)
+            {
+                _app.ShowLoginView();
+
+                while (_app.IsLoginWindowOpen)
+                {
+                    //wait for closing of the login window
+                }
+            }
+
+            if (commandParams[6] != null && _app.IsLoggedIn)
             {
                 // 0: Frequency
                 // 1: Meanvalue
@@ -226,12 +235,14 @@ namespace RunApproachStatistics.ViewModel
                 portController.writeSettings(commandParams);
 
                 // save measurement index
-                int measureIndex = (int)commandParams[3];
+                int measureIndex = Convert.ToInt32(commandParams[3]);
                 laserCameraSettingsModule.setMeasurementIndex(measureIndex);
-                
+
                 // Save selected videocamera
-                int cameraIndex = (int)commandParams[6];
+                int cameraIndex = Convert.ToInt32(commandParams[6]);
                 videoCameraSettingsModule.saveVideocameraIndex(cameraIndex);
+
+                _app.CloseSettingsWindow();
             }
         }
         private void CancelAction(object commandParam)

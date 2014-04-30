@@ -74,7 +74,6 @@ namespace RunApproachStatistics.Services
                 dynamicBufferCounter--;
             }
 
-
             modifyingBuffer = false;
         }
 
