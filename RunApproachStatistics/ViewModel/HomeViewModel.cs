@@ -65,6 +65,16 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
+        public PropertyChangedBase GraphView
+        {
+            get { return graphView; }
+            set
+            {
+                graphView = value;
+                OnPropertyChanged("GraphView");
+            }
+        }
+
         public string CurrentTime
         {
             get { return currentTime; }
@@ -109,6 +119,11 @@ namespace RunApproachStatistics.ViewModel
             CameraView = new CameraViewModel(_app);
             this.videoCameraController = videoCameraController;
             openVideoSource();
+
+            // Set Graph
+            GraphViewModel graphViewModel = new GraphViewModel(_app);
+            GraphView = graphViewModel;
+            
 
             // Set ReplayVideo
            

@@ -44,7 +44,7 @@
                 <!-- END VIDEO CONTROLS-->
             </Grid>
             <!-- INSERT GRAPH HERE -->
-            <Button Content="Graph" Background="AliceBlue" Margin="10,0,10,10" VerticalAlignment="Bottom" Height="245" RenderTransformOrigin="0.5,0.501" Grid.Column="1"/>
+            <ContentControl x:Name="graphView" Content="{Binding GraphView}" Margin="10,825,10,10" Grid.Column="1"/>
             <!-- END Column 1 -->
         </Grid>
     </Viewbox>

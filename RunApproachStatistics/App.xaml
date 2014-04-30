@@ -51,6 +51,9 @@
         <DataTemplate DataType="{x:Type vm:LockViewModel}">
             <v:LockView DataContext="{Binding}" />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:GraphViewModel}">
+            <v:GraphView DataContext="{Binding}" />
+        </DataTemplate>
         <!-- END Set the view models -->
         
         <!-- START UI Definitions -->
