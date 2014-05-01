@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -212,10 +213,14 @@ namespace RunApproachStatistics.Modules
                         count++;
                     }
 
+                    // Close the writer
                     writer.Close();
                     writer = null;
                     frames = null;
                     framesCounter = 0;
+
+                    // Upload the file to the server.
+                    new WebClient().UploadFile("http://www.student.aii.avans.nl/grp/IN42IN11EWd", "POST", filePath);
                 }
                 catch (Exception e)
                 {
