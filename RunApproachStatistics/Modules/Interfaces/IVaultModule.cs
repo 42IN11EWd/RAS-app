@@ -18,6 +18,8 @@ namespace RunApproachStatistics.Modules.Interfaces
 
         void delete(int id);
 
-        List<vault> getVaults(string filter);
+        List<vault> getVaults();
+
+        List<vault> filter(double[] dRatings, double[] eRatings, int[] gymnasts, int[] locations, DateTime[] timestamps);
     }
 }

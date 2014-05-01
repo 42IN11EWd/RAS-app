@@ -126,7 +126,7 @@ namespace RunApproachStatistics.Modules
             }
         }
 
-        public List<vault> getVaults(string filter)
+        public List<vault> getVaults()
         {
             using (var db = new DataContext())
             {
@@ -223,6 +223,114 @@ namespace RunApproachStatistics.Modules
                 }
             }
         }
+
+        #endregion
+
+        #region Filter methods
+
+        public List<vault> filter(double[] dRatings, double[] eRatings, int[] gymnasts, int[] locations, DateTime[] timestamps)
+        {
+            return dRatingFilter(eRatingFilter(gymnastFilter(locationFilter(timestampFilter(getVaults(), timestamps), locations), gymnasts), eRatings), dRatings);
+        }
+
+        #region Filters
+
+        private List<vault> dRatingFilter(List<vault> list, double[] dRatings)
+        {
+            // Check for 0 length filter input.
+            if (dRatings.Length == 0)
+            {
+                return list;
+            }
+
+            // Add each dRating value to the result set.
+            List<vault> result = new List<vault>();
+
+            for (int i = 0; i < dRatings.Length; i++)
+            {
+                result.AddRange(list.Where(x => x.rating_official_D == dRatings[i]).ToList());
+            }
+
+            return result;
+        }
+
+        private List<vault> eRatingFilter(List<vault> list, double[] eRatings)
+        {
+            // Check for 0 length filter input.
+            if (eRatings.Length == 0)
+            {
+                return list;
+            }
+
+            // Add each dRating value to the result set.
+            List<vault> result = new List<vault>();
+
+            for (int i = 0; i < eRatings.Length; i++)
+            {
+                result.AddRange(list.Where(x => x.rating_official_E == eRatings[i]).ToList());
+            }
+
+            return result;
+        }
+
+        private List<vault> gymnastFilter(List<vault> list, int[] gymnasts)
+        {
+            // Check for 0 length filter input.
+            if (gymnasts.Length == 0)
+            {
+                return list;
+            }
+
+            // Add each dRating value to the result set.
+            List<vault> result = new List<vault>();
+
+            for (int i = 0; i < gymnasts.Length; i++)
+            {
+                result.AddRange(list.Where(x => x.gymnast_id == gymnasts[i]).ToList());
+            }
+
+            return result;
+        }
+
+        private List<vault> locationFilter(List<vault> list, int[] locations)
+        {
+            // Check for 0 length filter input.
+            if (locations.Length == 0)
+            {
+                return list;
+            }
+
+            // Add each dRating value to the result set.
+            List<vault> result = new List<vault>();
+
+            for (int i = 0; i < locations.Length; i++)
+            {
+                result.AddRange(list.Where(x => x.location_id == locations[i]).ToList());
+            }
+
+            return result;
+        }
+
+        private List<vault> timestampFilter(List<vault> list, DateTime[] timestamps)
+        {
+            // Check for 0 length filter input.
+            if (timestamps.Length == 0)
+            {
+                return list;
+            }
+
+            // Add each dRating value to the result set.
+            List<vault> result = new List<vault>();
+
+            for (int i = 0; i < timestamps.Length; i++)
+            {
+                result.AddRange(list.Where(x => x.timestamp == timestamps[i]).ToList());
+            }
+
+            return result;
+        }
+
+        #endregion
 
         #endregion
 
