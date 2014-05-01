@@ -25,6 +25,7 @@ namespace RunApproachStatistics.ViewModel
         private CameraWindow cameraWindow;
         private VideoCameraController videoCameraController;
         private IVideoCameraSettingsModule videoCameraSettingsModule;
+        private GraphViewModel graphView;
 
         private DispatcherTimer timer;
         private bool dragging = false;
@@ -65,7 +66,7 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        public PropertyChangedBase GraphView
+        public GraphViewModel GraphView
         {
             get { return graphView; }
             set
