@@ -40,7 +40,29 @@ namespace RunApproachStatistics.Services
                 return devices;
             }
         }
- 
+
+        public bool IsCapturing 
+        { 
+            get
+            {
+                return save;
+            }
+        }
+        public List<Bitmap> RecordedVideo
+        {
+            get
+            {
+                if (captureBuffer != null)
+                {
+                    return captureBuffer.CapturedImagesBuffer;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
         public CameraWindow CameraWindow
         {
             get

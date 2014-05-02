@@ -19,6 +19,14 @@ namespace RunApproachStatistics.Services
         private VideoFileWriter writer;
         private bool modifyingBuffer;
 
+        public List<Bitmap> CapturedImagesBuffer 
+        { 
+            get
+            {
+                return captureBuffer;
+            }
+        }
+
         public CaptureBuffer()
         {
             fps = 20;

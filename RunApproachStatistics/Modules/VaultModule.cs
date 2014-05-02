@@ -144,7 +144,7 @@ namespace RunApproachStatistics.Modules
             throw new NotImplementedException();
         }
 
-        public void createVideoData(vault vault, Bitmap[] frames)
+        public void createVideoData(vault vault, List<Bitmap> frames)
         {
             // Get the path for Desktop, to easily find the CSV
             String path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
@@ -154,8 +154,11 @@ namespace RunApproachStatistics.Modules
             String filePath = Path.Combine(path, "LC_Video_" + dateStamp + ".avi");
             
             // Save the new vault and include the video path.
-            vault.videopath = filePath;
-            create(vault);
+            if (vault != null)
+            {
+                vault.videopath = filePath;
+                create(vault);
+            }
 
             // Create a new thread to save the video
             Worker workerObject = new Worker(filePath, frames);
@@ -163,9 +166,6 @@ namespace RunApproachStatistics.Modules
 
             // Start the thread.
             workerThread.Start();
-
-            
-            throw new NotImplementedException();
         }
 
         public String getLaserData(int id)
@@ -192,9 +192,9 @@ namespace RunApproachStatistics.Modules
             private String filePath;
             private int framesCounter;
             private VideoFileWriter writer;
-            private Bitmap[] frames;
+            private List<Bitmap> frames;
 
-            public Worker(String filePath, Bitmap[] frames)
+            public Worker(String filePath, List<Bitmap> frames)
             {
                 this.filePath = filePath;
                 this.frames = frames;

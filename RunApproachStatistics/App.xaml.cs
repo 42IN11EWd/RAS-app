@@ -114,7 +114,7 @@ namespace RunApproachStatistics
 
         public void ShowMeasurementView()
         {
-            MeasurementViewModel measurementViewModel = new MeasurementViewModel(this);
+            MeasurementViewModel measurementViewModel = new MeasurementViewModel(this, portController, videoCameraController);
             _setContent(measurementViewModel);
         }
 
