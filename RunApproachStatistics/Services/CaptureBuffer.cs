@@ -11,12 +11,8 @@ namespace RunApproachStatistics.Services
 {
     class CaptureBuffer
     {
-        private Bitmap[] captureBuffer;
-        private Bitmap[] dynamicBuffer;
-        private int captureBufferSize;
-        private int dynamicBufferSize;
-        private int framesCounter;
-        private int dynamicBufferCounter;
+        private List<Bitmap> captureBuffer;
+        private List<Bitmap> dynamicBuffer;
         public static int fps { get; set; }
         public static int width { get; set; }
         public static int height { get; set; }
@@ -25,13 +21,9 @@ namespace RunApproachStatistics.Services
 
         public CaptureBuffer()
         {
-            captureBufferSize = 10000;
-            dynamicBufferSize = 1000;
-            framesCounter = 0;
-            dynamicBufferCounter = 0;
             fps = 20;
-            captureBuffer = new Bitmap[captureBufferSize];
-            dynamicBuffer = new Bitmap[dynamicBufferSize];
+            captureBuffer = new List<Bitmap>();
+            dynamicBuffer = new List<Bitmap>();
             modifyingBuffer = false;
         }
 
@@ -42,14 +34,14 @@ namespace RunApproachStatistics.Services
 
         public void AddCaptureBufferFrame(Bitmap bmp)
         {
-            captureBuffer[framesCounter++] = bmp;
+            captureBuffer.Add(bmp);
         }
 
         public void AddDynamicBufferFrame(Bitmap bmp)
         {
             if (!modifyingBuffer)
             {
-                dynamicBuffer[dynamicBufferCounter++] = bmp;
+                dynamicBuffer.Add(bmp);
                 resetBuffer();
             }
         }
@@ -58,20 +50,9 @@ namespace RunApproachStatistics.Services
         {
             modifyingBuffer = true;
 
-            Bitmap[] tempBuffer = new Bitmap[dynamicBufferSize];
-
-            if (dynamicBufferCounter > (fps * 3))
+            if (dynamicBuffer.Count > (fps * 3))
             {
-                int counter = 0;
-
-                while (dynamicBuffer[counter + 1] != null)
-                {
-                    tempBuffer[counter] = (Bitmap)dynamicBuffer[counter + 1].Clone();
-                    counter++;
-                }
-
-                dynamicBuffer = tempBuffer;
-                dynamicBufferCounter--;
+                dynamicBuffer.RemoveAt(0);
             }
 
             modifyingBuffer = false;
@@ -80,18 +61,11 @@ namespace RunApproachStatistics.Services
         public void Open(int width, int height, float fps, bool automaticDetection)
         {
             writer = new VideoFileWriter();
-            captureBuffer = new Bitmap[captureBufferSize];
+            captureBuffer = new List<Bitmap>();
 
             if (automaticDetection)
             {
-                Bitmap[] tempBuffer = dynamicBuffer;
-                int counter = 0;
-
-                while (tempBuffer[counter] != null)
-                {
-                    captureBuffer[counter] = (Bitmap)tempBuffer[counter].Clone();
-                    counter++;
-                }
+                captureBuffer = dynamicBuffer;
             }
 
             CaptureBuffer.width = width;
@@ -129,7 +103,6 @@ namespace RunApproachStatistics.Services
                 writer.Close();
                 writer = null;
                 captureBuffer = null;
-                framesCounter = 0;
             }
             catch (Exception e)
             {
