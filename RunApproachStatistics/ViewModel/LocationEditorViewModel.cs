@@ -98,6 +98,7 @@ namespace RunApproachStatistics.ViewModel
             });
 
         }
+
         #region RelayCommands
 
         public void DeleteAction(object commandParam)

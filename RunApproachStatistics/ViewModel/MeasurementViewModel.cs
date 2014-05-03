@@ -33,6 +33,7 @@ namespace RunApproachStatistics.ViewModel
         private CameraViewModel cameraView;
         private CameraWindow cameraWindow;
         private VideoCameraController videoCameraController;
+        private PortController portController;
         public VideoCameraController VideoCameraController
         {
             get { return videoCameraController; }
@@ -74,7 +75,8 @@ namespace RunApproachStatistics.ViewModel
                 if(value == true && ManualModeChecked)
                 {
                     MeasurementButtonContent = "Stop Measurement";
-                    // videoCameraController.Capture(); --> Doesnt recognize the DLL
+                    // videoCameraController.Capture(); // --> Doesnt recognize the DLL
+                    // portController.startMeasurement();
                 }
                 else if(value == false && ManualModeChecked) 
                 {
@@ -83,6 +85,7 @@ namespace RunApproachStatistics.ViewModel
                     {
                         // videoCameraController.StopCapture();
                         // cameraModule.createVideoData(null, videoCameraController.RecordedVideo);
+                        // portController.startMeasurement();
                     }
                 }
                 else
@@ -235,6 +238,9 @@ namespace RunApproachStatistics.ViewModel
             vaultKindArray[0] = "practice";
             vaultKindArray[1] = "nk";
             vaultKindArray[2] = "ek";
+
+            // Set PortController
+            this.portController = portController;
 
             // Set VideoCamera
             CameraView = new CameraViewModel(_app);

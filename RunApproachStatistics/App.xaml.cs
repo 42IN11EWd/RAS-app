@@ -134,11 +134,19 @@ namespace RunApproachStatistics
         {
             SettingsViewModel settingsViewModel = new SettingsViewModel(this, portController, videoCameraController);
 
-            settingsWindow = new DialogWindow();
+            if (settingsWindow == null)
+            {
+                settingsWindow = new DialogWindow();
+            }
             settingsViewModel.Content = settingsViewModel;
             settingsWindow.DataContext = settingsViewModel;
+            settingsWindow.Content = settingsViewModel;
             settingsWindow.Closed += settingsWindow_Closed;
-            settingsWindow.ShowDialog();
+            
+            if (!settingsWindow.IsVisible)
+            {
+                settingsWindow.ShowDialog();
+            }
         }
 
         private void settingsWindow_Closed(object sender, EventArgs e)
