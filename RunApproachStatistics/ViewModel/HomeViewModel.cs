@@ -25,6 +25,7 @@ namespace RunApproachStatistics.ViewModel
         private CameraWindow cameraWindow;
         private VideoCameraController videoCameraController;
         private IVideoCameraSettingsModule videoCameraSettingsModule;
+
         private GraphViewModel graphView;
 
         private DispatcherTimer timer;
@@ -121,9 +122,8 @@ namespace RunApproachStatistics.ViewModel
             VideoCameraController = videoCameraController;
 
             // Set Graph
-            GraphViewModel graphViewModel = new GraphViewModel(_app);
-            GraphView = graphViewModel;
-            
+            GraphViewModel graphVM = new GraphViewModel(_app, this);
+            GraphView = graphVM;
 
             // Set ReplayVideo
            

@@ -34,6 +34,9 @@ namespace RunApproachStatistics.ViewModel
         private CameraWindow cameraWindow;
         private VideoCameraController videoCameraController;
         private PortController portController;
+
+        private GraphViewModel graphView;
+
         public VideoCameraController VideoCameraController
         {
             get { return videoCameraController; }
@@ -94,6 +97,16 @@ namespace RunApproachStatistics.ViewModel
                 }
                 
                 OnPropertyChanged("Measuring");
+            }
+        }
+
+        public GraphViewModel GraphViewMeasurement
+        {
+            get { return graphView; }
+            set
+            {
+                graphView = value;
+                OnPropertyChanged("GraphViewMeasurement");
             }
         }
 
@@ -245,6 +258,10 @@ namespace RunApproachStatistics.ViewModel
             // Set VideoCamera
             CameraView = new CameraViewModel(_app);
             VideoCameraController = videoCameraController;
+
+            // Set Graph
+            GraphViewModel graphVM = new GraphViewModel(_app, this);
+            GraphViewMeasurement = graphVM;
         }
 
         private void openVideoSource()
