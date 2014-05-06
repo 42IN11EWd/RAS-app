@@ -19,8 +19,8 @@
     </UserControl.Resources>
     <Viewbox Stretch="Uniform">
         <Grid Width="{Binding GridWidth}" Height="400">
-            <StackPanel>
-                <chartingToolkit:Chart Width="{Binding WidthChart}" x:Name="lineChart" VerticalAlignment="Top" Height="425" BorderThickness="0" RenderTransformOrigin="0.5,0.5" Margin="1,0,-1,0">
+            <StackPanel Margin="0,-55,0,0">
+                <chartingToolkit:Chart Width="{Binding WidthChart}" x:Name="lineChart" VerticalAlignment="Top" Height="469" BorderThickness="0" RenderTransformOrigin="0.5,0.5" Margin="1,0,-1,0">
                     <chartingToolkit:Chart.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform/>
@@ -42,7 +42,7 @@
                         </Style>
                     </chartingToolkit:Chart.LegendStyle>
 
-                    <chartingToolkit:LineSeries x:Name="distanceLine" ItemsSource="{Binding DistanceArray}" DataPointStyle="{StaticResource InvisibleDataPoint}" Margin="0,0,0,2">
+                    <chartingToolkit:LineSeries x:Name="distanceLine" DependentValuePath="Value" IndependentValuePath="Key" ItemsSource="{Binding DistanceArray}" DataPointStyle="{StaticResource InvisibleDataPoint}" Margin="0,0,0,2">
                         <chartingToolkit:LineSeries.Template>
                             <ControlTemplate TargetType="{x:Type chartingToolkit:LineSeries}">
                                 <Canvas x:Name="PlotArea">
