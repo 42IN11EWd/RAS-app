@@ -20,6 +20,8 @@
           <Property Name="surname" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="surname_prefix" Type="varchar" MaxLength="45" />
           <Property Name="deleted" Type="bool" Nullable="false" />
+          <Property Name="weight" Type="decimal" Precision="10" Scale="0" />
+          <Property Name="note" Type="text" />
         </EntityType>
         <EntityType Name="location">
           <Key>
@@ -148,24 +150,6 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="in11ewd_dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="gymnast">
-          <Key>
-            <PropertyRef Name="gymnast_id" />
-          </Key>
-          <Property Name="gymnast_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="turnbondID" Type="Int64" Nullable="false" />
-          <Property Name="gender" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="nationality" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="length" Type="Decimal" />
-          <Property Name="picture" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="birthdate" Type="DateTime" />
-          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="surname_prefix" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="deleted" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="vault" Relationship="in11ewd_dbModel.fk_Sprong_Sporter" FromRole="gymnast" ToRole="vault" />
-          <NavigationProperty Name="user" Relationship="in11ewd_dbModel.fk_User_Sporter1" FromRole="gymnast" ToRole="user" />
-        </EntityType>
         <EntityType Name="location">
           <Key>
             <PropertyRef Name="location_id" />
@@ -189,14 +173,9 @@
           <NavigationProperty Name="vault" Relationship="in11ewd_dbModel.fk_Sprong_sprongtype1" FromRole="vaultnumber" ToRole="vault" />
         </EntityType>
         <EntityContainer Name="Entities3" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="gymnast" EntityType="Self.gymnast" />
           <EntitySet Name="location" EntityType="Self.location" />
           <EntitySet Name="vaultnumber" EntityType="Self.vaultnumber" />
           <EntitySet Name="vault" EntityType="in11ewd_dbModel.vault" />
-          <AssociationSet Name="fk_Sprong_Sporter" Association="in11ewd_dbModel.fk_Sprong_Sporter">
-            <End Role="gymnast" EntitySet="gymnast" />
-            <End Role="vault" EntitySet="vault" />
-          </AssociationSet>
           <AssociationSet Name="fk_Sprong_Locatie1" Association="in11ewd_dbModel.fk_Sprong_Locatie1">
             <End Role="location" EntitySet="location" />
             <End Role="vault" EntitySet="vault" />
@@ -206,6 +185,11 @@
             <End Role="vault" EntitySet="vault" />
           </AssociationSet>
           <EntitySet Name="user" EntityType="in11ewd_dbModel.user" />
+          <EntitySet Name="gymnast" EntityType="in11ewd_dbModel.gymnast" />
+          <AssociationSet Name="fk_Sprong_Sporter" Association="in11ewd_dbModel.fk_Sprong_Sporter">
+            <End Role="gymnast" EntitySet="gymnast" />
+            <End Role="vault" EntitySet="vault" />
+          </AssociationSet>
           <AssociationSet Name="fk_User_Sporter1" Association="in11ewd_dbModel.fk_User_Sporter1">
             <End Role="gymnast" EntitySet="gymnast" />
             <End Role="user" EntitySet="user" />
@@ -231,22 +215,10 @@
           <Property Name="location_id" Type="Int32" />
           <Property Name="deleted" Type="Boolean" Nullable="false" />
           <Property Name="thumbnail" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <NavigationProperty Name="gymnast" Relationship="in11ewd_dbModel.fk_Sprong_Sporter" FromRole="vault" ToRole="gymnast" />
           <NavigationProperty Name="location" Relationship="in11ewd_dbModel.fk_Sprong_Locatie1" FromRole="vault" ToRole="location" />
           <NavigationProperty Name="vaultnumber" Relationship="in11ewd_dbModel.fk_Sprong_sprongtype1" FromRole="vault" ToRole="vaultnumber" />
+          <NavigationProperty Name="gymnast" Relationship="in11ewd_dbModel.fk_Sprong_Sporter" FromRole="vault" ToRole="gymnast" />
         </EntityType>
-        <Association Name="fk_Sprong_Sporter">
-          <End Type="in11ewd_dbModel.gymnast" Role="gymnast" Multiplicity="1" />
-          <End Type="in11ewd_dbModel.vault" Role="vault" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="gymnast">
-              <PropertyRef Name="gymnast_id" />
-            </Principal>
-            <Dependent Role="vault">
-              <PropertyRef Name="gymnast_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_Sprong_Locatie1">
           <End Type="in11ewd_dbModel.location" Role="location" Multiplicity="0..1" />
           <End Type="in11ewd_dbModel.vault" Role="vault" Multiplicity="*" />
@@ -283,6 +255,38 @@
           <Property Name="deleted" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="gymnast" Relationship="in11ewd_dbModel.fk_User_Sporter1" FromRole="user" ToRole="gymnast" />
         </EntityType>
+        <EntityType Name="gymnast">
+          <Key>
+            <PropertyRef Name="gymnast_id" />
+          </Key>
+          <Property Name="gymnast_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="turnbondID" Type="Int64" Nullable="false" />
+          <Property Name="gender" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="nationality" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="length" Type="Decimal" />
+          <Property Name="picture" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="birthdate" Type="DateTime" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="surname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="surname_prefix" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="deleted" Type="Boolean" Nullable="false" />
+          <Property Name="weight" Type="Decimal" />
+          <Property Name="note" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="vault" Relationship="in11ewd_dbModel.fk_Sprong_Sporter" FromRole="gymnast" ToRole="vault" />
+          <NavigationProperty Name="user" Relationship="in11ewd_dbModel.fk_User_Sporter1" FromRole="gymnast" ToRole="user" />
+        </EntityType>
+        <Association Name="fk_Sprong_Sporter">
+          <End Type="in11ewd_dbModel.gymnast" Role="gymnast" Multiplicity="1" />
+          <End Type="in11ewd_dbModel.vault" Role="vault" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="gymnast">
+              <PropertyRef Name="gymnast_id" />
+            </Principal>
+            <Dependent Role="vault">
+              <PropertyRef Name="gymnast_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_User_Sporter1">
           <End Type="in11ewd_dbModel.gymnast" Role="gymnast" Multiplicity="0..1" />
           <End Type="in11ewd_dbModel.user" Role="user" Multiplicity="*" />
@@ -301,23 +305,6 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="in11ewd_dbModelStoreContainer" CdmEntityContainer="Entities3">
-          <EntitySetMapping Name="gymnast">
-            <EntityTypeMapping TypeName="in11ewd_dbModel.gymnast">
-              <MappingFragment StoreEntitySet="gymnast">
-                <ScalarProperty Name="deleted" ColumnName="deleted" />
-                <ScalarProperty Name="gymnast_id" ColumnName="gymnast_id" />
-                <ScalarProperty Name="turnbondID" ColumnName="turnbondID" />
-                <ScalarProperty Name="gender" ColumnName="gender" />
-                <ScalarProperty Name="nationality" ColumnName="nationality" />
-                <ScalarProperty Name="length" ColumnName="length" />
-                <ScalarProperty Name="picture" ColumnName="picture" />
-                <ScalarProperty Name="birthdate" ColumnName="birthdate" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="surname" ColumnName="surname" />
-                <ScalarProperty Name="surname_prefix" ColumnName="surname_prefix" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="location">
             <EntityTypeMapping TypeName="in11ewd_dbModel.location">
               <MappingFragment StoreEntitySet="location">
@@ -371,6 +358,25 @@
                 <ScalarProperty Name="username" ColumnName="username" />
                 <ScalarProperty Name="type" ColumnName="type" />
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="gymnast">
+            <EntityTypeMapping TypeName="in11ewd_dbModel.gymnast">
+              <MappingFragment StoreEntitySet="gymnast">
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="weight" ColumnName="weight" />
+                <ScalarProperty Name="deleted" ColumnName="deleted" />
+                <ScalarProperty Name="surname_prefix" ColumnName="surname_prefix" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="birthdate" ColumnName="birthdate" />
+                <ScalarProperty Name="picture" ColumnName="picture" />
+                <ScalarProperty Name="length" ColumnName="length" />
+                <ScalarProperty Name="nationality" ColumnName="nationality" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="turnbondID" ColumnName="turnbondID" />
+                <ScalarProperty Name="gymnast_id" ColumnName="gymnast_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

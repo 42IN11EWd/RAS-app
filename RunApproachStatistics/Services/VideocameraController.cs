@@ -203,7 +203,7 @@ namespace RunApproachStatistics.Services
             Console.WriteLine("Camera stopped: " + DateTime.Now.ToString("dd_MM_yyyyTHH_mm_ss_fff"));
         }
 
-        public void WriteFile()
+        public void Close()
         {
             captureBuffer.Close();
         }

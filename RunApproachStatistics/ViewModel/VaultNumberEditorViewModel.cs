@@ -1,5 +1,6 @@
 ﻿using RunApproachStatistics.Controllers;
 using RunApproachStatistics.Model.Entity;
+using RunApproachStatistics.Modules;
 using RunApproachStatistics.MVVM;
 using System;
 using System.Collections.Generic;
@@ -14,8 +15,9 @@ namespace RunApproachStatistics.ViewModel
     {
         private IApplicationController _app;
         private PropertyChangedBase content;
-        private ObservableCollection<vaultnumber> vaults = new ObservableCollection<vaultnumber>();
+        private ObservableCollection<vaultnumber> vaults;
         private vaultnumber selectedItem;
+        private EditorModule editormodule;
 
         #region Bindings
         public RelayCommand DeleteCommand { get; private set; }
@@ -38,7 +40,7 @@ namespace RunApproachStatistics.ViewModel
             set
             {
                 vaults = value;
-                this.OnPropertyChanged("Locations");
+                OnPropertyChanged("Vaults");
             }
         }
         public vaultnumber SelectedItem
@@ -121,35 +123,28 @@ namespace RunApproachStatistics.ViewModel
         public VaultNumberEditorViewModel(IApplicationController app) : base()
         {
             _app = app;
-            //fill vaults list
-            vaults.Add(new vaultnumber
-            {
-                code = "30.1",
-                description = "flikflak hal in den bosch"
-            });
-            vaults.Add(new vaultnumber
-            {
-                code = "5.12",
-                description = "gymnastiek hal in eindhoven"
-            });
+            editormodule = new EditorModule();
+            Vaults = editormodule.readVaultnumber();
         }
 
         #region RelayCommands
 
         public void DeleteAction(object commandParam)
         {
-            SelectedItem.deleted = true;
-            vaults.Remove(SelectedItem);
+            editormodule.deleteVaultNumber(SelectedItem.vaultnumber_id);
+            Vaults.Remove(SelectedItem);
+            
         }
         public void NewAction(object commandParam)
         {
             vaultnumber newvault = new vaultnumber();
-            vaults.Add(newvault);
+            Vaults.Add(newvault);
             SelectedItem = newvault;
         }
         public void SaveAction(object commandParam)
         {
-            //save changes 
+            editormodule.updateVaultnumber(SelectedItem);
+            Vaults = editormodule.readVaultnumber();
         }
         public void BackAction(object commandParam)
         {

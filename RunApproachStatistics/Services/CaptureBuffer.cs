@@ -16,7 +16,6 @@ namespace RunApproachStatistics.Services
         public static int fps { get; set; }
         public static int width { get; set; }
         public static int height { get; set; }
-        private VideoFileWriter writer;
         private bool modifyingBuffer;
 
         public List<Bitmap> CapturedImagesBuffer 
@@ -68,7 +67,6 @@ namespace RunApproachStatistics.Services
 
         public void Open(int width, int height, float fps, bool automaticDetection)
         {
-            writer = new VideoFileWriter();
             captureBuffer = new List<Bitmap>();
 
             if (automaticDetection)
@@ -93,7 +91,7 @@ namespace RunApproachStatistics.Services
         {
             try
             {
-                // Get the path for Desktop, to easily find the CSV
+               /* // Get the path for Desktop, to easily find the CSV
                 String path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
                 String dateStamp = DateTime.Now.ToString("yyyy_MM_dd_HH-mm-ss");
 
@@ -109,7 +107,7 @@ namespace RunApproachStatistics.Services
                 }
 
                 writer.Close();
-                writer = null;
+                writer = null;*/
                 captureBuffer = null;
             }
             catch (Exception e)

@@ -1,8 +1,10 @@
 ﻿using RunApproachStatistics.Controllers;
+using RunApproachStatistics.Model.Entity;
 using RunApproachStatistics.Modules;
 using RunApproachStatistics.Modules.Interfaces;
 using RunApproachStatistics.MVVM;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -10,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace RunApproachStatistics.ViewModel
 {
@@ -17,11 +20,12 @@ namespace RunApproachStatistics.ViewModel
     {
         private IApplicationController _app;
         private PropertyChangedBase menu;
+        private UserModule uModule;
 
         private ImageSource picture;
         private Visibility pictureAvailable;
-        private String pictureText;
-        private String fullname;
+        private Visibility pictureCommandVisible;
+
         private String name;
         private String prefix;
         private String surname;
@@ -32,14 +36,30 @@ namespace RunApproachStatistics.ViewModel
         private String length;
         private String weight;
         private String memos;
+
+        private String editName;
+        private String editPrefix;
+        private String editSurname;
+        private String editFIGNumber;
+        private String editDateOfBirth;
+        private String editNationality;
+        private String editGender;
+        private String editLength;
+        private String editWeight;
+        private Boolean editingMemos;
+
         private String filterField;
-        private ObservableCollection<String> filterList; // T.B.D. to be deleted
-        private String selectedFilterItem;
+        private List<gymnast> gymnastList; // To store all the gymnasts
+        private ObservableCollection<gymnast> filterList; // T.B.D. to be deleted or converted
+        private gymnast selectedFilterItem;
+
+        private Boolean inEditingMode;
+        private Boolean creatingNewGymnast;
 
         #region Modules
 
         private IUserModule userModule = new UserModule();
-        
+
         #endregion
 
         #region DataBinding
@@ -82,25 +102,25 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        public String PictureText
+        public Visibility PictureCommandVisible
         {
-            get { return pictureText; }
+            get { return pictureCommandVisible; }
             set
             {
-                pictureText = value;
-                OnPropertyChanged("PictureText");
+                pictureCommandVisible = value;
+                OnPropertyChanged("PictureCommandVisible");
             }
         }
 
         public String Fullname
         {
-            get { return fullname; }
-            set
+            get
             {
-                fullname = value;
-                OnPropertyChanged("Fullname");
+                return !inEditingMode ? Name + (!String.IsNullOrWhiteSpace(Prefix) ? " " + Prefix + " " : " ") + Surname : EditName + (!String.IsNullOrWhiteSpace(EditPrefix) ? " " + EditPrefix + " " : " ") + EditSurname; 
             }
         }
+
+        // Regular fields (displaying)
 
         public String Name
         {
@@ -128,7 +148,7 @@ namespace RunApproachStatistics.ViewModel
             set
             {
                 surname = value;
-                OnPropertyChanged("");
+                OnPropertyChanged("Surname");
             }
         }
 
@@ -202,6 +222,121 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
+        // Edit fields (when editing)
+
+        public String EditName
+        {
+            get { return editName; }
+            set
+            {
+                editName = value;
+                OnPropertyChanged("EditName");
+                OnPropertyChanged("Fullname");
+            }
+        }
+
+        public String EditPrefix
+        {
+            get { return editPrefix; }
+            set
+            {
+                editPrefix = value;
+                OnPropertyChanged("EditPrefix");
+                OnPropertyChanged("Fullname");
+            }
+        }
+
+        public String EditSurname
+        {
+            get { return editSurname; }
+            set
+            {
+                editSurname = value;
+                OnPropertyChanged("EditSurname");
+                OnPropertyChanged("Fullname");
+            }
+        }
+
+        public String EditFIGNumber
+        {
+            get { return editFIGNumber; }
+            set
+            {
+                editFIGNumber = value;
+                OnPropertyChanged("EditFIGNumber");
+            }
+        }
+
+        public String EditDateOfBirth
+        {
+            get { return editDateOfBirth; }
+            set
+            {
+                editDateOfBirth = value;
+                OnPropertyChanged("EditDateOfBirth");
+            }
+        }
+
+        public String EditNationality
+        {
+            get { return editNationality; }
+            set
+            {
+                editNationality = value;
+                OnPropertyChanged("EditNationality");
+            }
+        }
+
+        public String EditGender
+        {
+            get { return editGender; }
+            set
+            {
+                editGender = value;
+                OnPropertyChanged("EditGender");
+            }
+        }
+
+        public String EditLength
+        {
+            get { return editLength; }
+            set
+            {
+                editLength = value;
+                OnPropertyChanged("EditLength");
+            }
+        }
+
+        public String EditWeight
+        {
+            get { return editWeight; }
+            set
+            {
+                editWeight = value;
+                OnPropertyChanged("EditWeight");
+            }
+        }
+
+        public Boolean EditingMemos
+        {
+            get { return editingMemos; }
+            set
+            {
+                editingMemos = value;
+                OnPropertyChanged("EditingMemos");
+            }
+        }
+
+        public Visibility IsEditing
+        {
+            get { return inEditingMode ? Visibility.Visible : Visibility.Hidden; }
+        }
+
+        public Visibility IsNotEditing
+        {
+            get { return !inEditingMode ? Visibility.Visible : Visibility.Hidden; }
+        }
+
         public String FilterField
         {
             get { return filterField; }
@@ -209,10 +344,21 @@ namespace RunApproachStatistics.ViewModel
             {
                 filterField = value;
                 OnPropertyChanged("FilterField");
+
+                filterList.Clear();
+                foreach (gymnast gymnast in gymnastList)
+                {
+                    String tempFullname = gymnast.name + (!String.IsNullOrWhiteSpace(gymnast.surname_prefix) ? " " + gymnast.surname_prefix + " " : " ") + gymnast.surname;
+                    if (tempFullname.Contains(value))
+                    {
+                        filterList.Add(gymnast);
+                    }
+                }
+                OnPropertyChanged("FilterList");
             }
         }
 
-        public ObservableCollection<String> FilterList
+        public ObservableCollection<gymnast> FilterList
         {
             get
             {
@@ -221,26 +367,41 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        public String SelectedFilterItem
+        public gymnast SelectedFilterItem
         {
             get { return selectedFilterItem; }
             set
             {
                 selectedFilterItem = value;
+
+                if (value != null)
+                {
+                    Picture = null; // read bitmap from g.picture
+                    PictureAvailable = Picture != null ? Visibility.Visible : Visibility.Hidden;
+                    Name = value.name;
+                    Prefix = value.surname_prefix;
+                    Surname = value.surname;
+                    FIGNumber = value.turnbondID.ToString();
+                    DateOfBirth = value.birthdate.ToString();
+                    Nationality = value.nationality;
+                    Gender = value.gender;
+                    Length = value.length.ToString();
+                    Weight = null; //g.weight;
+                    Memos = null; //g.notes;
+                }
+
+                OnPropertyChanged("Fullname");
                 OnPropertyChanged("SelectedFilterItem");
             }
         }
-        /*
-        private String filterField;
-        private ObservableCollection<String> filterList;
-        private String selectedFilterItem;
-         */
-
         #endregion
 
-        public ProfileViewModel(IApplicationController app) : base()
+        public ProfileViewModel(IApplicationController app)
+            : base()
         {
             _app = app;
+            uModule = new UserModule();
+            filterList = new ObservableCollection<gymnast>();
 
             // Set the menu
             MenuViewModel menuViewModel = new MenuViewModel(_app);
@@ -248,49 +409,128 @@ namespace RunApproachStatistics.ViewModel
             Menu = menuViewModel;
 
             // Get the user profile
-            //userModule.read();
+            gymnastList = uModule.getGymnastCollection();
+            foreach (gymnast g in gymnastList)
+            {
+                filterList.Add(g);
+            }
+            OnPropertyChanged("FilterList");
+
+            //Other misc stuff
+            PictureCommandVisible = Visibility.Hidden;
+            inEditingMode = false;
+            creatingNewGymnast = false;
         }
 
         #region Command Methodes
 
         public void InitPictureUpload(object commandParam)
         {
-            // Do something?
+            // Do something? Dialog first?
         }
 
         public void SaveChanges(object commandParam)
         {
-            // Do something?
+            // Do something? uModule.SaveCurrentEditFields() (Check if new gymnast)
+        }
+
+        public Boolean CanSaveChanges()
+        {
+            return inEditingMode && madeChanges();
         }
 
         public void CancelChanges(object commandParam)
         {
-            // Do something?
+            // Do something? Remove editing fields
+            EditingMemos = false;
+            PictureCommandVisible = Visibility.Hidden;
+
+            inEditingMode = false;
+            creatingNewGymnast = false;
+            OnPropertyChanged("IsEditing");
+            OnPropertyChanged("IsNotEditing");
+        }
+
+        public Boolean CanCancelChanges()
+        {
+            return inEditingMode;
         }
 
         public void DeleteGymnast(object commandParam)
         {
-            // Do something?
+            // Do something? uModule.deleteThisGymnast?
+        }
+
+        public Boolean CanDeleteGymnast()
+        {
+            return SelectedFilterItem != null;
         }
 
         public void EditGymnast(object commandParam)
         {
-            // Do something?
+            // Do something? Make everything editable!
+            EditName = Name;
+            EditPrefix = Prefix;
+            EditSurname = Surname;
+            EditFIGNumber = figNumber;
+            EditDateOfBirth = DateOfBirth;
+            EditNationality = Nationality;
+            EditGender = Gender;
+            EditLength = Length;
+            EditWeight = Weight;
+            EditingMemos = true;
+            PictureCommandVisible = Visibility.Visible;
+
+            inEditingMode = true;
+            OnPropertyChanged("IsEditing");
+            OnPropertyChanged("IsNotEditing");
+        }
+
+        public Boolean CanEditGymnast()
+        {
+            return SelectedFilterItem != null && !inEditingMode && !creatingNewGymnast;
         }
 
         public void NewGymnast(object commandParam)
         {
             // Do something?
+            EditName = "";
+            EditPrefix = "";
+            EditSurname = "";
+            EditFIGNumber = "";
+            EditDateOfBirth = "";
+            EditNationality = "";
+            EditGender = "";
+            EditLength = "";
+            EditWeight = "";
+            EditingMemos = true;
+            PictureCommandVisible = Visibility.Visible;
+
+            inEditingMode = true;
+            creatingNewGymnast = true;
+            OnPropertyChanged("IsEditing");
+            OnPropertyChanged("IsNotEditing");
+        }
+
+        public Boolean CanNewGymnast()
+        {
+            return !inEditingMode && !creatingNewGymnast;
         }
 
         public void ToMainScreen(object commandParam)
         {
-            // Do something?
+            // Do something? Cancel changes if pressed when editing
+            _app.ShowHomeView(); // Just go?
         }
 
         public void SeeVaults(object commandParam)
         {
-            // Do something?
+            // Do something? Go to selected gymnast's vaults
+        }
+
+        public Boolean CanSeeVaults()
+        {
+            return SelectedFilterItem != null && !inEditingMode && !creatingNewGymnast;
         }
 
         #endregion Command Methodes
@@ -298,13 +538,18 @@ namespace RunApproachStatistics.ViewModel
         protected override void initRelayCommands()
         {
             PictureCommand = new RelayCommand(InitPictureUpload);
-            SaveChangesCommand = new RelayCommand(SaveChanges);
-            CancelChangesCommand = new RelayCommand(CancelChanges);
-            DeleteGymnastCommand = new RelayCommand(DeleteGymnast);
-            EditGymnastCommand = new RelayCommand(EditGymnast);
-            NewGymnastCommand = new RelayCommand(NewGymnast);
+            SaveChangesCommand = new RelayCommand(SaveChanges, e => CanSaveChanges());
+            CancelChangesCommand = new RelayCommand(CancelChanges, e => CanCancelChanges());
+            DeleteGymnastCommand = new RelayCommand(DeleteGymnast, e => CanDeleteGymnast());
+            EditGymnastCommand = new RelayCommand(EditGymnast, e => CanEditGymnast());
+            NewGymnastCommand = new RelayCommand(NewGymnast, e => CanNewGymnast());
             ToMainscreenCommand = new RelayCommand(ToMainScreen);
-            SeeVaultsCommand = new RelayCommand(SeeVaults);
+            SeeVaultsCommand = new RelayCommand(SeeVaults, e => CanSeeVaults());
+        }
+
+        private Boolean madeChanges()
+        {
+            return true;
         }
     }
 }

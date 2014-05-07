@@ -120,7 +120,9 @@
     <Compile Include="Model\Entity\vaultnumber.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Modules\EditorModule.cs" />
     <Compile Include="Modules\Interfaces\ICameraModule.cs" />
+    <Compile Include="Modules\Interfaces\IEditorModule.cs" />
     <Compile Include="Modules\Interfaces\ILaserCameraSettingsModule.cs" />
     <Compile Include="Modules\Interfaces\ILoginModule.cs" />
     <Compile Include="Modules\Interfaces\IUserModule.cs" />

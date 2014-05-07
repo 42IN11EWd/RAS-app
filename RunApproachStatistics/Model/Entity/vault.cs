@@ -31,8 +31,8 @@ namespace RunApproachStatistics.Model.Entity
         public bool deleted { get; set; }
         public byte[] thumbnail { get; set; }
     
-        public virtual gymnast gymnast { get; set; }
         public virtual location location { get; set; }
         public virtual vaultnumber vaultnumber { get; set; }
+        public virtual gymnast gymnast { get; set; }
     }
 }

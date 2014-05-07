@@ -39,7 +39,8 @@
             <TextBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right"  Margin="0,0,29,605" TextWrapping="Wrap" Text="{Binding VaultNumber}" VerticalAlignment="Bottom"/>
             <TextBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right"  Margin="0,0,29,670" TextWrapping="Wrap" Text="{Binding Gymnast}" VerticalAlignment="Bottom"/>
             <TextBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right"  Margin="0,0,29,735" TextWrapping="Wrap" Text="{Binding Location}" VerticalAlignment="Bottom" />
-            <Grid Name="Graphgrid" HorizontalAlignment="Left" Height="384" Margin="336,671,0,0" VerticalAlignment="Top" Width="1130"/>
+
+            <ContentControl x:Name="graphViewMeasurement" Content="{Binding GraphViewMeasurement}" Margin="336,0,454,25" Height="365" VerticalAlignment="Bottom"/>
 
         </Grid>
     </Viewbox>
