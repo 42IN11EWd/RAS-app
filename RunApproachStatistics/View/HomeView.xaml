@@ -12,37 +12,11 @@
             </Grid.ColumnDefinitions>
 
             <!-- START Column 0 -->
-            <ContentControl x:Name="menuContainer"
-			    Content="{Binding Menu}" Margin="0,0,0,0" />
+            <ContentControl x:Name="menuContainer" Content="{Binding Menu}" Margin="0,0,0,0" />
             <!-- END Column 0 -->
 
             <!-- START Column 1 -->
-            <Grid Name="cameraGrid" Margin="10,10,10,260" Grid.Column="1">
-                <!--<StackPanel Background="Black" VerticalAlignment="Stretch">
-                    <Viewbox VerticalAlignment="Center" Stretch="UniformToFill" StretchDirection="Both">
-
-                        <MediaElement  Name="VideoControl" Source="Movie.mp4" MediaOpened="Element_MediaOpened" MediaEnded="Element_MediaEnded" VerticalAlignment="Stretch" Stretch="Fill" 
-     LoadedBehavior="Manual"></MediaElement>
-                    </Viewbox>
-                </StackPanel>-->
-                <!-- START VIDEO CONTROLS-->
-                <ContentControl x:Name="cameraView" Content="{Binding Path=CameraView}"/>
-                <Rectangle Fill="#8D000000" Height="103" VerticalAlignment="Bottom" />
-                <Slider x:Name="TimeSlider" Value="{Binding VideoPosition}"  Margin="48,0,48,66" Foreground="#FFD4D4D4" Height="22" VerticalAlignment="Bottom"/>
-
-                <Button Foreground="#FFFFFFFF" Background="#00000000" Name="btnPlay" Content=">" Margin="0,0,0,4" HorizontalAlignment="Center" Width="64" Height="64" VerticalAlignment="Bottom" />
-                <Button Foreground="#FFFFFFFF" Background="#00000000" Name="btnMoveForward" Content="&gt;&gt;" Margin="192,0,0,12" HorizontalAlignment="Center" Width="48" Height="48" VerticalAlignment="Bottom"/>
-                <Button Foreground="#FFFFFFFF" Background="#00000000" Name="btnMoveBack" Content="&lt;&lt;" HorizontalAlignment="Center" Margin="-192,0,0,12" Width="48" Height="48" VerticalAlignment="Bottom" />
-
-                <!--<Image Name="btnPlay" Margin="0,0,0,4" Source="play2.png" HorizontalAlignment="Center" Width="64" VerticalAlignment="Bottom" />
-            <Image Name="btnMoveForward" Margin="192,0,0,12" Source="next2.png" Height="48" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
-            <Image Name="btnMoveBack" HorizontalAlignment="Center" Margin="-192,0,0,12"  Source="prev2.png" Width="64" Height="806" VerticalAlignment="Bottom" />
-           -->
-                <TextBlock HorizontalAlignment="Left" Margin="48,0,0,4" Name="Timetext" FontSize="37.333" Foreground="White" Text="{Binding CurrentTime}" Height="50" VerticalAlignment="Bottom"/>
-                <TextBlock HorizontalAlignment="Left" Margin="240,0,0,4" Name="TotalTimetext" FontSize="37.333" Foreground="White" Text="{Binding TotalTime}" Height="50" VerticalAlignment="Bottom"/>
-
-                <!-- END VIDEO CONTROLS-->
-            </Grid>
+            <ContentControl x:Name="cameraView" Content="{Binding Path=CameraView}" Margin="10,10,10,260" Grid.Column="1"/>
             <!-- INSERT GRAPH HERE -->
             <ContentControl x:Name="graphView" Content="{Binding GraphView}" Margin="10,840,10,10" Grid.Column="1"/>
             <!-- END Column 1 -->

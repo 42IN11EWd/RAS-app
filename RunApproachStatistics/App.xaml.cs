@@ -192,6 +192,12 @@ namespace RunApproachStatistics
             settingsWindow.Content = vaultNumberEditorViewModel;
         }
 
+        public void ShowVideoPlaybackView()
+        {
+            VideoPlaybackViewModel videoPlaybackViewModel = new VideoPlaybackViewModel(this);
+            _setContent(videoPlaybackViewModel);
+        }
+
         public void ToggleLockScreen()
         {
             if (!isLocked)

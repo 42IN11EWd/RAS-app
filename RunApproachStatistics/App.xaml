@@ -18,6 +18,12 @@
         <DataTemplate DataType="{x:Type vm:CameraViewModel}">
             <v:CameraView DataContext="{Binding}" />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:VideoViewModel}">
+            <v:VideoView DataContext="{Binding}" />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:VideoPlaybackViewModel}">
+            <v:VideoPlaybackView DataContext="{Binding}" />
+        </DataTemplate>
         <DataTemplate DataType="{x:Type vm:CompareVaultsViewModel}">
             <v:CompareVaultsView DataContext="{Binding}" />
         </DataTemplate>

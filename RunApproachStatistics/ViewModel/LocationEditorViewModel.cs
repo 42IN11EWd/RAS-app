@@ -1,6 +1,7 @@
 ﻿using RunApproachStatistics.Controllers;
 using RunApproachStatistics.Model.Entity;
 using RunApproachStatistics.Modules;
+using RunApproachStatistics.Modules.Interfaces;
 using RunApproachStatistics.MVVM;
 using System;
 using System.Collections.Generic;
@@ -14,10 +15,13 @@ namespace RunApproachStatistics.ViewModel
     class LocationEditorViewModel : AbstractViewModel
     {
         private IApplicationController _app;
+        private ILocationModule locationModule;
+
         private PropertyChangedBase content;
         private ObservableCollection<location> locations;
         private location selectedItem;
-        private EditorModule editormodule;
+        private bool buttonEnabled;
+        
 
         #region Bindings
         public RelayCommand DeleteCommand { get; private set; }
@@ -44,7 +48,13 @@ namespace RunApproachStatistics.ViewModel
         }
         public location SelectedItem
         {
-            get { return selectedItem; }
+            get {
+                if (selectedItem == null)
+                    ButtonEnabled = false;
+                else
+                    ButtonEnabled = true;
+                return selectedItem;
+            }
             set
             {
                 selectedItem = value;
@@ -54,6 +64,17 @@ namespace RunApproachStatistics.ViewModel
                 
             }
         }
+
+        public bool ButtonEnabled
+        {
+            get { return buttonEnabled; }
+            set
+            {
+                buttonEnabled = value;
+                OnPropertyChanged("ButtonEnabled");
+            }
+        }
+
         public String Name
         {
             get {
@@ -88,8 +109,8 @@ namespace RunApproachStatistics.ViewModel
         public LocationEditorViewModel(IApplicationController app) : base()
         {
             _app = app;
-            editormodule = new EditorModule();
-            Locations = editormodule.readLocation();
+            locationModule = new EditorModule();
+            Locations = locationModule.readLocations();
 
         }
 
@@ -97,26 +118,28 @@ namespace RunApproachStatistics.ViewModel
 
         public void DeleteAction(object commandParam)
         {
-            editormodule.deleteLocation(SelectedItem.location_id);
+            locationModule.deleteLocation(SelectedItem.location_id);
             Locations.Remove(SelectedItem);
-            
         }
+
         public void NewAction(object commandParam)
         {
-            //new location
             location newlocation = new location();
             Locations.Add(newlocation);
             SelectedItem = newlocation;
         }
+
         public void SaveAction(object commandParam)
         {
-            editormodule.updateLocation(SelectedItem);
-            Locations = editormodule.readLocation();
+            locationModule.updateLocation(SelectedItem);
+            Locations = locationModule.readLocations();
         }
+
         public void BackAction(object commandParam)
         {
             _app.ShowSettingsView();
         }
+
         #endregion
 
         protected override void initRelayCommands()

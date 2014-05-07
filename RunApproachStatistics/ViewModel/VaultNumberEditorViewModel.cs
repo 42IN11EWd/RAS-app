@@ -1,6 +1,7 @@
 ﻿using RunApproachStatistics.Controllers;
 using RunApproachStatistics.Model.Entity;
 using RunApproachStatistics.Modules;
+using RunApproachStatistics.Modules.Interfaces;
 using RunApproachStatistics.MVVM;
 using System;
 using System.Collections.Generic;
@@ -14,10 +15,13 @@ namespace RunApproachStatistics.ViewModel
     class VaultNumberEditorViewModel : AbstractViewModel
     {
         private IApplicationController _app;
+        private IVaultnumberModule vaultnumberModule;
+
         private PropertyChangedBase content;
         private ObservableCollection<vaultnumber> vaults;
         private vaultnumber selectedItem;
-        private EditorModule editormodule;
+        private bool buttonEnabled;
+        
 
         #region Bindings
         public RelayCommand DeleteCommand { get; private set; }
@@ -34,6 +38,7 @@ namespace RunApproachStatistics.ViewModel
                 OnPropertyChanged("Content");
             }
         }
+
         public ObservableCollection<vaultnumber> Vaults
         {
             get { return vaults; }
@@ -43,9 +48,17 @@ namespace RunApproachStatistics.ViewModel
                 OnPropertyChanged("Vaults");
             }
         }
+
         public vaultnumber SelectedItem
         {
-            get { return selectedItem; }
+            get
+            {
+                if (selectedItem == null)
+                    ButtonEnabled = false;
+                else
+                    ButtonEnabled = true;
+                return selectedItem;
+            }
             set
             {
                 selectedItem = value;
@@ -57,6 +70,17 @@ namespace RunApproachStatistics.ViewModel
 
             }
         }
+
+        public bool ButtonEnabled
+        {
+            get { return buttonEnabled; }
+            set
+            {
+                buttonEnabled = value;
+                OnPropertyChanged("ButtonEnabled");
+            }
+        }
+
         public String Code
         {
             get
@@ -72,6 +96,7 @@ namespace RunApproachStatistics.ViewModel
                 OnPropertyChanged("Code");
             }
         }
+
         public String Gender
         {
             get
@@ -87,6 +112,7 @@ namespace RunApproachStatistics.ViewModel
                 OnPropertyChanged("Gender");
             }
         }
+
         public Nullable<decimal> Difficulty
         {
             get
@@ -102,6 +128,7 @@ namespace RunApproachStatistics.ViewModel
                 OnPropertyChanged("Name");
             }
         }
+
         public String Description
         {
             get
@@ -117,39 +144,41 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-
         #endregion
 
         public VaultNumberEditorViewModel(IApplicationController app) : base()
         {
             _app = app;
-            editormodule = new EditorModule();
-            Vaults = editormodule.readVaultnumber();
+            vaultnumberModule = new EditorModule();
+            Vaults = vaultnumberModule.readVaultnumbers();
         }
 
         #region RelayCommands
 
         public void DeleteAction(object commandParam)
         {
-            editormodule.deleteVaultNumber(SelectedItem.vaultnumber_id);
+            vaultnumberModule.deleteVaultNumber(SelectedItem.vaultnumber_id);
             Vaults.Remove(SelectedItem);
-            
         }
+
         public void NewAction(object commandParam)
         {
             vaultnumber newvault = new vaultnumber();
             Vaults.Add(newvault);
             SelectedItem = newvault;
         }
+
         public void SaveAction(object commandParam)
         {
-            editormodule.updateVaultnumber(SelectedItem);
-            Vaults = editormodule.readVaultnumber();
+            vaultnumberModule.updateVaultnumber(SelectedItem);
+            Vaults = vaultnumberModule.readVaultnumbers();
         }
+
         public void BackAction(object commandParam)
         {
             _app.ShowSettingsView();
         }
+
         #endregion
 
         protected override void initRelayCommands()

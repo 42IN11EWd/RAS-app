@@ -20,8 +20,9 @@ namespace RunApproachStatistics.ViewModel
     {
         private IApplicationController _app;
         private PropertyChangedBase menu;
-
+        
         private CameraViewModel cameraView;
+        private VideoViewModel videoView;
         private CameraWindow cameraWindow;
         private VideoCameraController videoCameraController;
         private IVideoCameraSettingsModule videoCameraSettingsModule;
@@ -76,36 +77,6 @@ namespace RunApproachStatistics.ViewModel
                 OnPropertyChanged("GraphView");
             }
         }
-
-        public string CurrentTime
-        {
-            get { return currentTime; }
-            set 
-            {
-                currentTime = value;
-                OnPropertyChanged("CurrentTime");
-            }
-        }
-
-        public String TotalTime
-        {
-            get { return totalTime; }
-            set
-            {
-                totalTime = value;
-                OnPropertyChanged("TotalTime");
-            }
-        }
-
-        public double VideoPosition
-        {
-            get { return videoPosition; }
-            set 
-            {
-                videoPosition = value;
-                OnPropertyChanged("VideoPosition");
-            }
-        }
         #endregion
 
         public HomeViewModel(IApplicationController app, VideoCameraController videoCameraController) : base()
@@ -124,16 +95,11 @@ namespace RunApproachStatistics.ViewModel
             // Set Graph
             GraphViewModel graphVM = new GraphViewModel(_app, this);
             GraphView = graphVM;
-
-            // Set ReplayVideo
-           
-
         }
 
         private void openVideoSource()
         {
             cameraWindow = videoCameraController.CameraWindow;
-
             if (cameraWindow != null)
             {
                 setVideoSource(cameraWindow);
