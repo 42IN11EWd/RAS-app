@@ -11,9 +11,7 @@ namespace RunApproachStatistics.ViewModel
     public class GraphViewModel : AbstractViewModel
     {
         private IApplicationController _app;
-        public int DisplayWidth { get; set; }
         public int WidthChart { get; set; }
-        public int GridWidth { get; set; }
 
         public int SizeAxisTime { get; set; }
         public int SizeAxisDistance { get; set; }
@@ -23,17 +21,20 @@ namespace RunApproachStatistics.ViewModel
 
         public List<KeyValuePair<float, float>> SpeedArray { get; set; }
 
-        public GraphViewModel(IApplicationController app, AbstractViewModel chooseVM) : base()
+        public GraphViewModel(IApplicationController app) : this(app, 2000)
+        {
+        }
+
+        public GraphViewModel(IApplicationController app, int width) : base()
         {
             _app = app;
             //TODO check which viewmodel is active and set properties to specific VM
-            DisplayWidth = 3000;
-            WidthChart = 3000;
-            GridWidth = 3000;
+
+            WidthChart = width;
             SizeAxisTime = 30;
             SizeAxisDistance = 30;
             SizeAxisSpeed = 30;
- 
+
             // Example data
             setDistances();
             setSpeeds();
