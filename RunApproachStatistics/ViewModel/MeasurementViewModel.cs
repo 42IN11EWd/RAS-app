@@ -78,7 +78,7 @@ namespace RunApproachStatistics.ViewModel
                 if(value == true && ManualModeChecked)
                 {
                     MeasurementButtonContent = "Stop Measurement";
-                    // videoCameraController.Capture(); // --> Doesnt recognize the DLL
+                    videoCameraController.Capture(); // --> Doesnt recognize the DLL
                     // portController.startMeasurement();
                 }
                 else if(value == false && ManualModeChecked) 
@@ -86,8 +86,9 @@ namespace RunApproachStatistics.ViewModel
                     MeasurementButtonContent = "Start Measurement";
                     if (videoCameraController.IsCapturing)
                     {
-                        // videoCameraController.StopCapture();
-                        // cameraModule.createVideoData(null, videoCameraController.RecordedVideo);
+                        videoCameraController.StopCapture();
+                        cameraModule.createVideoData(null, videoCameraController.RecordedVideo);
+                        videoCameraController.Close();
                         // portController.startMeasurement();
                     }
                 }
