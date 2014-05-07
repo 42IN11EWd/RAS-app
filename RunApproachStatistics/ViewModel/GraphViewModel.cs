@@ -21,30 +21,22 @@ namespace RunApproachStatistics.ViewModel
 
         public List<KeyValuePair<float,float>> DistanceArray { get; set; }
 
+        public List<KeyValuePair<float, float>> SpeedArray { get; set; }
+
         public GraphViewModel(IApplicationController app, AbstractViewModel chooseVM) : base()
         {
             _app = app;
             //TODO check which viewmodel is active and set properties to specific VM
-            if (chooseVM.ToString().Equals("RunApproachStatistics.ViewModel.HomeViewModel"))
-            {
-                DisplayWidth = 3000;
-                WidthChart = 3000;
-                GridWidth = 3000;
-                SizeAxisTime = 30;
-                SizeAxisDistance = 30;
-                SizeAxisSpeed = 30;
-            }
-            else
-            {
-                DisplayWidth = 2000;
-                WidthChart = 2000;
-                GridWidth = 2000;
-                SizeAxisTime = 30;
-                SizeAxisDistance = 30;
-                SizeAxisSpeed = 30;
-            }
+            DisplayWidth = 3000;
+            WidthChart = 3000;
+            GridWidth = 3000;
+            SizeAxisTime = 30;
+            SizeAxisDistance = 30;
+            SizeAxisSpeed = 30;
+ 
             // Example data
             setDistances();
+            setSpeeds();
         }
 
         private void setDistances()
@@ -56,6 +48,13 @@ namespace RunApproachStatistics.ViewModel
                 DistanceArray.Add(new KeyValuePair<float, float>(i, j));
                 j += 3;
             }
+        }
+
+        private void setSpeeds()
+        {
+            SpeedArray = new List<KeyValuePair<float, float>>();
+            SpeedArray.Add(new KeyValuePair<float, float>(0, 2));
+            SpeedArray.Add(new KeyValuePair<float, float>(1, 4));
         }
 
         protected override void initRelayCommands()
