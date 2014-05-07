@@ -19,6 +19,8 @@ namespace RunApproachStatistics.Controllers
 
         void ShowCompareVaultsView();
 
+        void ShowVideoPlaybackView();
+
         void ShowLoginView();
 
         void ShowMeasurementView();

@@ -143,6 +143,8 @@
     <Compile Include="Services\VideoCamera.cs" />
     <Compile Include="Services\VideoCameraController.cs" />
     <Compile Include="Services\WritePort.cs" />
+    <Compile Include="ViewModel\VideoPlaybackViewModel.cs" />
+    <Compile Include="ViewModel\VideoViewModel.cs" />
     <Compile Include="ViewModel\CameraViewModel.cs" />
     <Compile Include="ViewModel\CompareVaultsViewModel.cs" />
     <Compile Include="ViewModel\GraphViewModel.cs" />
@@ -216,6 +218,12 @@
       <DependentUpon>VaultSelectorView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\VaultSelectorViewModel.cs" />
+    <Compile Include="View\VideoPlaybackView.xaml.cs">
+      <DependentUpon>VideoPlaybackView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\VideoView.xaml.cs">
+      <DependentUpon>VideoView.xaml</DependentUpon>
+    </Compile>
     <Page Include="View\CameraView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -301,6 +309,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\VideoPlaybackView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\VideoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -363,6 +379,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\videoControl_backward.png" />
+    <Resource Include="Images\videoControl_forward.png" />
+    <Resource Include="Images\videoControl_pause.png" />
+    <Resource Include="Images\videoControl_play.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
