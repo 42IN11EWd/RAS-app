@@ -217,7 +217,16 @@ namespace RunApproachStatistics.Modules
                     frames = null;
 
                     // Upload the file to the server.
-                    new WebClient().UploadFile("http://www.student.aii.avans.nl/grp/IN42IN11EWd", "POST", filePath);
+                    WebClient myWebClient = new WebClient();
+                    NetworkCredential myCredentials = new NetworkCredential("username", "password");
+                    myWebClient.Credentials = myCredentials;
+                    byte[] responseArray = myWebClient.UploadFile("ftp://student.aii.avans.nl/GRP/42IN11EWd/Videos", filePath);
+
+                    String temp = System.Text.Encoding.ASCII.GetString(responseArray);
+
+                    // Decode and display the response.
+                    Console.WriteLine("\nResponse Received.The contents of the file uploaded are:\n{0}",
+                        System.Text.Encoding.ASCII.GetString(responseArray));
                 }
                 catch (Exception e)
                 {
