@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
              mc:Ignorable="d" 
-             d:DesignHeight="400" d:DesignWidth="{Binding Path=DisplayWidth }" Background="White" >
+             d:DesignHeight="400" d:DesignWidth="120" Background="White" >
     <UserControl.Resources>
         <Style x:Key="InvisibleDataPoint" TargetType="{x:Type chartingToolkit:LineDataPoint}">
             <Setter Property="Background" Value="Blue"/>
@@ -18,13 +18,13 @@
         </Style>
     </UserControl.Resources>
     <Viewbox Stretch="Fill">
-        <Grid Width="{Binding GridWidth}" Height="400">
-            <chartingToolkit:Chart Width="{Binding WidthChart}" x:Name="lineChart" VerticalAlignment="Top" Height="400" BorderThickness="0" RenderTransformOrigin="0.5,0.5" Margin="1,0,-1,0">
+        <Grid Height="400">
+            <chartingToolkit:Chart Width="{Binding Path=WidthChart}" x:Name="lineChart" VerticalAlignment="Top" Height="456" BorderThickness="0" RenderTransformOrigin="0.5,0.5" Margin="1,-40,-1,-16">
 
                 <chartingToolkit:Chart.Axes>
-                    <chartingToolkit:LinearAxis FontSize="{Binding SizeAxisTime}" x:Name="xAxis1" Orientation="X" Location="Bottom" Title="Time" Cursor="None" Interval="1" Maximum="8" Minimum="0"/>
-                    <chartingToolkit:LinearAxis FontSize="{Binding SizeAxisDistance}" x:Name="yAxis1" Orientation="Y" Location="Left" Title="Distance" Foreground="Blue" ShowGridLines="True" Minimum="0" Maximum="30" Interval="5"/>
-                    <chartingToolkit:LinearAxis FontSize="{Binding SizeAxisSpeed}" Orientation="Y" Location="Right" Title="Speed" Foreground="Red" ShowGridLines="True" Interval="3" Maximum="15"/>
+                    <chartingToolkit:LinearAxis FontSize="{Binding Path=SizeAxisTime}" x:Name="xAxis1" Orientation="X" Location="Bottom" Title="Time" Cursor="None" Interval="1" Maximum="8" Minimum="0"/>
+                    <chartingToolkit:LinearAxis FontSize="{Binding Path=SizeAxisDistance}" x:Name="yAxis1" Orientation="Y" Location="Left" Title="Distance" Foreground="Blue" ShowGridLines="True" Minimum="0" Maximum="30" Interval="5" FontStyle="Normal"/>
+                    <chartingToolkit:LinearAxis FontSize="{Binding Path=SizeAxisSpeed}" Orientation="Y" Location="Right" Title="Speed" Foreground="Red" ShowGridLines="True" Interval="3" Maximum="15" FontStyle="Normal"/>
                 </chartingToolkit:Chart.Axes>
                 <chartingToolkit:Chart.LegendStyle>
                     <Style TargetType="{x:Type Control}">
@@ -34,7 +34,7 @@
                     </Style>
                 </chartingToolkit:Chart.LegendStyle>
 
-                <chartingToolkit:LineSeries x:Name="distanceLine" DependentValuePath="Value" IndependentValuePath="Key" ItemsSource="{Binding DistanceArray}" DataPointStyle="{StaticResource InvisibleDataPoint}" Margin="0,0,0,2">
+                <chartingToolkit:LineSeries x:Name="distanceLine" DependentValuePath="Value" IndependentValuePath="Key" ItemsSource="{Binding Path=DistanceArray}" DataPointStyle="{StaticResource InvisibleDataPoint}" Margin="0,0,0,2">
                     <chartingToolkit:LineSeries.Template>
                         <ControlTemplate TargetType="{x:Type chartingToolkit:LineSeries}">
                             <Canvas x:Name="PlotArea">
@@ -48,7 +48,7 @@
                     </chartingToolkit:LineSeries.Template>
                 </chartingToolkit:LineSeries>
 
-                <chartingToolkit:LineSeries x:Name="speedLine" DependentValuePath="Value" IndependentValuePath="Key" ItemsSource="{Binding SpeedArray}" DataPointStyle="{StaticResource InvisibleDataPoint2}" Margin="0,0,0,2">
+                <chartingToolkit:LineSeries x:Name="speedLine" DependentValuePath="Value" IndependentValuePath="Key" ItemsSource="{Binding Path=SpeedArray}" DataPointStyle="{StaticResource InvisibleDataPoint2}" Margin="0,0,0,2">
                     <chartingToolkit:LineSeries.Template>
                         <ControlTemplate TargetType="{x:Type chartingToolkit:LineSeries}">
                             <Canvas x:Name="PlotArea">

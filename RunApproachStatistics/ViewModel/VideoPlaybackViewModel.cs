@@ -107,7 +107,7 @@ namespace RunApproachStatistics.ViewModel
             // Set ReplayVideo
             VideoView = new VideoViewModel(_app);
             // Set Graph
-            GraphViewModel graphVM = new GraphViewModel(_app, this);
+            GraphViewModel graphVM = new GraphViewModel(_app);
             GraphView = graphVM;
         }
 
