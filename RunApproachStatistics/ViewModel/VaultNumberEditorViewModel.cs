@@ -41,7 +41,7 @@ namespace RunApproachStatistics.ViewModel
             set
             {
                 vaults = value;
-                this.OnPropertyChanged("Locations");
+                OnPropertyChanged("Vaults");
             }
         }
         public vaultnumber SelectedItem
