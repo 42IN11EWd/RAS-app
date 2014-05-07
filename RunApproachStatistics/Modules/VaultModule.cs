@@ -25,7 +25,7 @@ namespace RunApproachStatistics.Modules
     /// 
     /// This will be done by a combination of Linq and the Entity framework.
     /// </summary>
-    class VaultModule : IVaultModule, ICameraModule
+    public class VaultModule : IVaultModule, ICameraModule
     {
         public void create(vault vault)
         {
