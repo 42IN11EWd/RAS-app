@@ -190,7 +190,6 @@ namespace RunApproachStatistics.Modules
         public class Worker
         {
             private String filePath;
-            private int framesCounter;
             private VideoFileWriter writer;
             private List<Bitmap> frames;
 
@@ -204,20 +203,18 @@ namespace RunApproachStatistics.Modules
             {
                 try
                 {
+                    writer = new VideoFileWriter();
                     writer.Open(filePath, CaptureBuffer.width, CaptureBuffer.height, CaptureBuffer.fps, VideoCodec.MPEG4, 2000000);
 
-                    int count = 0;
-                    while (frames[count] != null)
+                    foreach(Bitmap bmp in frames)
                     {
-                        writer.WriteVideoFrame(frames[count]);
-                        count++;
+                        writer.WriteVideoFrame(bmp);
                     }
 
                     // Close the writer
                     writer.Close();
                     writer = null;
                     frames = null;
-                    framesCounter = 0;
 
                     // Upload the file to the server.
                     new WebClient().UploadFile("http://www.student.aii.avans.nl/grp/IN42IN11EWd", "POST", filePath);

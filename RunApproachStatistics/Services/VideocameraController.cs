@@ -74,6 +74,11 @@ namespace RunApproachStatistics.Services
         public VideoCameraController()
         {
             setDevices();
+
+            timer = new System.Timers.Timer();
+            timer.Interval = 1000D;
+            timer.Elapsed += new System.Timers.ElapsedEventHandler(this.timer_Elapsed);
+            timer.Start();
         }
 
         public void setDevices()
@@ -96,7 +101,8 @@ namespace RunApproachStatistics.Services
 
         public CameraWindow OpenVideoSource(int deviceIndex)
         {
-            try {
+            try
+            {
                 this.device = filters[deviceIndex].MonikerString;
                 CaptureDevice localSource = new CaptureDevice();
                 localSource.VideoSource = device;
@@ -135,9 +141,14 @@ namespace RunApproachStatistics.Services
 
                 // increment indexes
                 if (++statIndex >= statLength)
+                {
                     statIndex = 0;
+                }
+
                 if (statReady < statLength)
+                {
                     statReady++;
+                }
 
                 fps = 0;
 
@@ -152,8 +163,6 @@ namespace RunApproachStatistics.Services
                 statCount[statIndex] = 0;
 
                 captureBuffer.updateFPS(fps);
-
-                //mainWindow.setFps(fps);
             }
         }
 
@@ -186,8 +195,7 @@ namespace RunApproachStatistics.Services
 
             captureBuffer.AddDynamicBufferFrame((Bitmap)cameraWindow.Camera.LastFrame.Clone());
 
-            cameraWindow.Camera.Unlock();
-            
+            cameraWindow.Camera.Unlock();            
         }
 
         public void Capture()
@@ -212,131 +220,5 @@ namespace RunApproachStatistics.Services
         {
             return cameraWindow.Camera != null;
         }
-    }    
-
-    internal class DispatcherWinFormsCompatAdapter : ISynchronizeInvoke
-    {
-        #region IAsyncResult implementation
-        private class DispatcherAsyncResultAdapter : IAsyncResult
-        {
-            private DispatcherOperation m_op;
-            private object m_state;
-
-            public DispatcherAsyncResultAdapter(DispatcherOperation operation)
-            {
-                m_op = operation;
-            }
-
-            public DispatcherAsyncResultAdapter(DispatcherOperation operation, object state)
-                : this(operation)
-            {
-                m_state = state;
-            }
-
-            public DispatcherOperation Operation
-            {
-                get { return m_op; }
-            }
-
-            #region IAsyncResult Members
-
-            public object AsyncState
-            {
-                get { return m_state; }
-            }
-
-            public WaitHandle AsyncWaitHandle
-            {
-                get { return null; }
-            }
-
-            public bool CompletedSynchronously
-            {
-                get { return false; }
-            }
-
-            public bool IsCompleted
-            {
-                get { return m_op.Status == DispatcherOperationStatus.Completed; }
-            }
-
-            #endregion
-        }
-        #endregion
-        private Dispatcher m_disp;
-        public DispatcherWinFormsCompatAdapter(Dispatcher dispatcher)
-        {
-            m_disp = dispatcher;
-        }
-        #region ISynchronizeInvoke Members
-
-        public IAsyncResult BeginInvoke(Delegate method, object[] args)
-        {
-            if (args != null && args.Length > 1)
-            {
-                object[] argsSansFirst = GetArgsAfterFirst(args);
-                DispatcherOperation op = m_disp.BeginInvoke(DispatcherPriority.Normal, method, args[0], argsSansFirst);
-                return new DispatcherAsyncResultAdapter(op);
-            }
-            else
-            {
-                if (args != null)
-                {
-                    return new DispatcherAsyncResultAdapter(m_disp.BeginInvoke(DispatcherPriority.Normal, method, args[0]));
-                }
-                else
-                {
-                    return new DispatcherAsyncResultAdapter(m_disp.BeginInvoke(DispatcherPriority.Normal, method));
-                }
-            }
-        }
-
-        private static object[] GetArgsAfterFirst(object[] args)
-        {
-            object[] result = new object[args.Length - 1];
-            Array.Copy(args, 1, result, 0, args.Length - 1);
-            return result;
-        }
-
-        public object EndInvoke(IAsyncResult result)
-        {
-            DispatcherAsyncResultAdapter res = result as DispatcherAsyncResultAdapter;
-            if (res == null)
-                throw new InvalidCastException();
-
-            while (res.Operation.Status != DispatcherOperationStatus.Completed || res.Operation.Status == DispatcherOperationStatus.Aborted)
-            {
-                Thread.Sleep(50);
-            }
-
-            return res.Operation.Result;
-        }
-
-        public object Invoke(Delegate method, object[] args)
-        {
-            if (args != null && args.Length > 1)
-            {
-                object[] argsSansFirst = GetArgsAfterFirst(args);
-                return m_disp.Invoke(DispatcherPriority.Normal, method, args[0], argsSansFirst);
-            }
-            else
-            {
-                if (args != null)
-                {
-                    return m_disp.Invoke(DispatcherPriority.Normal, method, args[0]);
-                }
-                else
-                {
-                    return m_disp.Invoke(DispatcherPriority.Normal, method);
-                }
-            }
-        }
-
-        public bool InvokeRequired
-        {
-            get { return m_disp.Thread != Thread.CurrentThread; }
-        }
-
-        #endregion
     }
 }
