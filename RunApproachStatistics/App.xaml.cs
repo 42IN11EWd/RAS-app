@@ -1,4 +1,5 @@
 ﻿using RunApproachStatistics.Controllers;
+using RunApproachStatistics.Model.Entity;
 using RunApproachStatistics.Modules;
 using RunApproachStatistics.Modules.Interfaces;
 using RunApproachStatistics.Services;
@@ -157,6 +158,13 @@ namespace RunApproachStatistics
         public void ShowVaultSelectorView()
         {
             VaultSelectorViewModel vaultSelectorViewModel = new VaultSelectorViewModel(this);
+            _setContent(vaultSelectorViewModel);
+        }
+
+        public void ShowVaultSelectorView(gymnast gymnast)
+        {
+            VaultSelectorViewModel vaultSelectorViewModel = new VaultSelectorViewModel(this);
+            //vaultSelectorViewModel.setFilter(gymnast);
             _setContent(vaultSelectorViewModel);
         }
 

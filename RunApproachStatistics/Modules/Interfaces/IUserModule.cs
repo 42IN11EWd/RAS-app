@@ -18,8 +18,6 @@ namespace RunApproachStatistics.Modules.Interfaces
 
         void delete(int id);
 
-        List<gymnast> getGymnastCollection(String filter);
-
         List<gymnast> getGymnastCollection();
     }
 }

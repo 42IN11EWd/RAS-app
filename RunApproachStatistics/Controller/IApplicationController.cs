@@ -31,6 +31,8 @@ namespace RunApproachStatistics.Controllers
 
         void ShowVaultSelectorView();
 
+        void ShowVaultSelectorView(RunApproachStatistics.Model.Entity.gymnast gymnast);
+
         void ShowLocationEditorView();
 
         void ShowVaultNumberEditorView();

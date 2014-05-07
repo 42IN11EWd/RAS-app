@@ -112,14 +112,10 @@ namespace RunApproachStatistics.Modules
             using (var db = new DataContext())
             {
                 return (from qGymnast in db.gymnast
+                        where qGymnast.deleted == false
                         select qGymnast
                 ).ToList();
             }
-        }
-
-        public List<gymnast> getGymnastCollection(string filter)
-        {
-            throw new NotImplementedException();
         }
 
         #region Login Methods

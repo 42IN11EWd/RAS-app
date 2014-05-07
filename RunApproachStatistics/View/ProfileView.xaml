@@ -42,9 +42,9 @@
             <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,350,0,0" Text="{Binding Surname}" VerticalAlignment="Top" Visibility="{Binding IsNotEditing}" />
             <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,390,0,0" Text="{Binding FIGNumber}" VerticalAlignment="Top" Visibility="{Binding IsNotEditing}" />
 
-            <TextBox FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,270,0,0" Text="{Binding EditName}" VerticalAlignment="Top" Visibility="{Binding IsEditing}" Width="256" />
-            <TextBox FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,310,0,0" Text="{Binding EditPrefix}" VerticalAlignment="Top" Visibility="{Binding IsEditing}" Width="256" />
-            <TextBox FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,350,0,0" Text="{Binding EditSurname}" VerticalAlignment="Top" Visibility="{Binding IsEditing}" Width="256" />
+            <TextBox FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,270,0,0" Text="{Binding EditName, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Visibility="{Binding IsEditing}" Width="256" />
+            <TextBox FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,310,0,0" Text="{Binding EditPrefix, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Visibility="{Binding IsEditing}" Width="256" />
+            <TextBox FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,350,0,0" Text="{Binding EditSurname, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Visibility="{Binding IsEditing}" Width="256" />
             <TextBox FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,390,0,0" Text="{Binding EditFIGNumber}" VerticalAlignment="Top" Visibility="{Binding IsEditing}" Width="256" />
 
             <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,450,0,0" Text="{Binding DateOfBirth}" VerticalAlignment="Top" Visibility="{Binding IsNotEditing}" />
@@ -75,8 +75,8 @@
                 <Grid>
                     <Button Command="{Binding EditGymnastCommand}" Content="Edit Gymnast" FontSize="24" Height="40" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="175"/>
                     <Button Command="{Binding NewGymnastCommand}" Content="New Gymnast" FontSize="24" Height="40" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" Width="175"/>
-                    <TextBox FontSize="24" Height="38" HorizontalAlignment="Left" Margin="10,55,0,0" TextWrapping="Wrap" Text="{Binding FilterField, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="368"/>
-                    <ListBox FontSize="22" HorizontalAlignment="Left" Height="915" ItemsSource="{Binding FilterList}" Margin="10,100,0,0" SelectedItem="{Binding SelectedFilterItem}" VerticalAlignment="Top" Width="368">
+                    <TextBox FontSize="24" Height="38" HorizontalAlignment="Left" IsEnabled="{Binding EnableFilter}" Margin="10,55,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" TextWrapping="Wrap" Text="{Binding FilterField, UpdateSourceTrigger=PropertyChanged}" Width="368"/>
+                    <ListBox FontSize="22" HorizontalAlignment="Left" Height="915" IsEnabled="{Binding EnableFilter}" ItemsSource="{Binding FilterList}" Margin="10,100,0,0" SelectedItem="{Binding SelectedFilterItem}" VerticalAlignment="Top" Width="368">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
