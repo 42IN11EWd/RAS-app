@@ -11,6 +11,11 @@ namespace RunApproachStatistics.ViewModel
     public class GraphViewModel : AbstractViewModel
     {
         private IApplicationController _app;
+
+        //live variables
+        private System.Timers.Timer timer;
+        private int seconds;
+
         public int DisplayWidth { get; set; }
         public int WidthChart { get; set; }
         public int GridWidth { get; set; }
@@ -23,9 +28,13 @@ namespace RunApproachStatistics.ViewModel
 
         public List<KeyValuePair<float, float>> SpeedArray { get; set; }
 
-        public GraphViewModel(IApplicationController app, AbstractViewModel chooseVM) : base()
+        public GraphViewModel(IApplicationController app, AbstractViewModel chooseVM, Boolean isLive) : base()
         {
             _app = app;
+
+            DistanceArray = new List<KeyValuePair<float, float>>();
+            SpeedArray = new List<KeyValuePair<float, float>>();
+
             //TODO check which viewmodel is active and set properties to specific VM
             DisplayWidth = 3000;
             WidthChart = 3000;
@@ -35,8 +44,22 @@ namespace RunApproachStatistics.ViewModel
             SizeAxisSpeed = 30;
  
             // Example data
-            setDistances();
-            setSpeeds();
+            //setDistances();
+            //setSpeeds();
+
+            if (isLive)
+            {
+                timer = new System.Timers.Timer();
+                timer.Interval = 1000D;
+                timer.Elapsed += new System.Timers.ElapsedEventHandler(this.timer_Elapsed);
+                timer.Start();
+            }
+        }
+
+        private void timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            String measurement = App.portController.getLatestMeasurement();
+            //DistanceArray.Add(new KeyValuePair<float, float>(seconds, ));
         }
 
         private void setDistances()

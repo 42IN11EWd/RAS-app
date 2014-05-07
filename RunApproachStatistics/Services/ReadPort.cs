@@ -87,7 +87,8 @@ namespace RunApproachStatistics.Services
 
                     checkReceivedData(line);
                 }
-            }catch(Exception ex)
+            }
+            catch(Exception ex)
             {
 
             }
@@ -244,6 +245,11 @@ namespace RunApproachStatistics.Services
         public void stopMeasurement()
         {
             save = false;
+        }
+
+        public String getLatestMeasurement()
+        {
+            return dynamicBuffer[dynamicBuffer.Count - 1];
         }
     }
 }

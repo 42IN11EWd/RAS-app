@@ -227,5 +227,9 @@ namespace RunApproachStatistics.Services
             MeasurementWindowMax = measurementWindowMax;
             MeasurementWindowMin = measurementWindowMin;
         }
+        public String getLatestMeasurement()
+        {
+            return readPort.getLatestMeasurement();
+        }
     }
 }
