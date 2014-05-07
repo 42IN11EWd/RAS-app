@@ -44,7 +44,7 @@
                 <!-- END VIDEO CONTROLS-->
             </Grid>
             <!-- INSERT GRAPH HERE -->
-            <ContentControl x:Name="graphView" Content="{Binding GraphView}" Margin="10,825,10,10" Grid.Column="1"/>
+            <ContentControl x:Name="graphView" Content="{Binding GraphView}" Margin="10,840,10,10" Grid.Column="1"/>
             <!-- END Column 1 -->
         </Grid>
     </Viewbox>

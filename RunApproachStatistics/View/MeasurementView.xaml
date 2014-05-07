@@ -40,7 +40,7 @@
             <TextBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right"  Margin="0,0,29,670" TextWrapping="Wrap" Text="{Binding Gymnast}" VerticalAlignment="Bottom"/>
             <TextBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right"  Margin="0,0,29,735" TextWrapping="Wrap" Text="{Binding Location}" VerticalAlignment="Bottom" />
 
-            <ContentControl x:Name="graphViewMeasurement" Content="{Binding GraphViewMeasurement}" Margin="336,0,454,25" Height="384" VerticalAlignment="Bottom"/>
+            <ContentControl x:Name="graphViewMeasurement" Content="{Binding GraphViewMeasurement}" Margin="336,0,454,25" Height="365" VerticalAlignment="Bottom"/>
 
         </Grid>
     </Viewbox>
