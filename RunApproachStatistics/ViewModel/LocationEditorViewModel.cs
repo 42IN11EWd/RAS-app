@@ -20,6 +20,7 @@ namespace RunApproachStatistics.ViewModel
         private PropertyChangedBase content;
         private ObservableCollection<location> locations;
         private location selectedItem;
+        private bool buttonEnabled;
         
 
         #region Bindings
@@ -47,7 +48,13 @@ namespace RunApproachStatistics.ViewModel
         }
         public location SelectedItem
         {
-            get { return selectedItem; }
+            get {
+                if (selectedItem == null)
+                    ButtonEnabled = false;
+                else
+                    ButtonEnabled = true;
+                return selectedItem;
+            }
             set
             {
                 selectedItem = value;
@@ -57,6 +64,17 @@ namespace RunApproachStatistics.ViewModel
                 
             }
         }
+
+        public bool ButtonEnabled
+        {
+            get { return buttonEnabled; }
+            set
+            {
+                buttonEnabled = value;
+                OnPropertyChanged("ButtonEnabled");
+            }
+        }
+
         public String Name
         {
             get {

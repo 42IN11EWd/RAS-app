@@ -20,6 +20,7 @@ namespace RunApproachStatistics.ViewModel
         private PropertyChangedBase content;
         private ObservableCollection<vaultnumber> vaults;
         private vaultnumber selectedItem;
+        private bool buttonEnabled;
         
 
         #region Bindings
@@ -50,7 +51,14 @@ namespace RunApproachStatistics.ViewModel
 
         public vaultnumber SelectedItem
         {
-            get { return selectedItem; }
+            get
+            {
+                if (selectedItem == null)
+                    ButtonEnabled = false;
+                else
+                    ButtonEnabled = true;
+                return selectedItem;
+            }
             set
             {
                 selectedItem = value;
@@ -60,6 +68,16 @@ namespace RunApproachStatistics.ViewModel
                 OnPropertyChanged("Difficulty");
                 OnPropertyChanged("Description");
 
+            }
+        }
+
+        public bool ButtonEnabled
+        {
+            get { return buttonEnabled; }
+            set
+            {
+                buttonEnabled = value;
+                OnPropertyChanged("ButtonEnabled");
             }
         }
 
