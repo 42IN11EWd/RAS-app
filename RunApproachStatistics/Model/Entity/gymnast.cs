@@ -31,6 +31,8 @@ namespace RunApproachStatistics.Model.Entity
         public string surname { get; set; }
         public string surname_prefix { get; set; }
         public bool deleted { get; set; }
+        public Nullable<decimal> weight { get; set; }
+        public string note { get; set; }
     
         public virtual ICollection<vault> vault { get; set; }
         public virtual ICollection<user> user { get; set; }
