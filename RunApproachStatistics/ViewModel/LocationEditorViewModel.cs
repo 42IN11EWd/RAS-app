@@ -15,10 +15,12 @@ namespace RunApproachStatistics.ViewModel
     class LocationEditorViewModel : AbstractViewModel
     {
         private IApplicationController _app;
+        private ILocationModule locationModule;
+
         private PropertyChangedBase content;
         private ObservableCollection<location> locations;
         private location selectedItem;
-        private ILocationModule locationModule;
+        
 
         #region Bindings
         public RelayCommand DeleteCommand { get; private set; }
@@ -100,24 +102,26 @@ namespace RunApproachStatistics.ViewModel
         {
             locationModule.deleteLocation(SelectedItem.location_id);
             Locations.Remove(SelectedItem);
-            
         }
+
         public void NewAction(object commandParam)
         {
-            //new location
             location newlocation = new location();
             Locations.Add(newlocation);
             SelectedItem = newlocation;
         }
+
         public void SaveAction(object commandParam)
         {
             locationModule.updateLocation(SelectedItem);
             Locations = locationModule.readLocations();
         }
+
         public void BackAction(object commandParam)
         {
             _app.ShowSettingsView();
         }
+
         #endregion
 
         protected override void initRelayCommands()

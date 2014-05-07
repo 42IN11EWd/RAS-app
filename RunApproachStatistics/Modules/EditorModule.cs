@@ -35,6 +35,7 @@ namespace RunApproachStatistics.Modules
                 }
             }
         }
+
         public ObservableCollection<location> readLocations()
         {
             ObservableCollection<location> locations = new ObservableCollection<location>();
@@ -53,6 +54,7 @@ namespace RunApproachStatistics.Modules
 
             return locations;
         }
+
         public void createLocation(location location)
         {
             using (var db = new DataContext())
@@ -125,6 +127,7 @@ namespace RunApproachStatistics.Modules
                 }
             }
         }
+
         public ObservableCollection<vaultnumber> readVaultnumbers()
         {
             ObservableCollection<vaultnumber> vaultnumbers = new ObservableCollection<vaultnumber>();
@@ -140,9 +143,9 @@ namespace RunApproachStatistics.Modules
                     vaultnumbers.Add(evaultnumber);
                 }
             }
-
             return vaultnumbers;
         }
+
         public void createVaultnumber(vaultnumber vaultnumber)
         {
             using (var db = new DataContext())
@@ -159,6 +162,7 @@ namespace RunApproachStatistics.Modules
                 }
             }
         }
+
         public void updateVaultnumber(vaultnumber vaultnumber)
         {
             if (vaultnumber.vaultnumber_id != 0)

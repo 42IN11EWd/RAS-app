@@ -15,10 +15,12 @@ namespace RunApproachStatistics.ViewModel
     class VaultNumberEditorViewModel : AbstractViewModel
     {
         private IApplicationController _app;
+        private IVaultnumberModule vaultnumberModule;
+
         private PropertyChangedBase content;
         private ObservableCollection<vaultnumber> vaults;
         private vaultnumber selectedItem;
-        private IVaultnumberModule vaultnumberModule;
+        
 
         #region Bindings
         public RelayCommand DeleteCommand { get; private set; }
@@ -35,6 +37,7 @@ namespace RunApproachStatistics.ViewModel
                 OnPropertyChanged("Content");
             }
         }
+
         public ObservableCollection<vaultnumber> Vaults
         {
             get { return vaults; }
@@ -44,6 +47,7 @@ namespace RunApproachStatistics.ViewModel
                 OnPropertyChanged("Vaults");
             }
         }
+
         public vaultnumber SelectedItem
         {
             get { return selectedItem; }
@@ -58,6 +62,7 @@ namespace RunApproachStatistics.ViewModel
 
             }
         }
+
         public String Code
         {
             get
@@ -73,6 +78,7 @@ namespace RunApproachStatistics.ViewModel
                 OnPropertyChanged("Code");
             }
         }
+
         public String Gender
         {
             get
@@ -88,6 +94,7 @@ namespace RunApproachStatistics.ViewModel
                 OnPropertyChanged("Gender");
             }
         }
+
         public Nullable<decimal> Difficulty
         {
             get
@@ -103,6 +110,7 @@ namespace RunApproachStatistics.ViewModel
                 OnPropertyChanged("Name");
             }
         }
+
         public String Description
         {
             get
@@ -117,7 +125,6 @@ namespace RunApproachStatistics.ViewModel
                 OnPropertyChanged("Description");
             }
         }
-
 
         #endregion
 
@@ -134,23 +141,26 @@ namespace RunApproachStatistics.ViewModel
         {
             vaultnumberModule.deleteVaultNumber(SelectedItem.vaultnumber_id);
             Vaults.Remove(SelectedItem);
-            
         }
+
         public void NewAction(object commandParam)
         {
             vaultnumber newvault = new vaultnumber();
             Vaults.Add(newvault);
             SelectedItem = newvault;
         }
+
         public void SaveAction(object commandParam)
         {
             vaultnumberModule.updateVaultnumber(SelectedItem);
             Vaults = vaultnumberModule.readVaultnumbers();
         }
+
         public void BackAction(object commandParam)
         {
             _app.ShowSettingsView();
         }
+
         #endregion
 
         protected override void initRelayCommands()
