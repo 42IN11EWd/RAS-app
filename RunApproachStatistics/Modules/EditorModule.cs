@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace RunApproachStatistics.Modules
 {
-    class EditorModule : IEditorModule
+    public class EditorModule : ILocationModule, IVaultnumberModule
     {
         //Location methods
         public void deleteLocation(int id)
@@ -35,7 +35,7 @@ namespace RunApproachStatistics.Modules
                 }
             }
         }
-        public ObservableCollection<location> readLocation()
+        public ObservableCollection<location> readLocations()
         {
             ObservableCollection<location> locations = new ObservableCollection<location>();
 
@@ -125,7 +125,7 @@ namespace RunApproachStatistics.Modules
                 }
             }
         }
-        public ObservableCollection<vaultnumber> readVaultnumber()
+        public ObservableCollection<vaultnumber> readVaultnumbers()
         {
             ObservableCollection<vaultnumber> vaultnumbers = new ObservableCollection<vaultnumber>();
 

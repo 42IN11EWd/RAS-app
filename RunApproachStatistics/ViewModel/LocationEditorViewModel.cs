@@ -1,6 +1,7 @@
 ﻿using RunApproachStatistics.Controllers;
 using RunApproachStatistics.Model.Entity;
 using RunApproachStatistics.Modules;
+using RunApproachStatistics.Modules.Interfaces;
 using RunApproachStatistics.MVVM;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace RunApproachStatistics.ViewModel
         private PropertyChangedBase content;
         private ObservableCollection<location> locations;
         private location selectedItem;
-        private EditorModule editormodule;
+        private ILocationModule locationModule;
 
         #region Bindings
         public RelayCommand DeleteCommand { get; private set; }
@@ -88,8 +89,8 @@ namespace RunApproachStatistics.ViewModel
         public LocationEditorViewModel(IApplicationController app) : base()
         {
             _app = app;
-            editormodule = new EditorModule();
-            Locations = editormodule.readLocation();
+            locationModule = new EditorModule();
+            Locations = locationModule.readLocations();
 
         }
 
@@ -97,7 +98,7 @@ namespace RunApproachStatistics.ViewModel
 
         public void DeleteAction(object commandParam)
         {
-            editormodule.deleteLocation(SelectedItem.location_id);
+            locationModule.deleteLocation(SelectedItem.location_id);
             Locations.Remove(SelectedItem);
             
         }
@@ -110,8 +111,8 @@ namespace RunApproachStatistics.ViewModel
         }
         public void SaveAction(object commandParam)
         {
-            editormodule.updateLocation(SelectedItem);
-            Locations = editormodule.readLocation();
+            locationModule.updateLocation(SelectedItem);
+            Locations = locationModule.readLocations();
         }
         public void BackAction(object commandParam)
         {

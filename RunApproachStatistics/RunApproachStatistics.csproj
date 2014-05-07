@@ -122,11 +122,12 @@
     </Compile>
     <Compile Include="Modules\EditorModule.cs" />
     <Compile Include="Modules\Interfaces\ICameraModule.cs" />
-    <Compile Include="Modules\Interfaces\IEditorModule.cs" />
     <Compile Include="Modules\Interfaces\ILaserCameraSettingsModule.cs" />
+    <Compile Include="Modules\Interfaces\ILocationModule.cs" />
     <Compile Include="Modules\Interfaces\ILoginModule.cs" />
     <Compile Include="Modules\Interfaces\IUserModule.cs" />
     <Compile Include="Modules\Interfaces\IVaultModule.cs" />
+    <Compile Include="Modules\Interfaces\IVaultnumberModule.cs" />
     <Compile Include="Modules\Interfaces\IVideoCameraSettingsModule.cs" />
     <Compile Include="Modules\SettingsModule.cs" />
     <Compile Include="Modules\UserModule.cs" />

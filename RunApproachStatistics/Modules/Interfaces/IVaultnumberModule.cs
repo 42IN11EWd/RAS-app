@@ -8,17 +8,10 @@ using System.Threading.Tasks;
 
 namespace RunApproachStatistics.Modules.Interfaces
 {
-    interface IEditorModule
+    interface IVaultnumberModule
     {
-        //Location methods
-        void deleteLocation(int id);
-        ObservableCollection<location> readLocation();
-        void createLocation(location location);
-        void updateLocation(location location);
-
-        //Vaultnumber methods
         void deleteVaultNumber(int id);
-        ObservableCollection<vaultnumber> readVaultnumber();
+        ObservableCollection<vaultnumber> readVaultnumbers();
         void createVaultnumber(vaultnumber vaultnumber);
         void updateVaultnumber(vaultnumber vaultnumber);
     }

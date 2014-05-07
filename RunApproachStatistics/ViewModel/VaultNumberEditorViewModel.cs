@@ -1,6 +1,7 @@
 ﻿using RunApproachStatistics.Controllers;
 using RunApproachStatistics.Model.Entity;
 using RunApproachStatistics.Modules;
+using RunApproachStatistics.Modules.Interfaces;
 using RunApproachStatistics.MVVM;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace RunApproachStatistics.ViewModel
         private PropertyChangedBase content;
         private ObservableCollection<vaultnumber> vaults;
         private vaultnumber selectedItem;
-        private EditorModule editormodule;
+        private IVaultnumberModule vaultnumberModule;
 
         #region Bindings
         public RelayCommand DeleteCommand { get; private set; }
@@ -123,15 +124,15 @@ namespace RunApproachStatistics.ViewModel
         public VaultNumberEditorViewModel(IApplicationController app) : base()
         {
             _app = app;
-            editormodule = new EditorModule();
-            Vaults = editormodule.readVaultnumber();
+            vaultnumberModule = new EditorModule();
+            Vaults = vaultnumberModule.readVaultnumbers();
         }
 
         #region RelayCommands
 
         public void DeleteAction(object commandParam)
         {
-            editormodule.deleteVaultNumber(SelectedItem.vaultnumber_id);
+            vaultnumberModule.deleteVaultNumber(SelectedItem.vaultnumber_id);
             Vaults.Remove(SelectedItem);
             
         }
@@ -143,8 +144,8 @@ namespace RunApproachStatistics.ViewModel
         }
         public void SaveAction(object commandParam)
         {
-            editormodule.updateVaultnumber(SelectedItem);
-            Vaults = editormodule.readVaultnumber();
+            vaultnumberModule.updateVaultnumber(SelectedItem);
+            Vaults = vaultnumberModule.readVaultnumbers();
         }
         public void BackAction(object commandParam)
         {
