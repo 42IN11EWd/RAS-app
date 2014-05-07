@@ -19,7 +19,13 @@
             <!-- START Column 1 -->
             <!-- Start profile -->
             <Image Grid.Column="1" HorizontalAlignment="Left" Height="380" Source="{Binding Picture}" Margin="620,240,0,0" VerticalAlignment="Top" Visibility="{Binding PictureAvailable}" Width="280"/>
-            <Button Background="Transparent" Command="{Binding PictureCommand}" Content="Upload a picture here" FontSize="28" Grid.Column="1" Height="380" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="620,240,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Visibility="{Binding PictureCommandVisible}" Width="280" />
+            <Button BorderBrush="Black" BorderThickness="1" Background="Transparent" Command="{Binding PictureCommand}" Content="Upload a picture here" FontSize="28" Grid.Column="1" Height="380" HorizontalAlignment="Left" Margin="620,240,0,0" VerticalAlignment="Top" Visibility="{Binding PictureCommandVisible}" Width="280">
+                <Button.Style>
+                    <Style>
+                        <!-- Needed to override app.xaml's button style -->
+                    </Style>
+                </Button.Style>
+            </Button>
 
             <TextBlock FontSize="64" Grid.Column="1" HorizontalAlignment="Left" Margin="70,100,0,0" Text="{Binding Fullname}" VerticalAlignment="Top" />
             

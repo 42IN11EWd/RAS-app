@@ -610,6 +610,8 @@ namespace RunApproachStatistics.ViewModel
 
         private Boolean madeChanges()
         {
+            // Check if edit fields are different than their respective regular fields.
+
             return true;
         }
     }
