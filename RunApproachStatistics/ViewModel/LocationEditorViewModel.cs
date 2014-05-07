@@ -1,5 +1,6 @@
 ﻿using RunApproachStatistics.Controllers;
 using RunApproachStatistics.Model.Entity;
+using RunApproachStatistics.Modules;
 using RunApproachStatistics.MVVM;
 using System;
 using System.Collections.Generic;
@@ -14,8 +15,9 @@ namespace RunApproachStatistics.ViewModel
     {
         private IApplicationController _app;
         private PropertyChangedBase content;
-        private ObservableCollection<location> locations = new ObservableCollection<location>();
-        private location selectedItem;        
+        private ObservableCollection<location> locations;
+        private location selectedItem;
+        private EditorModule editormodule;
 
         #region Bindings
         public RelayCommand DeleteCommand { get; private set; }
@@ -37,7 +39,7 @@ namespace RunApproachStatistics.ViewModel
             set
             {
                 locations = value;
-                this.OnPropertyChanged("Locations");
+                OnPropertyChanged("Locations");
             }
         }
         public location SelectedItem
@@ -86,16 +88,8 @@ namespace RunApproachStatistics.ViewModel
         public LocationEditorViewModel(IApplicationController app) : base()
         {
             _app = app;
-            //fill locations list
-            locations.Add(new location{
-                name = "Flikflak",
-                description = "flikflak hal in den bosch"
-            });
-            locations.Add(new location
-            {
-                name = "Eindhoven",
-                description = "gymnastiek hal in eindhoven"
-            });
+            editormodule = new EditorModule();
+            Locations = editormodule.readLocation();
 
         }
 
@@ -103,19 +97,21 @@ namespace RunApproachStatistics.ViewModel
 
         public void DeleteAction(object commandParam)
         {
-            SelectedItem.deleted = true;
-            locations.Remove(SelectedItem);
+            editormodule.deleteLocation(SelectedItem.location_id);
+            Locations.Remove(SelectedItem);
+            
         }
         public void NewAction(object commandParam)
         {
             //new location
             location newlocation = new location();
-            locations.Add(newlocation);
+            Locations.Add(newlocation);
             SelectedItem = newlocation;
         }
         public void SaveAction(object commandParam)
         {
-            //save changes
+            editormodule.updateLocation(SelectedItem);
+            Locations = editormodule.readLocation();
         }
         public void BackAction(object commandParam)
         {

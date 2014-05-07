@@ -5,13 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="421" d:DesignWidth="850" Background="White">
-    <Grid>
+    <Viewbox Stretch="Uniform">
+    <Grid Height="421" Width="850">
         <Label FontSize="28" Content="Vault number editor" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
         <ListBox SelectedItem="{Binding Path=SelectedItem, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Vaults}" FontSize="24" HorizontalAlignment="Left" Height="338" Margin="10,62,0,0" VerticalAlignment="Top" Width="261">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Code}"/>
+                        <TextBlock Text="{Binding Path=code, UpdateSourceTrigger=PropertyChanged}"/>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
@@ -30,4 +31,5 @@
         <TextBox FontSize="24" HorizontalAlignment="Left" Height="40" Margin="554,152,0,0" TextWrapping="Wrap" Text="{Binding Difficulty}" VerticalAlignment="Top" Width="286"/>
 
     </Grid>
+    </Viewbox>
 </UserControl>
