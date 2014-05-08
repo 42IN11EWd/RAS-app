@@ -41,7 +41,7 @@ namespace RunApproachStatistics.Controllers
 
         void ToggleLockScreen();
 
-        void CloseLoginWindow();
+        void CloseLoginWindow(object sender = null, EventArgs e = null);
 
         void CloseSettingsWindow(Boolean isClosed = false);
 

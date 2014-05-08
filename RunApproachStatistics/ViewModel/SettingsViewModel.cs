@@ -216,11 +216,11 @@ namespace RunApproachStatistics.ViewModel
             if (!_app.IsLoggedIn)
             {
                 _app.ShowLoginView();
+            }
 
-                while (_app.IsLoginWindowOpen)
-                {
-                    //wait for closing of the login window
-                }
+            while (_app.IsLoginWindowOpen)
+            {
+                //wait for closing of the login window
             }
 
             if (commandParams[6] != null && _app.IsLoggedIn)
