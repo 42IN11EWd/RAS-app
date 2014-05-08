@@ -48,7 +48,8 @@ namespace RunApproachStatistics.ViewModel
         }
         public location SelectedItem
         {
-            get {
+            get 
+            {
                 if (selectedItem == null)
                     ButtonEnabled = false;
                 else
@@ -81,7 +82,6 @@ namespace RunApproachStatistics.ViewModel
                 if (SelectedItem != null)
                     return SelectedItem.name;
                 return "";
-                
             }
             set 
             { 

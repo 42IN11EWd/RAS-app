@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:v="clr-namespace:RunApproachStatistics.View"
              mc:Ignorable="d" 
              d:DesignWidth="1920" d:DesignHeight="1080" Background="White">
     <Viewbox Stretch="Uniform">
@@ -19,47 +20,56 @@
 
             <!-- START Column 1 -->
             <!-- Start scrollviewer(?) -->
-            <ScrollViewer Background="White" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="720" VerticalAlignment="Top" Width="1200" Grid.Column="1">
-                <Grid>
-                    <!-- Fill it with a list of thumbnails? -->
-                    <Rectangle Fill="#FFF4F4F5" Height="243" Stroke="Black" Width="276" Margin="10,10,0,0" VerticalAlignment="Top"  HorizontalAlignment="Left"/>
-                </Grid>
-            </ScrollViewer>
+            <ListView Grid.Column="1"  SelectedItem="{Binding SelectedThumbnail}" ItemsSource="{Binding ThumbnailCollection}" Margin="10,10,0,0" Height="684" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1189">
+                <!-- ItemsPanelTemplate -->
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="4" />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+
+                <!-- ItemTemplate -->
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <v:ThumbnailView/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
             <!-- End scrollviewer -->
 
             <!-- Start 'static' labels -->
-            <Label Content="Gymnast:"           FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="10,735,0,0"    VerticalAlignment="Top"/>
-            <Label Content="Date &amp; Time:"   FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="10,782,0,0"    VerticalAlignment="Top"/>
-            <Label Content="Timespan:"          FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="10,829,0,0"    VerticalAlignment="Top"/>
-            <Label Content="Vault Number:"      FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="10,876,0,0"    VerticalAlignment="Top"/>
-            <Label Content="Location:"          FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="10,923,0,0"    VerticalAlignment="Top"/>
-            <Label Content="Competetion:"       FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="575,735,0,0"   VerticalAlignment="Top"/>
-            <Label Content="Rating:"            FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="575,782,0,0"   VerticalAlignment="Top"/>
-            <Label Content="D-Score:"           FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="575,829,0,0"   VerticalAlignment="Top"/>
-            <Label Content="E-Score:"           FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="575,876,0,0"   VerticalAlignment="Top"/>
-            <Label Content="Penalty:"           FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="575,923,0,0"   VerticalAlignment="Top"/>
-            <Label Content="Total score:"       FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="575,970,0,0"   VerticalAlignment="Top"/>
+            <Label Content="Gymnast"           FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="72,719,0,0"    VerticalAlignment="Top"/>
+            <Label Content="Date &amp; Time"   FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="72,766,0,0"    VerticalAlignment="Top"/>
+            <Label Content="Timespan"          FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="72,813,0,0"    VerticalAlignment="Top"/>
+            <Label Content="Vault number"      FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="72,860,0,0"    VerticalAlignment="Top"/>
+            <Label Content="Location"          FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="72,907,0,0"    VerticalAlignment="Top"/>
+            <Label Content="Vault kind"       FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="637,719,0,0"   VerticalAlignment="Top"/>
+            <Label Content="Rating"            FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="637,766,0,0"   VerticalAlignment="Top"/>
+            <Label Content="D-Score"           FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="637,813,0,0"   VerticalAlignment="Top"/>
+            <Label Content="E-Score"           FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="637,860,0,0"   VerticalAlignment="Top"/>
+            <Label Content="Penalty"           FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="637,907,0,0"   VerticalAlignment="Top"/>
+            <Label Content="Total score"       FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="637,954,0,0"   VerticalAlignment="Top"/>
             <!-- End 'static' labels -->
 
             <!-- Start 'non-static' labels & textboxes -->
-            <TextBox Text="{Binding SelectionGymnast}" FontSize="24" Grid.Column="1" Height="42" HorizontalAlignment="Left" Margin="250,735,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250" TextWrapping="Wrap"/>
-            <Label  Content="{Binding SelectionDatetime}" FontSize="24" Grid.Column="1" Height="42" HorizontalAlignment="Left" Margin="250,782,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250"/>
-            <Label  Content="{Binding SelectionTimespan}" FontSize="24" Grid.Column="1" Height="42" HorizontalAlignment="Left" Margin="250,829,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250"/>
-            <TextBox Text="{Binding SelectionVaultNumber}" FontSize="24" Grid.Column="1" Height="42" HorizontalAlignment="Left" Margin="250,876,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250" TextWrapping="Wrap" />
-            <TextBox Text="{Binding SelectionLocation}" FontSize="24" Grid.Column="1" Height="42" HorizontalAlignment="Left" Margin="250,923,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250" TextWrapping="Wrap"/>
-            <ComboBox FontSize="24" Grid.Column="1" Height="42" HorizontalAlignment="Left" Margin="800,735,0,0" ItemsSource="{Binding VaultKindList}" SelectedItem="{Binding VaultKindSelected}" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250"/>
+            <TextBox Text="{Binding Path=Gymnast}" IsEnabled="{Binding Path=ButtonEnabled}" FontSize="24" Grid.Column="1" Height="42" HorizontalAlignment="Left" Margin="312,719,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250" TextWrapping="Wrap"/>
+            <Label  Content="{Binding Path=Datetime}" FontSize="24" Grid.Column="1" Height="42" HorizontalAlignment="Left" Margin="312,766,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250"/>
+            <Label  Content="{Binding Path=Timespan}" FontSize="24" Grid.Column="1" Height="42" HorizontalAlignment="Left" Margin="312,813,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250"/>
+            <TextBox Text="{Binding Path=VaultNumber}" IsEnabled="{Binding Path=ButtonEnabled}" FontSize="24" Grid.Column="1" Height="42" HorizontalAlignment="Left" Margin="312,860,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250" TextWrapping="Wrap" />
+            <TextBox Text="{Binding Path=Location}" IsEnabled="{Binding Path=ButtonEnabled}" FontSize="24" Grid.Column="1" Height="42" HorizontalAlignment="Left" Margin="312,907,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250" TextWrapping="Wrap"/>
+            <ComboBox FontSize="24" Grid.Column="1" IsEnabled="{Binding Path=ButtonEnabled}" Height="42" HorizontalAlignment="Left" Margin="862,719,0,0" ItemsSource="{Binding Path=VaultKind}" SelectedItem="{Binding Path=SelectedVaultKind}" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250"/>
             <ContentControl x:Name="RatingContainer"
-			    Content="{Binding RatingControl}" Margin="800,782,545,256" Grid.Column="1" />
-            <TextBox Text="{Binding SelectionDScore}" FontSize="24" Grid.Column="1" Height="42" HorizontalAlignment="Left" Margin="800,829,0,0" TextWrapping="Wrap" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250"/>
-            <TextBox Text="{Binding SelectionEScore}" FontSize="24" Grid.Column="1" Height="42" HorizontalAlignment="Left" Margin="800,876,0,0" TextWrapping="Wrap" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250"/>
-            <TextBox Text="{Binding SelectionPenalty}" FontSize="24" Grid.Column="1" Height="42" HorizontalAlignment="Left" Margin="800,923,0,0" TextWrapping="Wrap" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250"/>
-            <Label Content="{Binding SelectionTotalScore}" FontSize="24" Grid.Column="1" Height="42" HorizontalAlignment="Left" Margin="800,970,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250"/>
+			    Content="{Binding Path=RatingControl}" Margin="862,766,483,272" Grid.Column="1" IsEnabled="{Binding Path=ButtonEnabled}" />
+            <TextBox Text="{Binding Path=DScore}" IsEnabled="{Binding Path=ButtonEnabled}" FontSize="24" Grid.Column="1" Height="42" HorizontalAlignment="Left" Margin="862,813,0,0" TextWrapping="Wrap" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250"/>
+            <TextBox Text="{Binding Path=EScore}" IsEnabled="{Binding Path=ButtonEnabled}" FontSize="24" Grid.Column="1" Height="42" HorizontalAlignment="Left" Margin="862,860,0,0" TextWrapping="Wrap" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250"/>
+            <TextBox Text="{Binding Path=Penalty}" IsEnabled="{Binding Path=ButtonEnabled}" FontSize="24" Grid.Column="1" Height="42" HorizontalAlignment="Left" Margin="862,907,0,0" TextWrapping="Wrap" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250"/>
+            <Label Content="{Binding Path=TotalScore}" FontSize="24" Grid.Column="1" Height="42" HorizontalAlignment="Left" Margin="862,954,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250"/>
             <!-- End 'non-static' labels -->
 
             <!-- Start edit buttons -->
-            <Button Content="Save"      Command="{Binding SaveChangesCommand}"    FontSize="24" Grid.Column="1" Height="50" HorizontalAlignment="Left" Margin="550,0,0,10"  VerticalAlignment="Bottom" Width="175"/>
-            <Button Content="Cancel"    Command="{Binding CancelChangesCommand}"  FontSize="24" Grid.Column="1" Height="50" HorizontalAlignment="Left" Margin="775,0,0,10"  VerticalAlignment="Bottom" Width="175"/>
-            <Button Content="Delete"    Command="{Binding DeleteVaultCommand}"    FontSize="24" Grid.Column="1" Height="50" HorizontalAlignment="Left" Margin="1000,0,0,10" VerticalAlignment="Bottom" Width="175"/>
+            <Button Content="Save"      Command="{Binding SaveChangesCommand}"    FontSize="24" Grid.Column="1" Height="50" HorizontalAlignment="Left" Margin="550,0,0,10"  VerticalAlignment="Bottom" Width="175" IsEnabled="{Binding Path=ButtonEnabled}"/>
+            <Button Content="Cancel"    Command="{Binding CancelChangesCommand}"  FontSize="24" Grid.Column="1" Height="50" HorizontalAlignment="Left" Margin="775,0,0,10"  VerticalAlignment="Bottom" Width="175" IsEnabled="{Binding Path=ButtonEnabled}"/>
+            <Button Content="Delete"    Command="{Binding DeleteVaultCommand}"    FontSize="24" Grid.Column="1" Height="50" HorizontalAlignment="Left" Margin="1000,0,0,10" VerticalAlignment="Bottom" Width="175" IsEnabled="{Binding Path=ButtonEnabled}"/>
             <!-- End edit buttons -->
 
             <!-- Start filter -->
@@ -78,6 +88,7 @@
                     <Button Command="{Binding RemoveAllFiltersCommand}"        Content="Remove Filters"                FontSize="24" Height="50" HorizontalAlignment="Right"   Margin="0,0,10,10" VerticalAlignment="Bottom" Width="175"/>
                 </Grid>
             </Border>
+           
             <!-- End filter -->
             <!-- END Column 1 -->
         </Grid>
