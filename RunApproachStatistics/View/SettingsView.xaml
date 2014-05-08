@@ -5,19 +5,46 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RunApproachStatistics.View" x:Class="RunApproachStatistics.View.SettingsView" 
              xmlns:mvvm="clr-namespace:RunApproachStatistics.MVVM"
+             xmlns:services="clr-namespace:RunApproachStatistics.Services.Validators"
              mc:Ignorable="d" 
              d:DesignWidth="850" Background="White" Height="421">
     <UserControl.Resources>
         <mvvm:MultiParameterConverter x:Key="ParameterConverter" />
+
+        <Style x:Key="textBoxInError" TargetType="{x:Type TextBox}">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip"
+        Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                        Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
     <Viewbox Stretch="Uniform">
         <Grid Width="850" Height="421">
             <!-- Main Settings XAML -->
             <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="24"><Run Language="en-gb" Text="Settings"/></TextBlock>
             <TextBlock HorizontalAlignment="Left" Margin="20,59,0,0" VerticalAlignment="Top"><Run Language="en-gb" Text="Frequency"/></TextBlock>
-            <TextBox x:Name="frequencyBox" HorizontalAlignment="Left" Height="23" Margin="123,58.376,0,0" TextWrapping="Wrap" Text="{Binding Path=MeasurementFrequency}" VerticalAlignment="Top" Width="161"/>
+            <TextBox x:Name="frequencyBox" HorizontalAlignment="Left" Height="23" Margin="123,58.376,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="161" Style="{StaticResource textBoxInError}">
+                <TextBox.Text>
+                    <Binding Path="MeasurementFrequency">
+                        <Binding.ValidationRules>
+                            <services:FloatValidator ErrorMessage="Value is not a number"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
             <TextBlock HorizontalAlignment="Left" Margin="20,87,0,0" VerticalAlignment="Top"><Run Language="en-gb" Text="Mean Value"/></TextBlock>
-            <TextBox x:Name="meanBox" Height="23" Margin="123,86.376,0,0" TextWrapping="Wrap" Text="{Binding Path=MeanValue}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="161"/>
+            <TextBox x:Name="meanBox" Height="23" Margin="123,86.376,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="161" Style="{StaticResource textBoxInError}">
+                <TextBox.Text>
+                    <Binding Path="MeanValue">
+                        <Binding.ValidationRules>
+                            <services:FloatValidator ErrorMessage="Value is not a number"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
             <TextBlock HorizontalAlignment="Left" Margin="20,117,0,0" VerticalAlignment="Top"><Run Language="en-gb" Text="Camera position"/></TextBlock>
             <ComboBox x:Name="positionBox" HorizontalAlignment="Left" Margin="123,114.375,0,0" VerticalAlignment="Top" Width="161" SelectedIndex="0">
                 <ComboBoxItem Content="Back"/>
@@ -39,12 +66,28 @@
             </ComboBox>
 
             <TextBlock HorizontalAlignment="Left" Margin="20,307,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.512,1.733"><Run Language="en-gb" Text="Minimum"/></TextBlock>
-            <TextBox x:Name="measurementMinBox" HorizontalAlignment="Left" Height="23" Margin="123,304,0,0" TextWrapping="Wrap" Text="{Binding Path=MeasurementWindowMin}" VerticalAlignment="Top" Width="56"/>
+            <TextBox x:Name="measurementMinBox" HorizontalAlignment="Left" Height="23" Margin="123,304,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="56" Style="{StaticResource textBoxInError}">
+                <TextBox.Text>
+                    <Binding Path="MeasurementWindowMin">
+                        <Binding.ValidationRules>
+                            <services:FloatValidator ErrorMessage="Value is not a number"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
             <TextBlock HorizontalAlignment="Left" Margin="180,307,0,0" VerticalAlignment="Top"><Run Language="en-gb" Text="m"/></TextBlock>
             <Button Content="Calibrate" Command="{Binding CalibrateMinimumDistance }" HorizontalAlignment="Left" Margin="204,304,0,0" Width="80" Height="23" VerticalAlignment="Top" />
 
             <TextBlock HorizontalAlignment="Left" Margin="20,335,0,0" Height="15" VerticalAlignment="Top"><Run Language="en-gb" Text="Maximum"/></TextBlock>
-            <TextBox x:Name="measurementMaxBox" HorizontalAlignment="Left" Margin="123,332,0,0" TextWrapping="Wrap" Text="{Binding Path=MeasurementWindowMax}" Width="56" Height="23" VerticalAlignment="Top"/>
+            <TextBox x:Name="measurementMaxBox" HorizontalAlignment="Left" Margin="123,332,0,0" TextWrapping="Wrap" Width="56" Height="23" VerticalAlignment="Top" Style="{StaticResource textBoxInError}">
+                <TextBox.Text>
+                    <Binding Path="MeasurementWindowMax">
+                        <Binding.ValidationRules>
+                            <services:FloatValidator ErrorMessage="Value is not a number"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
             <TextBlock HorizontalAlignment="Left" Margin="180,337,0,0" VerticalAlignment="Top"><Run Language="en-gb" Text="m"/></TextBlock>
             <Button Content="Calibrate" Command="{Binding CalibrateMaximumDistance}" HorizontalAlignment="Left" Margin="204,332,0,0" Width="80" Height="23" VerticalAlignment="Top" />
             <!-- End Measurement Screen-->

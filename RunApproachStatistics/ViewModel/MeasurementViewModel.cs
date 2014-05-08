@@ -261,7 +261,7 @@ namespace RunApproachStatistics.ViewModel
             VideoCameraController = videoCameraController;
 
             // Set Graph
-            GraphViewModel graphVM = new GraphViewModel(_app, this, true);
+            GraphViewModel graphVM = new GraphViewModel(_app, this, 0);
             GraphViewMeasurement = graphVM;
         }
 
@@ -270,31 +270,6 @@ namespace RunApproachStatistics.ViewModel
             cameraWindow = videoCameraController.CameraWindow;
 
             if (cameraWindow != null)
-            {
-                setVideoSource(cameraWindow);
-            }
-        }
-
-        /// <summary>
-        /// Pause the video source so it can be used in another window
-        /// </summary>
-        /// <param name="pause">True if the video should be paused</param>
-        public void pauseVideoSource(Boolean pause)
-        {
-            if (pause)
-            {
-                System.Windows.Forms.Label pauseCameraLabel = new System.Windows.Forms.Label();
-                pauseCameraLabel.Text = "Camera is being used by a different window";
-                pauseCameraLabel.ForeColor = Color.White;
-                pauseCameraLabel.AutoSize = false;
-                pauseCameraLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-                pauseCameraLabel.TextAlign = ContentAlignment.MiddleCenter;
-
-                WindowsFormsHost host = new WindowsFormsHost();
-                host.Child = pauseCameraLabel;
-                cameraView.CameraHost = host;
-            }
-            else
             {
                 setVideoSource(cameraWindow);
             }

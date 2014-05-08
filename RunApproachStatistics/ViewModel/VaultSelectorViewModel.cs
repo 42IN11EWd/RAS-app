@@ -1,4 +1,5 @@
 ﻿using RunApproachStatistics.Controllers;
+using RunApproachStatistics.Model.Entity;
 using RunApproachStatistics.Modules;
 using RunApproachStatistics.Modules.Interfaces;
 using RunApproachStatistics.MVVM;
@@ -16,20 +17,15 @@ namespace RunApproachStatistics.ViewModel
         private IApplicationController _app;
         private PropertyChangedBase menu;
         private PropertyChangedBase ratingControl;
+        private RatingViewModel ratingVM;
 
-        private String selectionGymnast;
-        private String selectionDatetime;
-        private String selectionTimespan;
-        private String selectionVaultNumber;
-        private String selectionLocation;
-        private String[] vaultKindList;
-        private String vaultKindSelected;
-        private String selectionDScore;
-        private String selectionEScore;
-        private String selectionPenalty;
-        private String selectionTotalScore;
+        private String[] vaultKind;
         private String filterText;
         private String filterType;
+        private bool buttonEnabled;
+        private ObservableCollection<ThumbnailViewModel> thumbnailCollection;
+        private ThumbnailViewModel selectedThumbnail;
+        private String selectedVaultKind;
         private ObservableCollection<String> filterItems;
         private String selectedFilterItem;
         private ObservableCollection<String> filterList; // ?
@@ -69,113 +65,210 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        public String SelectionGymnast
+        public ObservableCollection<ThumbnailViewModel> ThumbnailCollection
         {
-            get { return selectionGymnast; }
+            get { return thumbnailCollection; }
             set
             {
-                selectionGymnast = value;
-                OnPropertyChanged("SelectionGymnast");
+                thumbnailCollection = value;
+                OnPropertyChanged("ThumbnailCollection");
+            }
+        }
+        public ThumbnailViewModel SelectedThumbnail
+        {
+            get 
+            {
+                if (selectedThumbnail == null)
+                    ButtonEnabled = false;
+                else
+                    ButtonEnabled = true;
+                return selectedThumbnail;
+            }
+            set
+            {
+                selectedThumbnail = value;
+                if(selectedThumbnail != null)
+                {
+                    ratingVM.RatingValue = selectedThumbnail.StarRating;
+                }
+                else
+                {
+                    ratingVM.RatingValue = 0;
+                }
+                OnPropertyChanged("SelectedThumbnail");
+                OnPropertyChanged("Gymnast");
+                OnPropertyChanged("Datetime");
+                OnPropertyChanged("TimeSpan");
+                OnPropertyChanged("VaultNumber");
+                OnPropertyChanged("Location");
+                OnPropertyChanged("SelectedVaultKind");
+                OnPropertyChanged("DScore");
+                OnPropertyChanged("EScore");
+                OnPropertyChanged("Penalty");
+                OnPropertyChanged("TotalScore");
+            }
+        }
+        public bool ButtonEnabled
+        {
+            get { return buttonEnabled; }
+            set
+            {
+                buttonEnabled = value;
+                OnPropertyChanged("ButtonEnabled");
             }
         }
 
-        public String SelectionDatetime
+        public String Gymnast
         {
-            get { return selectionDatetime; }
+            get {
+                if (SelectedThumbnail != null)
+                    return SelectedThumbnail.Gymnast;
+                return "";
+            }
             set
             {
-                selectionDatetime = value;
-                OnPropertyChanged("SelectionDatetime");
+                SelectedThumbnail.Gymnast = value;
+                OnPropertyChanged("Gymnast");
             }
         }
 
-        public String SelectionTimespan
+        public String Datetime
         {
-            get { return selectionTimespan; }
+            get
+            {
+                if (SelectedThumbnail != null)
+                    return SelectedThumbnail.Datetime;
+                return "";
+            }
             set
             {
-                selectionTimespan = value;
-                OnPropertyChanged("SelectionTimeSpan");
+                SelectedThumbnail.Datetime = value;
+                OnPropertyChanged("Datetime");
             }
         }
 
-        public String SelectionVaultNumber
+        public String Timespan
         {
-            get { return selectionVaultNumber; }
+            get
+            {
+                if (SelectedThumbnail != null)
+                    return SelectedThumbnail.Timespan;
+                return "";
+            }
             set
             {
-                selectionVaultNumber = value;
-                OnPropertyChanged("SelectionVaultNumber");
+                SelectedThumbnail.Timespan = value;
+                OnPropertyChanged("TimeSpan");
             }
         }
 
-        public String SelectionLocation
+        public String VaultNumber
         {
-            get { return selectionLocation; }
+            get
+            {
+                if (SelectedThumbnail != null)
+                    return SelectedThumbnail.VaultNumber;
+                return "";
+            }
             set
             {
-                selectionLocation = value;
-                OnPropertyChanged("SelectionLocation");
+                SelectedThumbnail.VaultNumber = value;
+                OnPropertyChanged("VaultNumber");
             }
         }
 
-        public String[] VaultKindList
+        public String Location
         {
-            get { return vaultKindList; }
+            get
+            {
+                if (SelectedThumbnail != null)
+                    return SelectedThumbnail.Location;
+                return "";
+            }
             set
             {
-                vaultKindList = value;
-                OnPropertyChanged("VaultKindList");
+                SelectedThumbnail.Location = value;
+                OnPropertyChanged("Location");
             }
         }
 
-        public String VaultKindSelected
+        public String[] VaultKind
         {
-            get { return vaultKindSelected; }
+            get { return vaultKind; }
             set
             {
-                vaultKindSelected = value;
-                OnPropertyChanged("VaultKindSelected");
+                vaultKind = value;
+                OnPropertyChanged("VaultKind");
             }
         }
 
-        public String SelectionDScore
+        public String SelectedVaultKind
         {
-            get { return selectionDScore; }
+            get { return selectedVaultKind; }
             set
             {
-                selectionDScore = value;
-                OnPropertyChanged("SelectionDScore");
+                selectedVaultKind = value;
+                OnPropertyChanged("SelectedVaultKind");
             }
         }
 
-        public String SelectionEScore
+        public String DScore
         {
-            get { return selectionEScore; }
+            get
+            {
+                if (SelectedThumbnail != null)
+                    return SelectedThumbnail.DScore;
+                return "";
+            }
             set
             {
-                selectionEScore = value;
-                OnPropertyChanged("SelectionEScore");
+                SelectedThumbnail.DScore = value;
+                OnPropertyChanged("DScore");
             }
         }
 
-        public String SelectionPenalty
+        public String EScore
         {
-            get { return selectionPenalty; }
+            get
+            {
+                if (SelectedThumbnail != null)
+                    return SelectedThumbnail.EScore;
+                return "";
+            }
             set
             {
-                selectionPenalty = value;
-                OnPropertyChanged("SelectionPenalty");
+                SelectedThumbnail.EScore = value;
+                OnPropertyChanged("EScore");
             }
         }
 
-        public String SelectionTotalScore
+        public String Penalty
         {
-            get { return selectionTotalScore; }
+            get
+            {
+                if (SelectedThumbnail != null)
+                    return SelectedThumbnail.Penalty;
+                return "";
+            }
             set
             {
-                selectionTotalScore = value;
-                OnPropertyChanged("SelectionTotalScore");
+                SelectedThumbnail.Penalty = value;
+                OnPropertyChanged("Penalty");
+            }
+        }
+
+        public String TotalScore
+        {
+            get
+            {
+                if (SelectedThumbnail != null)
+                    return SelectedThumbnail.TotalScore;
+                return "";
+            }
+            set
+            {
+                SelectedThumbnail.TotalScore = value;
+                OnPropertyChanged("TotalScore");
             }
         }
 
@@ -249,8 +342,30 @@ namespace RunApproachStatistics.ViewModel
             menuViewModel.VisibilityLaser = false;
             Menu = menuViewModel;
 
-            RatingViewModel ratingVM = new RatingViewModel(_app);
+            ratingVM = new RatingViewModel(_app);
             RatingControl = ratingVM;
+
+            thumbnailCollection = new ObservableCollection<ThumbnailViewModel>();
+            List<vault> vaults = vaultModule.getVaults();
+            for (int i = 0; i < vaults.Count; i++ )
+            {
+                thumbnailCollection.Add(new ThumbnailViewModel(_app)
+                {
+                    Datetime = vaults[i].timestamp.ToString(),
+                    //Gymnast = vaults[i].gymnast.name,
+                    DScore = vaults[i].rating_official_D.ToString(),
+                    EScore = vaults[i].rating_official_E.ToString(),
+                    StarRating = (int)vaults[i].rating_star,
+                    //Location = vaults[i].location.name,
+                    Penalty = vaults[i].penalty.ToString(),
+                    //TotalScore = vaults[i]    bestaat niet
+                    //VaultNumber = vaults[i].vaultnumber.code,
+                    Vault_id = vaults[i].vault_id
+                    
+                });
+                
+            }
+
         }
 
         #region Command Methodes
@@ -262,12 +377,26 @@ namespace RunApproachStatistics.ViewModel
 
         public void CancelChanges(object commandParam)
         {
-            // Do something
+            SelectedThumbnail = null;
         }
 
         public void DeleteVault(object commandParam)
         {
-            // Do something
+            if (!_app.IsLoggedIn)
+            {
+                _app.ShowLoginView();
+
+                while (_app.IsLoginWindowOpen)
+                {
+                    //wait for closing of the login window
+                }
+            }
+            if(_app.IsLoggedIn)
+            {
+                vaultModule.delete(SelectedThumbnail.Vault_id);
+                thumbnailCollection.Remove(SelectedThumbnail);
+            }
+           
         }
 
         public void DynamicToVault(object commandParam)

@@ -9,8 +9,11 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
+using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 
@@ -21,9 +24,41 @@ namespace RunApproachStatistics.ViewModel
         private BitmapImage pauseImage = new BitmapImage(new Uri(@"/Images/videoControl_pause.png", UriKind.Relative));
         private BitmapImage playImage = new BitmapImage(new Uri(@"/Images/videoControl_play.png", UriKind.Relative));
         private IApplicationController _app;
+        private MediaElement _video;
+
+        public MediaElement Video
+        {
+            get { return _video; }
+            set { 
+                _video = value;
+                OnPropertyChanged("Video");
+            }
+        }
         DispatcherTimer timer;
 
+
+
         private BitmapImage playButtonImage;
+
+        private Boolean isPlaying;
+
+        public Boolean IsPlaying
+        {
+            get { return isPlaying; }
+            set { 
+                isPlaying = value;
+                if (value)
+                {
+                    PlayButtonImage = pauseImage;
+                }
+                else
+                {
+                    PlayButtonImage = playImage;
+                }
+                
+            }
+        }
+        
         private String currentTime;
         private String totalTime;
 
@@ -65,10 +100,24 @@ namespace RunApproachStatistics.ViewModel
         public RelayCommand BackwardClickCommand { get; private set; }
 
         public VideoViewModel(IApplicationController app) : base()
-        {
+        
+{
+            Console.WriteLine("VideoViewModel");
             _app = app;
-
-            PlayButtonImage = playImage;
+            IsPlaying = false;
+            Video = new MediaElement
+            {
+                Source = new Uri(@"Movie.avi", UriKind.Relative),
+                VerticalAlignment = VerticalAlignment.Stretch,
+                Stretch = System.Windows.Media.Stretch.Fill,
+                ScrubbingEnabled = true,
+                LoadedBehavior = MediaState.Manual            
+            };
+            Video.Loaded += Video_Loaded;
+            
+            
+            CurrentTime = MillisecondsToTimespan(0);
+            
             //TimeSlider.AddHandler(MouseLeftButtonUpEvent, new MouseButtonEventHandler(timeSlider_MouseLeftButtonUp), true);
 
             //   TimeSlider.AddHandler(MouseLeftButtonDownEvent, new MouseButtonEventHandler(timeSlider_MouseLeftButtonDown), true);
@@ -76,12 +125,30 @@ namespace RunApproachStatistics.ViewModel
 
             //   btnPlay.IsEnabled = true;
         }
-        
-        //private void timeSlider_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        //{
-        //    dragging = true;
-        //    //VideoControl.Pause();
-        //}
+
+        private void Video_Loaded(object sender, RoutedEventArgs e)
+        {
+            // Play and pause to show first frame instead of black screen
+            Video.Play();
+            Video.Pause();
+            // Set TotalTime
+            while (!Video.NaturalDuration.HasTimeSpan)
+            {
+            }
+             TotalTime = MillisecondsToTimespan(Video.NaturalDuration.TimeSpan.TotalMilliseconds);
+            //}
+            //else
+            //{
+            //    TotalTime = MillisecondsToTimespan(0);
+            
+        }
+
+        private void timeSlider_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            dragging = true;
+           
+            //VideoControl.Pause();
+        }
 
         //private void timeSlider_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         //{
@@ -107,31 +174,35 @@ namespace RunApproachStatistics.ViewModel
 
         public void PlayMedia(object commandParam)
         {
-
-            // The Play method will begin the media if it is not currently active or  
-            // resume media if it is paused. This has no effect if the media is 
-            // already running.
-            if (PlayButtonImage == playImage)
+            if (IsPlaying)
             {
-                PlayButtonImage = pauseImage;
+                Video.SpeedRatio = 1;
+                Video.Pause();
             }
             else
             {
-                PlayButtonImage = playImage;
-            }
 
-            //if (btnPlay.Content == ">")
-            //{
-            //    btnPlay.Content = "||";
-            //    VideoControl.Play();
-            //}
-            //else
-            //{
-            //    btnPlay.Content = ">";
-            //    VideoControl.Pause();
-            //}
+                Video.SpeedRatio = 1;
+                Video.Play();
+            }
+            IsPlaying = !IsPlaying;
         }
-        private void Element_MediaOpened(object sender, EventArgs e)
+
+        public void ForwardMedia(object commandParam)
+        {
+            IsPlaying = true;
+            Video.SpeedRatio = 0.5;
+            Video.Play();
+        }
+
+        public void BackwardMedia(object commandParam)
+        {
+            //IsPlaying = true;
+            //Video.SpeedRatio = -2;
+            //Video.Play();
+        }
+
+            private void Element_MediaOpened(object sender, EventArgs e)
         {
 
 
@@ -194,8 +265,8 @@ namespace RunApproachStatistics.ViewModel
         protected override void initRelayCommands()
         {
             PlayClickCommand = new RelayCommand(PlayMedia);
-            ForwardClickCommand = new RelayCommand(PlayMedia);
-            BackwardClickCommand = new RelayCommand(PlayMedia);
+            ForwardClickCommand = new RelayCommand(ForwardMedia);
+            BackwardClickCommand = new RelayCommand(BackwardMedia);
         }
 
     }
