@@ -6,24 +6,27 @@
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="1280">
         <Grid Name="cameraGrid" Margin="0,0,0,0">
-            <StackPanel Background="Black" VerticalAlignment="Stretch">
+        <StackPanel Background="Black" VerticalAlignment="Stretch">
                 <Viewbox VerticalAlignment="Center" Stretch="UniformToFill" StretchDirection="Both">
-                <!--MediaOpened="Element_MediaOpened" MediaEnded="Element_MediaEnded"-->
-                <MediaElement  Name="VideoControl" Source="Movie.avi" VerticalAlignment="Stretch" Stretch="Fill" 
-     LoadedBehavior="Manual"></MediaElement>
+                
+                
+        <ContentControl Content="{Binding Video}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+        <!--MediaOpened="Element_MediaOpened" MediaEnded="Element_MediaEnded"-->
+                <!--<MediaElement x:Name="VideoControl" Source="Movie.avi" VerticalAlignment="Stretch" Stretch="Fill" 
+     LoadedBehavior="Play"></MediaElement>-->
                 </Viewbox>
             </StackPanel>
             <!-- START VIDEO CONTROLS-->
             <!-- <ContentControl x:Name="cameraView" Content="{Binding Path=CameraView}"/> -->
             <Rectangle Fill="#8D000000" Height="103" VerticalAlignment="Bottom" />
-            <Slider x:Name="TimeSlider" Value="{Binding VideoPosition}"  Margin="48,0,48,66" Foreground="#FFD4D4D4" Height="22" VerticalAlignment="Bottom"/>
-        <Button Foreground="#FFFFFFFF" Background="#00000000" Command="{Binding PlayClickCommand}" Name="btnPlay"  Margin="0,0,0,4" HorizontalAlignment="Center" Width="64" Height="64" VerticalAlignment="Bottom">
+            <Slider x:Name="TimeSlider" Value="0"  Margin="48,0,48,66" Foreground="#FFD4D4D4" Height="22" VerticalAlignment="Bottom"/>
+            <Button Foreground="#FFFFFFFF" Background="#00000000" Command="{Binding PlayClickCommand}" Name="btnPlay"  Margin="0,0,0,4" HorizontalAlignment="Center" Width="64" Height="64" VerticalAlignment="Bottom">
                 <Image Margin="0,0,0,4" Source="{Binding PlayButtonImage}" HorizontalAlignment="Center" Width="64" VerticalAlignment="Bottom" />
             </Button>
-        <Button Foreground="#FFFFFFFF" Background="#00000000" Command="{Binding ForwardClickCommand}" Name="btnMoveForward" Margin="192,0,0,12" HorizontalAlignment="Center" Width="48" Height="48" VerticalAlignment="Bottom">
+            <Button Foreground="#FFFFFFFF" Background="#00000000" Command="{Binding ForwardClickCommand}" Name="btnMoveForward" Margin="192,0,0,12" HorizontalAlignment="Center" Width="48" Height="48" VerticalAlignment="Bottom">
                 <Image Margin="0,0,0,4" Source="pack://application:,,,/Images/videoControl_forward.png" HorizontalAlignment="Center" Width="64" VerticalAlignment="Bottom" />
             </Button>
-        <Button Foreground="#FFFFFFFF" Background="#00000000" Command="{Binding BackwardClickCommand}" Name="btnMoveBack" Margin="-192,0,0,12" HorizontalAlignment="Center" Width="48" Height="48" VerticalAlignment="Bottom">
+            <Button Foreground="#FFFFFFFF" Background="#00000000" Command="{Binding BackwardClickCommand}" Name="btnMoveBack" Margin="-192,0,0,12" HorizontalAlignment="Center" Width="48" Height="48" VerticalAlignment="Bottom">
                 <Image Margin="0,0,0,4" Source="pack://application:,,,/Images/videoControl_backward.png" HorizontalAlignment="Center" Width="64" VerticalAlignment="Bottom" />
             </Button>
 
