@@ -93,7 +93,7 @@ namespace RunApproachStatistics.ViewModel
             VideoCameraController = videoCameraController;
 
             // Set Graph
-            GraphViewModel graphVM = new GraphViewModel(_app, this, true);
+            GraphViewModel graphVM = new GraphViewModel(_app, this, 0);
             GraphView = graphVM;
         }
 
@@ -116,7 +116,7 @@ namespace RunApproachStatistics.ViewModel
             {
                 System.Windows.Forms.Label pauseCameraLabel = new System.Windows.Forms.Label();
                 pauseCameraLabel.Text = "Camera is being used by a different window";
-                pauseCameraLabel.ForeColor = Color.White;
+                pauseCameraLabel.ForeColor = Color.Black;
                 pauseCameraLabel.AutoSize = false;
                 pauseCameraLabel.Dock = System.Windows.Forms.DockStyle.Fill;
                 pauseCameraLabel.TextAlign = ContentAlignment.MiddleCenter;
