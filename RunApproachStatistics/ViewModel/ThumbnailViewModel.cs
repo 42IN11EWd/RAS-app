@@ -10,7 +10,7 @@ using System.Windows.Media;
 
 namespace RunApproachStatistics.ViewModel
 {
-    class ThumbnailViewModel : AbstractViewModel
+    public class ThumbnailViewModel : AbstractViewModel
     {
         private IApplicationController _app;
 
@@ -18,6 +18,17 @@ namespace RunApproachStatistics.ViewModel
             : base()
         {
             _app = app;
+        }
+
+        private int vault_id;
+        public int Vault_id
+        {
+            get { return vault_id; }
+            set
+            {
+                vault_id = value;
+                OnPropertyChanged("Vault_id");
+            }
         }
 
         private string name;
@@ -50,6 +61,86 @@ namespace RunApproachStatistics.ViewModel
             {
                 vaultnumber = value;
                 OnPropertyChanged("VaultNumber");
+            }
+        }
+        private int starrating;
+        public int StarRating
+        {
+            get { return starrating; }
+            set
+            {
+                starrating = value;
+                OnPropertyChanged("StarRating");
+            }
+        }
+        private string gymnast;
+        public String Gymnast
+        {
+            get { return gymnast; }
+            set
+            {
+                gymnast = value;
+                OnPropertyChanged("Gymnast");
+            }
+        }
+        private string timespan;
+        public String Timespan
+        {
+            get { return timespan; }
+            set
+            {
+                timespan = value;
+                OnPropertyChanged("Timespan");
+            }
+        }
+        private string location;
+        public String Location
+        {
+            get { return location; }
+            set
+            {
+                location = value;
+                OnPropertyChanged("Location");
+            }
+        }
+        private string dScore;
+        public String DScore
+        {
+            get { return dScore; }
+            set
+            {
+                dScore = value;
+                OnPropertyChanged("DScore");
+            }
+        }
+        private string eScore;
+        public String EScore
+        {
+            get { return eScore; }
+            set
+            {
+                eScore = value;
+                OnPropertyChanged("EScore");
+            }
+        }
+        private string penalty;
+        public String Penalty
+        {
+            get { return penalty; }
+            set
+            {
+                penalty = value;
+                OnPropertyChanged("Penalty");
+            }
+        }
+        private string totalscore;
+        public String TotalScore
+        {
+            get { return totalscore; }
+            set
+            {
+                totalscore = value;
+                OnPropertyChanged("TotalScore");
             }
         }
 
@@ -92,8 +183,6 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        public RelayCommand VaultClickCommand { get; private set; }
-
         public void setTypeVault(Boolean isLiveVault)
         {
             LiveVaultText = (isLiveVault ? Visibility.Hidden : Visibility.Visible);
@@ -115,14 +204,9 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        public void VaultClick(object commandParam)
-        {
-            toggleSelection("Select");
-        }
-
         protected override void initRelayCommands()
         {
-            VaultClickCommand = new RelayCommand(VaultClick);
+
         }
     }
 }

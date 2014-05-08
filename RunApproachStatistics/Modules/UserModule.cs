@@ -64,12 +64,13 @@ namespace RunApproachStatistics.Modules
                     eGymnast.gender = gymnast.gender;
                     eGymnast.nationality = gymnast.nationality;
                     eGymnast.length = gymnast.length;
+                    eGymnast.weight = gymnast.weight;
                     eGymnast.picture = gymnast.picture;
                     eGymnast.birthdate = gymnast.birthdate;
                     eGymnast.name = gymnast.name;
                     eGymnast.surname = gymnast.surname;
                     eGymnast.surname_prefix = gymnast.surname_prefix;
-                    eGymnast.vault = gymnast.vault;
+                    eGymnast.note = gymnast.note;
                 }
 
                 try
