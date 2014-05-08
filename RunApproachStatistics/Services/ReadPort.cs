@@ -157,8 +157,7 @@ namespace RunApproachStatistics.Services
         /// <param name="line">Measurement data line</param>
         public void writeMeasurement(String line)
         {
-            String distance,
-                   speed = "-";
+            String distance, speed = "";
             try
             {
                 if (line.Length < 9)
@@ -186,21 +185,21 @@ namespace RunApproachStatistics.Services
             if (line.Substring(10, 1) == " ")
             {
                 if (line.Substring(11, 1) == "-")
-                    speed = line.Substring(11, 9);
+                    speed = " " + line.Substring(11, 9);
                 else
-                    speed = line.Substring(12, 8);
+                    speed = " " + line.Substring(12, 8);
             }
 
             // Write to CSV file and to eventhandler
             if (save)
             {
-                writeBuffer.Add(distance + " " + speed + ",");
-                OnDataReceived(distance + " " + speed);
+                writeBuffer.Add(distance + speed + ",");
+                OnDataReceived(distance + speed);
             }
 
             lock (dynamicBuffer)
             {
-                dynamicBuffer.Add(distance + " " + speed + ",");
+                dynamicBuffer.Add(distance + speed + ",");
                 resetBuffer();
             }
         }
@@ -249,6 +248,11 @@ namespace RunApproachStatistics.Services
 
         public String getLatestMeasurement()
         {
+            while (modifiyingBuffer)
+            {
+
+            }
+
             return dynamicBuffer[dynamicBuffer.Count - 1];
         }
     }

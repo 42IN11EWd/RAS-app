@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -44,21 +45,19 @@ namespace RunApproachStatistics.Services
         void measurementTimer_Tick(object sender)
         {
             String line = "";
-            if(distance < portController.MeasurementWindowMax)
+            if (distance < portController.MeasurementWindowMax)
             {
-                if(!isContinuousMeasurement)
-                {
-                    speed += (float)0.02;
-                    distance += (float)0.03;
-                }
-
-                line = "D " + String.Format("{0:0000.000}", speed) + "  " + String.Format("{0:0000.000}", distance);
+                speed += (float)0.008;
+                distance += (float)0.006;
             }
             else
             {
-                line = "ERR01";
+                speed = 0;
+                distance = 0;
             }
-
+            
+            line = "D " + String.Format(CultureInfo.InvariantCulture, "{0:0000.000}", distance) + "  " + String.Format(CultureInfo.InvariantCulture, "{0:0000.000}", speed);
+           
             readPort.checkReceivedData(line);
         }
 
