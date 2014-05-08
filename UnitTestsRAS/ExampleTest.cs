@@ -5,7 +5,7 @@ using System.Diagnostics;
 namespace UnitTestsRAS
 {
     [TestClass]
-    public class UnitTest1
+    public class ExampleTest
     {
         //method to test a single functionality 
         [TestMethod]
@@ -17,11 +17,12 @@ namespace UnitTestsRAS
             Assert.IsTrue(test.create(2), "test create failed");
 
         }
+        [TestMethod]
         public void TestCorrectValue()
         {
             TestExample test = new TestExample();
+            Assert.Equals(test.getValue(), 35);
             Assert.IsTrue(test.create(35), "test create failed");
-            Assert.Equals(test.getWaarde(), 35);
 
         }
     }
@@ -42,7 +43,7 @@ namespace UnitTestsRAS
             }
             return false;
         }
-        public int getWaarde()
+        public int getValue()
         {
             return value;
         }
