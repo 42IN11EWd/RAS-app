@@ -22,9 +22,9 @@ namespace RunApproachStatistics.ViewModel
         private PropertyChangedBase menu;
         private UserModule uModule;
 
+        private Visibility pictureCommandVisible;
         private ImageSource picture;
         private Visibility pictureAvailable;
-        private Visibility pictureCommandVisible;
 
         private String name;
         private String prefix;
@@ -37,6 +37,8 @@ namespace RunApproachStatistics.ViewModel
         private String weight;
         private String memos;
 
+        private ImageSource editPicture;
+        private Visibility editPictureAvailable;
         private String editName;
         private String editPrefix;
         private String editSurname;
@@ -46,7 +48,7 @@ namespace RunApproachStatistics.ViewModel
         private String editGender;
         private String editLength;
         private String editWeight;
-        private Boolean editingMemos;
+        private String editMemos;
 
         private String filterField;
         private List<gymnast> gymnastList; // To store all the gymnasts
@@ -83,6 +85,16 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
+        public Visibility PictureCommandVisible
+        {
+            get { return pictureCommandVisible; }
+            set
+            {
+                pictureCommandVisible = value;
+                OnPropertyChanged("PictureCommandVisible");
+            }
+        }
+
         public ImageSource Picture
         {
             get { return picture; }
@@ -95,22 +107,7 @@ namespace RunApproachStatistics.ViewModel
 
         public Visibility PictureAvailable
         {
-            get { return pictureAvailable; }
-            set
-            {
-                pictureAvailable = value;
-                OnPropertyChanged("PictureAvailable");
-            }
-        }
-
-        public Visibility PictureCommandVisible
-        {
-            get { return pictureCommandVisible; }
-            set
-            {
-                pictureCommandVisible = value;
-                OnPropertyChanged("PictureCommandVisible");
-            }
+            get { return Picture != null && !inEditingMode ? Visibility.Visible : Visibility.Hidden; }
         }
 
         public String Fullname
@@ -225,6 +222,21 @@ namespace RunApproachStatistics.ViewModel
 
         // Edit fields (when editing)
 
+        public ImageSource EditPicture
+        {
+            get { return editPicture; }
+            set
+            {
+                editPicture = value;
+                OnPropertyChanged("EditPicture");
+            }
+        }
+
+        public Visibility EditPictureAvailable
+        {
+            get { return EditPicture != null && inEditingMode ? Visibility.Visible : Visibility.Hidden; }
+        }
+
         public String EditName
         {
             get { return editName; }
@@ -318,13 +330,13 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        public Boolean EditingMemos
+        public String EditMemos
         {
-            get { return editingMemos; }
+            get { return editMemos; }
             set
             {
-                editingMemos = value;
-                OnPropertyChanged("EditingMemos");
+                editMemos = value;
+                OnPropertyChanged("EditMemos");
             }
         }
 
@@ -345,17 +357,7 @@ namespace RunApproachStatistics.ViewModel
             {
                 filterField = value;
                 OnPropertyChanged("FilterField");
-
-                filterList.Clear();
-                foreach (gymnast gymnast in gymnastList)
-                {
-                    String tempFullname = gymnast.name + (!String.IsNullOrWhiteSpace(gymnast.surname_prefix) ? " " + gymnast.surname_prefix + " " : " ") + gymnast.surname;
-                    if (tempFullname.Contains(value))
-                    {
-                        filterList.Add(gymnast);
-                    }
-                }
-                OnPropertyChanged("FilterList");
+                applyFilter();
             }
         }
 
@@ -378,12 +380,11 @@ namespace RunApproachStatistics.ViewModel
                     selectedFilterItem = value;
 
                     Picture = null; // read bitmap from g.picture
-                    PictureAvailable = Picture != null ? Visibility.Visible : Visibility.Hidden;
                     Name = value.name;
                     Prefix = value.surname_prefix;
                     Surname = value.surname;
                     FIGNumber = value.turnbondID.ToString();
-                    DateOfBirth = value.birthdate.ToString();
+                    DateOfBirth = value.birthdate != null ? value.birthdate.Value.ToShortDateString() : "";
                     Nationality = value.nationality;
                     Gender = value.gender;
                     Length = value.length.ToString();
@@ -391,6 +392,7 @@ namespace RunApproachStatistics.ViewModel
                     Memos = value.note;
 
                     OnPropertyChanged("Fullname");
+                    OnPropertyChanged("PictureAvailable");
                     OnPropertyChanged("SelectedFilterItem");
                 }
 
@@ -421,12 +423,9 @@ namespace RunApproachStatistics.ViewModel
             Menu = menuViewModel;
 
             // Get the user profile
+            FilterField = "";
             gymnastList = uModule.getGymnastCollection();
-            foreach (gymnast g in gymnastList)
-            {
-                filterList.Add(g);
-            }
-            OnPropertyChanged("FilterList");
+            applyFilter();
 
             //Other misc stuff
             PictureCommandVisible = Visibility.Hidden;
@@ -440,6 +439,10 @@ namespace RunApproachStatistics.ViewModel
         public void InitPictureUpload(object commandParam)
         {
             // Do something? Dialog first?
+
+
+            // EditPicture = AwesomePictureChosenFromDialog();
+            OnPropertyChanged("EditPictureAvailable");
         }
 
         public void SaveChanges(object commandParam)
@@ -454,28 +457,50 @@ namespace RunApproachStatistics.ViewModel
             gymnast.surname_prefix = EditPrefix;
             gymnast.surname = EditSurname;
             gymnast.turnbondID = long.Parse(EditFIGNumber);
-            gymnast.birthdate = DateTime.TryParse(EditLength, out tmpDoB) ? tmpDoB : (DateTime?)null;
+            gymnast.birthdate = DateTime.TryParse(EditDateOfBirth, out tmpDoB) ? tmpDoB : (DateTime?)null;
             gymnast.nationality = EditNationality;
             gymnast.gender = EditGender;
             gymnast.length = decimal.TryParse(EditLength, out tmpLength) ? tmpLength : (decimal?)null;
             gymnast.weight = decimal.TryParse(EditWeight, out tmpWeight) ? tmpWeight : (decimal?)null;
+            gymnast.note = EditMemos;
+            //gymnast.picture = EditPicture;
 
             if (creatingNewGymnast)
             { // Create a new Gymnast
                 uModule.create(gymnast);
+
+                selectedFilterItem = null;
+                Name = "";
+                Prefix = "";
+                Surname = "";
+                FIGNumber = "";
+                DateOfBirth = "";
+                Nationality = "";
+                Gender = "";
+                Length = "";
+                Weight = "";
+                Memos = "";
+                Picture = null;
             }
             else
             { // update gymnast
                 uModule.update(gymnast);
+                SelectedFilterItem = gymnast; // re-setting Selected Filter. Should update appropriate fields.
             }
 
             CancelChanges(null); // returns to non editing mode
+            EnableFilter = true;
+            inEditingMode = false;
 
             gymnastList = uModule.getGymnastCollection();
-            foreach (gymnast g in gymnastList)
-            {
-                filterList.Add(g);
-            }
+            applyFilter();
+            OnPropertyChanged("FilterList");
+            OnPropertyChanged("Fullname");
+            OnPropertyChanged("IsEditing");
+            OnPropertyChanged("IsNotEditing");
+            OnPropertyChanged("PictureAvailable");
+            OnPropertyChanged("SelectedFilterItem");
+            OnPropertyChanged("EditPictureAvailable");
         }
 
         public Boolean CanSaveChanges()
@@ -485,15 +510,16 @@ namespace RunApproachStatistics.ViewModel
 
         public void CancelChanges(object commandParam)
         {
-            EditingMemos = false;
             PictureCommandVisible = Visibility.Hidden;
             EnableFilter = true;
 
             inEditingMode = false;
             creatingNewGymnast = false;
+            OnPropertyChanged("Fullname");
             OnPropertyChanged("IsEditing");
             OnPropertyChanged("IsNotEditing");
-            OnPropertyChanged("Fullname");
+            OnPropertyChanged("PictureAvailable");
+            OnPropertyChanged("EditPictureAvailable");
         }
 
         public Boolean CanCancelChanges()
@@ -516,6 +542,31 @@ namespace RunApproachStatistics.ViewModel
             if (_app.IsLoggedIn && SelectedFilterItem != null)
             {
                 uModule.delete(SelectedFilterItem.gymnast_id);
+
+                selectedFilterItem = null;
+                Name = "";
+                Prefix = "";
+                Surname = "";
+                FIGNumber = "";
+                DateOfBirth = "";
+                Nationality = "";
+                Gender = "";
+                Length = "";
+                Weight = "";
+                Memos = "";
+                Picture = null;
+                EnableFilter = true;
+                inEditingMode = false;
+
+                gymnastList = uModule.getGymnastCollection();
+                applyFilter();
+                OnPropertyChanged("FilterList");
+                OnPropertyChanged("Fullname");
+                OnPropertyChanged("IsEditing");
+                OnPropertyChanged("IsNotEditing");
+                OnPropertyChanged("PictureAvailable");
+                OnPropertyChanged("SelectedFilterItem");
+                OnPropertyChanged("EditPictureAvailable");
             }
         }
 
@@ -535,13 +586,17 @@ namespace RunApproachStatistics.ViewModel
             EditGender = Gender;
             EditLength = Length;
             EditWeight = Weight;
-            EditingMemos = true;
+            EditMemos = Memos;
             PictureCommandVisible = Visibility.Visible;
             EnableFilter = false;
 
             inEditingMode = true;
+            OnPropertyChanged("Fullname");
             OnPropertyChanged("IsEditing");
             OnPropertyChanged("IsNotEditing");
+            OnPropertyChanged("PictureAvailable");
+            OnPropertyChanged("SelectedFilterItem");
+            OnPropertyChanged("EditPictureAvailable");
         }
 
         public Boolean CanEditGymnast()
@@ -552,8 +607,6 @@ namespace RunApproachStatistics.ViewModel
         public void NewGymnast(object commandParam)
         {
             selectedFilterItem = null;
-            OnPropertyChanged("SelectedFilterItem");
-
             EditName = "";
             EditPrefix = "";
             EditSurname = "";
@@ -563,15 +616,19 @@ namespace RunApproachStatistics.ViewModel
             EditGender = "";
             EditLength = "";
             EditWeight = "";
-            EditingMemos = true;
+            EditMemos = "";
+            EditPicture = null;
             PictureCommandVisible = Visibility.Visible;
             EnableFilter = false;
 
             inEditingMode = true;
             creatingNewGymnast = true;
+            OnPropertyChanged("Fullname");
             OnPropertyChanged("IsEditing");
             OnPropertyChanged("IsNotEditing");
-            OnPropertyChanged("Fullname");
+            OnPropertyChanged("PictureAvailable");
+            OnPropertyChanged("SelectedFilterItem");
+            OnPropertyChanged("EditPictureAvailable");
         }
 
         public Boolean CanNewGymnast()
@@ -608,11 +665,28 @@ namespace RunApproachStatistics.ViewModel
             SeeVaultsCommand = new RelayCommand(SeeVaults, e => CanSeeVaults());
         }
 
+        private void applyFilter()
+        {
+            if(gymnastList == null)
+            {
+                return;
+            }
+
+            filterList.Clear();
+            foreach (gymnast gymnast in gymnastList)
+            {
+                String tempFullname = gymnast.name + (!String.IsNullOrWhiteSpace(gymnast.surname_prefix) ? " " + gymnast.surname_prefix + " " : " ") + gymnast.surname;
+                if (tempFullname.Contains(FilterField))
+                {
+                    filterList.Add(gymnast);
+                }
+            }
+            OnPropertyChanged("FilterList");
+        }
+
         private Boolean madeChanges()
         {
-            // Check if edit fields are different than their respective regular fields.
-
-            return true;
+            return !(EditPicture == Picture && EditName == Name && EditPrefix == Prefix && EditSurname == Surname && EditFIGNumber == FIGNumber && EditDateOfBirth == DateOfBirth && EditNationality == Nationality && EditGender == Gender && EditLength == Length && EditWeight == Weight && EditMemos == Memos);
         }
     }
 }
