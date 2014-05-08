@@ -70,6 +70,7 @@ namespace RunApproachStatistics.ViewModel
 
             if (isLive)
             {
+                seconds = -1;
                 timer = new System.Timers.Timer();
                 timer.Interval = 1000D;
                 timer.Elapsed += new System.Timers.ElapsedEventHandler(this.timer_Elapsed);
@@ -83,7 +84,7 @@ namespace RunApproachStatistics.ViewModel
             {
                 DistanceArray = new ObservableCollection<KeyValuePair<float, float>>();
                 SpeedArray = new ObservableCollection<KeyValuePair<float, float>>();
-                seconds = 0;
+                seconds = -1;
             }
 
             String measurement = App.portController.getLatestMeasurement().Replace(",", "");
