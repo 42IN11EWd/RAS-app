@@ -239,22 +239,47 @@ namespace RunApproachStatistics.Modules
 
         #region Filter methods
 
+        /// <summary>
+        /// Filter that will filter vaults based on data and id's of gymnasts and locations.
+        /// The input is always the full list (automatic), and it will return the filtered list.
+        /// If a filter array is empty, it will pass the unfiltered list on to the next filter.
+        /// </summary>
+        /// <param name="dRatings">Array of d-ratings which should be in the final filtered list.</param>
+        /// <param name="eRatings">Array of e-ratings which should be in the final filtered list.</param>
+        /// <param name="gymnasts">Array of the id's of the gymnasts that should appear in the filtered list.</param>
+        /// <param name="locations">Array of the id's of the locations that should appear in the filtered list.</param>
+        /// <param name="timestamps">Array of datetimes the list should be filtered on.</param>
+        /// <returns>A filtered list of vaults.</returns>
         public List<vault> filter(double[] dRatings, double[] eRatings, int[] gymnasts, int[] locations, DateTime[] timestamps)
         {
-            return dRatingFilter(eRatingFilter(gymnastFilter(locationFilter(timestampFilter(getVaults(), timestamps), locations), gymnasts), eRatings), dRatings);
+            return dRatingFilter(eRatingFilter(gymnastIdFilter(locationIdFilter(timestampFilter(getVaults(), timestamps), locations), gymnasts), eRatings), dRatings);
+        }
+
+        /// <summary>
+        /// Filter that will filter vaults based on data and names of gymnasts and locations.
+        /// The input is always the full list (automatic), and it will return the filtered list.
+        /// If a filter array is empty, it will pass the unfiltered list on to the next filter.
+        /// </summary>
+        /// <param name="dRatings">Array of d-ratings which should be in the final filtered list.</param>
+        /// <param name="eRatings">Array of e-ratings which should be in the final filtered list.</param>
+        /// <param name="gymnasts">Array of the names of gymnasts that should appear in the filtered list.</param>
+        /// <param name="locations">Array of the names of locations that should appear in the filtered list.</param>
+        /// <param name="timestamps">Array of datetimes the list should be filtered on.</param>
+        /// <returns>A filtered list of vaults.</returns>
+        public List<vault> filter(double[] dRatings, double[] eRatings, String[] gymnasts, String[] locations, DateTime[] timestamps)
+        {
+            return dRatingFilter(eRatingFilter(gymnastNameFilter(locationNameFilter(timestampFilter(getVaults(), timestamps), locations), gymnasts), eRatings), dRatings);
         }
 
         #region Filters
 
         private List<vault> dRatingFilter(List<vault> list, double[] dRatings)
         {
-            // Check for 0 length filter input.
             if (dRatings.Length == 0)
             {
                 return list;
             }
 
-            // Add each dRating value to the result set.
             List<vault> result = new List<vault>();
 
             for (int i = 0; i < dRatings.Length; i++)
@@ -267,13 +292,11 @@ namespace RunApproachStatistics.Modules
 
         private List<vault> eRatingFilter(List<vault> list, double[] eRatings)
         {
-            // Check for 0 length filter input.
             if (eRatings.Length == 0)
             {
                 return list;
             }
 
-            // Add each dRating value to the result set.
             List<vault> result = new List<vault>();
 
             for (int i = 0; i < eRatings.Length; i++)
@@ -284,15 +307,30 @@ namespace RunApproachStatistics.Modules
             return result;
         }
 
-        private List<vault> gymnastFilter(List<vault> list, int[] gymnasts)
+        private List<vault> gymnastNameFilter(List<vault> list, String[] gymnasts)
         {
-            // Check for 0 length filter input.
             if (gymnasts.Length == 0)
             {
                 return list;
             }
 
-            // Add each dRating value to the result set.
+            List<vault> result = new List<vault>();
+
+            for (int i = 0; i < gymnasts.Length; i++)
+            {
+                result.AddRange(list.Where(x => x.gymnast.name == gymnasts[i]).ToList());
+            }
+
+            return result;
+        }
+
+        private List<vault> gymnastIdFilter(List<vault> list, int[] gymnasts)
+        {
+            if (gymnasts.Length == 0)
+            {
+                return list;
+            }
+
             List<vault> result = new List<vault>();
 
             for (int i = 0; i < gymnasts.Length; i++)
@@ -303,15 +341,30 @@ namespace RunApproachStatistics.Modules
             return result;
         }
 
-        private List<vault> locationFilter(List<vault> list, int[] locations)
+        private List<vault> locationNameFilter(List<vault> list, String[] locations)
         {
-            // Check for 0 length filter input.
             if (locations.Length == 0)
             {
                 return list;
             }
 
-            // Add each dRating value to the result set.
+            List<vault> result = new List<vault>();
+
+            for (int i = 0; i < locations.Length; i++)
+            {
+                result.AddRange(list.Where(x => x.location.name == locations[i]).ToList());
+            }
+
+            return result;
+        }
+
+        private List<vault> locationIdFilter(List<vault> list, int[] locations)
+        {
+            if (locations.Length == 0)
+            {
+                return list;
+            }
+
             List<vault> result = new List<vault>();
 
             for (int i = 0; i < locations.Length; i++)
@@ -324,13 +377,11 @@ namespace RunApproachStatistics.Modules
 
         private List<vault> timestampFilter(List<vault> list, DateTime[] timestamps)
         {
-            // Check for 0 length filter input.
             if (timestamps.Length == 0)
             {
                 return list;
             }
 
-            // Add each dRating value to the result set.
             List<vault> result = new List<vault>();
 
             for (int i = 0; i < timestamps.Length; i++)
