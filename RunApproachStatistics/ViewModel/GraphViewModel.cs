@@ -50,7 +50,7 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        public GraphViewModel(IApplicationController app, AbstractViewModel chooseVM, float duration) : base()
+        public GraphViewModel(IApplicationController app, AbstractViewModel chooseVM, float duration, int width) : base()
         {
             _app = app;
 
@@ -58,9 +58,9 @@ namespace RunApproachStatistics.ViewModel
             SpeedArray = new ObservableCollection<KeyValuePair<float, float>>();
 
             //TODO check which viewmodel is active and set properties to specific VM
-            DisplayWidth = 3000;
-            WidthChart = 3000;
-            GridWidth = 3000;
+            DisplayWidth = width;
+            WidthChart = width;
+            GridWidth = width;
             SizeAxisTime = 30;
             SizeAxisDistance = 30;
             SizeAxisSpeed = 30;

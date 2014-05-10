@@ -93,7 +93,7 @@ namespace RunApproachStatistics.ViewModel
             VideoCameraController = videoCameraController;
 
             // Set Graph
-            GraphViewModel graphVM = new GraphViewModel(_app, this, 0);
+            GraphViewModel graphVM = new GraphViewModel(_app, this, 0,2000);
             GraphView = graphVM;
         }
 
