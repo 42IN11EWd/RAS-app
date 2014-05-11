@@ -1,4 +1,5 @@
 ﻿using RunApproachStatistics.Controllers;
+using RunApproachStatistics.Model.Entity;
 using RunApproachStatistics.MVVM;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace RunApproachStatistics.ViewModel
     public class ThumbnailViewModel : AbstractViewModel
     {
         private IApplicationController _app;
+        private vault vault = new vault(); 
 
         public ThumbnailViewModel(IApplicationController app)
             : base()
@@ -20,128 +22,31 @@ namespace RunApproachStatistics.ViewModel
             _app = app;
         }
 
-        private int vault_id;
-        public int Vault_id
+        public vault Vault
         {
-            get { return vault_id; }
+            get { return vault; }
             set
             {
-                vault_id = value;
-                OnPropertyChanged("Vault_id");
-            }
-        }
-
-        private string name;
-        public String Name
-        {
-            get { return name; }
-            set
-            {
-                name = value;
-                OnPropertyChanged("Name");
-            }
-        }
-
-        private string datetime;
-        public String Datetime
-        {
-            get { return datetime; }
-            set
-            {
-                datetime = value;
+                vault = value;
+                OnPropertyChanged("Vault");
+                OnPropertyChanged("Gymnast");
                 OnPropertyChanged("Datetime");
-            }
-        }
-
-        private string vaultnumber;
-        public String VaultNumber
-        {
-            get { return vaultnumber; }
-            set
-            {
-                vaultnumber = value;
                 OnPropertyChanged("VaultNumber");
             }
         }
-        private int starrating;
-        public int StarRating
-        {
-            get { return starrating; }
-            set
-            {
-                starrating = value;
-                OnPropertyChanged("StarRating");
-            }
-        }
-        private string gymnast;
         public String Gymnast
         {
-            get { return gymnast; }
-            set
-            {
-                gymnast = value;
-                OnPropertyChanged("Gymnast");
-            }
+            get { return vault.gymnast.name; }
         }
-        private string timespan;
-        public String Timespan
+
+        public String Datetime
         {
-            get { return timespan; }
-            set
-            {
-                timespan = value;
-                OnPropertyChanged("Timespan");
-            }
+            get { return vault.timestamp.ToString(); }
         }
-        private string location;
-        public String Location
+
+        public String VaultNumber
         {
-            get { return location; }
-            set
-            {
-                location = value;
-                OnPropertyChanged("Location");
-            }
-        }
-        private string dScore;
-        public String DScore
-        {
-            get { return dScore; }
-            set
-            {
-                dScore = value;
-                OnPropertyChanged("DScore");
-            }
-        }
-        private string eScore;
-        public String EScore
-        {
-            get { return eScore; }
-            set
-            {
-                eScore = value;
-                OnPropertyChanged("EScore");
-            }
-        }
-        private string penalty;
-        public String Penalty
-        {
-            get { return penalty; }
-            set
-            {
-                penalty = value;
-                OnPropertyChanged("Penalty");
-            }
-        }
-        private string totalscore;
-        public String TotalScore
-        {
-            get { return totalscore; }
-            set
-            {
-                totalscore = value;
-                OnPropertyChanged("TotalScore");
-            }
+            get { return vault.vaultnumber.code; }
         }
 
         private System.Drawing.Brush selectionBackground;

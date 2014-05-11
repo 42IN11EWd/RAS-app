@@ -14,7 +14,7 @@ namespace RunApproachStatistics.Modules.Interfaces
 
         vault read(int id);
 
-        void update(vault vault, int id);
+        void update(vault vault);
 
         void delete(int id);
 

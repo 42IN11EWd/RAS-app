@@ -56,12 +56,12 @@ namespace RunApproachStatistics.Modules
             }
         }
 
-        public void update(vault vault, int id)
+        public void update(vault vault)
         {
             using (var db = new DataContext())
             {
                 var query = (from qVault in db.vault
-                            where qVault.vaultnumber_id == id
+                            where qVault.vaultnumber_id == vault.vault_id
                             select qVault).First();
 
                 query.gymnast_id = vault.gymnast_id;
@@ -120,7 +120,7 @@ namespace RunApproachStatistics.Modules
         {
             using (var db = new DataContext())
             {
-                return (from qVault in db.vault
+                return (from qVault in db.vault.Include("gymnast").Include("vaultnumber").Include("location")
                         select qVault
                 ).ToList();
             }
