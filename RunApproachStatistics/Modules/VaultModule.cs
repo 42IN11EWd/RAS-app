@@ -49,7 +49,7 @@ namespace RunApproachStatistics.Modules
             using (var db = new DataContext())
             {
                 var query = (from qVault in db.vault
-                            where qVault.vaultnumber_id == id
+                            where qVault.vault_id == id
                             select qVault).First();
 
                 return query;
@@ -60,29 +60,23 @@ namespace RunApproachStatistics.Modules
         {
             using (var db = new DataContext())
             {
-                var query = (from qVault in db.vault
-                            where qVault.vaultnumber_id == vault.vault_id
-                            select qVault).First();
+                var query = from qVault in db.vault
+                            where qVault.vault_id == vault.vault_id
+                            select qVault;
 
-                query.gymnast_id = vault.gymnast_id;
-                query.duration = vault.duration;
-                query.graphdata = vault.graphdata;
-                query.videopath = vault.videopath;
-                query.rating_star = vault.rating_star;
-                query.rating_official_D = vault.rating_official_D;
-                query.rating_official_E = vault.rating_official_E;
-                query.penalty = vault.penalty;
-                query.timestamp = vault.timestamp;
-                query.context = vault.context;
-                query.note = vault.note;
-                query.vaultnumber_id = vault.vaultnumber_id;
-                query.location_id = vault.location_id;
-                query.deleted = vault.deleted;
-                query.thumbnail = vault.thumbnail;
-
-                query.gymnast = vault.gymnast;
-                query.location = vault.location;
-                query.vaultnumber = vault.vaultnumber;
+                foreach (vault eVault in query)
+                {
+                    eVault.context = vault.context;
+                    eVault.duration = vault.duration;
+                    //eVault.gymnast = vault.gymnast;
+                   // eVault.location = vault.location;
+                    eVault.penalty = vault.penalty;
+                    eVault.rating_official_D = vault.rating_official_D;
+                    eVault.rating_official_E = vault.rating_official_E;
+                    eVault.rating_star = vault.rating_star;
+                    eVault.timestamp = vault.timestamp;
+                   // eVault.vaultnumber = vault.vaultnumber;
+                }
 
                 try
                 {
@@ -100,7 +94,7 @@ namespace RunApproachStatistics.Modules
             using (var db = new DataContext())
             {
                 var query = (from qVault in db.vault
-                            where qVault.vaultnumber_id == id
+                            where qVault.vault_id == id
                             select qVault).First();
 
                 query.deleted = true;

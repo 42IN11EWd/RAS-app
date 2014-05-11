@@ -19,6 +19,7 @@ namespace RunApproachStatistics.ViewModel
         private PropertyChangedBase ratingControl;
         private RatingViewModel ratingVM;
 
+        private int starRating;
         private String[] vaultKind;
         private String filterText;
         private String filterType;
@@ -87,14 +88,8 @@ namespace RunApproachStatistics.ViewModel
             set
             {
                 selectedThumbnail = value;
-                if(selectedThumbnail != null)
-                {
-                    ratingVM.RatingValue = (int) selectedThumbnail.Vault.rating_star;
-                }
-                else
-                {
-                    ratingVM.RatingValue = 0;
-                }
+
+                OnPropertyChanged("StarRating");
                 OnPropertyChanged("SelectedThumbnail");
                 OnPropertyChanged("Gymnast");
                 OnPropertyChanged("Datetime");
@@ -115,6 +110,23 @@ namespace RunApproachStatistics.ViewModel
             {
                 buttonEnabled = value;
                 OnPropertyChanged("ButtonEnabled");
+            }
+        }
+        public int StarRating
+        {
+            get
+            {
+                if (SelectedThumbnail != null)
+                {
+                    ratingVM.RatingValue = (int) SelectedThumbnail.Vault.rating_star;
+                    return (int)SelectedThumbnail.Vault.rating_star;
+                }
+                return 0;
+            }
+            set
+            {
+                SelectedThumbnail.Vault.rating_star = ratingVM.RatingValue;
+                OnPropertyChanged("StarRating");
             }
         }
 
@@ -364,6 +376,7 @@ namespace RunApproachStatistics.ViewModel
         public void SaveChanges(object commandParam)
         {
             vaultModule.update(SelectedThumbnail.Vault);
+            SelectedThumbnail = null;
         }
 
         public void CancelChanges(object commandParam)
