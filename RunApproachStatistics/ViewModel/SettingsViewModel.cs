@@ -178,10 +178,10 @@ namespace RunApproachStatistics.ViewModel
 
         private void setSettingsProperties()
         {
-            MeasurementFrequency = String.Format("{0:0000.000}", portController.MeasurementFrequency);
-            MeanValue = String.Format("{0:0000.000}", portController.MeanValue);
-            MeasurementWindowMax = String.Format("{0:0000.000}", portController.MeasurementWindowMax);
-            MeasurementWindowMin = String.Format("{0:0000.000}", portController.MeasurementWindowMin);
+            MeasurementFrequency = String.Format("{0:####.###}", portController.MeasurementFrequency);
+            MeanValue = String.Format("{0:####.###}", portController.MeanValue);
+            MeasurementWindowMax = String.Format("{0:####.###}", portController.MeasurementWindowMax);
+            MeasurementWindowMin = String.Format("{0:####.###}", portController.MeasurementWindowMin);
 
             MeasurementIndex     = laserCameraSettingsModule.getMeasurementIndex();
         }
@@ -216,11 +216,11 @@ namespace RunApproachStatistics.ViewModel
             if (!_app.IsLoggedIn)
             {
                 _app.ShowLoginView();
+            }
 
-                while (_app.IsLoginWindowOpen)
-                {
-                    //wait for closing of the login window
-                }
+            while (_app.IsLoginWindowOpen)
+            {
+                //wait for closing of the login window
             }
 
             if (commandParams[6] != null && _app.IsLoggedIn)
@@ -280,7 +280,6 @@ namespace RunApproachStatistics.ViewModel
 
             ShowLocationEditerCommand = new RelayCommand(ShowLocationEditer);
             ShowVaultNumberEditerCommand = new RelayCommand(ShowVaultNumberEditer);
-
         }
     }
 }

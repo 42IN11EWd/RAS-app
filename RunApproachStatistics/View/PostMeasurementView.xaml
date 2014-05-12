@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+              xmlns:v="clr-namespace:RunApproachStatistics.View"
               mc:Ignorable="d" 
              d:DesignWidth="1920" d:DesignHeight="1080" Background="White">
     <Viewbox Stretch="Uniform">
@@ -39,7 +40,23 @@
             <TextBox FontSize="24" Width="300" Height="45" Grid.Column="1" HorizontalAlignment="Right"  Margin="0,0,162,245" TextWrapping="Wrap" Text="{Binding Escore}" VerticalAlignment="Bottom"/>
             <TextBox FontSize="24" Width="300" Height="45" Grid.Column="1" HorizontalAlignment="Right"  Margin="0,0,162,180" TextWrapping="Wrap" Text="{Binding Penalty}" VerticalAlignment="Bottom" />
             <TextBox FontSize="24" Width="300" Height="45" Grid.Column="1" HorizontalAlignment="Right"  Margin="0,0,162,115" TextWrapping="Wrap" Text="{Binding Totalscore}" VerticalAlignment="Bottom"/>
-            <ScrollViewer Grid.Column="1" Height="552" Margin="10,10,10,0" VerticalAlignment="Top"/>
+
+            <ListView Grid.Column="1"  SelectedItem="{Binding SelectedThumbnail}" ItemsSource="{Binding ThumbnailCollection}" Margin="178,10,0,0" Height="552" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1255">
+                <!-- ItemsPanelTemplate -->
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="4" />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+
+                <!-- ItemTemplate -->
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <v:ThumbnailView/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
             <Button Content="Finish" FontSize="24" Grid.Column="1" Command="{Binding FinishCommand}" HorizontalAlignment="Right" Margin="0,0,82,27" VerticalAlignment="Bottom" Width="175" Height="50"/>
             <Button Content="Delete" FontSize="24" Grid.Column="1" Command="{Binding DeleteCommand}" HorizontalAlignment="Right" Margin="0,0,422,27" VerticalAlignment="Bottom" Width="175" Height="50"/>
             <Button Content="Cancel" FontSize="24" Grid.Column="1" Command="{Binding CancelCommand}" HorizontalAlignment="Right" Margin="0,0,653,27" VerticalAlignment="Bottom" Width="175" Height="50"/>

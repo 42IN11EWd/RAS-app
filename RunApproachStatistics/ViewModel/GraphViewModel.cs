@@ -50,7 +50,7 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        public GraphViewModel(IApplicationController app, AbstractViewModel chooseVM, Boolean isLive) : base()
+        public GraphViewModel(IApplicationController app, AbstractViewModel chooseVM, float duration, int width) : base()
         {
             _app = app;
 
@@ -58,17 +58,14 @@ namespace RunApproachStatistics.ViewModel
             SpeedArray = new ObservableCollection<KeyValuePair<float, float>>();
 
             //TODO check which viewmodel is active and set properties to specific VM
-            DisplayWidth = 3000;
-            WidthChart = 3000;
-            GridWidth = 3000;
+            DisplayWidth = width;
+            WidthChart = width;
+            GridWidth = width;
             SizeAxisTime = 30;
             SizeAxisDistance = 30;
             SizeAxisSpeed = 30;
-            // Example data
-            //setDistances();
-            //setSpeeds();
 
-            if (isLive)
+            if (duration <= 0)
             {
                 seconds = -1;
                 timer = new System.Timers.Timer();
@@ -108,24 +105,6 @@ namespace RunApproachStatistics.ViewModel
                 OnPropertyChanged("DistanceArray");
                 OnPropertyChanged("SpeedArray");
             }));
-        }
-
-        private void setDistances()
-        {
-            DistanceArray = new ObservableCollection<KeyValuePair<float, float>>();
-            float j = 0;
-            for (float i = 0; i < 9; i++)
-            {
-                DistanceArray.Add(new KeyValuePair<float, float>(i, j));
-                j += 3;
-            }
-        }
-
-        private void setSpeeds()
-        {
-            SpeedArray = new ObservableCollection<KeyValuePair<float, float>>();
-            SpeedArray.Add(new KeyValuePair<float, float>(0, 2));
-            SpeedArray.Add(new KeyValuePair<float, float>(1, 4));
         }
 
         protected override void initRelayCommands()

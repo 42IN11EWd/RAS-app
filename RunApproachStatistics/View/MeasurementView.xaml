@@ -14,7 +14,7 @@
             <Grid Height="635" Width="1130" Name="cameraGrid" Margin="336,31,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Background="Black" Grid.Column="1">
                 <ContentControl x:Name="cameraView" Content="{Binding Path=CameraView}"/>
             </Grid>
-            <ComboBox SelectedValue="{Binding SelectedVaultKind, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Path=VaultKind, UpdateSourceTrigger=PropertyChanged}" FontSize="24" Width="218" Height="45" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,29,800" />
+            <ComboBox SelectedValue="{Binding Path=SelectedVaultKind, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Path=VaultKind, UpdateSourceTrigger=PropertyChanged}" FontSize="24" Width="218" Height="45" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,29,800" />
 
             <CheckBox IsChecked="{Binding ManualModeChecked}" Margin="0,0,29,195" FontSize="14" Content="Manual mode"   Height="23" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="198">
                 <CheckBox.LayoutTransform>

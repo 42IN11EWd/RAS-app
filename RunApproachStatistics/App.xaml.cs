@@ -109,6 +109,7 @@ namespace RunApproachStatistics
             LoginViewModel loginViewModel = new LoginViewModel(this);
             loginViewModel.Content = loginViewModel;
             loginWindow.DataContext = loginViewModel;
+            loginWindow.Closed += CloseLoginWindow;
             loginViewModel.PasswordBox = loginWindow.PasswordBox;
             loginWindow.ShowDialog();
         }
@@ -213,13 +214,16 @@ namespace RunApproachStatistics
             isLocked = !isLocked;
         }
 
-        public void CloseLoginWindow()
+        public void CloseLoginWindow(object sender = null, EventArgs e = null)
         {
-            if(loginWindow != null)
+            if (loginWindow != null)
             {
                 isLoginWindowOpen = false;
-                loginWindow.Close();
-                loginWindow = null;
+                if (sender == null)
+                {
+                    loginWindow.Close();
+                    loginWindow = null;
+                }
             }
         }
 

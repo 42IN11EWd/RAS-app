@@ -18,6 +18,7 @@ namespace RunApproachStatistics.Model.Entity
         public DataContext()
             : base("name=DataContext")
         {
+            // this.Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

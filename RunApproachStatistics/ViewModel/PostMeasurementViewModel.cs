@@ -1,9 +1,11 @@
 ﻿using RunApproachStatistics.Controllers;
+using RunApproachStatistics.Model.Entity;
 using RunApproachStatistics.Modules;
 using RunApproachStatistics.Modules.Interfaces;
 using RunApproachStatistics.MVVM;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,18 +17,12 @@ namespace RunApproachStatistics.ViewModel
         private IApplicationController _app;
         private PropertyChangedBase menu;
         private PropertyChangedBase ratingControl;
+        private RatingViewModel ratingVM;
 
-        private string vaultKind;
-        public string[] vaultKindArray;
-        private string gymnast;
-        private string datetime;
-        private string timespan;
-        private string vaultNumber;
-        private string location;
-        private string dscore;
-        private string escore;
-        private string penalty;
-        private string totalscore;
+        private String[] vaultKind;
+        private ObservableCollection<ThumbnailViewModel> thumbnailCollection;
+        private ThumbnailViewModel selectedThumbnail;
+        private String selectedVaultKind;
 
         #region Modules
 
@@ -62,122 +58,201 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        public string SelectedVaultKind
+        public ObservableCollection<ThumbnailViewModel> ThumbnailCollection
+        {
+            get { return thumbnailCollection; }
+            set
+            {
+                thumbnailCollection = value;
+                OnPropertyChanged("ThumbnailCollection");
+            }
+        }
+        public ThumbnailViewModel SelectedThumbnail
         {
             get
             {
-                if (vaultKind == null) return "";
-                return vaultKind;
+                //if (selectedThumbnail == null)
+                //    ButtonEnabled = false;
+                //else
+                //    ButtonEnabled = true;
+                return selectedThumbnail;
             }
+            set
+            {
+                selectedThumbnail = value;
+
+                OnPropertyChanged("StarRating");
+                OnPropertyChanged("SelectedThumbnail");
+                OnPropertyChanged("Gymnast");
+                OnPropertyChanged("Datetime");
+                OnPropertyChanged("TimeSpan");
+                OnPropertyChanged("VaultNumber");
+                OnPropertyChanged("Location");
+                OnPropertyChanged("SelectedVaultKind");
+                OnPropertyChanged("DScore");
+                OnPropertyChanged("EScore");
+                OnPropertyChanged("Penalty");
+                OnPropertyChanged("TotalScore");
+            }
+        }
+
+        public int StarRating
+        {
+            get
+            {
+                if (SelectedThumbnail != null)
+                {
+                    ratingVM.RatingValue = (int)SelectedThumbnail.Vault.rating_star;
+                    return (int)SelectedThumbnail.Vault.rating_star;
+                }
+                return 0;
+            }
+            set
+            {
+                SelectedThumbnail.Vault.rating_star = ratingVM.RatingValue;
+                OnPropertyChanged("StarRating");
+            }
+        }
+
+        public String Gymnast
+        {
+            get
+            {
+                if (SelectedThumbnail != null)
+                    return SelectedThumbnail.Vault.gymnast.name;
+                return "";
+            }
+            set
+            {
+                SelectedThumbnail.Vault.gymnast.name = value;
+                OnPropertyChanged("Gymnast");
+            }
+        }
+
+        public DateTime Datetime
+        {
+            get
+            {
+                if (SelectedThumbnail != null)
+                    return SelectedThumbnail.Vault.timestamp;
+                return new DateTime();
+            }
+            set
+            {
+                SelectedThumbnail.Vault.timestamp = value;
+                OnPropertyChanged("Datetime");
+            }
+        }
+
+        public decimal Timespan
+        {
+            get
+            {
+                if (SelectedThumbnail != null)
+                    return SelectedThumbnail.Vault.duration;
+                return 0;
+            }
+            set
+            {
+                SelectedThumbnail.Vault.duration = value;
+                OnPropertyChanged("TimeSpan");
+            }
+        }
+
+        public String VaultNumber
+        {
+            get
+            {
+                if (SelectedThumbnail != null)
+                    return SelectedThumbnail.Vault.vaultnumber.code;
+                return "";
+            }
+            set
+            {
+                SelectedThumbnail.Vault.vaultnumber.code = value;
+                OnPropertyChanged("VaultNumber");
+            }
+        }
+
+        public String Location
+        {
+            get
+            {
+                if (SelectedThumbnail != null)
+                    return SelectedThumbnail.Vault.location.name;
+                return "";
+            }
+            set
+            {
+                SelectedThumbnail.Vault.location.name = value;
+                OnPropertyChanged("Location");
+            }
+        }
+
+        public String[] VaultKind
+        {
+            get { return vaultKind; }
             set
             {
                 vaultKind = value;
                 OnPropertyChanged("VaultKind");
             }
-
         }
 
-
-        public string[] VaultKind
+        public String SelectedVaultKind
         {
-            get { return vaultKindArray; }
+            get { return selectedVaultKind; }
             set
             {
-                vaultKindArray = value;
-                OnPropertyChanged("VaultKind");
+                selectedVaultKind = value;
+                OnPropertyChanged("SelectedVaultKind");
             }
         }
 
-        public string Gymnast
+        public Nullable<int> DScore
         {
-            get { return gymnast; }
+            get
+            {
+                if (SelectedThumbnail != null)
+                    return SelectedThumbnail.Vault.rating_official_D;
+                return 0;
+            }
             set
             {
-                gymnast = value;
-                OnPropertyChanged("Gymnast");
+                SelectedThumbnail.Vault.rating_official_D = value;
+                OnPropertyChanged("DScore");
             }
         }
 
-        public string Datetime
+        public Nullable<int> EScore
         {
-            get { return datetime; }
+            get
+            {
+                if (SelectedThumbnail != null)
+                    return SelectedThumbnail.Vault.rating_official_E;
+                return 0;
+            }
             set
             {
-                datetime = value;
-                OnPropertyChanged("Datetime");
+                SelectedThumbnail.Vault.rating_official_E = value;
+                OnPropertyChanged("EScore");
             }
         }
 
-        public string Timespan
+        public Nullable<decimal> Penalty
         {
-            get { return timespan; }
-            set
+            get
             {
-                timespan = value;
-                OnPropertyChanged("Timespan");
+                if (SelectedThumbnail != null)
+                    return SelectedThumbnail.Vault.penalty;
+                return 0;
             }
-        } 
-        public string VaultNumber
-        {
-            get { return vaultNumber; }
             set
             {
-                vaultNumber = value;
-                OnPropertyChanged("VaultNumber");
-            }
-        }
-
-        public string Location
-        {
-            get { return location; }
-            set
-            {
-                location = value;
-                OnPropertyChanged("Location");
-            }
-        }
-
-        public string Dscore
-        {
-            get { return dscore; }
-            set
-            {
-                dscore = value;
-                OnPropertyChanged("Dscore");
-            }
-        }
-
-        public string Escore
-        {
-            get { return escore; }
-            set
-            {
-                escore = value;
-                OnPropertyChanged("Escore");
-            }
-        }
-
-        public string Penalty
-        {
-            get { return penalty; }
-            set
-            {
-                penalty = value;
+                SelectedThumbnail.Vault.penalty = value;
                 OnPropertyChanged("Penalty");
             }
         }
-
-        public string Totalscore
-        {
-            get { return totalscore; }
-            set
-            {
-                totalscore = value;
-                OnPropertyChanged("Totalscore");
-            }
-        }
-
-       
 
         #endregion
 
@@ -192,6 +267,18 @@ namespace RunApproachStatistics.ViewModel
 
             RatingViewModel ratingVM = new RatingViewModel(_app);
             RatingControl = ratingVM;
+
+            // Useless test data.
+            thumbnailCollection = new ObservableCollection<ThumbnailViewModel>();
+            List<vault> vaults = vaultModule.getVaults();
+
+            for (int i = 0; i < vaults.Count; i++)
+            {
+                thumbnailCollection.Add(new ThumbnailViewModel(_app)
+                {
+                    Vault = vaults[i]
+                });
+            }
         }
 
         #region RelayCommands

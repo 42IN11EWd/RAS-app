@@ -1,4 +1,5 @@
 ﻿using RunApproachStatistics.Controllers;
+using RunApproachStatistics.Model.Entity;
 using RunApproachStatistics.MVVM;
 using System;
 using System.Collections.Generic;
@@ -10,9 +11,10 @@ using System.Windows.Media;
 
 namespace RunApproachStatistics.ViewModel
 {
-    class ThumbnailViewModel : AbstractViewModel
+    public class ThumbnailViewModel : AbstractViewModel
     {
         private IApplicationController _app;
+        private vault vault = new vault(); 
 
         public ThumbnailViewModel(IApplicationController app)
             : base()
@@ -20,37 +22,31 @@ namespace RunApproachStatistics.ViewModel
             _app = app;
         }
 
-        private string name;
-        public String Name
+        public vault Vault
         {
-            get { return name; }
+            get { return vault; }
             set
             {
-                name = value;
-                OnPropertyChanged("Name");
-            }
-        }
-
-        private string datetime;
-        public String Datetime
-        {
-            get { return datetime; }
-            set
-            {
-                datetime = value;
+                vault = value;
+                OnPropertyChanged("Vault");
+                OnPropertyChanged("Gymnast");
                 OnPropertyChanged("Datetime");
-            }
-        }
-
-        private string vaultnumber;
-        public String VaultNumber
-        {
-            get { return vaultnumber; }
-            set
-            {
-                vaultnumber = value;
                 OnPropertyChanged("VaultNumber");
             }
+        }
+        public String Gymnast
+        {
+            get { return vault.gymnast.name; }
+        }
+
+        public String Datetime
+        {
+            get { return vault.timestamp.ToString(); }
+        }
+
+        public String VaultNumber
+        {
+            get { return vault.vaultnumber.code; }
         }
 
         private System.Drawing.Brush selectionBackground;
@@ -92,8 +88,6 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        public RelayCommand VaultClickCommand { get; private set; }
-
         public void setTypeVault(Boolean isLiveVault)
         {
             LiveVaultText = (isLiveVault ? Visibility.Hidden : Visibility.Visible);
@@ -115,14 +109,9 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        public void VaultClick(object commandParam)
-        {
-            toggleSelection("Select");
-        }
-
         protected override void initRelayCommands()
         {
-            VaultClickCommand = new RelayCommand(VaultClick);
+
         }
     }
 }
