@@ -61,6 +61,26 @@ namespace RunApproachStatistics.ViewModel
         
         private String currentTime;
         private String totalTime;
+        private Double currentPosition;
+
+        public Double CurrentPosition
+        {
+            get { return currentPosition; }
+            set { currentPosition = value;
+
+            OnPropertyChanged("CurrentPosition");
+            }
+        }
+        private Double maximum;
+
+        public Double Maximum
+        {
+            get { return maximum; }
+            set { maximum = value;
+
+            OnPropertyChanged("Maximum");
+            }
+        }
 
         bool dragging = false;
 
@@ -99,6 +119,8 @@ namespace RunApproachStatistics.ViewModel
 
         public RelayCommand BackwardClickCommand { get; private set; }
 
+        public RelayCommand ScrubbingCommand { get; private set; }
+
         public VideoViewModel(IApplicationController app) : base()
         
 {
@@ -135,11 +157,12 @@ namespace RunApproachStatistics.ViewModel
             while (!Video.NaturalDuration.HasTimeSpan)
             {
             }
-             TotalTime = MillisecondsToTimespan(Video.NaturalDuration.TimeSpan.TotalMilliseconds);
-            //}
-            //else
-            //{
-            //    TotalTime = MillisecondsToTimespan(0);
+            Maximum = Video.NaturalDuration.TimeSpan.TotalMilliseconds;
+            TotalTime = MillisecondsToTimespan(Maximum);
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromMilliseconds(20);
+            timer.Tick += new EventHandler(timer_Tick);
+            timer.Start();
             
         }
 
@@ -201,6 +224,12 @@ namespace RunApproachStatistics.ViewModel
             //Video.SpeedRatio = -2;
             //Video.Play();
         }
+        public void ScrubbingMedia(object commandParam)
+        {
+            //IsPlaying = true;
+            //Video.SpeedRatio = -2;
+            //Video.Play();
+        }
 
             private void Element_MediaOpened(object sender, EventArgs e)
         {
@@ -214,10 +243,7 @@ namespace RunApproachStatistics.ViewModel
             //    TotalTimetext.Text = MillisecondsToTimespan(TimeSlider.Maximum);
             //}
 
-            timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMilliseconds(20);
-            //timer.Tick += new EventHandler(timer_Tick);
-            timer.Start();
+          
         }
         // When the media playback is finished. Stop() the media to seek to media start. 
         //private void Element_MediaEnded(object sender, EventArgs e)
@@ -242,23 +268,23 @@ namespace RunApproachStatistics.ViewModel
                                     t.Milliseconds);
         }
 
-        //void timer_Tick(object sender, EventArgs e)
-        //{
-        //    // Check if the movie finished calculate it's total time
-        //    if (VideoControl.NaturalDuration.HasTimeSpan)
-        //    {
-        //        if (VideoControl.NaturalDuration.TimeSpan.TotalMilliseconds > 0)
-        //        {
-        //            if (!dragging)
-        //            {
-        //                Double position = VideoControl.Position.TotalMilliseconds;
-        //                // Updating time slider
-        //                TimeSlider.Value = position;
-        //            }
-        //            Timetext.Text = MillisecondsToTimespan(TimeSlider.Value);
-        //        }
-        //    }
-        //}
+        void timer_Tick(object sender, EventArgs e)
+        {
+            // Check if the movie finished calculate it's total time
+            if (Video.NaturalDuration.HasTimeSpan)
+            {
+                if (Video.NaturalDuration.TimeSpan.TotalMilliseconds > 0)
+                {
+                    if (!dragging)
+                    {
+                        Double position = Video.Position.TotalMilliseconds;
+                        // Updating time slider
+                        CurrentPosition = position;
+                    }
+                    CurrentTime = MillisecondsToTimespan(CurrentPosition);
+                }
+            }
+        }
 
         
 
@@ -267,6 +293,7 @@ namespace RunApproachStatistics.ViewModel
             PlayClickCommand = new RelayCommand(PlayMedia);
             ForwardClickCommand = new RelayCommand(ForwardMedia);
             BackwardClickCommand = new RelayCommand(BackwardMedia);
+            ScrubbingCommand = new RelayCommand(ScrubbingMedia);
         }
 
     }

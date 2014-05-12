@@ -19,7 +19,7 @@
             <!-- START VIDEO CONTROLS-->
             <!-- <ContentControl x:Name="cameraView" Content="{Binding Path=CameraView}"/> -->
             <Rectangle Fill="#8D000000" Height="103" VerticalAlignment="Bottom" />
-            <Slider x:Name="TimeSlider" Value="0"  Margin="48,0,48,66" Foreground="#FFD4D4D4" Height="22" VerticalAlignment="Bottom"/>
+            <Slider x:Name="TimeSlider" Value="{Binding CurrentPosition}" Maximum="{Binding Maximum}" Margin="48,0,48,66" Foreground="#FFD4D4D4" Height="22" VerticalAlignment="Bottom" SmallChange="1000" />
             <Button Foreground="#FFFFFFFF" Background="#00000000" Command="{Binding PlayClickCommand}" Name="btnPlay"  Margin="0,0,0,4" HorizontalAlignment="Center" Width="64" Height="64" VerticalAlignment="Bottom">
                 <Image Margin="0,0,0,4" Source="{Binding PlayButtonImage}" HorizontalAlignment="Center" Width="64" VerticalAlignment="Bottom" />
             </Button>
