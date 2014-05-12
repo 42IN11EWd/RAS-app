@@ -3,6 +3,7 @@ using RunApproachStatistics.Modules;
 using RunApproachStatistics.MVVM;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,7 @@ using System.Windows.Controls;
 
 namespace RunApproachStatistics.ViewModel
 {
-    public class LoginViewModel : AbstractViewModel
+    public class LoginViewModel : ValidationViewModel
     {
         private IApplicationController _app;
         private PropertyChangedBase content;
@@ -45,12 +46,14 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
+        [Required(ErrorMessage="Please fill in a username")]
         public string Username
         {
             get { return username; }
             set
             {
                 username = value;
+                ValidateProperty(value);
                 OnPropertyChanged("Username");
             }
         }
@@ -58,7 +61,10 @@ namespace RunApproachStatistics.ViewModel
         public PasswordBox PasswordBox
         {
             get { return _passwordBox; }
-            set { _passwordBox = value; }
+            set
+            {
+                _passwordBox = value;
+            }
         }
 
         public string Password
@@ -86,7 +92,10 @@ namespace RunApproachStatistics.ViewModel
         {
             UserModule usermodule = new UserModule();
             Console.WriteLine("pass: " + Password);
-            if (Password != null)
+
+            // Validate username, can't bind password
+            Validate();
+            if (IsValid)
             {
                 if (!usermodule.login(username, Password))
                 {

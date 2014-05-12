@@ -144,10 +144,10 @@
     <Compile Include="Services\PortController.cs" />
     <Compile Include="Services\PortEmulator.cs" />
     <Compile Include="Services\ReadPort.cs" />
-    <Compile Include="Services\Validators\FloatValidator.cs" />
     <Compile Include="Services\VideoCamera.cs" />
     <Compile Include="Services\VideoCameraController.cs" />
     <Compile Include="Services\WritePort.cs" />
+    <Compile Include="ViewModel\ValidationViewModel.cs" />
     <Compile Include="ViewModel\VideoPlaybackViewModel.cs" />
     <Compile Include="ViewModel\VideoViewModel.cs" />
     <Compile Include="ViewModel\CameraViewModel.cs" />
