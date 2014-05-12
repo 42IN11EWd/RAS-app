@@ -6,8 +6,9 @@
     <Viewbox Stretch="Uniform">
         <Grid Width="280" Height="200" FocusManager.FocusedElement="{Binding ElementName=UsernameBox}">
             <Label FontSize="24" Content="Please login" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <TextBox Name="UsernameBox" HorizontalAlignment="Left" Height="23" Margin="91,77,0,0" TextWrapping="Wrap" Text="{Binding Username}" VerticalAlignment="Top" Width="189"/>
-            <PasswordBox Name="PasswordBox" HorizontalAlignment="Left" Height="23" Margin="91,116,0,0" VerticalAlignment="Top" Width="189"></PasswordBox>
+            <TextBox Name="UsernameBox" HorizontalAlignment="Left" Height="23" Margin="91,77,0,0"
+                     TextWrapping="Wrap" Text="{Binding Username, ValidatesOnNotifyDataErrors=True}" Style="{StaticResource textBoxInError}" VerticalAlignment="Top" Width="189"/>
+            <PasswordBox Name="PasswordBox" HorizontalAlignment="Left" Height="23" Margin="91,116,0,0" VerticalAlignment="Top" Width="189" Style="{StaticResource passwordBoxInError}"></PasswordBox>
             <Button Content="Login" IsDefault="True" Command="{Binding LoginCommand}" HorizontalAlignment="Left" Margin="205,170,0,0" VerticalAlignment="Top" Width="75" Height="20"/>
             <Button Content="Cancel" IsCancel="True" Command="{Binding CancelCommand}" HorizontalAlignment="Left" Margin="0,170,0,0" VerticalAlignment="Top" Width="75" Height="20"/>
             <Label Content="Username" HorizontalAlignment="Left" Margin="0,74,0,0" VerticalAlignment="Top"/>

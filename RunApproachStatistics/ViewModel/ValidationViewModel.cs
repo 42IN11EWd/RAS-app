@@ -103,6 +103,8 @@ namespace RunApproachStatistics.ViewModel
             var propertyNames = errors.Keys.ToList();
             errors.Clear();
             propertyNames.ForEach(propName => OnErrorsChanged(propName));
+
+            HandleValidationResults(validationResults);
         }
 
         private void HandleValidationResults(List<ValidationResult> validationResults)
