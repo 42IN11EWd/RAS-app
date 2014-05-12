@@ -6,6 +6,7 @@ using RunApproachStatistics.Services;
 using RunApproachStatistics.View;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,7 @@ using System.Windows.Forms.Integration;
 
 namespace RunApproachStatistics.ViewModel
 {
-    public class SettingsViewModel : AbstractViewModel
+    public class SettingsViewModel : ValidationViewModel
     {
         private IApplicationController  _app;
         private PropertyChangedBase     content;
@@ -86,42 +87,54 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
+        [Required]
+        [Range(1, 2000, ErrorMessage="Invalid Frequency, must be between 1 and 2000")]
         public String MeasurementFrequency
         {
             get { return measurementFrequency; }
             set 
             {
                 measurementFrequency = value;
+                ValidateProperty(value);
                 OnPropertyChanged("MeasurementFrequency");
             }
         }
 
+        [Required]
+        [Range(1, 10000, ErrorMessage="Invalid Mean Value, must be between 1 and 10.000")]
         public String MeanValue
         {
             get { return meanValue; }
             set 
             { 
                 meanValue = value;
-                OnPropertyChanged("MeasurementFrequency");
+                ValidateProperty(value);
+                OnPropertyChanged("MeanValue");
             }
         }
 
+        [Required]
+        [Range(0, 5000, ErrorMessage = "Number is outside laser range, must be between 1 and 5000")]
         public String MeasurementWindowMax
         {
             get { return measurementWindowMax; }
             set 
             { 
                 measurementWindowMax = value;
+                ValidateProperty(value);
                 OnPropertyChanged("MeasurementWindowMax");
             }
         }
 
+        [Required]
+        [Range(0, 5000, ErrorMessage = "Number is outside laser range, must be between 1 and 5000")]
         public String MeasurementWindowMin
         {
             get { return measurementWindowMin; }
             set 
             {
                 measurementWindowMin = value;
+                ValidateProperty(value);
                 OnPropertyChanged("MeasurementWindowMin");
             }
         }
@@ -179,7 +192,7 @@ namespace RunApproachStatistics.ViewModel
         private void setSettingsProperties()
         {
             MeasurementFrequency = String.Format("{0:####.###}", portController.MeasurementFrequency);
-            MeanValue = String.Format("{0:####.###}", portController.MeanValue);
+            MeanValue            = String.Format("{0:####.###}", portController.MeanValue);
             MeasurementWindowMax = String.Format("{0:####.###}", portController.MeasurementWindowMax);
             MeasurementWindowMin = String.Format("{0:####.###}", portController.MeasurementWindowMin);
 
@@ -225,24 +238,31 @@ namespace RunApproachStatistics.ViewModel
 
             if (commandParams[6] != null && _app.IsLoggedIn)
             {
-                // 0: Frequency
-                // 1: Meanvalue
-                // 2: camera position
-                // 3: Measurement index
-                // 4: Measurement window min
-                // 5: Measurement window max
-                // 6: videocamera index
-                portController.writeSettings(commandParams);
+                if (IsValid)
+                {
+                    // 0: Frequency
+                    // 1: Meanvalue
+                    // 2: camera position
+                    // 3: Measurement index
+                    // 4: Measurement window min
+                    // 5: Measurement window max
+                    // 6: videocamera index
+                    portController.writeSettings(commandParams);
 
-                // save measurement index
-                int measureIndex = Convert.ToInt32(commandParams[3]);
-                laserCameraSettingsModule.setMeasurementIndex(measureIndex);
+                    // save measurement index
+                    int measureIndex = Convert.ToInt32(commandParams[3]);
+                    laserCameraSettingsModule.setMeasurementIndex(measureIndex);
 
-                // Save selected videocamera
-                int cameraIndex = Convert.ToInt32(commandParams[6]);
-                videoCameraSettingsModule.saveVideocameraIndex(cameraIndex);
+                    // Save selected videocamera
+                    int cameraIndex = Convert.ToInt32(commandParams[6]);
+                    videoCameraSettingsModule.saveVideocameraIndex(cameraIndex);
 
-                _app.CloseSettingsWindow();
+                    _app.CloseSettingsWindow();
+                } 
+                else
+                {
+                    MessageBox.Show("Not all values are valid, please check them", "Invalid Values", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                }
             }
         }
         private void CancelAction(object commandParam)
