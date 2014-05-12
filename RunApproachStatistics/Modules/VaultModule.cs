@@ -48,7 +48,7 @@ namespace RunApproachStatistics.Modules
         {
             using (var db = new DataContext())
             {
-                var query = (from qVault in db.vault
+                var query = (from qVault in db.vault.Include("gymnast").Include("vaultnumber").Include("location")
                             where qVault.vault_id == id
                             select qVault).First();
 
