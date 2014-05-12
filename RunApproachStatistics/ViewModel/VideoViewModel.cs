@@ -67,8 +67,12 @@ namespace RunApproachStatistics.ViewModel
         {
             get { return currentPosition; }
             set { currentPosition = value;
-
-            OnPropertyChanged("CurrentPosition");
+            if (dragging)
+            {
+                TimeSpan ts = TimeSpan.FromMilliseconds(value);
+                Video.Position = ts;               
+            }
+                OnPropertyChanged("CurrentPosition");
             }
         }
         private Double maximum;
@@ -121,6 +125,10 @@ namespace RunApproachStatistics.ViewModel
 
         public RelayCommand ScrubbingCommand { get; private set; }
 
+        public RelayCommand MouseUpCommand { get; private set; }
+
+        public RelayCommand MouseDownCommand { get; private set; }
+
         public VideoViewModel(IApplicationController app) : base()
         
 {
@@ -135,17 +143,9 @@ namespace RunApproachStatistics.ViewModel
                 ScrubbingEnabled = true,
                 LoadedBehavior = MediaState.Manual            
             };
-            Video.Loaded += Video_Loaded;
-            
+            Video.Loaded += Video_Loaded;            
             
             CurrentTime = MillisecondsToTimespan(0);
-            
-            //TimeSlider.AddHandler(MouseLeftButtonUpEvent, new MouseButtonEventHandler(timeSlider_MouseLeftButtonUp), true);
-
-            //   TimeSlider.AddHandler(MouseLeftButtonDownEvent, new MouseButtonEventHandler(timeSlider_MouseLeftButtonDown), true);
-            //   IsPlaying(false);
-
-            //   btnPlay.IsEnabled = true;
         }
 
         private void Video_Loaded(object sender, RoutedEventArgs e)
@@ -162,60 +162,51 @@ namespace RunApproachStatistics.ViewModel
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMilliseconds(20);
             timer.Tick += new EventHandler(timer_Tick);
-            timer.Start();
-            
+            timer.Start();            
         }
 
-        private void timeSlider_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            dragging = true;
-           
-            //VideoControl.Pause();
-        }
-
-        //private void timeSlider_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        //{
-        //    if (VideoControl.NaturalDuration.HasTimeSpan)
-        //    {
-        //        if (VideoControl.NaturalDuration.TimeSpan.TotalSeconds > 0)
-        //        {
-        //            // VideoControl.Pause();
-        //            VideoControl.Position = TimeSpan.FromMilliseconds(TimeSlider.Value);
-        //        }
-        //    }
-        //    dragging = false;
-        //    //VideoControl.Play();
-        //}
-
-        //private void IsPlaying(bool flag)
-        //{
-        //    btnPlay.IsEnabled = flag;
-        //    btnMoveBack.IsEnabled = flag;
-        //    btnMoveForward.IsEnabled = flag;
-        //}
-
-
+                
         public void PlayMedia(object commandParam)
         {
             if (IsPlaying)
             {
                 Video.SpeedRatio = 1;
-                Video.Pause();
+                Pause();
             }
             else
             {
-
                 Video.SpeedRatio = 1;
-                Video.Play();
+                Play();
             }
             IsPlaying = !IsPlaying;
         }
 
+        public void Play()
+        {
+            //IsPlaying = true;
+            Video.Play();
+            //timer.Start();
+        }
+
+        public void Pause()
+        {
+           // IsPlaying = false;
+            Video.Pause();
+            //timer.Stop();
+        }
+
+        public void Stop()
+        {
+            IsPlaying = false;
+            Video.Stop();
+            timer.Stop();
+        }
+
         public void ForwardMedia(object commandParam)
         {
-            IsPlaying = true;
             Video.SpeedRatio = 0.5;
-            Video.Play();
+            IsPlaying = true;
+            Play();            
         }
 
         public void BackwardMedia(object commandParam)
@@ -224,40 +215,18 @@ namespace RunApproachStatistics.ViewModel
             //Video.SpeedRatio = -2;
             //Video.Play();
         }
-        public void ScrubbingMedia(object commandParam)
+
+        public void MouseDown(object commandParam)
         {
-            //IsPlaying = true;
-            //Video.SpeedRatio = -2;
-            //Video.Play();
+            Pause();
+            dragging = true;
         }
 
-            private void Element_MediaOpened(object sender, EventArgs e)
+        public void MouseUp(object commandParam)
         {
-
-
-            //if (VideoControl.NaturalDuration.HasTimeSpan)
-            //{
-            //    TimeSlider.Maximum = VideoControl.NaturalDuration.TimeSpan.TotalMilliseconds;
-            //    TimeSlider.SmallChange = 100;
-            //    TimeSlider.LargeChange = Math.Min(1000, VideoControl.NaturalDuration.TimeSpan.Milliseconds / 10);
-            //    TotalTimetext.Text = MillisecondsToTimespan(TimeSlider.Maximum);
-            //}
-
-          
+            dragging = false;
+            if (IsPlaying) { Play(); }
         }
-        // When the media playback is finished. Stop() the media to seek to media start. 
-        //private void Element_MediaEnded(object sender, EventArgs e)
-        //{
-        //    //VideoControl.Stop();
-        //}
-         // Jump to different parts of the media (seek to).  
-        //private void SeekToMediaPosition(object sender, RoutedPropertyChangedEventArgs<double> args)
-        //{
-        //    int SliderValue = (int)TimeSlider.Value;
-
-        //    TimeSpan ts = TimeSpan.FromMilliseconds(SliderValue);
-        //    VideoControl.Position = ts;
-        //}
         
         private String MillisecondsToTimespan(double ms)
         {
@@ -293,7 +262,8 @@ namespace RunApproachStatistics.ViewModel
             PlayClickCommand = new RelayCommand(PlayMedia);
             ForwardClickCommand = new RelayCommand(ForwardMedia);
             BackwardClickCommand = new RelayCommand(BackwardMedia);
-            ScrubbingCommand = new RelayCommand(ScrubbingMedia);
+            MouseUpCommand = new RelayCommand(MouseUp);
+            MouseDownCommand = new RelayCommand(MouseDown);
         }
 
     }
