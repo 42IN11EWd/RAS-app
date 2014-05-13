@@ -7,6 +7,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,7 +25,6 @@ namespace RunApproachStatistics.ViewModel
 
         private Visibility pictureCommandVisible;
         private ImageSource picture;
-        private Visibility pictureAvailable;
 
         private String name;
         private String prefix;
@@ -38,7 +38,6 @@ namespace RunApproachStatistics.ViewModel
         private String memos;
 
         private ImageSource editPicture;
-        private Visibility editPictureAvailable;
         private String editName;
         private String editPrefix;
         private String editSurname;
@@ -52,7 +51,7 @@ namespace RunApproachStatistics.ViewModel
 
         private String filterField;
         private List<gymnast> gymnastList; // To store all the gymnasts
-        private ObservableCollection<gymnast> filterList; // T.B.D. to be deleted or converted
+        private ObservableCollection<gymnast> filterList;
         private gymnast selectedFilterItem;
         private Boolean enableFilter;
 
@@ -102,6 +101,7 @@ namespace RunApproachStatistics.ViewModel
             {
                 picture = value;
                 OnPropertyChanged("Picture");
+                OnPropertyChanged("PictureAvailable");
             }
         }
 
@@ -229,6 +229,7 @@ namespace RunApproachStatistics.ViewModel
             {
                 editPicture = value;
                 OnPropertyChanged("EditPicture");
+                OnPropertyChanged("EditPictureAvailable");
             }
         }
 
@@ -379,7 +380,6 @@ namespace RunApproachStatistics.ViewModel
                 {
                     selectedFilterItem = value;
 
-                    Picture = null; // read bitmap from g.picture
                     Name = value.name;
                     Prefix = value.surname_prefix;
                     Surname = value.surname;
@@ -390,6 +390,24 @@ namespace RunApproachStatistics.ViewModel
                     Length = value.length.ToString();
                     Weight = value.weight.ToString();
                     Memos = value.note;
+
+                    if (value.picture != null)
+                    {
+                        using (var ms = new MemoryStream(value.picture))
+                        {
+                            BitmapImage image = new BitmapImage();
+                            image.BeginInit();
+                            image.CacheOption = BitmapCacheOption.OnLoad;
+                            image.StreamSource = ms;
+                            image.EndInit();
+
+                            Picture = image;
+                        }
+                    }
+                    else
+                    {
+                        Picture = null;
+                    }
 
                     OnPropertyChanged("Fullname");
                     OnPropertyChanged("PictureAvailable");
@@ -438,11 +456,23 @@ namespace RunApproachStatistics.ViewModel
 
         public void InitPictureUpload(object commandParam)
         {
-            // Do something? Dialog first?
+            Microsoft.Win32.OpenFileDialog ofd = new Microsoft.Win32.OpenFileDialog();
 
+            // Setup the OpenFileDialog
+            ofd.DefaultExt = ".png";
+            ofd.Filter = "JPG Files (*.jpg)|*.jpg|PNG Files (*.png)|*.png|GIF Files (*.gif)|*.gif";
+            ofd.Multiselect = false;
+            ofd.Title = "Select profile picture for " + Fullname;
 
-            // EditPicture = AwesomePictureChosenFromDialog();
-            OnPropertyChanged("EditPictureAvailable");
+            Nullable<bool> result = ofd.ShowDialog();
+            if (result.HasValue && result == true)
+            {
+                BitmapImage bIamge = new BitmapImage();
+                bIamge.BeginInit();
+                bIamge.UriSource = new Uri(ofd.FileName);
+                bIamge.EndInit();
+                EditPicture = bIamge;
+            }
         }
 
         public void SaveChanges(object commandParam)
@@ -464,6 +494,19 @@ namespace RunApproachStatistics.ViewModel
             gymnast.weight = decimal.TryParse(EditWeight, out tmpWeight) ? tmpWeight : (decimal?)null;
             gymnast.note = EditMemos;
             //gymnast.picture = EditPicture;
+            if (EditPicture != null)
+            {
+                BitmapImage bImage = EditPicture as BitmapImage; 
+                byte[] data = null;
+                JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create(bImage));
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    encoder.Save(ms);
+                    data = ms.ToArray();
+                    gymnast.picture = data;
+                }
+            }
 
             if (creatingNewGymnast)
             { // Create a new Gymnast
@@ -485,7 +528,7 @@ namespace RunApproachStatistics.ViewModel
             else
             { // update gymnast
                 uModule.update(gymnast);
-                SelectedFilterItem = gymnast; // re-setting Selected Filter. Should update appropriate fields.
+                SelectedFilterItem = gymnast; // re-setting selected filter. Should update appropriate fields.
             }
 
             CancelChanges(null); // returns to non editing mode
@@ -587,6 +630,7 @@ namespace RunApproachStatistics.ViewModel
             EditLength = Length;
             EditWeight = Weight;
             EditMemos = Memos;
+            EditPicture = Picture;
             PictureCommandVisible = Visibility.Visible;
             EnableFilter = false;
 
@@ -667,7 +711,7 @@ namespace RunApproachStatistics.ViewModel
 
         private void applyFilter()
         {
-            if(gymnastList == null)
+            if (gymnastList == null)
             {
                 return;
             }
