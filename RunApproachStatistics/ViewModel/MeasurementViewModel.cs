@@ -1,8 +1,8 @@
-﻿using RunApproachStatistics.Controllers;
+﻿using MvvmValidation;
+using RunApproachStatistics.Controllers;
 using RunApproachStatistics.Modules;
 using RunApproachStatistics.Modules.Interfaces;
 using RunApproachStatistics.MVVM;
-using RunApproachStatistics.MVVM.Validation;
 using RunApproachStatistics.Services;
 using RunApproachStatistics.View;
 using System;
@@ -15,7 +15,6 @@ using System.Windows.Forms.Integration;
 
 namespace RunApproachStatistics.ViewModel
 {
-    [EnsureInList(ErrorMessage = "Invalid location")]
     public class MeasurementViewModel : ValidationViewModel
     {
         private IApplicationController _app;
@@ -256,7 +255,7 @@ namespace RunApproachStatistics.ViewModel
             set
             {
                 location = value;
-                Validate();
+                Validator.Validate(() => Location);
                 OnPropertyChanged("Location");
             }
         }
@@ -287,6 +286,7 @@ namespace RunApproachStatistics.ViewModel
             set
             {
                 gymnasts = value;
+                Validator.Validate(() => Gymnast);
                 OnPropertyChanged("Gymnasts");
             }
         }
@@ -297,6 +297,7 @@ namespace RunApproachStatistics.ViewModel
             set
             {
                 vaultNumber = value;
+                Validator.Validate(() =>  VaultNumber);
                 OnPropertyChanged("VaultNumber");
             }
         }
@@ -319,7 +320,6 @@ namespace RunApproachStatistics.ViewModel
             set
             {
                 dscore = value;
-                ValidateProperty(value);
                 calculateTotalScore();
                 OnPropertyChanged("Dscore");
             }
@@ -333,7 +333,7 @@ namespace RunApproachStatistics.ViewModel
             set
             {
                 escore = value;
-                ValidateProperty(value);
+                //ValidateProperty(value);
                 calculateTotalScore();
                 OnPropertyChanged("Escore");
             }
@@ -347,7 +347,7 @@ namespace RunApproachStatistics.ViewModel
             set
             {
                 penalty = value;
-                ValidateProperty(value);
+                //ValidateProperty(value);
                 calculateTotalScore();
                 OnPropertyChanged("Penalty");
             }
@@ -404,6 +404,9 @@ namespace RunApproachStatistics.ViewModel
             // Set Graph
             GraphViewModel graphVM = new GraphViewModel(_app, this, 0,1500);
             GraphViewMeasurement = graphVM;
+
+            // Set validation
+            SetValidationRules();
         }
 
         private void stopMeasuring()
@@ -557,5 +560,54 @@ namespace RunApproachStatistics.ViewModel
             PostMeasurementCommand = new RelayCommand(LoadPostMeasurementScreen);
             StartMeasurementCommand = new RelayCommand(StartMeasurement);
         }
+
+        #region Validation Rules
+
+        private void SetValidationRules()
+        {
+            Validator.AddRule(() => Location,
+                              () => Locations,
+                              () =>
+                              {
+                                  if (Locations.Contains(Location))
+                                  {
+                                      return RuleResult.Valid();
+                                  }
+                                  else
+                                  {
+                                      return RuleResult.Invalid("Location is not in list");
+                                  }
+                              });
+
+            Validator.AddRule(() => Gymnast,
+                              () => Gymnasts,
+                              () =>
+                              {
+                                  if (Gymnasts.Contains(Gymnast))
+                                  {
+                                      return RuleResult.Valid();
+                                  }
+                                  else
+                                  {
+                                      return RuleResult.Invalid("Gymnast is not in list");
+                                  }  
+                              });
+
+            Validator.AddRule(() => VaultNumber,
+                              () => VaultNumbers,
+                              () =>
+                              {
+                                  if (VaultNumbers.Contains(VaultNumber))
+                                  {
+                                      return RuleResult.Valid();
+                                  }
+                                  else
+                                  {
+                                      return RuleResult.Invalid("Gymnast is not in list");
+                                  }
+                              });
+        }
+
+        #endregion
     }
 }

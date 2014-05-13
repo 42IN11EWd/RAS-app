@@ -1,4 +1,5 @@
-﻿using RunApproachStatistics.Controllers;
+﻿using MvvmValidation;
+using RunApproachStatistics.Controllers;
 using RunApproachStatistics.Modules;
 using RunApproachStatistics.MVVM;
 using System;
@@ -15,7 +16,7 @@ namespace RunApproachStatistics.ViewModel
     {
         private IApplicationController _app;
         private PropertyChangedBase content;
-        private string username;
+        private String username;
         private string errorMessage;
         private PasswordBox _passwordBox;
 
@@ -46,14 +47,13 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        [Required(ErrorMessage="Please fill in a username")]
-        public string Username
+        public String Username
         {
             get { return username; }
             set
             {
                 username = value;
-                ValidateProperty(value);
+                Validator.Validate(() => Username);
                 OnPropertyChanged("Username");
             }
         }
@@ -80,6 +80,7 @@ namespace RunApproachStatistics.ViewModel
         public LoginViewModel(IApplicationController app) : base()
         {
             _app = app;
+            setValidationRules();
         }
 
         #region RelayCommands
@@ -88,13 +89,14 @@ namespace RunApproachStatistics.ViewModel
         {
             _app.CloseLoginWindow();
         }
+
         public void LoginAction(object commandParam)
         {
             UserModule usermodule = new UserModule();
             Console.WriteLine("pass: " + Password);
 
             // Validate username, can't bind password
-            Validate();
+            ValidateAll();
             if (IsValid)
             {
                 if (!usermodule.login(username, Password))
@@ -111,6 +113,15 @@ namespace RunApproachStatistics.ViewModel
             {
                 ErrorMessage = "Please fill in all fields";
             }
+        }
+
+        #endregion
+
+        #region Validation Rules
+
+        private void setValidationRules()
+        {
+            Validator.AddRule(() => Username, () => { return RuleResult.Assert(!String.IsNullOrEmpty(Username), "Username can't be empty"); });
         }
 
         #endregion

@@ -1,49 +1,28 @@
 ﻿using System;
+using System.Windows;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.Contracts;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using MvvmValidation;
+using System.ComponentModel;
 
 namespace RunApproachStatistics.ViewModel
 {
     public abstract class ValidationViewModel : AbstractViewModel, INotifyDataErrorInfo
     {
-        private Dictionary<String, List<String>> errors = new Dictionary<String, List<String>>();
-        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
-        private Object threadLock = new Object();
+        protected MvvmValidation.ValidationHelper Validator { get; private set; }
+        private NotifyDataErrorInfoAdapter NotifyDataErrorInfoAdapter { get; set; }
 
-        public Boolean IsValid
-        {
-            get
-            {
-                return !this.HasErrors;
-            }
-        }
-
-        public void OnErrorsChanged(String propertyName)
-        {
-            if (ErrorsChanged != null)
-            {
-                ErrorsChanged(this, new DataErrorsChangedEventArgs(propertyName));
-            }
-        }
-
-        public bool HasErrors
-        {
-            get
-            {
-                return errors.Any(propErrors => propErrors.Value != null && propErrors.Value.Count > 0);
-            }
-        }
-
-        public ValidationViewModel() : base()
-        {
-
-        }
+		public ValidationViewModel() : base()
+		{
+            Validator = new ValidationHelper();
+            NotifyDataErrorInfoAdapter = new NotifyDataErrorInfoAdapter(Validator);
+		}
 
         protected override void initRelayCommands()
         {
@@ -52,76 +31,28 @@ namespace RunApproachStatistics.ViewModel
 
         public IEnumerable GetErrors(string propertyName)
         {
-            // Return the Error strings for the specified property
-            if(!String.IsNullOrEmpty(propertyName))
-            {
-                if (errors.ContainsKey(propertyName) && (errors[propertyName] != null) && errors[propertyName].Count > 0)
-                {
-                    return errors[propertyName].ToList();
-                }
-                else
-                {
-                    return null;
-                }
-            }
-            else
-            {
-                // If no property given return all errors
-                return errors.SelectMany(err => err.Value.ToList());
-            }
+            return NotifyDataErrorInfoAdapter.GetErrors(propertyName);
         }
 
-        public void ValidateProperty(Object value, [CallerMemberName] String propertyName = null)
+        public bool HasErrors
         {
-            lock(threadLock)
-            {
-                var validationContext = new ValidationContext(this, null, null);
-                var ValidationResults = new List<ValidationResult>();
-                validationContext.MemberName = propertyName;
-
-                // Try to validate the property 
-                Validator.TryValidateProperty(value, validationContext, ValidationResults);
-
-                // Remove the property from the error list and notify the binding
-                if (errors.ContainsKey(propertyName))
-                {
-                    errors.Remove(propertyName);
-                }
-                OnErrorsChanged(propertyName);
-
-                HandleValidationResults(ValidationResults);
-            }
+            get { return NotifyDataErrorInfoAdapter.HasErrors; }
+        }
+ 
+        public bool IsValid
+        {
+            get { return !HasErrors; }
         }
 
-        public void Validate()
+        public void ValidateAll()
         {
-            var validationContext = new ValidationContext(this, null, null);
-            var validationResults = new List<ValidationResult>();
-            Validator.TryValidateObject(this, validationContext, validationResults, true);
-
-            // Clear previous errors and notify the binding
-            var propertyNames = errors.Keys.ToList();
-            errors.Clear();
-            propertyNames.ForEach(propName => OnErrorsChanged(propName));
-
-            HandleValidationResults(validationResults);
+            Validator.ValidateAll();
         }
 
-        private void HandleValidationResults(List<ValidationResult> validationResults)
+        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged
         {
-            // Group the results on property names
-            var resultsByPropNames = from res in validationResults
-                                     from mname in res.MemberNames
-                                     group res by mname into g
-                                     select g;
-
-            // Add the errors to the dictionary and notify the binding with the errors
-            foreach (var property in resultsByPropNames)
-            {
-                var messages = property.Select(r => r.ErrorMessage).ToList();
-                errors.Add(property.Key, messages);
-                OnErrorsChanged(property.Key);
-            }
+            add { NotifyDataErrorInfoAdapter.ErrorsChanged += value; }
+            remove { NotifyDataErrorInfoAdapter.ErrorsChanged -= value; }
         }
     }
 }

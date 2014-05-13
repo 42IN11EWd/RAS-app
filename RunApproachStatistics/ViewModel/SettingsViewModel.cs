@@ -1,10 +1,12 @@
-﻿using RunApproachStatistics.Controllers;
+﻿using MvvmValidation;
+using RunApproachStatistics.Controllers;
 using RunApproachStatistics.Modules;
 using RunApproachStatistics.Modules.Interfaces;
 using RunApproachStatistics.MVVM;
 using RunApproachStatistics.Services;
 using RunApproachStatistics.View;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -87,54 +89,46 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        [Required]
-        [Range(1, 2000, ErrorMessage="Invalid Frequency, must be between 1 and 2000")]
         public String MeasurementFrequency
         {
             get { return measurementFrequency; }
             set 
             {
                 measurementFrequency = value;
-                ValidateProperty(value);
+                Validator.Validate(() => MeasurementFrequency);
                 OnPropertyChanged("MeasurementFrequency");
             }
         }
 
-        [Required]
-        [Range(1, 10000, ErrorMessage="Invalid Mean Value, must be between 1 and 10.000")]
         public String MeanValue
         {
             get { return meanValue; }
             set 
             { 
                 meanValue = value;
-                ValidateProperty(value);
+                Validator.Validate(() => MeanValue);
                 OnPropertyChanged("MeanValue");
             }
         }
 
-        [Required]
-        [Range(0, 5000, ErrorMessage = "Number is outside laser range, must be between 1 and 5000")]
         public String MeasurementWindowMax
         {
             get { return measurementWindowMax; }
             set 
             { 
                 measurementWindowMax = value;
-                ValidateProperty(value);
+                Validator.Validate(() => MeasurementWindowMax);
                 OnPropertyChanged("MeasurementWindowMax");
             }
         }
 
-        [Required]
-        [Range(0, 5000, ErrorMessage = "Number is outside laser range, must be between 1 and 5000")]
         public String MeasurementWindowMin
         {
             get { return measurementWindowMin; }
             set 
             {
                 measurementWindowMin = value;
-                ValidateProperty(value);
+                Validator.Validate(() => MeasurementWindowMin);
                 OnPropertyChanged("MeasurementWindowMin");
             }
         }
@@ -187,6 +181,7 @@ namespace RunApproachStatistics.ViewModel
             Devices = videoCameraController.Devices;
 
             setSettingsProperties();
+            setValidationRules();
         }
 
         private void setSettingsProperties()
@@ -226,19 +221,19 @@ namespace RunApproachStatistics.ViewModel
         {
             Object[] commandParams = (Object[]) commandParam;
 
-            if (!_app.IsLoggedIn)
+            if (IsValid)
             {
-                _app.ShowLoginView();
-            }
+                if (!_app.IsLoggedIn)
+                {
+                    _app.ShowLoginView();
+                }
 
-            while (_app.IsLoginWindowOpen)
-            {
-                //wait for closing of the login window
-            }
+                while (_app.IsLoginWindowOpen)
+                {
+                    //wait for closing of the login window
+                }
 
-            if (commandParams[6] != null && _app.IsLoggedIn)
-            {
-                if (IsValid)
+                if (commandParams[6] != null && _app.IsLoggedIn)
                 {
                     // 0: Frequency
                     // 1: Meanvalue
@@ -258,11 +253,17 @@ namespace RunApproachStatistics.ViewModel
                     videoCameraSettingsModule.saveVideocameraIndex(cameraIndex);
 
                     _app.CloseSettingsWindow();
-                } 
-                else
-                {
-                    MessageBox.Show("Not all values are valid, please check them", "Invalid Values", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 }
+            }
+            else
+            {
+                String errors = "";
+                IEnumerable errorList = GetErrors("");
+                foreach(String error in errorList)
+                {
+                    errors += error + "\n";
+                }
+                MessageBox.Show("Not all values are valid, please check the following: \r\n " + errors, "Invalid Values", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
         }
         private void CancelAction(object commandParam)
@@ -301,5 +302,73 @@ namespace RunApproachStatistics.ViewModel
             ShowLocationEditerCommand = new RelayCommand(ShowLocationEditer);
             ShowVaultNumberEditerCommand = new RelayCommand(ShowVaultNumberEditer);
         }
+
+        #region Validation Rules
+        private void setValidationRules()
+        {
+            Validator.AddRule(() => MeasurementFrequency,
+                              () =>
+                              {
+                                  float mFreq = 0;
+                                  if (!float.TryParse(MeasurementFrequency, out mFreq))
+                                  {
+                                      return RuleResult.Invalid("Value is not a number");
+                                  }
+                                  else
+                                  {
+                                      return RuleResult.Assert((mFreq < 2000 && mFreq > 0), "Invalid value, must be between 1 and 2000");
+                                  }
+                              });
+
+            Validator.AddRule(() => MeanValue,
+                              () =>
+                              {
+                                  float mValue = 0;
+                                  if (!float.TryParse(MeanValue, out mValue))
+                                  {
+                                      return RuleResult.Invalid("Value is not a number");
+                                  }
+                                  else
+                                  {
+                                      return RuleResult.Assert((mValue < 10000 && mValue > 0), "Invalid value, must be between 1 and 10.000");
+                                  }
+                              });
+
+            Validator.AddRule(() => MeasurementWindowMax,
+                              () =>
+                              {
+                                  float mWindowMax = 0;
+                                  if (!float.TryParse(MeasurementWindowMax, out mWindowMax))
+                                  {
+                                      return RuleResult.Invalid("Value is not a number");
+                                  }
+                                  else
+                                  {
+                                      return RuleResult.Assert((mWindowMax < 5000 && mWindowMax > 0), "Invalid value, must be between 1 and 10.000");
+                                  }
+                              });
+
+            Validator.AddRule(() => MeasurementWindowMin,
+                              () =>
+                              {
+                                  float mWindowMin = 0;
+                                  if (!float.TryParse(MeasurementWindowMin, out mWindowMin))
+                                  {
+                                      return RuleResult.Invalid("Value is not a number");
+                                  }
+                                  else
+                                  {
+                                      return RuleResult.Assert((mWindowMin < 5000 && mWindowMin > 0), "Invalid value, must be between 1 and 10.000");
+                                  }
+                              });
+
+            Validator.AddRule(() => MeasurementWindowMax,
+                              () => MeasurementWindowMin,
+                              () =>
+                              {
+                                  return RuleResult.Assert(!MeasurementWindowMin.Equals(MeasurementWindowMax), "Values can't be equal");
+                              });
+        }
+        #endregion
     }
 }
