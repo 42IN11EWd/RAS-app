@@ -115,6 +115,7 @@ namespace RunApproachStatistics.Modules
             using (var db = new DataContext())
             {
                 return (from qVault in db.vault.Include("gymnast").Include("vaultnumber").Include("location")
+                        where qVault.deleted == false
                         select qVault
                 ).ToList();
             }
@@ -125,6 +126,7 @@ namespace RunApproachStatistics.Modules
             using (var db = new DataContext())
             {
                 return (from qLocation in db.location
+                        where qLocation.deleted == false
                         select qLocation.name
                 ).ToList();
             }
@@ -134,6 +136,7 @@ namespace RunApproachStatistics.Modules
             using (var db = new DataContext())
             {
                 return (from qGymnast in db.gymnast
+                        where qGymnast.deleted == false
                         select qGymnast.name + (qGymnast.surname_prefix.Length > 0 ? " " + qGymnast.surname_prefix : "") + " " + qGymnast.surname
                 ).ToList();
             }
@@ -144,6 +147,7 @@ namespace RunApproachStatistics.Modules
             using (var db = new DataContext())
             {
                 return (from qVaultnumber in db.vaultnumber
+                        where qVaultnumber.deleted == false
                         select qVaultnumber.code
                 ).ToList();
             }
