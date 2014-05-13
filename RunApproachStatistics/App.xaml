@@ -85,28 +85,38 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-        
-            <!-- START Error UI Definition -->
-            <Style x:Key="textBoxInError" TargetType="{x:Type TextBox}">
-                <Style.Triggers>
-                    <Trigger Property="Validation.HasError" Value="true">
-                        <Setter Property="ToolTip"
-            Value="{Binding RelativeSource={x:Static RelativeSource.Self},
-                            Path=(Validation.Errors)[0].ErrorContent}"/>
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
-            <Style x:Key="autoCompleteTextBoxInError" TargetType="{x:Type toolkit:AutoCompleteBox}">
-                <Style.Triggers>
-                    <Trigger Property="Validation.HasError" Value="true">
-                        <Setter Property="ToolTip"
-                    Value="{Binding RelativeSource={x:Static RelativeSource.Self},
-                                    Path=(Validation.Errors)[0].ErrorContent}"/>
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
-            <!-- END Error UI Definition-->
         <!-- END UI Definitions -->
+        
+        <!-- START Error UI Definition -->
+        <Style x:Key="textBoxInError" TargetType="{x:Type TextBox}">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip"
+                        Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                            Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="passwordBoxInError" TargetType="{x:Type PasswordBox}">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip"
+                        Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                                    Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="autoCompleteTextBoxInError" TargetType="{x:Type toolkit:AutoCompleteBox}">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip"
+                        Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                                    Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <!-- END Error UI Definition-->
     </Application.Resources>
-    
 </Application>
