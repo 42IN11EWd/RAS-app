@@ -10,20 +10,19 @@
         <Grid Width="1920" Height="1080">
 
             <ContentControl x:Name="RatingContainer"
-			    Content="{Binding RatingControl}" Margin="1673,495,29,540" />
+			    Content="{Binding Path=RatingControl}" Margin="1652,495,50,540" Width="218" Height="45"/>
             <ScrollViewer Height="1080" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300"/>
             <Grid Height="635" Width="1130" Name="cameraGrid" Margin="336,31,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Background="Black" Grid.Column="1">
                 <ContentControl x:Name="cameraView" Content="{Binding Path=CameraView}"/>
             </Grid>
-            <ComboBox SelectedValue="{Binding Path=SelectedVaultKind, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Path=VaultKind, UpdateSourceTrigger=PropertyChanged}" FontSize="24" Width="218" Height="45" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,29,800" />
 
-            <CheckBox IsChecked="{Binding ManualModeChecked}" Margin="0,0,29,195" FontSize="14" Content="Manual mode"   Height="23" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="198">
+            <CheckBox IsChecked="{Binding Path=ManualModeChecked}" Margin="0,0,29,195" FontSize="14" Content="Manual mode" Height="23" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="198">
                 <CheckBox.LayoutTransform>
                     <ScaleTransform ScaleX="2" ScaleY="2" />
                 </CheckBox.LayoutTransform>
             </CheckBox>
-            <Button  Content="{Binding MeasurementButtonContent}" Width="398" Margin="0,0,29,114" FontSize="32" IsEnabled="{Binding ManualModeChecked}" Command="{Binding StartMeasurementCommand}" HorizontalAlignment="Right" Height="64" VerticalAlignment="Bottom"/>
-            <Button Content="Stop Session" Margin="0,0,29,25" FontSize="32" VerticalAlignment="Bottom" Height="64" Command="{Binding PostMeasurementCommand}" RenderTransformOrigin="0.804,0.1" HorizontalAlignment="Right" Width="398"/>
+            <Button  Content="{Binding Path=MeasurementButtonContent}" Width="398" Margin="0,0,29,114" FontSize="32" IsEnabled="{Binding Path=ManualModeChecked}" Command="{Binding Path=StartMeasurementCommand}" HorizontalAlignment="Right" Height="64" VerticalAlignment="Bottom"/>
+            <Button Content="Stop Session" Margin="0,0,29,25" FontSize="32" VerticalAlignment="Bottom" Height="64" Command="{Binding Path=PostMeasurementCommand}" RenderTransformOrigin="0.804,0.1" HorizontalAlignment="Right" Width="398"/>
             <Label Height="45" Content="Total Score" FontSize="24" Width="160" HorizontalAlignment="Right" Margin="0,0,265,280" VerticalAlignment="Bottom"/>
             <Label Content="Penalty" Height="45" FontSize="24" Margin="0,0,265,345"  VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="160"/>
             <Label Content="E-score" Height="45" FontSize="24" Margin="0,0,265,410" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="160"/>
@@ -34,15 +33,64 @@
             <Label Content="Location" Height="45" FontSize="24" Width="160" HorizontalAlignment="Right" Margin="0,0,265,735" VerticalAlignment="Bottom"/>
             <Label Content="Vault kind" Height="45" FontSize="24" Margin="0,0,265,800" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="160"/>
 
-            <toolkit:AutoCompleteBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right" Padding="5" Margin="0,0,29,735" Text="{Binding Path=Location, ValidatesOnNotifyDataErrors=True}" SelectedItem="{Binding Path=Location, Mode=TwoWay}" Style="{StaticResource autoCompleteTextBoxInError}" VerticalAlignment="Bottom" ItemsSource="{Binding Path=Locations}"/>
-            <toolkit:AutoCompleteBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right" Padding="5" Margin="0,0,29,670" Text="{Binding Path=Gymnast, ValidatesOnNotifyDataErrors=True}" SelectedItem="{Binding Path=Gymnast, Mode=TwoWay}" Style="{StaticResource autoCompleteTextBoxInError}" VerticalAlignment="Bottom" ItemsSource="{Binding Path=Gymnasts}"/>
-            <toolkit:AutoCompleteBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right" Padding="5" Margin="0,0,29,605" Text="{Binding Path=VaultNumber, ValidatesOnNotifyDataErrors=True}" SelectedItem="{Binding Path=VaultNumber, Mode=TwoWay}" Style="{StaticResource autoCompleteTextBoxInError}" VerticalAlignment="Bottom" ItemsSource="{Binding Path=VaultNumbers}"/>
-            <TextBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right" Padding="5" Margin="0,0,29,475" TextWrapping="Wrap" Text="{Binding Dscore, ValidatesOnNotifyDataErrors=True}" Style="{StaticResource textBoxInError}" VerticalAlignment="Bottom" />
-            <TextBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right" Padding="5" Margin="0,0,29,410" TextWrapping="Wrap" Text="{Binding Path=Escore, ValidatesOnNotifyDataErrors=True}" Style="{StaticResource textBoxInError}" VerticalAlignment="Bottom" />
-            <TextBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right" Padding="5" Margin="0,0,29,345" TextWrapping="Wrap" Text="{Binding Penalty, ValidatesOnNotifyDataErrors=True}" Style="{StaticResource textBoxInError}" VerticalAlignment="Bottom"/>
-            <TextBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right" Padding="5" Margin="0,0,29,280" TextWrapping="Wrap" Text="{Binding Totalscore, ValidatesOnNotifyDataErrors=True}" Style="{StaticResource textBoxInError}" VerticalAlignment="Bottom" IsEnabled="False"/>
+            <ComboBox SelectedValue="{Binding Path=SelectedVaultKind, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Path=VaultKind, UpdateSourceTrigger=PropertyChanged}" FontSize="24" Width="218" Height="45" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,50,800" />
+            <toolkit:AutoCompleteBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right" Padding="5" Margin="0,0,50,735" Text="{Binding Path=Location, ValidatesOnNotifyDataErrors=True}" SelectedItem="{Binding Path=Location, Mode=TwoWay}" Style="{StaticResource autoCompleteTextBoxInError}" VerticalAlignment="Bottom" ItemsSource="{Binding Path=Locations}"/>
+            <toolkit:AutoCompleteBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right" Padding="5" Margin="0,0,50,670" Text="{Binding Path=Gymnast, ValidatesOnNotifyDataErrors=True}" SelectedItem="{Binding Path=Gymnast, Mode=TwoWay}" Style="{StaticResource autoCompleteTextBoxInError}" VerticalAlignment="Bottom" ItemsSource="{Binding Path=Gymnasts}"/>
+            <toolkit:AutoCompleteBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right" Padding="5" Margin="0,0,50,605" Text="{Binding Path=VaultNumber, ValidatesOnNotifyDataErrors=True}" SelectedItem="{Binding Path=VaultNumber, Mode=TwoWay}" Style="{StaticResource autoCompleteTextBoxInError}" VerticalAlignment="Bottom" ItemsSource="{Binding Path=VaultNumbers}"/>
+            <TextBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right" Padding="5" Margin="0,0,50,475" TextWrapping="Wrap" Text="{Binding Path=Dscore, ValidatesOnNotifyDataErrors=True}" Style="{StaticResource textBoxInError}" VerticalAlignment="Bottom" />
+            <TextBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right" Padding="5" Margin="0,0,50,410" TextWrapping="Wrap" Text="{Binding Path=Escore, ValidatesOnNotifyDataErrors=True}" Style="{StaticResource textBoxInError}" VerticalAlignment="Bottom" />
+            <TextBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right" Padding="5" Margin="0,0,50,345" TextWrapping="Wrap" Text="{Binding Path=Penalty, ValidatesOnNotifyDataErrors=True}" Style="{StaticResource textBoxInError}" VerticalAlignment="Bottom"/>
+            <TextBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right" Padding="5" Margin="0,0,50,280" TextWrapping="Wrap" Text="{Binding Path=Totalscore, ValidatesOnNotifyDataErrors=True}" Style="{StaticResource textBoxInError}" VerticalAlignment="Bottom" IsEnabled="False"/>
 
-            <ContentControl x:Name="graphViewMeasurement" Content="{Binding GraphViewMeasurement}" Margin="336,0,454,25" Height="365" VerticalAlignment="Bottom"/>
+            <CheckBox IsChecked="{Binding Path=VaultKindChecked}" Margin="0,0,8,800" FontSize="14" Height="18" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                <CheckBox.LayoutTransform>
+                    <ScaleTransform ScaleX="2" ScaleY="2" />
+                </CheckBox.LayoutTransform>
+            </CheckBox>
+
+            <CheckBox IsChecked="{Binding Path=LocationChecked}" Margin="0,0,8,735" FontSize="14" Height="18" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                <CheckBox.LayoutTransform>
+                    <ScaleTransform ScaleX="2" ScaleY="2" />
+                </CheckBox.LayoutTransform>
+            </CheckBox>
+
+            <CheckBox IsChecked="{Binding Path=GymnastChecked}" Margin="0,0,8,670" FontSize="14" Height="18" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                <CheckBox.LayoutTransform>
+                    <ScaleTransform ScaleX="2" ScaleY="2" />
+                </CheckBox.LayoutTransform>
+            </CheckBox>
+
+            <CheckBox IsChecked="{Binding Path=VaultNumberChecked}" Margin="0,0,8,605" FontSize="14" Height="18" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                <CheckBox.LayoutTransform>
+                    <ScaleTransform ScaleX="2" ScaleY="2" />
+                </CheckBox.LayoutTransform>
+            </CheckBox>
+
+            <CheckBox IsChecked="{Binding Path=RatingChecked}" Margin="0,0,8,540" FontSize="14" Height="18" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                <CheckBox.LayoutTransform>
+                    <ScaleTransform ScaleX="2" ScaleY="2" />
+                </CheckBox.LayoutTransform>
+            </CheckBox>
+
+            <CheckBox IsChecked="{Binding Path=DscoreChecked}" Margin="0,0,8,475" FontSize="14" Height="18" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                <CheckBox.LayoutTransform>
+                    <ScaleTransform ScaleX="2" ScaleY="2" />
+                </CheckBox.LayoutTransform>
+            </CheckBox>
+
+            <CheckBox IsChecked="{Binding Path=EscoreChecked}" Margin="0,0,8,410" FontSize="14" Height="18" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                <CheckBox.LayoutTransform>
+                    <ScaleTransform ScaleX="2" ScaleY="2" />
+                </CheckBox.LayoutTransform>
+            </CheckBox>
+
+            <CheckBox IsChecked="{Binding Path=PenaltyChecked}" Margin="0,0,8,345" FontSize="14" Height="18" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                <CheckBox.LayoutTransform>
+                    <ScaleTransform ScaleX="2" ScaleY="2" />
+                </CheckBox.LayoutTransform>
+            </CheckBox>
+
+            <ContentControl x:Name="graphViewMeasurement" Content="{Binding Path=GraphViewMeasurement}" Margin="336,0,454,25" Height="365" VerticalAlignment="Bottom"/>
 
         </Grid>
     </Viewbox>

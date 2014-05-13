@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
+using System.Globalization;
 using System.Windows.Forms.Integration;
 
 
@@ -29,9 +30,18 @@ namespace RunApproachStatistics.ViewModel
         private String escore;
         private String penalty;
         private String totalscore;
-        private static List<String> locations;
+        private List<String> locations;
         private List<String> gymnasts;
         private List<String> vaultNumbers;
+
+        private Boolean vaultKindChecked;
+        private Boolean locationChecked;
+        private Boolean gymnastChecked;
+        private Boolean vaultNumberChecked;
+        private Boolean dscoreChecked;
+        private Boolean escoreChecked;
+        private Boolean ratingChecked;
+        private Boolean penaltyChecked;
         
         private Boolean manualModeChecked;
         private Boolean measuring;
@@ -127,6 +137,86 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
+        public Boolean VaultKindChecked
+        {
+            get { return vaultKindChecked; }
+            set
+            {
+                vaultKindChecked = value;
+                OnPropertyChanged("VaultKindChecked");
+            }
+        }
+
+        public Boolean LocationChecked
+        {
+            get { return locationChecked; }
+            set
+            {
+                vaultKindChecked = value;
+                OnPropertyChanged("LocationChecked");
+            }
+        }
+
+        public Boolean GymnastChecked
+        {
+            get { return gymnastChecked; }
+            set
+            {
+                vaultKindChecked = value;
+                OnPropertyChanged("GymnastChecked");
+            }
+        }
+
+        public Boolean VaultNumberChecked
+        {
+            get { return vaultNumberChecked; }
+            set
+            {
+                vaultKindChecked = value;
+                OnPropertyChanged("VaultNumberChecked");
+            }
+        }
+
+        public Boolean RatingChecked
+        {
+            get { return ratingChecked; }
+            set
+            {
+                vaultKindChecked = value;
+                OnPropertyChanged("RatingChecked");
+            }
+        }
+
+        public Boolean DscoreChecked
+        {
+            get { return dscoreChecked; }
+            set
+            {
+                vaultKindChecked = value;
+                OnPropertyChanged("DscoreChecked");
+            }
+        }
+
+        public Boolean EscoreChecked
+        {
+            get { return escoreChecked; }
+            set
+            {
+                vaultKindChecked = value;
+                OnPropertyChanged("EscoreChecked");
+            }
+        }
+
+        public Boolean PenaltyChecked
+        {
+            get { return penaltyChecked; }
+            set
+            {
+                vaultKindChecked = value;
+                OnPropertyChanged("PenaltyChecked");
+            }
+        }
+
         public String MeasurementButtonContent
         {
             get { return measurementButtonContent; }
@@ -148,9 +238,7 @@ namespace RunApproachStatistics.ViewModel
                 vaultKind = value;
                 OnPropertyChanged("VaultKind");
             }
-
         }
-
         
         public String[] VaultKind
         {
@@ -223,8 +311,8 @@ namespace RunApproachStatistics.ViewModel
         }
 
 
-        [RegularExpression(@"^[0-9]{1,2}\.?[0-9]{0,2}$", ErrorMessage = "Invalid score, must contain max two decimals")]
-        [Range(0.01, 10, ErrorMessage = "Invalid score, must be between 0.01 and 10")]
+        [RegularExpression(@"^[0-9]{1,2}\.?[0-9]{0,3}$", ErrorMessage = "Invalid score, must contain max three decimals")]
+        [Range(0.001, 10, ErrorMessage = "Invalid score, must be between 0.01 and 10")]
         public String Dscore
         {
             get { return dscore; }
@@ -232,12 +320,13 @@ namespace RunApproachStatistics.ViewModel
             {
                 dscore = value;
                 ValidateProperty(value);
+                calculateTotalScore();
                 OnPropertyChanged("Dscore");
             }
         }
 
-        [RegularExpression(@"^[0-9]{1,2}\.?[0-9]{0,2}$", ErrorMessage = "Invalid score, must contain max two decimals")]
-        [Range(0.01, 10, ErrorMessage="Invalid score, must be between 0.01 and 10")]
+        [RegularExpression(@"^[0-9]{1,2}\.?[0-9]{0,3}$", ErrorMessage = "Invalid score, must contain max three decimals")]
+        [Range(0.001, 10, ErrorMessage="Invalid score, must be between 0.01 and 10")]
         public String Escore
         {
             get { return escore; }
@@ -245,12 +334,13 @@ namespace RunApproachStatistics.ViewModel
             {
                 escore = value;
                 ValidateProperty(value);
+                calculateTotalScore();
                 OnPropertyChanged("Escore");
             }
         }
 
-        [RegularExpression(@"^[0-9]{1,2}\.?[0-9]{0,2}$", ErrorMessage = "Invalid penalty score, must contain max two decimals")]
-        [Range(0.01, 10, ErrorMessage = "Invalid penalty score, must be between 0.01 and 10")]
+        [RegularExpression(@"^[0-9]{1,2}\.?[0-9]{0,3}$", ErrorMessage = "Invalid penalty score, must contain max three decimals")]
+        [Range(0.001, 10, ErrorMessage = "Invalid penalty score, must be between 0.01 and 10")]
         public String Penalty
         {
             get { return penalty; }
@@ -258,19 +348,17 @@ namespace RunApproachStatistics.ViewModel
             {
                 penalty = value;
                 ValidateProperty(value);
+                calculateTotalScore();
                 OnPropertyChanged("Penalty");
             }
         }
 
-        [RegularExpression(@"^[0-9]{1,2}\.?[0-9]{0,2}$", ErrorMessage = "Invalid score, must contain max two decimals")]
-        [Range(0.01, 10, ErrorMessage = "Invalid score, must be between 0.01 and 10")]
         public String Totalscore
         {
             get { return totalscore; }
             set
             {
                 totalscore = value;
-                ValidateProperty(value);
                 OnPropertyChanged("Totalscore");
             }
         }
@@ -320,10 +408,110 @@ namespace RunApproachStatistics.ViewModel
 
         private void stopMeasuring()
         {
-            List<String> writeBuffer = portController.stopMeasurement();
-            videoCameraController.StopCapture();
+            //List<String> writeBuffer = portController.stopMeasurement();
+            //videoCameraController.StopCapture();
+
+            String vaultKind = SelectedVaultKind; //TODO: check if valid
+
+            String location = Location;
+            if (location == null || location.Equals("") || GetErrors("Location") != null)
+            {
+                location = null;
+            }
+
+            String gymnast = Gymnast;
+            if (gymnast == null || gymnast.Equals("") || GetErrors("Gymnast") != null)
+            {
+                gymnast = null;
+            }
+
+            String vaultNumber = VaultNumber;
+            if (vaultNumber == null || vaultNumber.Equals("") || GetErrors("VaultNumber") != null)
+            {
+                vaultNumber = null;
+            }
+
+            RatingViewModel ratingVM = (RatingViewModel)RatingControl;
+            int rating = ratingVM.getScore();
+
             //cameraModule.createVault(videoCameraController.RecordedVideo, writeBuffer);
-            videoCameraController.Close();
+            //videoCameraController.Close();
+            clearFields();
+        }
+
+        private void clearFields()
+        {
+            if (!VaultKindChecked)
+            {
+                SelectedVaultKind = null;
+            }
+
+            if (!LocationChecked)
+            {
+                Location = null;
+            }
+
+            if (!GymnastChecked)
+            {
+                Gymnast = null;
+            }
+
+            if (!VaultNumberChecked)
+            {
+                VaultNumber = null; ;
+            }
+
+            if (!RatingChecked)
+            {
+                RatingControl = new RatingViewModel(_app);
+            }
+
+            if (DscoreChecked)
+            {
+                Dscore = null;
+            }
+
+            if (EscoreChecked)
+            {
+                Escore = null;
+            }
+
+            if (PenaltyChecked)
+            {
+                Penalty = null;
+            }
+        }
+
+        private void calculateTotalScore()
+        {
+            if (Dscore != null && Escore != null && !Dscore.Equals("") && !Escore.Equals(""))
+            {
+                try
+                {
+                    float dscore = float.Parse(Dscore, CultureInfo.InvariantCulture);
+                    float escore = float.Parse(Escore, CultureInfo.InvariantCulture);
+                    float penalty = 0;
+
+                    if (Penalty != null && !Penalty.Equals(""))
+                    {
+                        try
+                        {
+                            penalty = float.Parse(Penalty, CultureInfo.InvariantCulture);
+                        }
+                        catch
+                        {
+                            //No problem
+                        }
+                    }
+
+                    float totalscore = (dscore + escore) - penalty;
+                    Totalscore = totalscore.ToString("0.000");
+                }
+                catch (Exception e)
+                {
+                    Totalscore = "";
+                }
+            }
         }
 
         private void openVideoSource()

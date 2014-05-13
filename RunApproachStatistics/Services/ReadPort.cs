@@ -192,7 +192,10 @@ namespace RunApproachStatistics.Services
 
             if (save)
             {
-                writeBuffer.Add(distance + speed + ",");
+                lock (writeBuffer)
+                {
+                    writeBuffer.Add(distance + speed + ",");
+                }
             }
 
             lock (dynamicBuffer)

@@ -115,5 +115,35 @@ namespace RunApproachStatistics.ViewModel
         {
           
         }
+
+        public int getScore()
+        {
+            if (star5Checked)
+            {
+                return 5;
+            }
+
+            if (star4Checked)
+            {
+                return 4;
+            }
+
+            if (star3Checked)
+            {
+                return 3;
+            }
+
+            if (star2Checked)
+            {
+                return 2;
+            }
+
+            if (star1Checked)
+            {
+                return 1;
+            }
+
+            return 0;
+        }
     }
 }

@@ -156,7 +156,7 @@ namespace RunApproachStatistics.Modules
             throw new NotImplementedException();
         }
 
-        public void createVault(List<Bitmap> frames)
+        public void createVault(List<Bitmap> frames, List<String> writeBuffer, String vaultKind, String location, String gymnast, String vaultNumber, int rating, float dscore, float escore, float penalty)
         {
             // Get the path for Desktop, to easily find the CSV
             String path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
