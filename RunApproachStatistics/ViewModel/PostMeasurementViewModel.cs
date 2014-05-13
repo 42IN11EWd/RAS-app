@@ -19,10 +19,13 @@ namespace RunApproachStatistics.ViewModel
         private PropertyChangedBase ratingControl;
         private RatingViewModel ratingVM;
 
-        private String[] vaultKind;
+        private String[] vaultKind = new String[3];
         private ObservableCollection<ThumbnailViewModel> thumbnailCollection;
         private ThumbnailViewModel selectedThumbnail;
         private String selectedVaultKind;
+
+        private vault vault = new vault();
+        private bool changeState;
 
         #region Modules
 
@@ -80,7 +83,7 @@ namespace RunApproachStatistics.ViewModel
             set
             {
                 selectedThumbnail = value;
-
+                ChangeState = true;
                 OnPropertyChanged("StarRating");
                 OnPropertyChanged("SelectedThumbnail");
                 OnPropertyChanged("Gymnast");
@@ -254,6 +257,16 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
+        public bool ChangeState
+        {
+            get { return changeState; }
+            set
+            {
+                changeState = value;
+                OnPropertyChanged("ChangeState");
+            }
+        }
+
         #endregion
 
         public PostMeasurementViewModel(IApplicationController app) : base()
@@ -268,6 +281,14 @@ namespace RunApproachStatistics.ViewModel
             RatingViewModel ratingVM = new RatingViewModel(_app);
             RatingControl = ratingVM;
 
+            if (SelectedThumbnail == null)
+            {
+                ChangeState = false;
+            }
+            else
+            {
+                ChangeState = true;
+            }
             // Useless test data.
             thumbnailCollection = new ObservableCollection<ThumbnailViewModel>();
             List<vault> vaults = vaultModule.getVaults();
@@ -279,6 +300,12 @@ namespace RunApproachStatistics.ViewModel
                     Vault = vaults[i]
                 });
             }
+
+            vaultKind[0] = "Competition";
+            vaultKind[1] = "Training";
+            vaultKind[2] = "European championship";
+
+            
         }
 
         #region RelayCommands
@@ -298,6 +325,18 @@ namespace RunApproachStatistics.ViewModel
         public void SaveAction(object commandParam)
         {
             //save changes to thumbnail(s)
+            Object[] commandParams = (Object[])commandParam;
+            //commandParams[7] = float.Parse(commandParams[4].ToString()) + float.Parse(commandParams[5].ToString()) - float.Parse(commandParams[6].ToString());
+            //vault.vaultnumber_id = 1;
+            //vault.gymnast_id = 1;
+            vault.context = commandParams[3].ToString();
+            //vault.duration = Timespan;
+            //vault.location_id = 1; 
+            vault.vault_id = 1;
+            vault.gymnast_id = 1;
+            vault.duration = 8;
+            vault.deleted = false;
+            vaultModule.update(vault);
         }
 
         #endregion
