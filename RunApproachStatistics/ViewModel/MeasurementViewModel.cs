@@ -2,6 +2,7 @@
 using RunApproachStatistics.Modules;
 using RunApproachStatistics.Modules.Interfaces;
 using RunApproachStatistics.MVVM;
+using RunApproachStatistics.MVVM.Validation;
 using RunApproachStatistics.Services;
 using RunApproachStatistics.View;
 using System;
@@ -13,6 +14,7 @@ using System.Windows.Forms.Integration;
 
 namespace RunApproachStatistics.ViewModel
 {
+    [EnsureInList(ErrorMessage = "Invalid location")]
     public class MeasurementViewModel : ValidationViewModel
     {
         private IApplicationController _app;
@@ -27,7 +29,7 @@ namespace RunApproachStatistics.ViewModel
         private String escore;
         private String penalty;
         private String totalscore;
-        private List<String> locations;
+        private static List<String> locations;
         private List<String> gymnasts;
         private List<String> vaultNumbers;
         
@@ -159,13 +161,14 @@ namespace RunApproachStatistics.ViewModel
                 OnPropertyChanged("VaultKind");
             }
         }
-
+        
         public String Location
         {
             get { return location; }
             set
             {
                 location = value;
+                Validate();
                 OnPropertyChanged("Location");
             }
         }
@@ -366,6 +369,5 @@ namespace RunApproachStatistics.ViewModel
             PostMeasurementCommand = new RelayCommand(LoadPostMeasurementScreen);
             StartMeasurementCommand = new RelayCommand(StartMeasurement);
         }
-       
     }
 }

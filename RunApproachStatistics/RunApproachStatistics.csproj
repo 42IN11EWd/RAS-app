@@ -132,6 +132,7 @@
     <Compile Include="Modules\UserModule.cs" />
     <Compile Include="Modules\VaultModule.cs" />
     <Compile Include="MVVM\MultiParameterConverter.cs" />
+    <Compile Include="MVVM\Validation\EnsureInList.cs" />
     <Compile Include="Services\Camera.cs" />
     <Compile Include="Services\CameraSource\ByteArrayUtils.cs" />
     <Compile Include="Services\CameraSource\CameraEvents.cs" />
