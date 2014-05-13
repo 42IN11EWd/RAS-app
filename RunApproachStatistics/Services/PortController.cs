@@ -94,12 +94,10 @@ namespace RunApproachStatistics.Services
                 Thread writeThread = new Thread(() => { writePort = new WritePort(port); });
                 readThread.Start();
                 writeThread.Start();
-
-                readPort.PortDataReceived += readport_PortDataReceived;
-
+                
                 writePort.stopMeasurement();
 
-                while(!readPort.settingsReceived)
+                while (!readPort.settingsReceived)
                 {
                     // wait for settings
                     getSettings();
@@ -144,25 +142,17 @@ namespace RunApproachStatistics.Services
 
         public void startMeasurement()
         {
-            if (!isLive)
-            {
-                portEmulator.startEmulationMeasurement(false);
-            }
             readPort.startMeasurement(false);
+        }
+
+        public List<String> stopMeasurement()
+        {
+            return readPort.stopMeasurement();
         }
 
         public float calibrateMeasurementWindow()
         {
             return readPort.getLatestBufferDistance();
-        }
-
-        void readport_PortDataReceived(object sender, string e)
-        {
-            EventHandler<String> handler = PortDataReceived;
-            if (handler != null)
-            {
-                handler(this, e);
-            }
         }
         
         public void getSettings()

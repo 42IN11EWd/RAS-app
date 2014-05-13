@@ -120,6 +120,35 @@ namespace RunApproachStatistics.Modules
             }
         }
 
+        public List<String> getLocationNames()
+        {
+            using (var db = new DataContext())
+            {
+                return (from qLocation in db.location
+                        select qLocation.name
+                ).ToList();
+            }
+        }
+        public List<String> getGymnastNames()
+        {
+            using (var db = new DataContext())
+            {
+                return (from qGymnast in db.gymnast
+                        select qGymnast.name + (qGymnast.surname_prefix.Length > 0 ? " " + qGymnast.surname_prefix : "") + " " + qGymnast.surname
+                ).ToList();
+            }
+        }
+
+        public List<String> getVaultNumberNames()
+        {
+            using (var db = new DataContext())
+            {
+                return (from qVaultnumber in db.vaultnumber
+                        select qVaultnumber.code
+                ).ToList();
+            }
+        }
+
         #region Laser/Video Camera Methods
 
         public object getVideoData(int id)
@@ -127,7 +156,7 @@ namespace RunApproachStatistics.Modules
             throw new NotImplementedException();
         }
 
-        public void createVideoData(vault vault, List<Bitmap> frames)
+        public void createVault(List<Bitmap> frames)
         {
             // Get the path for Desktop, to easily find the CSV
             String path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
@@ -136,12 +165,11 @@ namespace RunApproachStatistics.Modules
             // Create the filepath, add date stamp to filename
             String filePath = Path.Combine(path, "LC_Video_" + dateStamp + ".avi");
             
-            // Save the new vault and include the video path.
-            if (vault != null)
-            {
-                vault.videopath = filePath;
-                create(vault);
-            }
+            // Save the new vault and include the video path.            
+            vault vault = new vault();
+
+            vault.videopath = filePath;
+            create(vault);
 
             // Create a new thread to save the video
             Worker workerObject = new Worker(filePath, frames);

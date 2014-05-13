@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:v="clr-namespace:RunApproachStatistics.View"
              xmlns:vm="clr-namespace:RunApproachStatistics.ViewModel"
+             xmlns:toolkit="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
              ShutdownMode="OnExplicitShutdown">
     
     <Application.Resources>
@@ -86,24 +87,24 @@
         </Style>
         
             <!-- START Error UI Definition -->
-                <Style x:Key="textBoxInError" TargetType="{x:Type TextBox}">
-                    <Style.Triggers>
-                        <Trigger Property="Validation.HasError" Value="true">
-                            <Setter Property="ToolTip"
-                Value="{Binding RelativeSource={x:Static RelativeSource.Self},
-                                Path=(Validation.Errors)[0].ErrorContent}"/>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-                <Style x:Key="passwordBoxInError" TargetType="{x:Type PasswordBox}">
-                    <Style.Triggers>
-                        <Trigger Property="Validation.HasError" Value="true">
-                            <Setter Property="ToolTip"
-                        Value="{Binding RelativeSource={x:Static RelativeSource.Self},
-                                        Path=(Validation.Errors)[0].ErrorContent}"/>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
+            <Style x:Key="textBoxInError" TargetType="{x:Type TextBox}">
+                <Style.Triggers>
+                    <Trigger Property="Validation.HasError" Value="true">
+                        <Setter Property="ToolTip"
+            Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                            Path=(Validation.Errors)[0].ErrorContent}"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style x:Key="autoCompleteTextBoxInError" TargetType="{x:Type toolkit:AutoCompleteBox}">
+                <Style.Triggers>
+                    <Trigger Property="Validation.HasError" Value="true">
+                        <Setter Property="ToolTip"
+                    Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                                    Path=(Validation.Errors)[0].ErrorContent}"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
             <!-- END Error UI Definition-->
         <!-- END UI Definitions -->
     </Application.Resources>

@@ -190,11 +190,9 @@ namespace RunApproachStatistics.Services
                     speed = " " + line.Substring(12, 8);
             }
 
-            // Write to CSV file and to eventhandler
             if (save)
             {
                 writeBuffer.Add(distance + speed + ",");
-                OnDataReceived(distance + speed);
             }
 
             lock (dynamicBuffer)
@@ -216,23 +214,10 @@ namespace RunApproachStatistics.Services
             modifiyingBuffer = false;
         }
 
-        /// <summary>
-        /// Eventhandler method so MainWindow can show data in textbox
-        /// </summary>
-        /// <param name="e">The line to be shown in the textbox</param>
-        protected virtual void OnDataReceived(String e)
-        {
-            EventHandler<String> handler = PortDataReceived;
-            if (handler != null)
-            {
-                handler(this, e);
-            }
-        }
-
-        public event EventHandler<String> PortDataReceived;
-
         public void startMeasurement(Boolean automaticDetection)
         {
+            writeBuffer = new List<String>();
+
             if (automaticDetection)
             {
                 writeBuffer = dynamicBuffer;
@@ -241,9 +226,10 @@ namespace RunApproachStatistics.Services
             save = true;
         }
 
-        public void stopMeasurement()
+        public List<String> stopMeasurement()
         {
             save = false;
+            return writeBuffer;
         }
 
         public String getLatestMeasurement()

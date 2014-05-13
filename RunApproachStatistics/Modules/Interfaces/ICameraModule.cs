@@ -13,7 +13,7 @@ namespace RunApproachStatistics.Modules.Interfaces
     {
         Object getVideoData(int id);
 
-        void createVideoData(vault vault, List<Bitmap> frames);
+        void createVault(List<Bitmap> frames);
 
         String getLaserData(int id);
     }

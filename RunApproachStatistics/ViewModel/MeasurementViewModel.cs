@@ -5,6 +5,7 @@ using RunApproachStatistics.MVVM;
 using RunApproachStatistics.Services;
 using RunApproachStatistics.View;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 using System.Windows.Forms.Integration;
@@ -26,6 +27,9 @@ namespace RunApproachStatistics.ViewModel
         private String escore;
         private String penalty;
         private String totalscore;
+        private List<String> locations;
+        private List<String> gymnasts;
+        private List<String> vaultNumbers;
         
         private Boolean manualModeChecked;
         private Boolean measuring;
@@ -76,21 +80,18 @@ namespace RunApproachStatistics.ViewModel
             set
             {
                 measuring = value;
-                if(value == true && ManualModeChecked)
+                if (value == true && ManualModeChecked)
                 {
                     MeasurementButtonContent = "Stop Measurement";
-                    videoCameraController.Capture(); // --> Doesnt recognize the DLL
-                    // portController.startMeasurement();
+                    videoCameraController.Capture();
+                    portController.startMeasurement();
                 }
-                else if(value == false && ManualModeChecked) 
+                else if (value == false && ManualModeChecked) 
                 {
                     MeasurementButtonContent = "Start Measurement";
                     if (videoCameraController.IsCapturing)
                     {
-                        videoCameraController.StopCapture();
-                        cameraModule.createVideoData(null, videoCameraController.RecordedVideo);
-                        videoCameraController.Close();
-                        // portController.startMeasurement();
+                        stopMeasuring();
                     }
                 }
                 else
@@ -169,6 +170,16 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
+        public List<String> Locations
+        {
+            get { return locations; }
+            set
+            { 
+                locations = value;
+                OnPropertyChanged("Locations");
+            }
+        }
+
         public String Gymnast
         {
             get { return gymnast; }
@@ -176,6 +187,16 @@ namespace RunApproachStatistics.ViewModel
             {
                 gymnast = value;
                 OnPropertyChanged("Gymnast");
+            }
+        }
+
+        public List<String> Gymnasts
+        {
+            get { return gymnasts; }
+            set
+            {
+                gymnasts = value;
+                OnPropertyChanged("Gymnasts");
             }
         }
 
@@ -188,6 +209,16 @@ namespace RunApproachStatistics.ViewModel
                 OnPropertyChanged("VaultNumber");
             }
         }
+        public List<String> VaultNumbers
+        {
+            get { return vaultNumbers; }
+            set
+            {
+                vaultNumbers = value;
+                OnPropertyChanged("VaultNumbers");
+            }
+        }
+
 
         [RegularExpression(@"^[0-9]{1,2}\.?[0-9]{0,2}$", ErrorMessage = "Invalid score, must contain max two decimals")]
         [Range(0.01, 10, ErrorMessage = "Invalid score, must be between 0.01 and 10")]
@@ -250,7 +281,6 @@ namespace RunApproachStatistics.ViewModel
                 OnPropertyChanged("CameraView");
             }
         }
-
         #endregion
 
         public MeasurementViewModel(IApplicationController app, PortController portController, VideoCameraController videoCameraController) : base()
@@ -266,6 +296,11 @@ namespace RunApproachStatistics.ViewModel
             vaultKindArray[1] = "NK";
             vaultKindArray[2] = "EK";
 
+            //load autocompletion data
+            Locations = vaultModule.getLocationNames();
+            Gymnasts = vaultModule.getGymnastNames();
+            VaultNumbers = vaultModule.getVaultNumberNames();
+
             // Set PortController
             this.portController = portController;
 
@@ -273,9 +308,19 @@ namespace RunApproachStatistics.ViewModel
             CameraView = new CameraViewModel(_app);
             VideoCameraController = videoCameraController;
 
+            ManualModeChecked = true;
+
             // Set Graph
             GraphViewModel graphVM = new GraphViewModel(_app, this, 0,1500);
             GraphViewMeasurement = graphVM;
+        }
+
+        private void stopMeasuring()
+        {
+            List<String> writeBuffer = portController.stopMeasurement();
+            videoCameraController.StopCapture();
+            //cameraModule.createVault(videoCameraController.RecordedVideo, writeBuffer);
+            videoCameraController.Close();
         }
 
         private void openVideoSource()
@@ -312,9 +357,6 @@ namespace RunApproachStatistics.ViewModel
             {
                 Measuring = true;
             }
-            
-
-
         }
 
         #endregion

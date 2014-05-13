@@ -20,6 +20,12 @@ namespace RunApproachStatistics.Modules.Interfaces
 
         List<vault> getVaults();
 
+        List<String> getLocationNames();
+
+        List<String> getGymnastNames();
+
+        List<String> getVaultNumberNames();
+
         List<vault> filter(double[] dRatings, double[] eRatings, int[] gymnasts, int[] locations, DateTime[] timestamps);
 
         List<vault> filter(double[] dRatings, double[] eRatings, String[] gymnasts, String[] locations, DateTime[] timestamps);
