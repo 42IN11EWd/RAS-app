@@ -32,13 +32,14 @@
             <Label Content="Gymnast" Height="45" FontSize="24" Width="160" HorizontalAlignment="Right" Margin="0,0,265,670" VerticalAlignment="Bottom"/>
             <Label Content="Location" Height="45" FontSize="24" Width="160" HorizontalAlignment="Right" Margin="0,0,265,735" VerticalAlignment="Bottom"/>
             <Label Content="Vault kind" Height="45" FontSize="24" Margin="0,0,265,800" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="160"/>
-            <TextBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right"  Margin="0,0,29,280" TextWrapping="Wrap" Text="{Binding Totalscore}" VerticalAlignment="Bottom" />
-            <TextBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right"  Margin="0,0,29,345" TextWrapping="Wrap" Text="{Binding Penalty}" VerticalAlignment="Bottom"/>
-            <TextBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right" Margin="0,0,29,410" TextWrapping="Wrap" Text="{Binding Escore}" VerticalAlignment="Bottom" />
-            <TextBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right"  Margin="0,0,29,475" TextWrapping="Wrap" Text="{Binding Dscore}" VerticalAlignment="Bottom" />
-            <TextBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right"  Margin="0,0,29,605" TextWrapping="Wrap" Text="{Binding VaultNumber}" VerticalAlignment="Bottom"/>
-            <TextBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right"  Margin="0,0,29,670" TextWrapping="Wrap" Text="{Binding Gymnast}" VerticalAlignment="Bottom"/>
-            <TextBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right"  Margin="0,0,29,735" TextWrapping="Wrap" Text="{Binding Location}" VerticalAlignment="Bottom" />
+
+            <TextBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right" Padding="5"  Margin="0,0,29,735" TextWrapping="Wrap" Text="{Binding Location, ValidatesOnNotifyDataErrors=True}" Style="{StaticResource textBoxInError}" VerticalAlignment="Bottom" />
+            <TextBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right" Padding="5"  Margin="0,0,29,670" TextWrapping="Wrap" Text="{Binding Gymnast, ValidatesOnNotifyDataErrors=True}" Style="{StaticResource textBoxInError}" VerticalAlignment="Bottom"/>
+            <TextBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right" Padding="5"  Margin="0,0,29,605" TextWrapping="Wrap" Text="{Binding VaultNumber, ValidatesOnNotifyDataErrors=True}" Style="{StaticResource textBoxInError}" VerticalAlignment="Bottom"/>
+            <TextBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right" Padding="5"  Margin="0,0,29,475" TextWrapping="Wrap" Text="{Binding Dscore, ValidatesOnNotifyDataErrors=True}" Style="{StaticResource textBoxInError}" VerticalAlignment="Bottom" />
+            <TextBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right" Padding="5"  Margin="0,0,29,410" TextWrapping="Wrap" Text="{Binding Path=Escore, ValidatesOnNotifyDataErrors=True}" Style="{StaticResource textBoxInError}" VerticalAlignment="Bottom" />
+            <TextBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right" Padding="5"  Margin="0,0,29,345" TextWrapping="Wrap" Text="{Binding Penalty, ValidatesOnNotifyDataErrors=True}" Style="{StaticResource textBoxInError}" VerticalAlignment="Bottom"/>
+            <TextBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right" Padding="5"  Margin="0,0,29,280" TextWrapping="Wrap" Text="{Binding Totalscore, ValidatesOnNotifyDataErrors=True}" Style="{StaticResource textBoxInError}" VerticalAlignment="Bottom" />
 
             <ContentControl x:Name="graphViewMeasurement" Content="{Binding GraphViewMeasurement}" Margin="336,0,454,25" Height="365" VerticalAlignment="Bottom"/>
 

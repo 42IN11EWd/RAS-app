@@ -5,13 +5,14 @@ using RunApproachStatistics.MVVM;
 using RunApproachStatistics.Services;
 using RunApproachStatistics.View;
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 using System.Windows.Forms.Integration;
 
 
 namespace RunApproachStatistics.ViewModel
 {
-    public class MeasurementViewModel : AbstractViewModel
+    public class MeasurementViewModel : ValidationViewModel
     {
         private IApplicationController _app;
         private PropertyChangedBase ratingControl;
@@ -188,42 +189,54 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
+        [RegularExpression(@"^[0-9]{1,2}\.?[0-9]{0,2}$", ErrorMessage = "Invalid score, must contain max two decimals")]
+        [Range(0.01, 10, ErrorMessage = "Invalid score, must be between 0.01 and 10")]
         public String Dscore
         {
             get { return dscore; }
             set
             {
                 dscore = value;
+                ValidateProperty(value);
                 OnPropertyChanged("Dscore");
             }
         }
 
+        [RegularExpression(@"^[0-9]{1,2}\.?[0-9]{0,2}$", ErrorMessage = "Invalid score, must contain max two decimals")]
+        [Range(0.01, 10, ErrorMessage="Invalid score, must be between 0.01 and 10")]
         public String Escore
         {
             get { return escore; }
             set
             {
                 escore = value;
+                ValidateProperty(value);
                 OnPropertyChanged("Escore");
             }
         }
 
+        [RegularExpression(@"^[0-9]{1,2}\.?[0-9]{0,2}$", ErrorMessage = "Invalid penalty score, must contain max two decimals")]
+        [Range(0.01, 10, ErrorMessage = "Invalid penalty score, must be between 0.01 and 10")]
         public String Penalty
         {
             get { return penalty; }
             set
             {
                 penalty = value;
+                ValidateProperty(value);
                 OnPropertyChanged("Penalty");
             }
         }
 
+        [RegularExpression(@"^[0-9]{1,2}\.?[0-9]{0,2}$", ErrorMessage = "Invalid score, must contain max two decimals")]
+        [Range(0.01, 10, ErrorMessage = "Invalid score, must be between 0.01 and 10")]
         public String Totalscore
         {
             get { return totalscore; }
             set
             {
                 totalscore = value;
+                ValidateProperty(value);
                 OnPropertyChanged("Totalscore");
             }
         }
@@ -249,9 +262,9 @@ namespace RunApproachStatistics.ViewModel
 
             //put data in array for testing
             vaultKindArray = new String[3];
-            vaultKindArray[0] = "practice";
-            vaultKindArray[1] = "nk";
-            vaultKindArray[2] = "ek";
+            vaultKindArray[0] = "Practice";
+            vaultKindArray[1] = "NK";
+            vaultKindArray[2] = "EK";
 
             // Set PortController
             this.portController = portController;
