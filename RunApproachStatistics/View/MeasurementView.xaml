@@ -9,6 +9,8 @@
     <Viewbox Stretch="Uniform">
         <Grid Width="1920" Height="1080">
 
+            <Image Source="pack://application:,,,/Images/Logo.png" Margin="1505,0,10,850"/>
+
             <ContentControl x:Name="RatingContainer"
 			    Content="{Binding Path=RatingControl}" Margin="1652,495,50,540" Width="218" Height="45"/>
             <ScrollViewer Height="1080" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300"/>
