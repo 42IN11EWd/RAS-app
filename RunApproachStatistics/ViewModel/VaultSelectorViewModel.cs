@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace RunApproachStatistics.ViewModel
 {
@@ -77,7 +78,7 @@ namespace RunApproachStatistics.ViewModel
         }
         public ThumbnailViewModel SelectedThumbnail
         {
-            get 
+            get
             {
                 if (selectedThumbnail == null)
                     ButtonEnabled = false;
@@ -88,7 +89,6 @@ namespace RunApproachStatistics.ViewModel
             set
             {
                 selectedThumbnail = value;
-
                 OnPropertyChanged("StarRating");
                 OnPropertyChanged("SelectedThumbnail");
                 OnPropertyChanged("Gymnast");
@@ -224,7 +224,7 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        public Nullable<int> DScore
+        public Nullable<decimal> DScore
         {
             get
             {
@@ -239,7 +239,7 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        public Nullable<int> EScore
+        public Nullable<decimal> EScore
         {
             get
             {
