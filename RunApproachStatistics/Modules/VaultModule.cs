@@ -319,7 +319,7 @@ namespace RunApproachStatistics.Modules
         /// <param name="locations">Array of the id's of the locations that should appear in the filtered list.</param>
         /// <param name="timestamps">Array of datetimes the list should be filtered on.</param>
         /// <returns>A filtered list of vaults.</returns>
-        public List<vault> filter(double[] dRatings, double[] eRatings, int[] gymnasts, int[] locations, DateTime[] timestamps)
+        public List<vault> filter(decimal[] dRatings, decimal[] eRatings, int[] gymnasts, int[] locations, DateTime[] timestamps)
         {
             return dRatingFilter(eRatingFilter(gymnastIdFilter(locationIdFilter(timestampFilter(getVaults(), timestamps), locations), gymnasts), eRatings), dRatings);
         }
@@ -335,14 +335,14 @@ namespace RunApproachStatistics.Modules
         /// <param name="locations">Array of the names of locations that should appear in the filtered list.</param>
         /// <param name="timestamps">Array of datetimes the list should be filtered on.</param>
         /// <returns>A filtered list of vaults.</returns>
-        public List<vault> filter(double[] dRatings, double[] eRatings, String[] gymnasts, String[] locations, DateTime[] timestamps)
+        public List<vault> filter(decimal[] dRatings, decimal[] eRatings, String[] gymnasts, String[] locations, DateTime[] timestamps)
         {
             return dRatingFilter(eRatingFilter(gymnastNameFilter(locationNameFilter(timestampFilter(getVaults(), timestamps), locations), gymnasts), eRatings), dRatings);
         }
 
         #region Filters
 
-        private List<vault> dRatingFilter(List<vault> list, double[] dRatings)
+        private List<vault> dRatingFilter(List<vault> list, decimal[] dRatings)
         {
             if (dRatings.Length == 0)
             {
@@ -359,7 +359,7 @@ namespace RunApproachStatistics.Modules
             return result;
         }
 
-        private List<vault> eRatingFilter(List<vault> list, double[] eRatings)
+        private List<vault> eRatingFilter(List<vault> list, decimal[] eRatings)
         {
             if (eRatings.Length == 0)
             {

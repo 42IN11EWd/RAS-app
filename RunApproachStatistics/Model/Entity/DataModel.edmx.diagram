@@ -9,10 +9,10 @@
         <EntityTypeShape EntityType="in11ewd_dbModel.vaultnumber" Width="1.5" PointX="0.875" PointY="0.5" IsExpanded="true" />
         <EntityTypeShape EntityType="in11ewd_dbModel.user" Width="1.5" PointX="9.75" PointY="0.5" />
         <EntityTypeShape EntityType="in11ewd_dbModel.gymnast" Width="1.5" PointX="6.875" PointY="0.5" />
-        <EntityTypeShape EntityType="in11ewd_dbModel.vault" Width="1.5" PointX="3.875" PointY="0.5" />
         <EntityTypeShape EntityType="in11ewd_dbModel.vaultkind" Width="1.5" PointX="6.875" PointY="5.25" />
-        <AssociationConnector Association="in11ewd_dbModel.fk_Sprong_Sporter" />
         <AssociationConnector Association="in11ewd_dbModel.fk_User_Sporter1" />
+        <EntityTypeShape EntityType="in11ewd_dbModel.vault" Width="1.5" PointX="3.75" PointY="0.5" />
+        <AssociationConnector Association="in11ewd_dbModel.fk_Sprong_Sporter" />
         <AssociationConnector Association="in11ewd_dbModel.fk_Sprong_Locatie1" />
         <AssociationConnector Association="in11ewd_dbModel.fk_Sprong_sprongtype1" />
         <AssociationConnector Association="in11ewd_dbModel.fk_Vault_Vaultkind1" />

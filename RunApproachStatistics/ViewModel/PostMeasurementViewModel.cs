@@ -212,7 +212,7 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        public Nullable<int> DScore
+        public Nullable<decimal> DScore
         {
             get
             {
@@ -227,7 +227,7 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        public Nullable<int> EScore
+        public Nullable<decimal> EScore
         {
             get
             {

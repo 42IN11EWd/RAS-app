@@ -15,13 +15,13 @@ namespace RunApproachStatistics.Model.Entity
     public partial class vault
     {
         public int vault_id { get; set; }
-        public int gymnast_id { get; set; }
+        public Nullable<int> gymnast_id { get; set; }
         public decimal duration { get; set; }
         public string graphdata { get; set; }
         public string videopath { get; set; }
         public Nullable<int> rating_star { get; set; }
-        public Nullable<int> rating_official_D { get; set; }
-        public Nullable<int> rating_official_E { get; set; }
+        public Nullable<decimal> rating_official_D { get; set; }
+        public Nullable<decimal> rating_official_E { get; set; }
         public Nullable<decimal> penalty { get; set; }
         public System.DateTime timestamp { get; set; }
         public string note { get; set; }
