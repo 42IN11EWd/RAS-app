@@ -457,11 +457,16 @@ namespace RunApproachStatistics.ViewModel
                 newVault.gymnast_id = gymnastIds[Gymnasts.IndexOf(Gymnast)];
             }
 
-            String vaultNumber = VaultNumber;
-            if (vaultNumber == null || vaultNumber.Equals("") || GetErrorArr("VaultNumber") != null)
+            if (VaultNumber == null || VaultNumber.Equals("") || GetErrorArr("VaultNumber") != null)
             {
-                vaultNumber = null;
+                newVault.vaultnumber = null;
             }
+            else
+            {
+                newVault.vaultnumber_id = vaultNumberIds[VaultNumbers.IndexOf(VaultNumber)];
+            }
+
+
 
             RatingViewModel ratingVM = (RatingViewModel)RatingControl;
             int rating = ratingVM.getScore();
