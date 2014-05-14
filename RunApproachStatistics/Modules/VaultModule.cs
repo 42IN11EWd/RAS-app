@@ -68,14 +68,14 @@ namespace RunApproachStatistics.Modules
                 {
                     //eVault.context = vault.context;
                     eVault.duration = vault.duration;
-                    eVault.gymnast_id = vault.gymnast_id;
-                   // eVault.location = vault.location;
-                    //eVault.penalty = vault.penalty;
-                   // eVault.rating_official_D = vault.rating_official_D;
-                    //eVault.rating_official_E = vault.rating_official_E;
-                    //eVault.rating_star = vault.rating_star;
+                    //eVault.gymnast = vault.gymnast_id;
+                    eVault.location = vault.location;
+                    eVault.penalty = vault.penalty;
+                    eVault.rating_official_D = vault.rating_official_D;
+                    eVault.rating_official_E = vault.rating_official_E;
+                    eVault.rating_star = vault.rating_star;
                     eVault.timestamp = vault.timestamp;
-                   // eVault.vaultnumber = vault.vaultnumber;
+                    eVault.vaultnumber = vault.vaultnumber;
                 }
 
                 try

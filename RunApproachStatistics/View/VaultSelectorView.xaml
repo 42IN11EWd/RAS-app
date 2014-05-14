@@ -20,7 +20,7 @@
 
             <!-- START Column 1 -->
             <!-- Start scrollviewer(?) -->
-            <ListView Grid.Column="1"  SelectedItem="{Binding SelectedThumbnail}" ItemsSource="{Binding ThumbnailCollection}" Margin="10,10,0,0" Height="684" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1189">
+            <ListView Name="VaultView"  Grid.Column="1" SelectionMode="Single"  SelectedItem="{Binding Path=SelectedThumbnail}" ItemsSource="{Binding Path=ThumbnailCollection}" Margin="10,10,0,0" Height="684" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1189">
                 <!-- ItemsPanelTemplate -->
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
