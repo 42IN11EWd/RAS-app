@@ -1,11 +1,13 @@
 ﻿using MvvmValidation;
 using RunApproachStatistics.Controllers;
+using RunApproachStatistics.Model.Entity;
 using RunApproachStatistics.Modules;
 using RunApproachStatistics.Modules.Interfaces;
 using RunApproachStatistics.MVVM;
 using RunApproachStatistics.Services;
 using RunApproachStatistics.View;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
@@ -21,7 +23,6 @@ namespace RunApproachStatistics.ViewModel
         private PropertyChangedBase ratingControl;
 
         private String vaultKind;
-        public String[] vaultKindArray;
         private String location;
         private String gymnast;
         private String vaultNumber;
@@ -32,6 +33,11 @@ namespace RunApproachStatistics.ViewModel
         private List<String> locations;
         private List<String> gymnasts;
         private List<String> vaultNumbers;
+        private List<String> vaultKinds;
+        private List<int> locationIds;
+        private List<int> gymnastIds;
+        private List<int> vaultNumberIds;
+        private List<int> vaultKindIds;
 
         private Boolean vaultKindChecked;
         private Boolean locationChecked;
@@ -45,6 +51,7 @@ namespace RunApproachStatistics.ViewModel
         private Boolean manualModeChecked;
         private Boolean measuring;
         private String measurementButtonContent;
+        private String rectangleColor;
 
         private CameraViewModel cameraView;
         private CameraWindow cameraWindow;
@@ -85,6 +92,16 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
+        public String RectangleColor
+        {
+           get { return rectangleColor; }
+           set
+           {
+               rectangleColor = value;
+               OnPropertyChanged("RectangleColor");
+           }
+        }
+
         public Boolean Measuring
         {
             get { return measuring; }
@@ -96,6 +113,7 @@ namespace RunApproachStatistics.ViewModel
                     MeasurementButtonContent = "Stop Measurement";
                     videoCameraController.Capture();
                     portController.startMeasurement();
+                    RectangleColor = "Red";
                 }
                 else if (value == false && ManualModeChecked) 
                 {
@@ -103,6 +121,7 @@ namespace RunApproachStatistics.ViewModel
                     if (videoCameraController.IsCapturing)
                     {
                         stopMeasuring();
+                        RectangleColor = "White";
                     }
                 }
                 else
@@ -151,7 +170,7 @@ namespace RunApproachStatistics.ViewModel
             get { return locationChecked; }
             set
             {
-                vaultKindChecked = value;
+                locationChecked = value;
                 OnPropertyChanged("LocationChecked");
             }
         }
@@ -161,7 +180,7 @@ namespace RunApproachStatistics.ViewModel
             get { return gymnastChecked; }
             set
             {
-                vaultKindChecked = value;
+                gymnastChecked = value;
                 OnPropertyChanged("GymnastChecked");
             }
         }
@@ -171,7 +190,7 @@ namespace RunApproachStatistics.ViewModel
             get { return vaultNumberChecked; }
             set
             {
-                vaultKindChecked = value;
+                vaultNumberChecked = value;
                 OnPropertyChanged("VaultNumberChecked");
             }
         }
@@ -181,7 +200,7 @@ namespace RunApproachStatistics.ViewModel
             get { return ratingChecked; }
             set
             {
-                vaultKindChecked = value;
+                ratingChecked = value;
                 OnPropertyChanged("RatingChecked");
             }
         }
@@ -191,7 +210,7 @@ namespace RunApproachStatistics.ViewModel
             get { return dscoreChecked; }
             set
             {
-                vaultKindChecked = value;
+                dscoreChecked = value;
                 OnPropertyChanged("DscoreChecked");
             }
         }
@@ -201,7 +220,7 @@ namespace RunApproachStatistics.ViewModel
             get { return escoreChecked; }
             set
             {
-                vaultKindChecked = value;
+                escoreChecked = value;
                 OnPropertyChanged("EscoreChecked");
             }
         }
@@ -211,7 +230,7 @@ namespace RunApproachStatistics.ViewModel
             get { return penaltyChecked; }
             set
             {
-                vaultKindChecked = value;
+                penaltyChecked = value;
                 OnPropertyChanged("PenaltyChecked");
             }
         }
@@ -225,26 +244,13 @@ namespace RunApproachStatistics.ViewModel
                 OnPropertyChanged("MeasurementButtonContent");
             }
         }
-        public String SelectedVaultKind
+        public String VaultKind
         {
-            get
-            {
-                if (vaultKind == null) return "";
-                return vaultKind;
-            }
+            get { return vaultKind; }
             set
             {
                 vaultKind = value;
-                OnPropertyChanged("VaultKind");
-            }
-        }
-        
-        public String[] VaultKind
-        {
-            get { return vaultKindArray; }
-            set
-            {
-                vaultKindArray = value;
+                Validator.Validate(() => VaultKind);
                 OnPropertyChanged("VaultKind");
             }
         }
@@ -276,6 +282,7 @@ namespace RunApproachStatistics.ViewModel
             set
             {
                 gymnast = value;
+                Validator.Validate(() => Gymnast);
                 OnPropertyChanged("Gymnast");
             }
         }
@@ -286,7 +293,6 @@ namespace RunApproachStatistics.ViewModel
             set
             {
                 gymnasts = value;
-                Validator.Validate(() => Gymnast);
                 OnPropertyChanged("Gymnasts");
             }
         }
@@ -310,44 +316,47 @@ namespace RunApproachStatistics.ViewModel
                 OnPropertyChanged("VaultNumbers");
             }
         }
+        public List<String> VaultKinds
+        {
+            get { return vaultKinds; }
+            set
+            {
+                vaultKinds = value;
+                OnPropertyChanged("VaultKinds");
+            }
+        }
 
-
-        [RegularExpression(@"^[0-9]{1,2}\.?[0-9]{0,3}$", ErrorMessage = "Invalid score, must contain max three decimals")]
-        [Range(0.001, 10, ErrorMessage = "Invalid score, must be between 0.01 and 10")]
         public String Dscore
         {
             get { return dscore; }
             set
             {
                 dscore = value;
+                Validator.Validate(() => Dscore);
                 calculateTotalScore();
                 OnPropertyChanged("Dscore");
             }
         }
 
-        [RegularExpression(@"^[0-9]{1,2}\.?[0-9]{0,3}$", ErrorMessage = "Invalid score, must contain max three decimals")]
-        [Range(0.001, 10, ErrorMessage="Invalid score, must be between 0.01 and 10")]
         public String Escore
         {
             get { return escore; }
             set
             {
                 escore = value;
-                //ValidateProperty(value);
+                Validator.Validate(() => Escore);
                 calculateTotalScore();
                 OnPropertyChanged("Escore");
             }
         }
 
-        [RegularExpression(@"^[0-9]{1,2}\.?[0-9]{0,3}$", ErrorMessage = "Invalid penalty score, must contain max three decimals")]
-        [Range(0.001, 10, ErrorMessage = "Invalid penalty score, must be between 0.01 and 10")]
         public String Penalty
         {
             get { return penalty; }
             set
             {
                 penalty = value;
-                //ValidateProperty(value);
+                Validator.Validate(() => Penalty);
                 calculateTotalScore();
                 OnPropertyChanged("Penalty");
             }
@@ -379,18 +388,22 @@ namespace RunApproachStatistics.ViewModel
             _app = app;
             Measuring = false;
             RatingViewModel ratingVM = new RatingViewModel(_app);
-            RatingControl = ratingVM;        
+            RatingControl = ratingVM;
 
-            //put data in array for testing
-            vaultKindArray = new String[3];
-            vaultKindArray[0] = "Practice";
-            vaultKindArray[1] = "NK";
-            vaultKindArray[2] = "EK";
+            RectangleColor = "White";
 
             //load autocompletion data
-            Locations = vaultModule.getLocationNames();
-            Gymnasts = vaultModule.getGymnastNames();
-            VaultNumbers = vaultModule.getVaultNumberNames();
+            VaultKinds      = vaultModule.getVaultKindNames();
+            vaultKindIds    = vaultModule.getVaultKindIds();
+
+            Locations       = vaultModule.getLocationNames();
+            locationIds     = vaultModule.getLocationIds();
+
+            Gymnasts        = vaultModule.getGymnastNames();
+            gymnastIds      = vaultModule.getGymnastIds();
+
+            VaultNumbers    = vaultModule.getVaultNumberNames();
+            vaultNumberIds  = vaultModule.getVaultNumberIds();
 
             // Set PortController
             this.portController = portController;
@@ -413,26 +426,41 @@ namespace RunApproachStatistics.ViewModel
         {
             //List<String> writeBuffer = portController.stopMeasurement();
             //videoCameraController.StopCapture();
+            
+            // Create new vault
+            vault newVault = new vault();
 
-            String vaultKind = SelectedVaultKind; //TODO: check if valid
+            String vaultKind = VaultKind; //TODO: check if valid
 
-            String location = Location;
-            if (location == null || location.Equals("") || GetErrors("Location") != null)
+            if (Location == null || Location.Equals("") || GetErrorArr("Location") != null)
             {
-                location = null;
+                newVault.location = null;
+            }
+            else
+            {
+                newVault.location_id = locationIds[Location.IndexOf(Location)];
+            }
+            
+
+            if (Gymnast == null || Gymnast.Equals("") || GetErrorArr("Gymnast") != null)
+            {
+                newVault.gymnast = null;
+            }
+            else
+            {
+                newVault.gymnast_id = gymnastIds[Gymnasts.IndexOf(Gymnast)];
             }
 
-            String gymnast = Gymnast;
-            if (gymnast == null || gymnast.Equals("") || GetErrors("Gymnast") != null)
+            if (VaultNumber == null || VaultNumber.Equals("") || GetErrorArr("VaultNumber") != null)
             {
-                gymnast = null;
+                newVault.vaultnumber = null;
+            }
+            else
+            {
+                newVault.vaultnumber_id = vaultNumberIds[VaultNumbers.IndexOf(VaultNumber)];
             }
 
-            String vaultNumber = VaultNumber;
-            if (vaultNumber == null || vaultNumber.Equals("") || GetErrors("VaultNumber") != null)
-            {
-                vaultNumber = null;
-            }
+
 
             RatingViewModel ratingVM = (RatingViewModel)RatingControl;
             int rating = ratingVM.getScore();
@@ -446,22 +474,22 @@ namespace RunApproachStatistics.ViewModel
         {
             if (!VaultKindChecked)
             {
-                SelectedVaultKind = null;
+                VaultKind = "";
             }
 
             if (!LocationChecked)
             {
-                Location = null;
+                Location = "";
             }
 
             if (!GymnastChecked)
             {
-                Gymnast = null;
+                Gymnast = "";
             }
 
             if (!VaultNumberChecked)
             {
-                VaultNumber = null; ;
+                VaultNumber = ""; 
             }
 
             if (!RatingChecked)
@@ -469,25 +497,26 @@ namespace RunApproachStatistics.ViewModel
                 RatingControl = new RatingViewModel(_app);
             }
 
-            if (DscoreChecked)
+            if (!DscoreChecked)
             {
-                Dscore = null;
+                Dscore = "";
             }
 
-            if (EscoreChecked)
+            if (!EscoreChecked)
             {
-                Escore = null;
+                Escore = "";
             }
 
-            if (PenaltyChecked)
+            if (!PenaltyChecked)
             {
-                Penalty = null;
+                Penalty = "";
             }
         }
 
         private void calculateTotalScore()
         {
-            if (Dscore != null && Escore != null && !Dscore.Equals("") && !Escore.Equals(""))
+            if (Dscore != null && Escore != null && !Dscore.Equals("") && !Escore.Equals("")
+                && GetErrorArr("Dscore") == null && GetErrorArr("Escore") == null)
             {
                 try
                 {
@@ -565,11 +594,25 @@ namespace RunApproachStatistics.ViewModel
 
         private void SetValidationRules()
         {
+            Validator.AddRule(() => VaultKind,
+                              () => VaultKinds,
+                              () =>
+                              {
+                                  if (VaultKinds.Contains(VaultKind))
+                                  {
+                                      return RuleResult.Valid();
+                                  }
+                                  else
+                                  {
+                                      return RuleResult.Invalid("Vaultkind is not in list");
+                                  }
+                              });
+
             Validator.AddRule(() => Location,
                               () => Locations,
                               () =>
                               {
-                                  if (Locations.Contains(Location))
+                                  if ( Locations.Contains(Location))
                                   {
                                       return RuleResult.Valid();
                                   }
@@ -606,6 +649,66 @@ namespace RunApproachStatistics.ViewModel
                                       return RuleResult.Invalid("Gymnast is not in list");
                                   }
                               });
+
+            Validator.AddRule(() => Escore,
+                              () =>
+                              {
+                                  return checkScore(Escore);
+                              });
+
+            Validator.AddRule(() => Dscore,
+                              () =>
+                              {
+                                  return checkScore(Dscore);
+                              });
+
+            Validator.AddRule(() => Penalty,
+                              () =>
+                              {
+                                    return checkScore(Penalty);
+                              });
+        }
+
+        private RuleResult checkScore(String score)
+        {
+            if (score.Equals(""))
+            {
+                return RuleResult.Valid();
+            }
+            else
+            {
+                float fScore = 0;
+                if (!float.TryParse(score, out fScore))
+                {
+                    return RuleResult.Invalid("Score is not a number");
+                }
+                else
+                {
+                    if (fScore <= 10 && fScore > 0)
+                    {
+                        return RuleResult.Assert(CountDecimalPlaces((decimal)fScore) <= 3, "Score can contain maximal 3 decimals");
+                    }
+                    else
+                    {
+                        return RuleResult.Invalid("Score must be between 0.001 and 10");
+                    }
+                }
+            }
+        }
+
+        private static decimal CountDecimalPlaces(decimal dec)
+        {
+            int[] bits = Decimal.GetBits(dec);
+            int exponent = bits[3] >> 16;
+            int result = exponent;
+            long lowDecimal = bits[0] | (bits[1] >> 8);
+            while ((lowDecimal % 10) == 0)
+            {
+                result--;
+                lowDecimal /= 10;
+            }
+
+            return result;
         }
 
         #endregion
