@@ -92,6 +92,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\Entity\vaultkind.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\MouseBehaviour.cs" />
     <Compile Include="Model\Entity\DataModel.Context.cs">
       <AutoGen>True</AutoGen>

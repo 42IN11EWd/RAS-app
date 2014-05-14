@@ -24,15 +24,17 @@ namespace RunApproachStatistics.Model.Entity
         public Nullable<int> rating_official_E { get; set; }
         public Nullable<decimal> penalty { get; set; }
         public System.DateTime timestamp { get; set; }
-        public string context { get; set; }
         public string note { get; set; }
         public Nullable<int> vaultnumber_id { get; set; }
         public Nullable<int> location_id { get; set; }
         public bool deleted { get; set; }
         public byte[] thumbnail { get; set; }
+        public Nullable<int> vaultkind_id { get; set; }
+        public Nullable<System.TimeSpan> synchronization_point { get; set; }
     
+        public virtual gymnast gymnast { get; set; }
         public virtual location location { get; set; }
         public virtual vaultnumber vaultnumber { get; set; }
-        public virtual gymnast gymnast { get; set; }
+        public virtual vaultkind vaultkind { get; set; }
     }
 }

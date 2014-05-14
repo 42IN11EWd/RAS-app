@@ -66,7 +66,7 @@ namespace RunApproachStatistics.Modules
 
                 foreach (vault eVault in query)
                 {
-                    eVault.context = vault.context;
+                    //eVault.context = vault.context;
                     eVault.duration = vault.duration;
                     eVault.gymnast_id = vault.gymnast_id;
                    // eVault.location = vault.location;

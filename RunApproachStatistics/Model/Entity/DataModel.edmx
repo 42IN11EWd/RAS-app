@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="in11ewd_dbModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="in11ewd_dbModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="gymnast">
           <Key>
             <PropertyRef Name="gymnast_id" />
@@ -14,7 +14,7 @@
           <Property Name="gender" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="nationality" Type="varchar" MaxLength="45" />
           <Property Name="length" Type="decimal" Precision="10" Scale="0" />
-          <Property Name="picture" Type="blob" />
+          <Property Name="picture" Type="longblob" />
           <Property Name="birthdate" Type="date" />
           <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="surname" Type="varchar" MaxLength="50" Nullable="false" />
@@ -57,12 +57,22 @@
           <Property Name="rating_official_E" Type="int" />
           <Property Name="penalty" Type="decimal" Precision="10" Scale="0" />
           <Property Name="timestamp" Type="datetime" Precision="0" Nullable="false" />
-          <Property Name="context" Type="varchar" MaxLength="20" />
           <Property Name="note" Type="text" />
           <Property Name="vaultnumber_id" Type="int" />
           <Property Name="location_id" Type="int" />
           <Property Name="deleted" Type="bool" Nullable="false" />
-          <Property Name="thumbnail" Type="blob" />
+          <Property Name="thumbnail" Type="longblob" />
+          <Property Name="vaultkind_id" Type="int" />
+          <Property Name="synchronization_point" Type="time" Precision="0" />
+        </EntityType>
+        <EntityType Name="vaultkind">
+          <Key>
+            <PropertyRef Name="vaultkind_id" />
+          </Key>
+          <Property Name="vaultkind_id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="description" Type="text" />
+          <Property Name="deleted" Type="bool" Nullable="false" />
         </EntityType>
         <EntityType Name="vaultnumber">
           <Key>
@@ -123,11 +133,24 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_Vault_Vaultkind1">
+          <End Role="vaultkind" Type="Self.vaultkind" Multiplicity="0..1" />
+          <End Role="vault" Type="Self.vault" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="vaultkind">
+              <PropertyRef Name="vaultkind_id" />
+            </Principal>
+            <Dependent Role="vault">
+              <PropertyRef Name="vaultkind_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="in11ewd_dbModelStoreContainer">
           <EntitySet Name="gymnast" EntityType="Self.gymnast" Schema="42in11ewd_db" store:Type="Tables" />
           <EntitySet Name="location" EntityType="Self.location" Schema="42in11ewd_db" store:Type="Tables" />
           <EntitySet Name="user" EntityType="Self.user" Schema="42in11ewd_db" store:Type="Tables" />
           <EntitySet Name="vault" EntityType="Self.vault" Schema="42in11ewd_db" store:Type="Tables" />
+          <EntitySet Name="vaultkind" EntityType="Self.vaultkind" Schema="42in11ewd_db" store:Type="Tables" />
           <EntitySet Name="vaultnumber" EntityType="Self.vaultnumber" Schema="42in11ewd_db" store:Type="Tables" />
           <AssociationSet Name="fk_Sprong_Locatie1" Association="Self.fk_Sprong_Locatie1">
             <End Role="location" EntitySet="location" />
@@ -144,6 +167,10 @@
           <AssociationSet Name="fk_User_Sporter1" Association="Self.fk_User_Sporter1">
             <End Role="gymnast" EntitySet="gymnast" />
             <End Role="user" EntitySet="user" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Vault_Vaultkind1" Association="Self.fk_Vault_Vaultkind1">
+            <End Role="vaultkind" EntitySet="vaultkind" />
+            <End Role="vault" EntitySet="vault" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -175,17 +202,10 @@
         <EntityContainer Name="Entities3" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="location" EntityType="Self.location" />
           <EntitySet Name="vaultnumber" EntityType="Self.vaultnumber" />
-          <EntitySet Name="vault" EntityType="in11ewd_dbModel.vault" />
-          <AssociationSet Name="fk_Sprong_Locatie1" Association="in11ewd_dbModel.fk_Sprong_Locatie1">
-            <End Role="location" EntitySet="location" />
-            <End Role="vault" EntitySet="vault" />
-          </AssociationSet>
-          <AssociationSet Name="fk_Sprong_sprongtype1" Association="in11ewd_dbModel.fk_Sprong_sprongtype1">
-            <End Role="vaultnumber" EntitySet="vaultnumber" />
-            <End Role="vault" EntitySet="vault" />
-          </AssociationSet>
           <EntitySet Name="user" EntityType="in11ewd_dbModel.user" />
           <EntitySet Name="gymnast" EntityType="in11ewd_dbModel.gymnast" />
+          <EntitySet Name="vault" EntityType="in11ewd_dbModel.vault" />
+          <EntitySet Name="vaultkind" EntityType="in11ewd_dbModel.vaultkind" />
           <AssociationSet Name="fk_Sprong_Sporter" Association="in11ewd_dbModel.fk_Sprong_Sporter">
             <End Role="gymnast" EntitySet="gymnast" />
             <End Role="vault" EntitySet="vault" />
@@ -194,55 +214,19 @@
             <End Role="gymnast" EntitySet="gymnast" />
             <End Role="user" EntitySet="user" />
           </AssociationSet>
+          <AssociationSet Name="fk_Sprong_Locatie1" Association="in11ewd_dbModel.fk_Sprong_Locatie1">
+            <End Role="location" EntitySet="location" />
+            <End Role="vault" EntitySet="vault" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Sprong_sprongtype1" Association="in11ewd_dbModel.fk_Sprong_sprongtype1">
+            <End Role="vaultnumber" EntitySet="vaultnumber" />
+            <End Role="vault" EntitySet="vault" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Vault_Vaultkind1" Association="in11ewd_dbModel.fk_Vault_Vaultkind1">
+            <End Role="vaultkind" EntitySet="vaultkind" />
+            <End Role="vault" EntitySet="vault" />
+          </AssociationSet>
           </EntityContainer>
-        <EntityType Name="vault">
-          <Key>
-            <PropertyRef Name="vault_id" />
-          </Key>
-          <Property Name="vault_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="gymnast_id" Type="Int32" Nullable="false" />
-          <Property Name="duration" Type="Decimal" Nullable="false" />
-          <Property Name="graphdata" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="videopath" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="rating_star" Type="Int32" />
-          <Property Name="rating_official_D" Type="Int32" />
-          <Property Name="rating_official_E" Type="Int32" />
-          <Property Name="penalty" Type="Decimal" />
-          <Property Name="timestamp" Type="DateTime" Nullable="false" />
-          <Property Name="context" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="note" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="vaultnumber_id" Type="Int32" />
-          <Property Name="location_id" Type="Int32" />
-          <Property Name="deleted" Type="Boolean" Nullable="false" />
-          <Property Name="thumbnail" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <NavigationProperty Name="location" Relationship="in11ewd_dbModel.fk_Sprong_Locatie1" FromRole="vault" ToRole="location" />
-          <NavigationProperty Name="vaultnumber" Relationship="in11ewd_dbModel.fk_Sprong_sprongtype1" FromRole="vault" ToRole="vaultnumber" />
-          <NavigationProperty Name="gymnast" Relationship="in11ewd_dbModel.fk_Sprong_Sporter" FromRole="vault" ToRole="gymnast" />
-        </EntityType>
-        <Association Name="fk_Sprong_Locatie1">
-          <End Type="in11ewd_dbModel.location" Role="location" Multiplicity="0..1" />
-          <End Type="in11ewd_dbModel.vault" Role="vault" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="location">
-              <PropertyRef Name="location_id" />
-            </Principal>
-            <Dependent Role="vault">
-              <PropertyRef Name="location_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_Sprong_sprongtype1">
-          <End Type="in11ewd_dbModel.vaultnumber" Role="vaultnumber" Multiplicity="0..1" />
-          <End Type="in11ewd_dbModel.vault" Role="vault" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="vaultnumber">
-              <PropertyRef Name="vaultnumber_id" />
-            </Principal>
-            <Dependent Role="vault">
-              <PropertyRef Name="vaultnumber_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="user">
           <Key>
             <PropertyRef Name="user_id" />
@@ -275,6 +259,42 @@
           <NavigationProperty Name="vault" Relationship="in11ewd_dbModel.fk_Sprong_Sporter" FromRole="gymnast" ToRole="vault" />
           <NavigationProperty Name="user" Relationship="in11ewd_dbModel.fk_User_Sporter1" FromRole="gymnast" ToRole="user" />
         </EntityType>
+        <EntityType Name="vault">
+          <Key>
+            <PropertyRef Name="vault_id" />
+          </Key>
+          <Property Name="vault_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="gymnast_id" Type="Int32" Nullable="false" />
+          <Property Name="duration" Type="Decimal" Nullable="false" />
+          <Property Name="graphdata" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="videopath" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="rating_star" Type="Int32" />
+          <Property Name="rating_official_D" Type="Int32" />
+          <Property Name="rating_official_E" Type="Int32" />
+          <Property Name="penalty" Type="Decimal" />
+          <Property Name="timestamp" Type="DateTime" Nullable="false" />
+          <Property Name="note" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="vaultnumber_id" Type="Int32" />
+          <Property Name="location_id" Type="Int32" />
+          <Property Name="deleted" Type="Boolean" Nullable="false" />
+          <Property Name="thumbnail" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="vaultkind_id" Type="Int32" />
+          <Property Name="synchronization_point" Type="Time" />
+          <NavigationProperty Name="gymnast" Relationship="in11ewd_dbModel.fk_Sprong_Sporter" FromRole="vault" ToRole="gymnast" />
+          <NavigationProperty Name="location" Relationship="in11ewd_dbModel.fk_Sprong_Locatie1" FromRole="vault" ToRole="location" />
+          <NavigationProperty Name="vaultnumber" Relationship="in11ewd_dbModel.fk_Sprong_sprongtype1" FromRole="vault" ToRole="vaultnumber" />
+          <NavigationProperty Name="vaultkind" Relationship="in11ewd_dbModel.fk_Vault_Vaultkind1" FromRole="vault" ToRole="vaultkind" />
+        </EntityType>
+        <EntityType Name="vaultkind">
+          <Key>
+            <PropertyRef Name="vaultkind_id" />
+          </Key>
+          <Property Name="vaultkind_id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="deleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="vault" Relationship="in11ewd_dbModel.fk_Vault_Vaultkind1" FromRole="vaultkind" ToRole="vault" />
+        </EntityType>
         <Association Name="fk_Sprong_Sporter">
           <End Type="in11ewd_dbModel.gymnast" Role="gymnast" Multiplicity="1" />
           <End Type="in11ewd_dbModel.vault" Role="vault" Multiplicity="*" />
@@ -296,6 +316,42 @@
             </Principal>
             <Dependent Role="user">
               <PropertyRef Name="gymnast_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Sprong_Locatie1">
+          <End Type="in11ewd_dbModel.location" Role="location" Multiplicity="0..1" />
+          <End Type="in11ewd_dbModel.vault" Role="vault" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="location">
+              <PropertyRef Name="location_id" />
+            </Principal>
+            <Dependent Role="vault">
+              <PropertyRef Name="location_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Sprong_sprongtype1">
+          <End Type="in11ewd_dbModel.vaultnumber" Role="vaultnumber" Multiplicity="0..1" />
+          <End Type="in11ewd_dbModel.vault" Role="vault" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="vaultnumber">
+              <PropertyRef Name="vaultnumber_id" />
+            </Principal>
+            <Dependent Role="vault">
+              <PropertyRef Name="vaultnumber_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Vault_Vaultkind1">
+          <End Type="in11ewd_dbModel.vaultkind" Role="vaultkind" Multiplicity="0..1" />
+          <End Type="in11ewd_dbModel.vault" Role="vault" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="vaultkind">
+              <PropertyRef Name="vaultkind_id" />
+            </Principal>
+            <Dependent Role="vault">
+              <PropertyRef Name="vaultkind_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -327,28 +383,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="vault">
-            <EntityTypeMapping TypeName="in11ewd_dbModel.vault">
-              <MappingFragment StoreEntitySet="vault">
-                <ScalarProperty Name="thumbnail" ColumnName="thumbnail" />
-                <ScalarProperty Name="deleted" ColumnName="deleted" />
-                <ScalarProperty Name="location_id" ColumnName="location_id" />
-                <ScalarProperty Name="vaultnumber_id" ColumnName="vaultnumber_id" />
-                <ScalarProperty Name="note" ColumnName="note" />
-                <ScalarProperty Name="context" ColumnName="context" />
-                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
-                <ScalarProperty Name="penalty" ColumnName="penalty" />
-                <ScalarProperty Name="rating_official_E" ColumnName="rating_official_E" />
-                <ScalarProperty Name="rating_official_D" ColumnName="rating_official_D" />
-                <ScalarProperty Name="rating_star" ColumnName="rating_star" />
-                <ScalarProperty Name="videopath" ColumnName="videopath" />
-                <ScalarProperty Name="graphdata" ColumnName="graphdata" />
-                <ScalarProperty Name="duration" ColumnName="duration" />
-                <ScalarProperty Name="gymnast_id" ColumnName="gymnast_id" />
-                <ScalarProperty Name="vault_id" ColumnName="vault_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="user">
             <EntityTypeMapping TypeName="in11ewd_dbModel.user">
               <MappingFragment StoreEntitySet="user">
@@ -377,6 +411,39 @@
                 <ScalarProperty Name="gender" ColumnName="gender" />
                 <ScalarProperty Name="turnbondID" ColumnName="turnbondID" />
                 <ScalarProperty Name="gymnast_id" ColumnName="gymnast_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vault">
+            <EntityTypeMapping TypeName="in11ewd_dbModel.vault">
+              <MappingFragment StoreEntitySet="vault">
+                <ScalarProperty Name="synchronization_point" ColumnName="synchronization_point" />
+                <ScalarProperty Name="vaultkind_id" ColumnName="vaultkind_id" />
+                <ScalarProperty Name="thumbnail" ColumnName="thumbnail" />
+                <ScalarProperty Name="deleted" ColumnName="deleted" />
+                <ScalarProperty Name="location_id" ColumnName="location_id" />
+                <ScalarProperty Name="vaultnumber_id" ColumnName="vaultnumber_id" />
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="penalty" ColumnName="penalty" />
+                <ScalarProperty Name="rating_official_E" ColumnName="rating_official_E" />
+                <ScalarProperty Name="rating_official_D" ColumnName="rating_official_D" />
+                <ScalarProperty Name="rating_star" ColumnName="rating_star" />
+                <ScalarProperty Name="videopath" ColumnName="videopath" />
+                <ScalarProperty Name="graphdata" ColumnName="graphdata" />
+                <ScalarProperty Name="duration" ColumnName="duration" />
+                <ScalarProperty Name="gymnast_id" ColumnName="gymnast_id" />
+                <ScalarProperty Name="vault_id" ColumnName="vault_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vaultkind">
+            <EntityTypeMapping TypeName="in11ewd_dbModel.vaultkind">
+              <MappingFragment StoreEntitySet="vaultkind">
+                <ScalarProperty Name="deleted" ColumnName="deleted" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="vaultkind_id" ColumnName="vaultkind_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
