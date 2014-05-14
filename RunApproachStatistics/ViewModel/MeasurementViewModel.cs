@@ -23,7 +23,6 @@ namespace RunApproachStatistics.ViewModel
         private PropertyChangedBase ratingControl;
 
         private String vaultKind;
-        public String[] vaultKindArray;
         private String location;
         private String gymnast;
         private String vaultNumber;
@@ -34,9 +33,11 @@ namespace RunApproachStatistics.ViewModel
         private List<String> locations;
         private List<String> gymnasts;
         private List<String> vaultNumbers;
+        private List<String> vaultKinds;
         private List<int> locationIds;
         private List<int> gymnastIds;
         private List<int> vaultNumberIds;
+        private List<int> vaultKindIds;
 
         private Boolean vaultKindChecked;
         private Boolean locationChecked;
@@ -243,26 +244,13 @@ namespace RunApproachStatistics.ViewModel
                 OnPropertyChanged("MeasurementButtonContent");
             }
         }
-        public String SelectedVaultKind
+        public String VaultKind
         {
-            get
-            {
-                if (vaultKind == null) return "";
-                return vaultKind;
-            }
+            get { return vaultKind; }
             set
             {
                 vaultKind = value;
-                OnPropertyChanged("VaultKind");
-            }
-        }
-        
-        public String[] VaultKind
-        {
-            get { return vaultKindArray; }
-            set
-            {
-                vaultKindArray = value;
+                Validator.Validate(() => VaultKind);
                 OnPropertyChanged("VaultKind");
             }
         }
@@ -326,6 +314,15 @@ namespace RunApproachStatistics.ViewModel
             {
                 vaultNumbers = value;
                 OnPropertyChanged("VaultNumbers");
+            }
+        }
+        public List<String> VaultKinds
+        {
+            get { return vaultKinds; }
+            set
+            {
+                vaultKinds = value;
+                OnPropertyChanged("VaultKinds");
             }
         }
 
@@ -395,13 +392,10 @@ namespace RunApproachStatistics.ViewModel
 
             RectangleColor = "White";
 
-            //put data in array for testing
-            vaultKindArray = new String[3];
-            vaultKindArray[0] = "Practice";
-            vaultKindArray[1] = "NK";
-            vaultKindArray[2] = "EK";
-
             //load autocompletion data
+            VaultKinds      = vaultModule.getVaultKindNames();
+            vaultKindIds    = vaultModule.getVaultKindIds();
+
             Locations       = vaultModule.getLocationNames();
             locationIds     = vaultModule.getLocationIds();
 
@@ -436,7 +430,7 @@ namespace RunApproachStatistics.ViewModel
             // Create new vault
             vault newVault = new vault();
 
-            String vaultKind = SelectedVaultKind; //TODO: check if valid
+            String vaultKind = VaultKind; //TODO: check if valid
 
             if (Location == null || Location.Equals("") || GetErrorArr("Location") != null)
             {
@@ -475,7 +469,7 @@ namespace RunApproachStatistics.ViewModel
         {
             if (!VaultKindChecked)
             {
-                SelectedVaultKind = null;
+                VaultKind = "";
             }
 
             if (!LocationChecked)
@@ -595,6 +589,20 @@ namespace RunApproachStatistics.ViewModel
 
         private void SetValidationRules()
         {
+            Validator.AddRule(() => VaultKind,
+                              () => VaultKinds,
+                              () =>
+                              {
+                                  if (VaultKinds.Contains(VaultKind))
+                                  {
+                                      return RuleResult.Valid();
+                                  }
+                                  else
+                                  {
+                                      return RuleResult.Invalid("Vaultkind is not in list");
+                                  }
+                              });
+
             Validator.AddRule(() => Location,
                               () => Locations,
                               () =>
