@@ -121,6 +121,28 @@ namespace RunApproachStatistics.Modules
             }
         }
 
+        public List<String> getVaultKindNames()
+        {
+            using (var db = new DataContext())
+            {
+                return (from qVaultKind in db.vaultkind
+                        where qVaultKind.deleted == false
+                        select qVaultKind.name
+                ).ToList();
+            }
+        }
+
+        public List<int> getVaultKindIds()
+        {
+            using (var db = new DataContext())
+            {
+                return (from qVaultKind in db.vaultkind
+                        where qVaultKind.deleted == false
+                        select qVaultKind.vaultkind_id
+                ).ToList();
+            }
+        }
+
         public List<String> getLocationNames()
         {
             using (var db = new DataContext())
@@ -131,6 +153,17 @@ namespace RunApproachStatistics.Modules
                 ).ToList();
             }
         }
+        public List<int> getLocationIds()
+        {
+            using (var db = new DataContext())
+            {
+                return (from qLocation in db.location
+                        where qLocation.deleted == false
+                        select qLocation.location_id
+                ).ToList();
+            }
+        }
+
         public List<String> getGymnastNames()
         {
             using (var db = new DataContext())
@@ -138,6 +171,16 @@ namespace RunApproachStatistics.Modules
                 return (from qGymnast in db.gymnast
                         where qGymnast.deleted == false
                         select qGymnast.name + (qGymnast.surname_prefix.Length > 0 ? " " + qGymnast.surname_prefix : "") + " " + qGymnast.surname
+                ).ToList();
+            }
+        }
+        public List<int> getGymnastIds()
+        {
+            using (var db = new DataContext())
+            {
+                return (from qGymnast in db.gymnast
+                        where qGymnast.deleted == false
+                        select qGymnast.gymnast_id
                 ).ToList();
             }
         }
@@ -149,6 +192,17 @@ namespace RunApproachStatistics.Modules
                 return (from qVaultnumber in db.vaultnumber
                         where qVaultnumber.deleted == false
                         select qVaultnumber.code
+                ).ToList();
+            }
+        }
+
+        public List<int> getVaultNumberIds()
+        {
+            using (var db = new DataContext())
+            {
+                return (from qVaultnumber in db.vaultnumber
+                        where qVaultnumber.deleted == false
+                        select qVaultnumber.vaultnumber_id
                 ).ToList();
             }
         }

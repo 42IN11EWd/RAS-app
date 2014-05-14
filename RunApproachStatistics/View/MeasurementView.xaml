@@ -15,6 +15,9 @@
             <Grid Height="635" Width="1130" Name="cameraGrid" Margin="336,31,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Background="Black" Grid.Column="1">
                 <ContentControl x:Name="cameraView" Content="{Binding Path=CameraView}"/>
             </Grid>
+            <Rectangle Fill="{Binding Path=RectangleColor}" HorizontalAlignment="Left" Height="1080" Margin="305,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="1183" Panel.ZIndex="-1" StrokeThickness="0"/>
+
+            <ContentControl x:Name="graphViewMeasurement" Content="{Binding Path=GraphViewMeasurement}" Margin="336,0,454,25" Height="365" VerticalAlignment="Bottom"/>
 
             <CheckBox IsChecked="{Binding Path=ManualModeChecked}" Margin="0,0,29,195" FontSize="14" Content="Manual mode" Height="23" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="198">
                 <CheckBox.LayoutTransform>
@@ -89,9 +92,6 @@
                     <ScaleTransform ScaleX="2" ScaleY="2" />
                 </CheckBox.LayoutTransform>
             </CheckBox>
-
-            <ContentControl x:Name="graphViewMeasurement" Content="{Binding Path=GraphViewMeasurement}" Margin="336,0,454,25" Height="365" VerticalAlignment="Bottom"/>
-
         </Grid>
     </Viewbox>
 </UserControl>
