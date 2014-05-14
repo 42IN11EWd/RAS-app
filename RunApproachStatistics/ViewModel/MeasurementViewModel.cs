@@ -46,6 +46,7 @@ namespace RunApproachStatistics.ViewModel
         private Boolean manualModeChecked;
         private Boolean measuring;
         private String measurementButtonContent;
+        private String rectangleColor;
 
         private CameraViewModel cameraView;
         private CameraWindow cameraWindow;
@@ -86,6 +87,16 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
+        public String RectangleColor
+        {
+           get { return rectangleColor; }
+           set
+           {
+               rectangleColor = value;
+               OnPropertyChanged("RectangleColor");
+           }
+        }
+
         public Boolean Measuring
         {
             get { return measuring; }
@@ -97,6 +108,7 @@ namespace RunApproachStatistics.ViewModel
                     MeasurementButtonContent = "Stop Measurement";
                     videoCameraController.Capture();
                     portController.startMeasurement();
+                    RectangleColor = "Red";
                 }
                 else if (value == false && ManualModeChecked) 
                 {
@@ -104,6 +116,7 @@ namespace RunApproachStatistics.ViewModel
                     if (videoCameraController.IsCapturing)
                     {
                         stopMeasuring();
+                        RectangleColor = "White";
                     }
                 }
                 else
@@ -374,7 +387,9 @@ namespace RunApproachStatistics.ViewModel
             _app = app;
             Measuring = false;
             RatingViewModel ratingVM = new RatingViewModel(_app);
-            RatingControl = ratingVM;        
+            RatingControl = ratingVM;
+
+            RectangleColor = "White";
 
             //put data in array for testing
             vaultKindArray = new String[3];
