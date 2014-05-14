@@ -88,32 +88,8 @@ namespace RunApproachStatistics.Services
         }
 
         public void Close()
-        {
-            try
-            {
-               /* // Get the path for Desktop, to easily find the CSV
-                String path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-                String dateStamp = DateTime.Now.ToString("yyyy_MM_dd_HH-mm-ss");
-
-                // Create the filepath, add date stamp to filename
-                String filePath = Path.Combine(path, "LC_Video_" + dateStamp + ".avi");
-                writer.Open(filePath, width, height, fps, VideoCodec.MPEG4, 2000000);
-
-                int count = 0;
-                while (captureBuffer[count] != null)
-                {
-                    writer.WriteVideoFrame(captureBuffer[count]);
-                    count++;
-                }
-
-                writer.Close();
-                writer = null;*/
-                captureBuffer = null;
-            }
-            catch (Exception e)
-            {
-                Console.Write(e.StackTrace);
-            }
+        {              
+            captureBuffer = null;
         }
     }
 }

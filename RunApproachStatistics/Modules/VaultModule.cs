@@ -216,12 +216,16 @@ namespace RunApproachStatistics.Modules
 
         public void createVault(List<Bitmap> frames, List<String> writeBuffer, vault vault)
         {
-            // Get the path for Desktop, to easily find the CSV
-            String path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            String dateStamp = DateTime.Now.ToString("yyyy_MM_dd_HH-mm-ss");
-
             // Create the filepath, add date stamp to filename
-            String filePath = Path.Combine(path, "LC_Video_" + dateStamp + ".avi");
+            String filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "LC_Video_" + DateTime.Now.ToString("yyyy_MM_dd_HH-mm-ss") + ".avi");
+
+            //create the lasercamera string
+            String graphdata = "";
+            foreach (String s in writeBuffer)
+            {
+                graphdata += s;
+            }
+            vault.graphdata = graphdata;
             
             // Save the new vault and include the video path.            
             vault.videopath = filePath;

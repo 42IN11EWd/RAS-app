@@ -482,7 +482,7 @@ namespace RunApproachStatistics.ViewModel
                 {
                     //No problem
                 }
-                //newVault.rating_official_E = dDecimal;
+                newVault.rating_official_E = dDecimal;
             }
 
             if (Escore == null || Escore.Equals("") || GetErrorArr("Escore") != null)
@@ -500,7 +500,7 @@ namespace RunApproachStatistics.ViewModel
                 {
                     //No problem
                 }
-                //newVault.rating_official_E = eDecimal;
+                newVault.rating_official_E = eDecimal;
             }
 
             if (Penalty == null || Penalty.Equals("") || GetErrorArr("Penalty") != null)
@@ -526,7 +526,9 @@ namespace RunApproachStatistics.ViewModel
             int rating = ratingVM.getScore();
             newVault.rating_star = rating;
 
-            cameraModule.createVault(videoCameraController.RecordedVideo, portController.stopMeasurement(), newVault);
+            List<String> writeBuffer = portController.stopMeasurement();
+            videoCameraController.StopCapture();
+            cameraModule.createVault(videoCameraController.RecordedVideo, writeBuffer, newVault);
             videoCameraController.Close();
 
             clearFields();
