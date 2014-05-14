@@ -1,5 +1,6 @@
 ﻿using MvvmValidation;
 using RunApproachStatistics.Controllers;
+using RunApproachStatistics.Model.Entity;
 using RunApproachStatistics.Modules;
 using RunApproachStatistics.Modules.Interfaces;
 using RunApproachStatistics.MVVM;
@@ -33,6 +34,9 @@ namespace RunApproachStatistics.ViewModel
         private List<String> locations;
         private List<String> gymnasts;
         private List<String> vaultNumbers;
+        private List<int> locationIds;
+        private List<int> gymnastIds;
+        private List<int> vaultNumberIds;
 
         private Boolean vaultKindChecked;
         private Boolean locationChecked;
@@ -383,9 +387,14 @@ namespace RunApproachStatistics.ViewModel
             vaultKindArray[2] = "EK";
 
             //load autocompletion data
-            Locations = vaultModule.getLocationNames();
-            Gymnasts = vaultModule.getGymnastNames();
-            VaultNumbers = vaultModule.getVaultNumberNames();
+            Locations       = vaultModule.getLocationNames();
+            locationIds     = vaultModule.getLocationIds();
+
+            Gymnasts        = vaultModule.getGymnastNames();
+            gymnastIds      = vaultModule.getGymnastIds();
+
+            VaultNumbers    = vaultModule.getVaultNumberNames();
+            vaultNumberIds  = vaultModule.getVaultNumberIds();
 
             // Set PortController
             this.portController = portController;
@@ -408,19 +417,29 @@ namespace RunApproachStatistics.ViewModel
         {
             //List<String> writeBuffer = portController.stopMeasurement();
             //videoCameraController.StopCapture();
+            
+            // Create new vault
+            vault newVault = new vault();
 
             String vaultKind = SelectedVaultKind; //TODO: check if valid
 
-            String location = Location;
-            if (location == null || location.Equals("") || GetErrorArr("Location") != null)
+            if (Location == null || Location.Equals("") || GetErrorArr("Location") != null)
             {
-                location = null;
+                newVault.location = null;
             }
-
-            String gymnast = Gymnast;
-            if (gymnast == null || gymnast.Equals("") || GetErrorArr("Gymnast") != null)
+            else
             {
-                gymnast = null;
+                newVault.location_id = locationIds[Location.IndexOf(Location)];
+            }
+            
+
+            if (Gymnast == null || Gymnast.Equals("") || GetErrorArr("Gymnast") != null)
+            {
+                newVault.gymnast = null;
+            }
+            else
+            {
+                newVault.gymnast_id = gymnastIds[Gymnasts.IndexOf(Gymnast)];
             }
 
             String vaultNumber = VaultNumber;
