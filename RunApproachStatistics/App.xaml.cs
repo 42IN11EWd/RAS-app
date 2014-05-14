@@ -64,6 +64,11 @@ namespace RunApproachStatistics
             portThread.Start();
             portThread.Join();
 
+            // Pre-load entity (workaround?)
+            Thread entityPreLoadThread = new Thread(() => { new EditorModule().readLocations(); });
+            entityPreLoadThread.Start();
+            entityPreLoadThread.Join();
+
             //Add a function to show the first screen
             ShowMainScreen();
             ShowHomeView();
