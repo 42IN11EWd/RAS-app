@@ -430,7 +430,14 @@ namespace RunApproachStatistics.ViewModel
             // Create new vault
             vault newVault = new vault();
 
-            String vaultKind = VaultKind; //TODO: check if valid
+            if (VaultKind == null || VaultKind.Equals("") || GetErrorArr("VaultKind") != null)
+            {
+                newVault.vaultkind = null;
+            }
+            else
+            {
+                newVault.vaultkind_id = vaultKindIds[VaultKinds.IndexOf(VaultKind)];
+            }
 
             if (Location == null || Location.Equals("") || GetErrorArr("Location") != null)
             {
@@ -460,13 +467,68 @@ namespace RunApproachStatistics.ViewModel
                 newVault.vaultnumber_id = vaultNumberIds[VaultNumbers.IndexOf(VaultNumber)];
             }
 
+            if (Dscore == null || Dscore.Equals("") || GetErrorArr("Dscore") != null)
+            {
+                newVault.rating_official_D = null;
+            }
+            else
+            {
+                decimal dDecimal = 0;
+                try
+                {
+                    dDecimal = decimal.Parse(Dscore, CultureInfo.InvariantCulture);
+                }
+                catch
+                {
+                    //No problem
+                }
+                //newVault.rating_official_E = dDecimal;
+            }
+
+            if (Escore == null || Escore.Equals("") || GetErrorArr("Escore") != null)
+            {
+                newVault.rating_official_E = null;
+            }
+            else
+            {
+                decimal eDecimal = 0;
+                try
+                {
+                    eDecimal = decimal.Parse(Escore, CultureInfo.InvariantCulture);
+                }
+                catch
+                {
+                    //No problem
+                }
+                //newVault.rating_official_E = eDecimal;
+            }
+
+            if (Penalty == null || Penalty.Equals("") || GetErrorArr("Penalty") != null)
+            {
+                newVault.penalty = null;
+            }
+            else
+            {
+                decimal pDecimal = 0;
+                try
+                {
+                    pDecimal = decimal.Parse(Penalty, CultureInfo.InvariantCulture);
+                }
+                catch
+                {
+                    //No problem
+                }
+                newVault.penalty = pDecimal;
+            }
 
 
             RatingViewModel ratingVM = (RatingViewModel)RatingControl;
             int rating = ratingVM.getScore();
+            newVault.rating_star = rating;
 
-            //cameraModule.createVault(videoCameraController.RecordedVideo, writeBuffer);
-            //videoCameraController.Close();
+            cameraModule.createVault(videoCameraController.RecordedVideo, portController.stopMeasurement(), newVault);
+            videoCameraController.Close();
+
             clearFields();
         }
 
@@ -612,7 +674,7 @@ namespace RunApproachStatistics.ViewModel
                               () => Locations,
                               () =>
                               {
-                                  if ( Locations.Contains(Location))
+                                  if (Locations.Contains(Location))
                                   {
                                       return RuleResult.Valid();
                                   }
