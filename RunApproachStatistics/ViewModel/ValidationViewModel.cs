@@ -34,6 +34,16 @@ namespace RunApproachStatistics.ViewModel
             return NotifyDataErrorInfoAdapter.GetErrors(propertyName);
         }
 
+        public String[] GetErrorArr(string propertyName)
+        {
+            String[] errors = (String[])NotifyDataErrorInfoAdapter.GetErrors(propertyName);
+            if (errors.Length == 0)
+            {
+                errors = null;
+            }
+            return errors;
+        }
+
         public bool HasErrors
         {
             get { return NotifyDataErrorInfoAdapter.HasErrors; }

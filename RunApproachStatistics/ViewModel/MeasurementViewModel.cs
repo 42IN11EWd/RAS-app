@@ -6,6 +6,7 @@ using RunApproachStatistics.MVVM;
 using RunApproachStatistics.Services;
 using RunApproachStatistics.View;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
@@ -151,7 +152,7 @@ namespace RunApproachStatistics.ViewModel
             get { return locationChecked; }
             set
             {
-                vaultKindChecked = value;
+                locationChecked = value;
                 OnPropertyChanged("LocationChecked");
             }
         }
@@ -161,7 +162,7 @@ namespace RunApproachStatistics.ViewModel
             get { return gymnastChecked; }
             set
             {
-                vaultKindChecked = value;
+                gymnastChecked = value;
                 OnPropertyChanged("GymnastChecked");
             }
         }
@@ -171,7 +172,7 @@ namespace RunApproachStatistics.ViewModel
             get { return vaultNumberChecked; }
             set
             {
-                vaultKindChecked = value;
+                vaultNumberChecked = value;
                 OnPropertyChanged("VaultNumberChecked");
             }
         }
@@ -181,7 +182,7 @@ namespace RunApproachStatistics.ViewModel
             get { return ratingChecked; }
             set
             {
-                vaultKindChecked = value;
+                ratingChecked = value;
                 OnPropertyChanged("RatingChecked");
             }
         }
@@ -191,7 +192,7 @@ namespace RunApproachStatistics.ViewModel
             get { return dscoreChecked; }
             set
             {
-                vaultKindChecked = value;
+                dscoreChecked = value;
                 OnPropertyChanged("DscoreChecked");
             }
         }
@@ -201,7 +202,7 @@ namespace RunApproachStatistics.ViewModel
             get { return escoreChecked; }
             set
             {
-                vaultKindChecked = value;
+                escoreChecked = value;
                 OnPropertyChanged("EscoreChecked");
             }
         }
@@ -211,7 +212,7 @@ namespace RunApproachStatistics.ViewModel
             get { return penaltyChecked; }
             set
             {
-                vaultKindChecked = value;
+                penaltyChecked = value;
                 OnPropertyChanged("PenaltyChecked");
             }
         }
@@ -276,6 +277,7 @@ namespace RunApproachStatistics.ViewModel
             set
             {
                 gymnast = value;
+                Validator.Validate(() => Gymnast);
                 OnPropertyChanged("Gymnast");
             }
         }
@@ -286,7 +288,6 @@ namespace RunApproachStatistics.ViewModel
             set
             {
                 gymnasts = value;
-                Validator.Validate(() => Gymnast);
                 OnPropertyChanged("Gymnasts");
             }
         }
@@ -311,43 +312,37 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-
-        [RegularExpression(@"^[0-9]{1,2}\.?[0-9]{0,3}$", ErrorMessage = "Invalid score, must contain max three decimals")]
-        [Range(0.001, 10, ErrorMessage = "Invalid score, must be between 0.01 and 10")]
         public String Dscore
         {
             get { return dscore; }
             set
             {
                 dscore = value;
+                Validator.Validate(() => Dscore);
                 calculateTotalScore();
                 OnPropertyChanged("Dscore");
             }
         }
 
-        [RegularExpression(@"^[0-9]{1,2}\.?[0-9]{0,3}$", ErrorMessage = "Invalid score, must contain max three decimals")]
-        [Range(0.001, 10, ErrorMessage="Invalid score, must be between 0.01 and 10")]
         public String Escore
         {
             get { return escore; }
             set
             {
                 escore = value;
-                //ValidateProperty(value);
+                Validator.Validate(() => Escore);
                 calculateTotalScore();
                 OnPropertyChanged("Escore");
             }
         }
 
-        [RegularExpression(@"^[0-9]{1,2}\.?[0-9]{0,3}$", ErrorMessage = "Invalid penalty score, must contain max three decimals")]
-        [Range(0.001, 10, ErrorMessage = "Invalid penalty score, must be between 0.01 and 10")]
         public String Penalty
         {
             get { return penalty; }
             set
             {
                 penalty = value;
-                //ValidateProperty(value);
+                Validator.Validate(() => Penalty);
                 calculateTotalScore();
                 OnPropertyChanged("Penalty");
             }
@@ -417,19 +412,19 @@ namespace RunApproachStatistics.ViewModel
             String vaultKind = SelectedVaultKind; //TODO: check if valid
 
             String location = Location;
-            if (location == null || location.Equals("") || GetErrors("Location") != null)
+            if (location == null || location.Equals("") || GetErrorArr("Location") != null)
             {
                 location = null;
             }
 
             String gymnast = Gymnast;
-            if (gymnast == null || gymnast.Equals("") || GetErrors("Gymnast") != null)
+            if (gymnast == null || gymnast.Equals("") || GetErrorArr("Gymnast") != null)
             {
                 gymnast = null;
             }
 
             String vaultNumber = VaultNumber;
-            if (vaultNumber == null || vaultNumber.Equals("") || GetErrors("VaultNumber") != null)
+            if (vaultNumber == null || vaultNumber.Equals("") || GetErrorArr("VaultNumber") != null)
             {
                 vaultNumber = null;
             }
@@ -451,17 +446,17 @@ namespace RunApproachStatistics.ViewModel
 
             if (!LocationChecked)
             {
-                Location = null;
+                Location = "";
             }
 
             if (!GymnastChecked)
             {
-                Gymnast = null;
+                Gymnast = "";
             }
 
             if (!VaultNumberChecked)
             {
-                VaultNumber = null; ;
+                VaultNumber = ""; 
             }
 
             if (!RatingChecked)
@@ -469,25 +464,26 @@ namespace RunApproachStatistics.ViewModel
                 RatingControl = new RatingViewModel(_app);
             }
 
-            if (DscoreChecked)
+            if (!DscoreChecked)
             {
-                Dscore = null;
+                Dscore = "";
             }
 
-            if (EscoreChecked)
+            if (!EscoreChecked)
             {
-                Escore = null;
+                Escore = "";
             }
 
-            if (PenaltyChecked)
+            if (!PenaltyChecked)
             {
-                Penalty = null;
+                Penalty = "";
             }
         }
 
         private void calculateTotalScore()
         {
-            if (Dscore != null && Escore != null && !Dscore.Equals("") && !Escore.Equals(""))
+            if (Dscore != null && Escore != null && !Dscore.Equals("") && !Escore.Equals("")
+                && GetErrorArr("Dscore") == null && GetErrorArr("Escore") == null)
             {
                 try
                 {
@@ -569,7 +565,7 @@ namespace RunApproachStatistics.ViewModel
                               () => Locations,
                               () =>
                               {
-                                  if (Locations.Contains(Location))
+                                  if ( Locations.Contains(Location))
                                   {
                                       return RuleResult.Valid();
                                   }
@@ -606,6 +602,66 @@ namespace RunApproachStatistics.ViewModel
                                       return RuleResult.Invalid("Gymnast is not in list");
                                   }
                               });
+
+            Validator.AddRule(() => Escore,
+                              () =>
+                              {
+                                  return checkScore(Escore);
+                              });
+
+            Validator.AddRule(() => Dscore,
+                              () =>
+                              {
+                                  return checkScore(Dscore);
+                              });
+
+            Validator.AddRule(() => Penalty,
+                              () =>
+                              {
+                                    return checkScore(Penalty);
+                              });
+        }
+
+        private RuleResult checkScore(String score)
+        {
+            if (score.Equals(""))
+            {
+                return RuleResult.Valid();
+            }
+            else
+            {
+                float fScore = 0;
+                if (!float.TryParse(score, out fScore))
+                {
+                    return RuleResult.Invalid("Score is not a number");
+                }
+                else
+                {
+                    if (fScore <= 10 && fScore > 0)
+                    {
+                        return RuleResult.Assert(CountDecimalPlaces((decimal)fScore) <= 3, "Score can contain maximal 3 decimals");
+                    }
+                    else
+                    {
+                        return RuleResult.Invalid("Score must be between 0.001 and 10");
+                    }
+                }
+            }
+        }
+
+        private static decimal CountDecimalPlaces(decimal dec)
+        {
+            int[] bits = Decimal.GetBits(dec);
+            int exponent = bits[3] >> 16;
+            int result = exponent;
+            long lowDecimal = bits[0] | (bits[1] >> 8);
+            while ((lowDecimal % 10) == 0)
+            {
+                result--;
+                lowDecimal /= 10;
+            }
+
+            return result;
         }
 
         #endregion

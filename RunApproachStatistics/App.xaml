@@ -93,7 +93,7 @@
                 <Trigger Property="Validation.HasError" Value="true">
                     <Setter Property="ToolTip"
                         Value="{Binding RelativeSource={x:Static RelativeSource.Self},
-                            Path=(Validation.Errors)[0].ErrorContent}"/>
+                            Path=(Validation.Errors).CurrentItem.ErrorContent}"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -103,7 +103,7 @@
                 <Trigger Property="Validation.HasError" Value="true">
                     <Setter Property="ToolTip"
                         Value="{Binding RelativeSource={x:Static RelativeSource.Self},
-                                    Path=(Validation.Errors)[0].ErrorContent}"/>
+                                    Path=(Validation.Errors).CurrentItem.ErrorContent}"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -113,7 +113,7 @@
                 <Trigger Property="Validation.HasError" Value="true">
                     <Setter Property="ToolTip"
                         Value="{Binding RelativeSource={x:Static RelativeSource.Self},
-                                    Path=(Validation.Errors)[0].ErrorContent}"/>
+                                    Path=(Validation.Errors).CurrentItem.ErrorContent}"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
