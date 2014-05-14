@@ -74,16 +74,20 @@ namespace RunApproachStatistics.ViewModel
         {
             get
             {
-                //if (selectedThumbnail == null)
-                //    ButtonEnabled = false;
-                //else
-                //    ButtonEnabled = true;
+                if (selectedThumbnail == null)
+                {
+                    ChangeState = false;
+                }
+                    
+                else
+                {
+                    ChangeState = true;
+                }
                 return selectedThumbnail;
             }
             set
             {
                 selectedThumbnail = value;
-                ChangeState = true;
                 OnPropertyChanged("StarRating");
                 OnPropertyChanged("SelectedThumbnail");
                 OnPropertyChanged("Gymnast");
@@ -280,15 +284,6 @@ namespace RunApproachStatistics.ViewModel
 
             RatingViewModel ratingVM = new RatingViewModel(_app);
             RatingControl = ratingVM;
-
-            if (SelectedThumbnail == null)
-            {
-                ChangeState = false;
-            }
-            else
-            {
-                ChangeState = true;
-            }
             // Useless test data.
             thumbnailCollection = new ObservableCollection<ThumbnailViewModel>();
             List<vault> vaults = vaultModule.getVaults();
@@ -316,27 +311,16 @@ namespace RunApproachStatistics.ViewModel
         }
         public void DeleteAction(object commandParam)
         {
-            //delete selected thumbnails
+            vaultModule.delete(SelectedThumbnail.Vault.vault_id);
+            thumbnailCollection.Remove(SelectedThumbnail);
         }
         public void CancelAction(object commandParam)
         {
-            //cancel current changes to thumbnail(s)
+            SelectedThumbnail = null;
         }
         public void SaveAction(object commandParam)
         {
-            //save changes to thumbnail(s)
-            Object[] commandParams = (Object[])commandParam;
-            //commandParams[7] = float.Parse(commandParams[4].ToString()) + float.Parse(commandParams[5].ToString()) - float.Parse(commandParams[6].ToString());
-            //vault.vaultnumber_id = 1;
-            //vault.gymnast_id = 1;
-            //vault.context = commandParams[3].ToString();
-            //vault.duration = Timespan;
-            //vault.location_id = 1; 
-            vault.vault_id = 1;
-            vault.gymnast_id = 1;
-            vault.duration = 8;
-            vault.deleted = false;
-            vaultModule.update(vault);
+            vaultModule.update(SelectedThumbnail.Vault);
         }
 
         #endregion
