@@ -329,7 +329,7 @@ namespace RunApproachStatistics.ViewModel
             //commandParams[7] = float.Parse(commandParams[4].ToString()) + float.Parse(commandParams[5].ToString()) - float.Parse(commandParams[6].ToString());
             //vault.vaultnumber_id = 1;
             //vault.gymnast_id = 1;
-            vault.context = commandParams[3].ToString();
+            //vault.context = commandParams[3].ToString();
             //vault.duration = Timespan;
             //vault.location_id = 1; 
             vault.vault_id = 1;

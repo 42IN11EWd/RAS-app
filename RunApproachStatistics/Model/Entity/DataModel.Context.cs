@@ -18,7 +18,6 @@ namespace RunApproachStatistics.Model.Entity
         public DataContext()
             : base("name=DataContext")
         {
-            // this.Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -28,8 +27,9 @@ namespace RunApproachStatistics.Model.Entity
     
         public virtual DbSet<location> location { get; set; }
         public virtual DbSet<vaultnumber> vaultnumber { get; set; }
-        public virtual DbSet<vault> vault { get; set; }
         public virtual DbSet<user> user { get; set; }
         public virtual DbSet<gymnast> gymnast { get; set; }
+        public virtual DbSet<vault> vault { get; set; }
+        public virtual DbSet<vaultkind> vaultkind { get; set; }
     }
 }
