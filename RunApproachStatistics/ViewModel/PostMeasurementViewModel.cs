@@ -97,7 +97,6 @@ namespace RunApproachStatistics.ViewModel
             {
                 selectedThumbnail = value;
                 setScores();
-                //OnPropertyChanged("StarRating");
                 ratingVM.RatingValue = (int)SelectedThumbnail.Vault.rating_star;
                 OnPropertyChanged("SelectedThumbnail");
                 OnPropertyChanged("Gymnast");
@@ -107,25 +106,6 @@ namespace RunApproachStatistics.ViewModel
                 OnPropertyChanged("Location");
                 OnPropertyChanged("SelectedVaultKind");
                 OnPropertyChanged("TotalScore");
-            }
-        }
-
-
-        public int StarRating
-        {
-            get
-            {
-                if (SelectedThumbnail != null)
-                {
-                    ratingVM.RatingValue = (int)SelectedThumbnail.Vault.rating_star;
-                    return (int)SelectedThumbnail.Vault.rating_star;
-                }
-                return 0;
-            }
-            set
-            {
-                SelectedThumbnail.Vault.rating_star = ratingVM.RatingValue;
-                OnPropertyChanged("StarRating");
             }
         }
 
@@ -315,8 +295,9 @@ namespace RunApproachStatistics.ViewModel
             menuViewModel.VisibilityLaser = false;
             Menu = menuViewModel;
 
-            RatingViewModel ratingVM = new RatingViewModel(_app);
+            ratingVM = new RatingViewModel(_app);
             RatingControl = ratingVM;
+
             // Useless test data.
             thumbnailCollection = new ObservableCollection<ThumbnailViewModel>();
             List<vault> vaults = vaultModule.getVaults();
