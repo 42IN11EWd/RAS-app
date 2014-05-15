@@ -64,23 +64,21 @@ namespace RunApproachStatistics.Modules
         {
             using (var db = new DataContext())
             {
-                var query = from qVault in db.vault
+                var query = (from qVault in db.vault
                             where qVault.vault_id == vault.vault_id
-                            select qVault;
+                            select qVault).First();
 
-                foreach (vault eVault in query)
-                {
-                    //eVault.context = vault.context;
-                    //eVault.duration = vault.duration;
-                    //eVault.gymnast = vault.gymnast_id;
-                    //eVault.location = vault.location;
-                    eVault.penalty = vault.penalty;
-                    eVault.rating_official_D = vault.rating_official_D;
-                    eVault.rating_official_E = vault.rating_official_E;
-                   // eVault.rating_star = vault.rating_star;
-                    //eVault.timestamp = vault.timestamp;
-                    //eVault.vaultnumber = vault.vaultnumber;
-                }
+                //eVault.context = vault.context;
+                //eVault.duration = vault.duration;
+                //eVault.gymnast = vault.gymnast_id;
+                //eVault.location = vault.location;
+                query.penalty = vault.penalty;
+                query.rating_official_D = vault.rating_official_D;
+                query.rating_official_E = vault.rating_official_E;
+                //eVault.rating_star = vault.rating_star;
+                //eVault.timestamp = vault.timestamp;
+                //query.vaultnumber = vault.vaultnumber;
+                query.vaultnumber_id = 1;
 
                 try
                 {
