@@ -380,6 +380,7 @@ namespace RunApproachStatistics.ViewModel
         }
         public void SaveAction(object commandParam)
         {
+            SelectedThumbnail.Vault.rating_star = ratingVM.RatingValue;
             vaultModule.update(SelectedThumbnail.Vault);
         }
 
