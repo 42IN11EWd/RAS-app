@@ -693,7 +693,7 @@ namespace RunApproachStatistics.ViewModel
                               () => VaultKinds,
                               () =>
                               {
-                                  if (VaultKinds.Contains(VaultKind))
+                                  if (VaultKind == null || VaultKind == "" || VaultKinds.Contains(VaultKind))
                                   {
                                       return RuleResult.Valid();
                                   }
@@ -707,7 +707,7 @@ namespace RunApproachStatistics.ViewModel
                               () => Locations,
                               () =>
                               {
-                                  if (Locations.Contains(Location))
+                                  if (Location == null || Location == "" || Locations.Contains(Location))
                                   {
                                       return RuleResult.Valid();
                                   }
@@ -721,7 +721,7 @@ namespace RunApproachStatistics.ViewModel
                               () => Gymnasts,
                               () =>
                               {
-                                  if (Gymnasts.Contains(Gymnast))
+                                  if (Gymnast == null || Gymnast == "" || Gymnasts.Contains(Gymnast))
                                   {
                                       return RuleResult.Valid();
                                   }
@@ -735,7 +735,7 @@ namespace RunApproachStatistics.ViewModel
                               () => VaultNumbers,
                               () =>
                               {
-                                  if (VaultNumbers.Contains(VaultNumber))
+                                  if (VaultNumber == null || VaultNumber == "" || VaultNumbers.Contains(VaultNumber))
                                   {
                                       return RuleResult.Valid();
                                   }
