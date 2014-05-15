@@ -75,7 +75,7 @@ namespace RunApproachStatistics.Modules
                 query.penalty = vault.penalty;
                 query.rating_official_D = vault.rating_official_D;
                 query.rating_official_E = vault.rating_official_E;
-                //eVault.rating_star = vault.rating_star;
+                query.rating_star = vault.rating_star;
                 //eVault.timestamp = vault.timestamp;
                 //query.vaultnumber = vault.vaultnumber;
                 query.vaultnumber_id = 1;

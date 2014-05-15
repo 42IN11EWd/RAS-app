@@ -346,8 +346,16 @@ namespace VideoSource
 			// Callback method that receives a pointer to the sample buffer
 			public int BufferCB(double SampleTime, IntPtr pBuffer, int BufferLen)
 			{
-				// create new image
-				System.Drawing.Bitmap img = new Bitmap(width, height, PixelFormat.Format24bppRgb);
+                System.Drawing.Bitmap img = null;
+				try
+                {
+                    // create new image
+                    img = new Bitmap(width, height, PixelFormat.Format24bppRgb);
+                }
+                catch(Exception e)
+                {
+                    return 0;
+                }
 
 				// lock bitmap data
 				BitmapData	bmData = img.LockBits(

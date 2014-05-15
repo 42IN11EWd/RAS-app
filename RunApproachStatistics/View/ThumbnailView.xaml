@@ -9,6 +9,7 @@
         <Label Background="White" BorderBrush="Black" BorderThickness="1,0,1,1" Content="{Binding Gymnast}" FontSize="16" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Height="30" Margin="10,143,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="256"/>
         <Label Background="White" BorderBrush="Black" BorderThickness="1,0,1,1" Content="{Binding Datetime}" FontSize="16" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Height="30" Margin="10,173,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="256"/>
         <Label Background="White" BorderBrush="Black" BorderThickness="1,0,1,1" Content="{Binding VaultNumber}" FontSize="16" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Height="30" Margin="10,203,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="256"/>
-        
+        <Label Content="LIVE" BorderBrush="Red" BorderThickness="15" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="223" Width="256" FontSize="60" Visibility="{Binding Path=LiveLabelVisibility}"/>
+
     </Grid>
 </UserControl>
