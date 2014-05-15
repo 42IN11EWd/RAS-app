@@ -134,7 +134,7 @@ namespace RunApproachStatistics.ViewModel
         {
             get {
                 if (SelectedThumbnail != null)
-                    return SelectedThumbnail.Vault.gymnast.name;
+                    return SelectedThumbnail.Vault.gymnast != null ? SelectedThumbnail.Vault.gymnast.name : "";
                 return "";
             }
             set
@@ -179,7 +179,7 @@ namespace RunApproachStatistics.ViewModel
             get
             {
                 if (SelectedThumbnail != null)
-                    return SelectedThumbnail.Vault.vaultnumber.code;
+                    return SelectedThumbnail.Vault.vaultnumber!= null ? SelectedThumbnail.Vault.vaultnumber.code : "";
                 return "";
             }
             set
@@ -194,7 +194,7 @@ namespace RunApproachStatistics.ViewModel
             get
             {
                 if (SelectedThumbnail != null)
-                    return SelectedThumbnail.Vault.location.name;
+                    return SelectedThumbnail.Vault.location != null ? SelectedThumbnail.Vault.location.name : "";
                 return "";
             }
             set
