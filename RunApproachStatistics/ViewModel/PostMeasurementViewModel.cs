@@ -1,4 +1,5 @@
-﻿using RunApproachStatistics.Controllers;
+﻿using MvvmValidation;
+using RunApproachStatistics.Controllers;
 using RunApproachStatistics.Model.Entity;
 using RunApproachStatistics.Modules;
 using RunApproachStatistics.Modules.Interfaces;
@@ -6,13 +7,14 @@ using RunApproachStatistics.MVVM;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace RunApproachStatistics.ViewModel
 {
-    public class PostMeasurementViewModel : AbstractViewModel
+    public class PostMeasurementViewModel : ValidationViewModel
     {
         private IApplicationController _app;
         private PropertyChangedBase menu;
@@ -26,6 +28,8 @@ namespace RunApproachStatistics.ViewModel
 
         private vault vault = new vault();
         private bool changeState;
+
+        private String totalscore;
 
         #region Modules
 
@@ -227,6 +231,8 @@ namespace RunApproachStatistics.ViewModel
             set
             {
                 SelectedThumbnail.Vault.rating_official_D = value;
+                Validator.Validate(() => DScore);
+                calculateTotalScore();
                 OnPropertyChanged("DScore");
             }
         }
@@ -242,6 +248,8 @@ namespace RunApproachStatistics.ViewModel
             set
             {
                 SelectedThumbnail.Vault.rating_official_E = value;
+                Validator.Validate(() => EScore);
+                calculateTotalScore();
                 OnPropertyChanged("EScore");
             }
         }
@@ -257,7 +265,24 @@ namespace RunApproachStatistics.ViewModel
             set
             {
                 SelectedThumbnail.Vault.penalty = value;
+                Validator.Validate(() => Penalty);
+                calculateTotalScore();
                 OnPropertyChanged("Penalty");
+            }
+        }
+
+        public String TotalScore
+        {
+            get
+            {
+                if (SelectedThumbnail != null)
+                    return totalscore;
+                return "";
+            }
+            set
+            {
+                totalscore = value;
+                OnPropertyChanged("TotalScore");
             }
         }
 
@@ -300,7 +325,41 @@ namespace RunApproachStatistics.ViewModel
             vaultKind[1] = "Training";
             vaultKind[2] = "European championship";
 
-            
+            // Set validation
+            SetValidationRules();
+        }
+
+        private void calculateTotalScore()
+        {
+            if (DScore != null && EScore != null && !DScore.Equals("") && !EScore.Equals("")
+                && GetErrorArr("DScore") == null && GetErrorArr("EScore") == null)
+            {
+                try
+                {
+                    float dscore = float.Parse(DScore.ToString(), CultureInfo.InvariantCulture);
+                    float escore = float.Parse(EScore.ToString(), CultureInfo.InvariantCulture);
+                    float penalty = 0;
+
+                    if (Penalty != null && !Penalty.Equals(""))
+                    {
+                        try
+                        {
+                            penalty = float.Parse(Penalty.ToString(), CultureInfo.InvariantCulture);
+                        }
+                        catch
+                        {
+                            //No problem
+                        }
+                    }
+
+                    float totalscore = (dscore + escore) - penalty;
+                    TotalScore = totalscore.ToString("0.000");
+                }
+                catch (Exception e)
+                {
+                    TotalScore = "";
+                }
+            }
         }
 
         #region RelayCommands
@@ -321,6 +380,66 @@ namespace RunApproachStatistics.ViewModel
         public void SaveAction(object commandParam)
         {
             vaultModule.update(SelectedThumbnail.Vault);
+        }
+
+        #endregion
+
+        #region Validation rules
+
+        private void SetValidationRules()
+        {
+            Validator.AddRule(() => EScore,
+                              () =>
+                              {
+                                  return checkScore(EScore.ToString());
+                              });
+
+            Validator.AddRule(() => DScore,
+                              () =>
+                              {
+                                  return checkScore(DScore.ToString());
+                              });
+
+            Validator.AddRule(() => Penalty,
+                              () =>
+                              {
+                                  return checkScore(Penalty.ToString());
+                              });
+        }
+
+        private RuleResult checkScore(String score)
+        {
+            if (score.Equals(""))
+            {
+                return RuleResult.Valid();
+            }
+            else
+            {
+                float fScore = 0;
+                if (!float.TryParse(score, out fScore))
+                {
+                    return RuleResult.Invalid("Score is not a number");
+                }
+                else
+                {
+                    return RuleResult.Assert(CountDecimalPlaces((decimal)fScore) <= 3, "Score can contain maximal 3 decimals");
+                }
+            }
+        }
+
+        private static decimal CountDecimalPlaces(decimal dec)
+        {
+            int[] bits = Decimal.GetBits(dec);
+            int exponent = bits[3] >> 16;
+            int result = exponent;
+            long lowDecimal = bits[0] | (bits[1] >> 8);
+            while ((lowDecimal % 10) == 0)
+            {
+                result--;
+                lowDecimal /= 10;
+            }
+
+            return result;
         }
 
         #endregion
