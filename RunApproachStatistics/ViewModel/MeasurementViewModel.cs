@@ -439,8 +439,9 @@ namespace RunApproachStatistics.ViewModel
             // Set thumbnail collection
             thumbnailCollection = new ObservableCollection<ThumbnailViewModel>();
             // Add empty thumbnail for live 
-            thumbnailCollection.Add(new ThumbnailViewModel(_app));
-            thumbnailCollection.Add(new ThumbnailViewModel(_app));
+            ThumbnailViewModel liveThumbnail = new ThumbnailViewModel(_app);
+            liveThumbnail.setLive(true);
+            thumbnailCollection.Add(liveThumbnail);
         }
 
         private void stopMeasuring()
