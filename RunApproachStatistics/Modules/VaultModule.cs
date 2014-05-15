@@ -259,7 +259,7 @@ namespace RunApproachStatistics.Modules
             create(vault);
 
                 // Create a new thread to save the video
-                Worker workerObject = new Worker(filePath, frames);
+                Worker workerObject = new Worker(filePath, fileName, frames);
                 Thread workerThread = new Thread(workerObject.DoWork);
 
                 // Start the thread.
@@ -291,12 +291,14 @@ namespace RunApproachStatistics.Modules
         public class Worker
         {
             private String filePath;
+            private String fileName;
             private VideoFileWriter writer;
             private List<Bitmap> frames;
 
-            public Worker(String filePath, List<Bitmap> frames)
+            public Worker(String filePath, String fileName, List<Bitmap> frames)
             {
                 this.filePath = filePath;
+                this.fileName = fileName;
                 this.frames = frames;
             }
 
@@ -319,9 +321,9 @@ namespace RunApproachStatistics.Modules
 
                     // Upload the file to the server.
                     WebClient myWebClient = new WebClient();
-                    NetworkCredential myCredentials = new NetworkCredential("username", "password");
+                    NetworkCredential myCredentials = new NetworkCredential("", "");
                     myWebClient.Credentials = myCredentials;
-                    byte[] responseArray = myWebClient.UploadFile("ftp://student.aii.avans.nl/GRP/42IN11EWd/Videos", filePath);
+                    byte[] responseArray = myWebClient.UploadFile("ftp://student.aii.avans.nl/GRP/42IN11EWd/Videos/" + fileName, filePath);
 
                     String temp = System.Text.Encoding.ASCII.GetString(responseArray);
 
