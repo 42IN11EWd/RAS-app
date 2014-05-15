@@ -21,7 +21,6 @@ namespace RunApproachStatistics.ViewModel
         private PropertyChangedBase ratingControl;
         private RatingViewModel ratingVM;
 
-        private String[] vaultKind = new String[3];
         private ObservableCollection<ThumbnailViewModel> thumbnailCollection;
         private ThumbnailViewModel selectedThumbnail;
         private String selectedVaultKind;
@@ -29,11 +28,23 @@ namespace RunApproachStatistics.ViewModel
         private vault vault = new vault();
         private bool changeState;
 
-        private String totalscore;
-
-        private String escore;
+        private String vaultKind;
+        private String location;
+        private String gymnast;
+        private String vaultNumber;
         private String dscore;
+        private String escore;
         private String penalty;
+        private String totalscore;
+        private List<String> locations;
+        private List<String> gymnasts;
+        private List<String> vaultNumbers;
+        private List<String> vaultKinds;
+        private List<int> locationIds;
+        private List<int> gymnastIds;
+        private List<int> vaultNumberIds;
+        private List<int> vaultKindIds;
+
 
         #region Modules
 
@@ -129,6 +140,16 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
+        public List<String> Gymnasts
+        {
+            get { return gymnasts; }
+            set
+            {
+                gymnasts = value;
+                OnPropertyChanged("Gymnasts");
+            }
+        }
+
         public DateTime Datetime
         {
             get
@@ -174,6 +195,16 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
+        public List<String> VaultNumbers
+        {
+            get { return vaultNumbers; }
+            set
+            {
+                vaultNumbers = value;
+                OnPropertyChanged("VaultNumbers");
+            }
+        }
+
         public String Location
         {
             get
@@ -189,7 +220,17 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        public String[] VaultKind
+        public List<String> Locations
+        {
+            get { return locations; }
+            set
+            {
+                locations = value;
+                OnPropertyChanged("Locations");
+            }
+        }
+
+        public String VaultKind
         {
             get { return vaultKind; }
             set
@@ -199,13 +240,13 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        public String SelectedVaultKind
+        public List<String> VaultKinds
         {
-            get { return selectedVaultKind; }
+            get { return vaultKinds; }
             set
             {
-                selectedVaultKind = value;
-                OnPropertyChanged("SelectedVaultKind");
+                vaultKinds = value;
+                OnPropertyChanged("VaultKinds");
             }
         }
 
@@ -305,13 +346,21 @@ namespace RunApproachStatistics.ViewModel
                 });
             }
 
-            vaultKind[0] = "Competition";
-            vaultKind[1] = "Training";
-            vaultKind[2] = "European championship";
+            //load autocompletion data
+            VaultKinds = vaultModule.getVaultKindNames();
+            vaultKindIds = vaultModule.getVaultKindIds();
+
+            Locations = vaultModule.getLocationNames();
+            locationIds = vaultModule.getLocationIds();
+
+            Gymnasts = vaultModule.getGymnastNames();
+            gymnastIds = vaultModule.getGymnastIds();
+
+            VaultNumbers = vaultModule.getVaultNumberNames();
+            vaultNumberIds = vaultModule.getVaultNumberIds();
 
             // Set validation
-            SetValidationRules();
-        
+            SetValidationRules();        
         }
 
         private void setScores()
