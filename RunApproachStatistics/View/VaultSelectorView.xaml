@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:v="clr-namespace:RunApproachStatistics.View"
              mc:Ignorable="d" 
              d:DesignWidth="1920" d:DesignHeight="1080" Background="White">
@@ -20,7 +21,7 @@
 
             <!-- START Column 1 -->
             <!-- Start scrollviewer(?) -->
-            <ListView Name="VaultView"  Grid.Column="1" SelectionMode="Single"  SelectedItem="{Binding Path=SelectedThumbnail}" ItemsSource="{Binding Path=ThumbnailCollection}" Margin="10,10,0,0" Height="684" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1189">
+            <ListView x:Name="VaultView"  Grid.Column="1" SelectionMode="Multiple"  ItemsSource="{Binding Path=ThumbnailCollection}" Margin="10,10,0,0" Height="684" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1189">
                 <!-- ItemsPanelTemplate -->
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -34,6 +35,11 @@
                         <v:ThumbnailView/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding Mode=OneWay, Path=SelectedItemsChangedCommand}" CommandParameter="{Binding Path=SelectedItems, ElementName=VaultView}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
             </ListView>
             <!-- End scrollviewer -->
 
