@@ -114,17 +114,12 @@ namespace RunApproachStatistics.ViewModel
             get
             {
                 if (SelectedThumbnail != null)
+                {
                     if (SelectedThumbnail.Vault.gymnast != null)
                     {
-                        if (SelectedThumbnail.Vault.gymnast.surname_prefix != null)
-                        {
-                            return SelectedThumbnail.Vault.gymnast != null ? SelectedThumbnail.Vault.gymnast.name + " " + SelectedThumbnail.Vault.gymnast.surname_prefix + " " + SelectedThumbnail.Vault.gymnast.surname : "";
-                        }
-                        else
-                        {
-                            return SelectedThumbnail.Vault.gymnast != null ? SelectedThumbnail.Vault.gymnast.name + " " + SelectedThumbnail.Vault.gymnast.surname : "";
-                        }
+                        return SelectedThumbnail.Vault.gymnast.name + " " + (SelectedThumbnail.Vault.gymnast.surname_prefix != null ? SelectedThumbnail.Vault.gymnast.surname_prefix + " " : "") + SelectedThumbnail.Vault.gymnast.surname;
                     }
+                }
                 return "";
             }
             set
