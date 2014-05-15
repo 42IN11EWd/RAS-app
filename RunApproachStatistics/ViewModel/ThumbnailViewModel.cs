@@ -3,11 +3,13 @@ using RunApproachStatistics.Model.Entity;
 using RunApproachStatistics.MVVM;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace RunApproachStatistics.ViewModel
 {
@@ -32,11 +34,14 @@ namespace RunApproachStatistics.ViewModel
                 OnPropertyChanged("Gymnast");
                 OnPropertyChanged("Datetime");
                 OnPropertyChanged("VaultNumber");
+
+                setThumbnail();
             }
         }
+
         public String Gymnast
         {
-            get { return vault.gymnast.name; }
+            get { return vault.gymnast != null ? vault.gymnast.name : ""; }
         }
 
         public String Datetime
@@ -46,7 +51,7 @@ namespace RunApproachStatistics.ViewModel
 
         public String VaultNumber
         {
-            get { return vault.vaultnumber.code; }
+            get { return vault.vaultnumber != null ? vault.vaultnumber.code : ""; }
         }
 
         private System.Drawing.Brush selectionBackground;
@@ -106,6 +111,24 @@ namespace RunApproachStatistics.ViewModel
             else
             {
                 SelectionBackground = System.Drawing.Brushes.Transparent;
+            }
+        }
+
+        private void setThumbnail()
+        {
+            try
+            {
+                BitmapImage biImg = new BitmapImage();
+                MemoryStream ms = new MemoryStream(vault.thumbnail);
+                biImg.BeginInit();
+                biImg.StreamSource = ms;
+                biImg.EndInit();
+
+                ThumbnailImage = biImg as ImageSource;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
             }
         }
 

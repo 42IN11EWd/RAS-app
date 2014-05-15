@@ -423,10 +423,7 @@ namespace RunApproachStatistics.ViewModel
         }
 
         private void stopMeasuring()
-        {
-            //List<String> writeBuffer = portController.stopMeasurement();
-            //videoCameraController.StopCapture();
-            
+        {            
             // Create new vault
             vault newVault = new vault();
 
@@ -525,6 +522,8 @@ namespace RunApproachStatistics.ViewModel
             RatingViewModel ratingVM = (RatingViewModel)RatingControl;
             int rating = ratingVM.getScore();
             newVault.rating_star = rating;
+
+            newVault.timestamp = DateTime.Now;
 
             List<String> writeBuffer = portController.stopMeasurement();
             videoCameraController.StopCapture();
