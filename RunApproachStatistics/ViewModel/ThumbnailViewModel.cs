@@ -41,7 +41,21 @@ namespace RunApproachStatistics.ViewModel
 
         public String Gymnast
         {
-            get { return vault.gymnast != null ? vault.gymnast.name : ""; }
+            get 
+            {
+                if (vault.gymnast != null)
+                {
+                    if (vault.gymnast.surname_prefix != null)
+                    {
+                        return vault.gymnast != null ? vault.gymnast.name + " " + vault.gymnast.surname_prefix + " " + vault.gymnast.surname : ""; 
+                    }
+                    else
+                    {
+                        return vault.gymnast != null ? vault.gymnast.name + " " + vault.gymnast.surname : ""; 
+                    }
+                }
+                return "";
+            }
         }
 
         public String Datetime
