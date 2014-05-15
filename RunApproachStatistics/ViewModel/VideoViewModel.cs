@@ -6,6 +6,7 @@ using RunApproachStatistics.View;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,31 +22,28 @@ namespace RunApproachStatistics.ViewModel
 {
     public class VideoViewModel : AbstractViewModel
     {
+        private IApplicationController _app;
         private BitmapImage pauseImage = new BitmapImage(new Uri(@"/Images/videoControl_pause.png", UriKind.Relative));
         private BitmapImage playImage = new BitmapImage(new Uri(@"/Images/videoControl_play.png", UriKind.Relative));
-        private IApplicationController _app;
+        private BitmapImage playButtonImage; 
+        
         private MediaElement _video;
+        private DispatcherTimer timer;
 
-        public MediaElement Video
-        {
-            get { return _video; }
-            set { 
-                _video = value;
-                OnPropertyChanged("Video");
-            }
-        }
-        DispatcherTimer timer;
-
-
-
-        private BitmapImage playButtonImage;
-
-        private Boolean isPlaying;
+        private bool dragging = false;
+        private bool isPlaying;
+        private Double currentPosition;
+        private Double maximum;
+        private Double playbackSpeed;
+        private String currentTime;
+        private String totalTime;
+        private String playbackSpeedString;
 
         public Boolean IsPlaying
         {
             get { return isPlaying; }
-            set { 
+            set
+            {
                 isPlaying = value;
                 if (value)
                 {
@@ -55,38 +53,77 @@ namespace RunApproachStatistics.ViewModel
                 {
                     PlayButtonImage = playImage;
                 }
-                
             }
         }
+
+#region DataBinding
+        public RelayCommand PlayClickCommand { get; private set; }
+
+        public RelayCommand StopClickCommand { get; private set; }
+
+        public RelayCommand ForwardClickCommand { get; private set; }
+
+        public RelayCommand BackwardClickCommand { get; private set; }
         
-        private String currentTime;
-        private String totalTime;
-        private Double currentPosition;
+        public RelayCommand MouseUpCommand { get; private set; }
+
+        public RelayCommand MouseDownCommand { get; private set; }
+
+        public MediaElement Video
+        {
+            get { return _video; }
+            set
+            {
+                _video = value;
+                OnPropertyChanged("Video");
+            }
+        }
+
+        public String PlaybackSpeedString
+        {
+            get { return playbackSpeedString; }
+            set { playbackSpeedString = value;
+            OnPropertyChanged("PlaybackSpeedString");
+            }
+        }       
+
+        public Double PlaybackSpeed
+        {
+            get { return playbackSpeed; }
+            set
+            {
+                playbackSpeed = value;
+                Video.SpeedRatio = value;
+                PlaybackSpeedString = Math.Round(playbackSpeed, 2).ToString("0.00", CultureInfo.InvariantCulture);
+                OnPropertyChanged("PlaybackSpeed");
+            }
+        }
 
         public Double CurrentPosition
         {
             get { return currentPosition; }
-            set { currentPosition = value;
-            if (dragging)
+            set
             {
-                TimeSpan ts = TimeSpan.FromMilliseconds(value);
-                Video.Position = ts;               
-            }
+                currentPosition = value;
+                if (dragging)
+                {
+                    TimeSpan ts = TimeSpan.FromMilliseconds(value);
+                    Video.Position = ts;
+                }
                 OnPropertyChanged("CurrentPosition");
             }
         }
-        private Double maximum;
 
         public Double Maximum
         {
             get { return maximum; }
-            set { maximum = value;
+            set
+            {
+                maximum = value;
 
-            OnPropertyChanged("Maximum");
+                OnPropertyChanged("Maximum");
             }
         }
-
-        bool dragging = false;
 
         public BitmapImage PlayButtonImage
         {
@@ -101,7 +138,9 @@ namespace RunApproachStatistics.ViewModel
         public String CurrentTime
         {
             get { return currentTime; }
-            set { currentTime = value;
+            set
+            {
+                currentTime = value;
                 OnPropertyChanged("CurrentTime");
             }
         }
@@ -116,22 +155,11 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
+#endregion
 
-        public RelayCommand PlayClickCommand { get; private set; }
-
-        public RelayCommand ForwardClickCommand { get; private set; }
-
-        public RelayCommand BackwardClickCommand { get; private set; }
-
-        public RelayCommand ScrubbingCommand { get; private set; }
-
-        public RelayCommand MouseUpCommand { get; private set; }
-
-        public RelayCommand MouseDownCommand { get; private set; }
-
-        public VideoViewModel(IApplicationController app) : base()
-        
-{
+        public VideoViewModel(IApplicationController app)
+            : base()
+        {
             Console.WriteLine("VideoViewModel");
             _app = app;
             IsPlaying = false;
@@ -141,18 +169,25 @@ namespace RunApproachStatistics.ViewModel
                 VerticalAlignment = VerticalAlignment.Stretch,
                 Stretch = System.Windows.Media.Stretch.Fill,
                 ScrubbingEnabled = true,
-                LoadedBehavior = MediaState.Manual            
+                LoadedBehavior = MediaState.Manual
             };
-            Video.Loaded += Video_Loaded;            
-            
+            Video.Loaded += Video_Loaded;
+            Video.MediaEnded += Video_Ended;
+
+            PlaybackSpeed = 1;
             CurrentTime = MillisecondsToTimespan(0);
         }
 
+        /// <summary>
+        /// Show first frame from video, init Times and start timer to update slider.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Video_Loaded(object sender, RoutedEventArgs e)
         {
             // Play and pause to show first frame instead of black screen
             Video.Play();
-            Video.Pause();
+            Video.Pause();           
             // Set TotalTime
             while (!Video.NaturalDuration.HasTimeSpan)
             {
@@ -162,72 +197,122 @@ namespace RunApproachStatistics.ViewModel
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMilliseconds(20);
             timer.Tick += new EventHandler(timer_Tick);
-            timer.Start();            
+            timer.Start();
         }
 
-                
+        /// <summary>
+        /// Stop video when it has reached its end.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Video_Ended(object sender, RoutedEventArgs e)
+        {
+            Stop();            
+        }
+
+        /// <summary>
+        /// Play or pause video when play/pause button is pressed
+        /// </summary>
+        /// <param name="commandParam"></param>
         public void PlayMedia(object commandParam)
         {
             if (IsPlaying)
             {
-                Video.SpeedRatio = 1;
                 Pause();
             }
             else
             {
-                Video.SpeedRatio = 1;
                 Play();
             }
             IsPlaying = !IsPlaying;
         }
 
-        public void Play()
+        /// <summary>
+        /// Stop video when stop button has been pressed
+        /// </summary>
+        /// <param name="commandParam"></param>
+        public void StopMedia(object commandParam)
         {
-            //IsPlaying = true;
-            Video.Play();
-            //timer.Start();
+            Stop();
         }
-
-        public void Pause()
-        {
-           // IsPlaying = false;
-            Video.Pause();
-            //timer.Stop();
-        }
-
-        public void Stop()
-        {
-            IsPlaying = false;
-            Video.Stop();
-            timer.Stop();
-        }
-
+             
+        /// <summary>
+        /// Move to next frame when forward button has been pressed
+        /// </summary>
+        /// <param name="commandParam"></param>
         public void ForwardMedia(object commandParam)
         {
-            Video.SpeedRatio = 0.5;
-            IsPlaying = true;
-            Play();            
+            IsPlaying = false;
+            Pause();
+            Double next = CurrentPosition + 40;
+            if (next > Maximum)
+            {
+                next = Maximum;
+            }
+            dragging = true;
+            CurrentPosition = next;
+            dragging = false;
         }
 
+        /// <summary>
+        /// Move to previous frame when backward button has been pressed
+        /// </summary>
+        /// <param name="commandParam"></param>
         public void BackwardMedia(object commandParam)
         {
-            //IsPlaying = true;
-            //Video.SpeedRatio = -2;
-            //Video.Play();
+            IsPlaying = false;
+            Pause();
+            Double prev = CurrentPosition - 40;
+            if (prev < 0)
+            {
+                prev = 0;
+            }
+            dragging = true;
+            CurrentPosition = prev;
+            dragging = false;
         }
 
+        /// <summary>
+        /// Pause video when slider is 'grabbed'
+        /// </summary>
+        /// <param name="commandParam"></param>
         public void MouseDown(object commandParam)
         {
             Pause();
             dragging = true;
         }
 
+        /// <summary>
+        /// Unpause video if video was playing and slider has been released
+        /// </summary>
+        /// <param name="commandParam"></param>
         public void MouseUp(object commandParam)
         {
             dragging = false;
             if (IsPlaying) { Play(); }
         }
-        
+
+        public void Play()
+        {
+            Video.Play();
+        }
+
+        public void Pause()
+        {
+            Video.Pause();
+        }
+
+        public void Stop()
+        {
+            IsPlaying = false;
+            Video.Stop();
+        }
+
+        /// <summary>
+        /// Convert milliseconds to a time string
+        /// </summary>
+        /// <param name="ms"></param>
+        /// <returns>00:00:000 formatted string</returns>
         private String MillisecondsToTimespan(double ms)
         {
             TimeSpan t = TimeSpan.FromMilliseconds(ms);
@@ -237,6 +322,11 @@ namespace RunApproachStatistics.ViewModel
                                     t.Milliseconds);
         }
 
+        /// <summary>
+        /// Update slider while video is playing
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void timer_Tick(object sender, EventArgs e)
         {
             // Check if the movie finished calculate it's total time
@@ -255,16 +345,14 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        
-
         protected override void initRelayCommands()
         {
             PlayClickCommand = new RelayCommand(PlayMedia);
+            StopClickCommand = new RelayCommand(StopMedia);
             ForwardClickCommand = new RelayCommand(ForwardMedia);
             BackwardClickCommand = new RelayCommand(BackwardMedia);
             MouseUpCommand = new RelayCommand(MouseUp);
             MouseDownCommand = new RelayCommand(MouseDown);
         }
-
     }
 }

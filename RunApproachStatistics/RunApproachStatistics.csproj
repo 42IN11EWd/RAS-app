@@ -413,6 +413,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Resource Include="Images\Logo.png" />
+    <Resource Include="Images\videoControl_stop.png" />
     <Content Include="postproc-52.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
