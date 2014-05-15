@@ -97,7 +97,8 @@ namespace RunApproachStatistics.ViewModel
             {
                 selectedThumbnail = value;
                 setScores();
-                OnPropertyChanged("StarRating");
+                //OnPropertyChanged("StarRating");
+                ratingVM.RatingValue = (int)SelectedThumbnail.Vault.rating_star;
                 OnPropertyChanged("SelectedThumbnail");
                 OnPropertyChanged("Gymnast");
                 OnPropertyChanged("Datetime");
