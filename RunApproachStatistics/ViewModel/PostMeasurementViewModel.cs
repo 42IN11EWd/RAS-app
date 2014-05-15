@@ -109,25 +109,6 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-
-        //public int StarRating
-        //{
-        //    get
-        //    {
-        //        if (SelectedThumbnail != null)
-        //        {
-        //            ratingVM.RatingValue = (int)SelectedThumbnail.Vault.rating_star;
-        //            return (int)SelectedThumbnail.Vault.rating_star;
-        //        }
-        //        return 0;
-        //    }
-        //    set
-        //    {
-        //        SelectedThumbnail.Vault.rating_star = ratingVM.RatingValue;
-        //        OnPropertyChanged("StarRating");
-        //    }
-        //}
-
         public String Gymnast
         {
             get
