@@ -16,12 +16,14 @@ namespace RunApproachStatistics.ViewModel
     public class ThumbnailViewModel : AbstractViewModel
     {
         private IApplicationController _app;
-        private vault vault = new vault(); 
+        private vault vault = new vault();
+        private Visibility liveLabelVisibility;
 
         public ThumbnailViewModel(IApplicationController app)
             : base()
         {
             _app = app;
+            LiveLabelVisibility = Visibility.Hidden;
         }
 
         public vault Vault
@@ -36,6 +38,16 @@ namespace RunApproachStatistics.ViewModel
                 OnPropertyChanged("VaultNumber");
 
                 setThumbnail();
+            }
+        }
+
+        public Visibility LiveLabelVisibility
+        {
+            get { return liveLabelVisibility; }
+            set 
+            { 
+                liveLabelVisibility = value;
+                OnPropertyChanged("LiveLabelVisibility");
             }
         }
 
@@ -140,6 +152,18 @@ namespace RunApproachStatistics.ViewModel
                 {
                     Console.WriteLine(e);
                 }
+            }
+        }
+
+        public void setLive(Boolean isLive)
+        {
+            if (isLive)
+            {
+                LiveLabelVisibility = Visibility.Visible;
+            }
+            else
+            {
+                LiveLabelVisibility = Visibility.Hidden;
             }
         }
 
