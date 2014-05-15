@@ -361,7 +361,11 @@ namespace RunApproachStatistics.ViewModel
 
         public void SaveChanges(object commandParam)
         {
-            vaultModule.update(SelectedThumbnails[0].Vault);
+            for (int i = 0; i < SelectedThumbnails.Count; i++ )
+            {
+                vaultModule.update(SelectedThumbnails[i].Vault);
+            }
+                
             SelectedThumbnails.Clear();
         }
 
@@ -393,8 +397,12 @@ namespace RunApproachStatistics.ViewModel
             }
             if (_app.IsLoggedIn)
             {
-                vaultModule.delete(SelectedThumbnails[0].Vault.vault_id);
-                thumbnailCollection.Remove(SelectedThumbnails[0]);
+                for (int i = 0; i < SelectedThumbnails.Count; i++ )
+                {
+                    vaultModule.delete(SelectedThumbnails[i].Vault.vault_id);
+                    thumbnailCollection.Remove(SelectedThumbnails[i]);
+                }
+                    
             }
 
         }
