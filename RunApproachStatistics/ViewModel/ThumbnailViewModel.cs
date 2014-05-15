@@ -88,6 +88,7 @@ namespace RunApproachStatistics.ViewModel
                 thumbnailImage = value;
                 OnPropertyChanged("ThumbnailImage");
                 OnPropertyChanged("HasThumnailImage");
+                OnPropertyChanged("NoThumbnailRectangle");
             }
         }
 
@@ -96,20 +97,9 @@ namespace RunApproachStatistics.ViewModel
             get { return ThumbnailImage != null ? Visibility.Visible : Visibility.Hidden; }
         }
 
-        private Visibility liveVaultText;
-        public Visibility LiveVaultText
+        public Visibility NoThumbnailRectangle
         {
-            get { return liveVaultText; }
-            set
-            {
-                liveVaultText = value;
-                OnPropertyChanged("LiveVaultText");
-            }
-        }
-
-        public void setTypeVault(Boolean isLiveVault)
-        {
-            LiveVaultText = (isLiveVault ? Visibility.Hidden : Visibility.Visible);
+            get { return ThumbnailImage == null ? Visibility.Visible : Visibility.Hidden; }
         }
 
         public void toggleSelection(String typeOfSelection)
@@ -130,19 +120,30 @@ namespace RunApproachStatistics.ViewModel
 
         private void setThumbnail()
         {
-            try
+            if (vault.thumbnail != null)
             {
-                BitmapImage biImg = new BitmapImage();
-                MemoryStream ms = new MemoryStream(vault.thumbnail);
-                biImg.BeginInit();
-                biImg.StreamSource = ms;
-                biImg.EndInit();
+                try
+                {
+                    using (var ms = new MemoryStream(vault.thumbnail))
+                    {
+                        BitmapImage image = new BitmapImage();
+                        image.BeginInit();
+                        image.CacheOption = BitmapCacheOption.OnLoad;
+                        image.StreamSource = ms;
 
-                ThumbnailImage = biImg as ImageSource;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
+                        //dimensies van de image in de xaml
+                        image.DecodePixelHeight = 133;
+                        image.DecodePixelWidth = 256;
+
+                        image.EndInit();
+
+                        ThumbnailImage = image;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
             }
         }
 

@@ -6,12 +6,15 @@ using RunApproachStatistics.Services;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Interop;
 using System.Windows.Media.Imaging;
 
 namespace RunApproachStatistics.Modules
@@ -232,8 +235,16 @@ namespace RunApproachStatistics.Modules
             //generate thumbnail
             try
             {
-                ImageConverter converter = new ImageConverter();
-                vault.thumbnail =  (byte[])converter.ConvertTo(frames[30], typeof(byte[]));
+                BitmapImage bImage = bmpToBitmapImage(frames[30]);
+                byte[] data = null;
+                JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create(bImage));
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    encoder.Save(ms);
+                    data = ms.ToArray();
+                    vault.thumbnail = data;
+                }
             }
             catch (Exception e)
             {
@@ -316,6 +327,22 @@ namespace RunApproachStatistics.Modules
                 {
                     Console.Write(e.StackTrace);
                 }
+            }
+        }
+
+        private BitmapImage bmpToBitmapImage(Bitmap bmp)
+        {
+            using (MemoryStream memory = new MemoryStream())
+            {
+                bmp.Save(memory, ImageFormat.Bmp);
+                memory.Position = 0;
+                BitmapImage bitmapImage = new BitmapImage();
+                bitmapImage.BeginInit();
+                bitmapImage.StreamSource = memory;
+                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapImage.EndInit();
+
+                return bitmapImage;
             }
         }
 
