@@ -420,6 +420,9 @@ namespace RunApproachStatistics.ViewModel
 
             // Set validation
             SetValidationRules();
+
+            // Set vault handler
+            cameraModule.VaultCreated += vaultCreated;
         }
 
         private void stopMeasuring()
@@ -574,6 +577,12 @@ namespace RunApproachStatistics.ViewModel
             {
                 Penalty = "";
             }
+        }
+
+        private void vaultCreated(object sender, vault e)
+        {
+            // Add vault to thumbnail list.
+            
         }
 
         private void calculateTotalScore()

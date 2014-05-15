@@ -234,29 +234,34 @@ namespace RunApproachStatistics.Modules
                 }
                 vault.graphdata = graphdata;
 
-
-            //generate thumbnail
-            try
-            {
-                BitmapImage bImage = bmpToBitmapImage(frames[30]);
-                byte[] data = null;
-                JpegBitmapEncoder encoder = new JpegBitmapEncoder();
-                encoder.Frames.Add(BitmapFrame.Create(bImage));
-                using (MemoryStream ms = new MemoryStream())
+                //generate thumbnail
+                try
                 {
-                    encoder.Save(ms);
-                    data = ms.ToArray();
-                    vault.thumbnail = data;
+                    BitmapImage bImage = bmpToBitmapImage(frames[30]);
+                    byte[] data = null;
+                    JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+                    encoder.Frames.Add(BitmapFrame.Create(bImage));
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        encoder.Save(ms);
+                        data = ms.ToArray();
+                        vault.thumbnail = data;
+                    }
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
             
-            // Save the new vault and include the video path.            
-            vault.videopath = fileName;
-            create(vault);
+                // Save the new vault and include the video path.            
+                vault.videopath = fileName;
+                create(vault);
+
+                // Send vault back to view, for thumbnail list
+                Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        OnVaultCreated(vault);
+                    });
 
                 // Create a new thread to save the video
                 Worker workerObject = new Worker(filePath, frames);
@@ -267,6 +272,16 @@ namespace RunApproachStatistics.Modules
             });
             createThread.Start();
             
+        }
+
+        public event EventHandler<vault> VaultCreated;
+        protected virtual void OnVaultCreated(vault createdVault)
+        {
+            EventHandler<vault> handler = VaultCreated;
+            if (handler != null)
+            {
+                handler(this, createdVault);
+            }
         }
 
         public String getLaserData(int id)
