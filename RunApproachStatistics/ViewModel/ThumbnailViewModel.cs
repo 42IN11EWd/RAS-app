@@ -160,6 +160,7 @@ namespace RunApproachStatistics.ViewModel
             if (isLive)
             {
                 LiveLabelVisibility = Visibility.Visible;
+                Vault.timestamp = DateTime.Now;
             }
             else
             {
