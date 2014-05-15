@@ -606,6 +606,10 @@ namespace RunApproachStatistics.ViewModel
                 {
                     Totalscore = "";
                 }
+            } 
+            else
+            {
+                Totalscore = "";
             }
         }
 
@@ -747,14 +751,7 @@ namespace RunApproachStatistics.ViewModel
                 }
                 else
                 {
-                    if (fScore <= 10 && fScore > 0)
-                    {
-                        return RuleResult.Assert(CountDecimalPlaces((decimal)fScore) <= 3, "Score can contain maximal 3 decimals");
-                    }
-                    else
-                    {
-                        return RuleResult.Invalid("Score must be between 0.001 and 10");
-                    }
+                    return RuleResult.Assert(CountDecimalPlaces((decimal)fScore) <= 3, "Score can contain maximal 3 decimals");
                 }
             }
         }
