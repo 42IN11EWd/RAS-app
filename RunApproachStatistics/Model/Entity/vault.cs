@@ -16,7 +16,6 @@ namespace RunApproachStatistics.Model.Entity
     {
         public int vault_id { get; set; }
         public Nullable<int> gymnast_id { get; set; }
-        public decimal duration { get; set; }
         public string graphdata { get; set; }
         public string videopath { get; set; }
         public Nullable<int> rating_star { get; set; }

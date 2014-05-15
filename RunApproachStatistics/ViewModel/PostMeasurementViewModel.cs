@@ -169,20 +169,20 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        public decimal Timespan
-        {
-            get
-            {
-                if (SelectedThumbnail != null)
-                    return SelectedThumbnail.Vault.duration;
-                return 0;
-            }
-            set
-            {
-                SelectedThumbnail.Vault.duration = value;
-                OnPropertyChanged("TimeSpan");
-            }
-        }
+        //public decimal Timespan
+        //{
+        //    get
+        //    {
+        //        if (SelectedThumbnail != null)
+        //            return SelectedThumbnail.Vault.duration;
+        //        return 0;
+        //    }
+        //    set
+        //    {
+        //        SelectedThumbnail.Vault.duration = value;
+        //        OnPropertyChanged("TimeSpan");
+        //    }
+        //}
 
         public String VaultNumber
         {
