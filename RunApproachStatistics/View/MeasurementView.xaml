@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:toolkit="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
+             xmlns:v="clr-namespace:RunApproachStatistics.View"
              mc:Ignorable="d" 
              d:DesignWidth="1920" d:DesignHeight="1080" Background="White" >
     <Viewbox Stretch="Uniform">
@@ -13,7 +14,21 @@
 
             <ContentControl x:Name="RatingContainer"
 			    Content="{Binding Path=RatingControl}" Margin="1652,495,50,540" Width="218" Height="45"/>
-            <ScrollViewer Height="1080" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300"/>
+            <ListView Grid.Column="1"  SelectedItem="{Binding SelectedThumbnail}" ItemsSource="{Binding ThumbnailCollection}" Margin="0,0,0,0" Height="1080" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300">
+                <!-- ItemsPanelTemplate -->
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="1" />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+
+                <!-- ItemTemplate -->
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <v:ThumbnailView/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
             <Grid Height="635" Width="1130" Name="cameraGrid" Margin="336,31,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Background="Black" Grid.Column="1">
                 <ContentControl x:Name="cameraView" Content="{Binding Path=CameraView}"/>
             </Grid>

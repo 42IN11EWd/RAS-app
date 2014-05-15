@@ -9,6 +9,7 @@ using RunApproachStatistics.View;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 using System.Globalization;
@@ -21,6 +22,7 @@ namespace RunApproachStatistics.ViewModel
     {
         private IApplicationController _app;
         private PropertyChangedBase ratingControl;
+        private ObservableCollection<ThumbnailViewModel> thumbnailCollection;
 
         private String vaultKind;
         private String location;
@@ -381,6 +383,16 @@ namespace RunApproachStatistics.ViewModel
                 OnPropertyChanged("CameraView");
             }
         }
+
+        public ObservableCollection<ThumbnailViewModel> ThumbnailCollection
+        {
+            get { return thumbnailCollection; }
+            set
+            {
+                thumbnailCollection = value;
+                OnPropertyChanged("ThumbnailCollection");
+            }
+        }
         #endregion
 
         public MeasurementViewModel(IApplicationController app, PortController portController, VideoCameraController videoCameraController) : base()
@@ -423,6 +435,12 @@ namespace RunApproachStatistics.ViewModel
 
             // Set vault handler
             cameraModule.VaultCreated += vaultCreated;
+
+            // Set thumbnail collection
+            thumbnailCollection = new ObservableCollection<ThumbnailViewModel>();
+            // Add empty thumbnail for live 
+            thumbnailCollection.Add(new ThumbnailViewModel(_app));
+            thumbnailCollection.Add(new ThumbnailViewModel(_app));
         }
 
         private void stopMeasuring()
