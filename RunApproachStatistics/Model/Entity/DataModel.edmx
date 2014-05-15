@@ -49,7 +49,6 @@
           </Key>
           <Property Name="vault_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="gymnast_id" Type="int" />
-          <Property Name="duration" Type="decimal" Precision="10" Scale="0" Nullable="false" />
           <Property Name="graphdata" Type="text" Nullable="false" />
           <Property Name="videopath" Type="varchar" MaxLength="250" Nullable="false" />
           <Property Name="rating_star" Type="int" />
@@ -287,7 +286,6 @@
           </Key>
           <Property Name="vault_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="gymnast_id" Type="Int32" />
-          <Property Name="duration" Type="Decimal" Nullable="false" />
           <Property Name="graphdata" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="videopath" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="rating_star" Type="Int32" />
@@ -441,7 +439,6 @@
                 <ScalarProperty Name="rating_star" ColumnName="rating_star" />
                 <ScalarProperty Name="videopath" ColumnName="videopath" />
                 <ScalarProperty Name="graphdata" ColumnName="graphdata" />
-                <ScalarProperty Name="duration" ColumnName="duration" />
                 <ScalarProperty Name="gymnast_id" ColumnName="gymnast_id" />
                 <ScalarProperty Name="vault_id" ColumnName="vault_id" />
               </MappingFragment>

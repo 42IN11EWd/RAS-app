@@ -16,5 +16,7 @@ namespace RunApproachStatistics.Modules.Interfaces
         void createVault(List<Bitmap> frames, List<String> writeBuffer, vault vault);
 
         String getLaserData(int id);
+
+        event EventHandler<vault> VaultCreated;
     }
 }

@@ -420,6 +420,9 @@ namespace RunApproachStatistics.ViewModel
 
             // Set validation
             SetValidationRules();
+
+            // Set vault handler
+            cameraModule.VaultCreated += vaultCreated;
         }
 
         private void stopMeasuring()
@@ -576,6 +579,12 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
+        private void vaultCreated(object sender, vault e)
+        {
+            // Add vault to thumbnail list.
+            
+        }
+
         private void calculateTotalScore()
         {
             if (Dscore != null && Escore != null && !Dscore.Equals("") && !Escore.Equals("")
@@ -606,6 +615,10 @@ namespace RunApproachStatistics.ViewModel
                 {
                     Totalscore = "";
                 }
+            } 
+            else
+            {
+                Totalscore = "";
             }
         }
 
@@ -747,14 +760,7 @@ namespace RunApproachStatistics.ViewModel
                 }
                 else
                 {
-                    if (fScore <= 10 && fScore > 0)
-                    {
-                        return RuleResult.Assert(CountDecimalPlaces((decimal)fScore) <= 3, "Score can contain maximal 3 decimals");
-                    }
-                    else
-                    {
-                        return RuleResult.Invalid("Score must be between 0.001 and 10");
-                    }
+                    return RuleResult.Assert(CountDecimalPlaces((decimal)fScore) <= 3, "Score can contain maximal 3 decimals");
                 }
             }
         }

@@ -1,0 +1,75 @@
+diff a/RunApproachStatistics/Modules/VaultModule.cs b/RunApproachStatistics/Modules/VaultModule.cs	(rejected hunks)
+@@ -217,39 +217,44 @@
+ 
+         public void createVault(List<Bitmap> frames, List<String> writeBuffer, vault vault)
+         {
+-            // Create the filepath, add date stamp to filename
+-            String fileName = "LC_Video_" + vault.timestamp.ToString("yyyy_MM_dd_HH-mm-ss") + ".avi";
+-            String filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), fileName);
+-
+-            //create the lasercamera string
+-            String graphdata = "";
+-            foreach (String s in writeBuffer)
++            Thread createThread = new Thread(() => 
+             {
+-                graphdata += s;
+-            }
+-            vault.graphdata = graphdata;
++                // Create the filepath, add date stamp to filename
++                String fileName = "LC_Video_" + vault.timestamp.ToString("yyyy_MM_dd_HH-mm-ss") + ".avi";
++                String filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), fileName);
+ 
+-            //generate thumbnail
+-            try
+-            {
+-                ImageConverter converter = new ImageConverter();
+-                vault.thumbnail =  (byte[])converter.ConvertTo(frames[30], typeof(byte[]));
+-            }
+-            catch (Exception e)
+-            {
+-                Console.WriteLine(e);
+-            }
+-            
+-            // Save the new vault and include the video path.            
+-            vault.videopath = fileName;
+-            create(vault);
++                //create the lasercamera string
++                String graphdata = "";
++                foreach (String s in writeBuffer)
++                {
++                    graphdata += s;
++                }
++                vault.graphdata = graphdata;
+ 
+-            // Create a new thread to save the video
+-            Worker workerObject = new Worker(filePath, frames);
+-            Thread workerThread = new Thread(workerObject.DoWork);
++                //generate thumbnail
++                try
++                {
++                    ImageConverter converter = new ImageConverter();
++                    vault.thumbnail = (byte[])converter.ConvertTo(frames[30], typeof(byte[]));
++                }
++                catch (Exception e)
++                {
++                    Console.WriteLine(e);
++                }
++
++                // Save the new vault and include the video path.            
++                vault.videopath = fileName;
++                create(vault);
+ 
+-            // Start the thread.
+-            workerThread.Start();
++                // Create a new thread to save the video
++                Worker workerObject = new Worker(filePath, frames);
++                Thread workerThread = new Thread(workerObject.DoWork);
++
++                // Start the thread.
++                workerThread.Start();
++            });
++            createThread.Start();
++            
+         }
+ 
+         public String getLaserData(int id)

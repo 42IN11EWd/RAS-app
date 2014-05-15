@@ -31,6 +31,10 @@ namespace RunApproachStatistics.ViewModel
 
         private String totalscore;
 
+        private String escore;
+        private String dscore;
+        private String penalty;
+
         #region Modules
 
         private IVaultModule vaultModule = new VaultModule();
@@ -92,7 +96,8 @@ namespace RunApproachStatistics.ViewModel
             set
             {
                 selectedThumbnail = value;
-                OnPropertyChanged("StarRating");
+                setScores();
+                ratingVM.RatingValue = (int)SelectedThumbnail.Vault.rating_star;
                 OnPropertyChanged("SelectedThumbnail");
                 OnPropertyChanged("Gymnast");
                 OnPropertyChanged("Datetime");
@@ -100,28 +105,7 @@ namespace RunApproachStatistics.ViewModel
                 OnPropertyChanged("VaultNumber");
                 OnPropertyChanged("Location");
                 OnPropertyChanged("SelectedVaultKind");
-                OnPropertyChanged("DScore");
-                OnPropertyChanged("EScore");
-                OnPropertyChanged("Penalty");
                 OnPropertyChanged("TotalScore");
-            }
-        }
-
-        public int StarRating
-        {
-            get
-            {
-                if (SelectedThumbnail != null)
-                {
-                    ratingVM.RatingValue = (int)SelectedThumbnail.Vault.rating_star;
-                    return (int)SelectedThumbnail.Vault.rating_star;
-                }
-                return 0;
-            }
-            set
-            {
-                SelectedThumbnail.Vault.rating_star = ratingVM.RatingValue;
-                OnPropertyChanged("StarRating");
             }
         }
 
@@ -130,7 +114,17 @@ namespace RunApproachStatistics.ViewModel
             get
             {
                 if (SelectedThumbnail != null)
-                    return SelectedThumbnail.Vault.gymnast.name;
+                    if (SelectedThumbnail.Vault.gymnast != null)
+                    {
+                        if (SelectedThumbnail.Vault.gymnast.surname_prefix != null)
+                        {
+                            return SelectedThumbnail.Vault.gymnast != null ? SelectedThumbnail.Vault.gymnast.name + " " + SelectedThumbnail.Vault.gymnast.surname_prefix + " " + SelectedThumbnail.Vault.gymnast.surname : "";
+                        }
+                        else
+                        {
+                            return SelectedThumbnail.Vault.gymnast != null ? SelectedThumbnail.Vault.gymnast.name + " " + SelectedThumbnail.Vault.gymnast.surname : "";
+                        }
+                    }
                 return "";
             }
             set
@@ -155,27 +149,27 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        public decimal Timespan
-        {
-            get
-            {
-                if (SelectedThumbnail != null)
-                    return SelectedThumbnail.Vault.duration;
-                return 0;
-            }
-            set
-            {
-                SelectedThumbnail.Vault.duration = value;
-                OnPropertyChanged("TimeSpan");
-            }
-        }
+        //public decimal Timespan
+        //{
+        //    get
+        //    {
+        //        if (SelectedThumbnail != null)
+        //            return SelectedThumbnail.Vault.duration;
+        //        return 0;
+        //    }
+        //    set
+        //    {
+        //        SelectedThumbnail.Vault.duration = value;
+        //        OnPropertyChanged("TimeSpan");
+        //    }
+        //}
 
         public String VaultNumber
         {
             get
             {
                 if (SelectedThumbnail != null)
-                    return SelectedThumbnail.Vault.vaultnumber.code;
+                    return SelectedThumbnail.Vault.vaultnumber != null ? SelectedThumbnail.Vault.vaultnumber.code : "";
                 return "";
             }
             set
@@ -190,7 +184,7 @@ namespace RunApproachStatistics.ViewModel
             get
             {
                 if (SelectedThumbnail != null)
-                    return SelectedThumbnail.Vault.location.name;
+                    return SelectedThumbnail.Vault.location != null ? SelectedThumbnail.Vault.location.name : "";
                 return "";
             }
             set
@@ -220,51 +214,45 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        public Nullable<decimal> DScore
+        public String DScore
         {
             get
             {
-                if (SelectedThumbnail != null)
-                    return SelectedThumbnail.Vault.rating_official_D;
-                return 0;
+                return dscore;
             }
             set
             {
-                SelectedThumbnail.Vault.rating_official_D = value;
+                dscore = value;
                 Validator.Validate(() => DScore);
                 calculateTotalScore();
                 OnPropertyChanged("DScore");
             }
         }
 
-        public Nullable<decimal> EScore
+        public String EScore
         {
             get
             {
-                if (SelectedThumbnail != null)
-                    return SelectedThumbnail.Vault.rating_official_E;
-                return 0;
+                return escore;
             }
             set
             {
-                SelectedThumbnail.Vault.rating_official_E = value;
+                escore = value;
                 Validator.Validate(() => EScore);
                 calculateTotalScore();
                 OnPropertyChanged("EScore");
             }
         }
 
-        public Nullable<decimal> Penalty
+        public String Penalty
         {
             get
             {
-                if (SelectedThumbnail != null)
-                    return SelectedThumbnail.Vault.penalty;
-                return 0;
+                return penalty;
             }
             set
             {
-                SelectedThumbnail.Vault.penalty = value;
+                penalty = value;
                 Validator.Validate(() => Penalty);
                 calculateTotalScore();
                 OnPropertyChanged("Penalty");
@@ -307,8 +295,9 @@ namespace RunApproachStatistics.ViewModel
             menuViewModel.VisibilityLaser = false;
             Menu = menuViewModel;
 
-            RatingViewModel ratingVM = new RatingViewModel(_app);
+            ratingVM = new RatingViewModel(_app);
             RatingControl = ratingVM;
+
             // Useless test data.
             thumbnailCollection = new ObservableCollection<ThumbnailViewModel>();
             List<vault> vaults = vaultModule.getVaults();
@@ -327,6 +316,14 @@ namespace RunApproachStatistics.ViewModel
 
             // Set validation
             SetValidationRules();
+        
+        }
+
+        private void setScores()
+        {
+            EScore = SelectedThumbnail.Vault.rating_official_E.ToString();
+            DScore = SelectedThumbnail.Vault.rating_official_D.ToString();
+            Penalty = selectedThumbnail.Vault.penalty.ToString();
         }
 
         private void calculateTotalScore()
@@ -360,6 +357,10 @@ namespace RunApproachStatistics.ViewModel
                     TotalScore = "";
                 }
             }
+            else
+            {
+                TotalScore = "0";
+            }
         }
 
         #region RelayCommands
@@ -379,6 +380,7 @@ namespace RunApproachStatistics.ViewModel
         }
         public void SaveAction(object commandParam)
         {
+            SelectedThumbnail.Vault.rating_star = ratingVM.RatingValue;
             vaultModule.update(SelectedThumbnail.Vault);
         }
 
@@ -391,23 +393,23 @@ namespace RunApproachStatistics.ViewModel
             Validator.AddRule(() => EScore,
                               () =>
                               {
-                                  return checkScore(EScore.ToString());
+                                  return checkScore(EScore.ToString(),"Escore");
                               });
 
             Validator.AddRule(() => DScore,
                               () =>
                               {
-                                  return checkScore(DScore.ToString());
+                                  return checkScore(DScore.ToString(),"Dscore");
                               });
 
             Validator.AddRule(() => Penalty,
                               () =>
                               {
-                                  return checkScore(Penalty.ToString());
+                                  return checkScore(Penalty.ToString(),"Penalty");
                               });
         }
 
-        private RuleResult checkScore(String score)
+        private RuleResult checkScore(String score, String type)
         {
             if (score.Equals(""))
             {
@@ -422,7 +424,27 @@ namespace RunApproachStatistics.ViewModel
                 }
                 else
                 {
-                    return RuleResult.Assert(CountDecimalPlaces((decimal)fScore) <= 3, "Score can contain maximal 3 decimals");
+                    if (CountDecimalPlaces((decimal)fScore) <= 3)
+                    {
+                        switch (type)
+                        {
+                            case "Escore":
+                                SelectedThumbnail.Vault.rating_official_E = (decimal)fScore;
+                                break;
+                            case "Dscore":
+                                SelectedThumbnail.Vault.rating_official_D = (decimal)fScore;
+                                break;
+                            case "Penalty":
+                                SelectedThumbnail.Vault.penalty = (decimal)fScore;
+                                break;
+                        }
+                        return RuleResult.Valid();
+                    }
+                    else
+                    {
+                        return RuleResult.Invalid("Score can contain a maximum of 3 decimals");
+                    }
+                   
                 }
             }
         }

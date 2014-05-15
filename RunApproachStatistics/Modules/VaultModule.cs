@@ -6,12 +6,15 @@ using RunApproachStatistics.Services;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Interop;
 using System.Windows.Media.Imaging;
 
 namespace RunApproachStatistics.Modules
@@ -217,39 +220,68 @@ namespace RunApproachStatistics.Modules
 
         public void createVault(List<Bitmap> frames, List<String> writeBuffer, vault vault)
         {
-            // Create the filepath, add date stamp to filename
-            String fileName = "LC_Video_" + vault.timestamp.ToString("yyyy_MM_dd_HH-mm-ss") + ".avi";
-            String filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), fileName);
+            Thread createThread = new Thread(() => 
+            {
+                // Create the filepath, add date stamp to filename
+                String fileName = "LC_Video_" + vault.timestamp.ToString("yyyy_MM_dd_HH-mm-ss") + ".avi";
+                String filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), fileName);
 
-            //create the lasercamera string
-            String graphdata = "";
-            foreach (String s in writeBuffer)
-            {
-                graphdata += s;
-            }
-            vault.graphdata = graphdata;
+                //create the lasercamera string
+                String graphdata = "";
+                foreach (String s in writeBuffer)
+                {
+                    graphdata += s;
+                }
+                vault.graphdata = graphdata;
 
-            //generate thumbnail
-            try
-            {
-                ImageConverter converter = new ImageConverter();
-                vault.thumbnail =  (byte[])converter.ConvertTo(frames[30], typeof(byte[]));
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
+                //generate thumbnail
+                try
+                {
+                    BitmapImage bImage = bmpToBitmapImage(frames[30]);
+                    byte[] data = null;
+                    JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+                    encoder.Frames.Add(BitmapFrame.Create(bImage));
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        encoder.Save(ms);
+                        data = ms.ToArray();
+                        vault.thumbnail = data;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
             
-            // Save the new vault and include the video path.            
-            vault.videopath = fileName;
-            create(vault);
+                // Save the new vault and include the video path.            
+                vault.videopath = fileName;
+                create(vault);
 
-            // Create a new thread to save the video
-            Worker workerObject = new Worker(filePath, frames);
-            Thread workerThread = new Thread(workerObject.DoWork);
+                // Send vault back to view, for thumbnail list
+                Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        OnVaultCreated(vault);
+                    });
 
-            // Start the thread.
-            workerThread.Start();
+                // Create a new thread to save the video
+                Worker workerObject = new Worker(filePath, fileName, frames);
+                Thread workerThread = new Thread(workerObject.DoWork);
+
+                // Start the thread.
+                workerThread.Start();
+            });
+            createThread.Start();
+            
+        }
+
+        public event EventHandler<vault> VaultCreated;
+        protected virtual void OnVaultCreated(vault createdVault)
+        {
+            EventHandler<vault> handler = VaultCreated;
+            if (handler != null)
+            {
+                handler(this, createdVault);
+            }
         }
 
         public String getLaserData(int id)
@@ -274,12 +306,14 @@ namespace RunApproachStatistics.Modules
         public class Worker
         {
             private String filePath;
+            private String fileName;
             private VideoFileWriter writer;
             private List<Bitmap> frames;
 
-            public Worker(String filePath, List<Bitmap> frames)
+            public Worker(String filePath, String fileName, List<Bitmap> frames)
             {
                 this.filePath = filePath;
+                this.fileName = fileName;
                 this.frames = frames;
             }
 
@@ -302,9 +336,9 @@ namespace RunApproachStatistics.Modules
 
                     // Upload the file to the server.
                     WebClient myWebClient = new WebClient();
-                    NetworkCredential myCredentials = new NetworkCredential("username", "password");
+                    NetworkCredential myCredentials = new NetworkCredential("", "");
                     myWebClient.Credentials = myCredentials;
-                    byte[] responseArray = myWebClient.UploadFile("ftp://student.aii.avans.nl/GRP/42IN11EWd/Videos", filePath);
+                    byte[] responseArray = myWebClient.UploadFile("ftp://student.aii.avans.nl/GRP/42IN11EWd/Videos/" + fileName, filePath);
 
                     String temp = System.Text.Encoding.ASCII.GetString(responseArray);
 
@@ -316,6 +350,22 @@ namespace RunApproachStatistics.Modules
                 {
                     Console.Write(e.StackTrace);
                 }
+            }
+        }
+
+        private BitmapImage bmpToBitmapImage(Bitmap bmp)
+        {
+            using (MemoryStream memory = new MemoryStream())
+            {
+                bmp.Save(memory, ImageFormat.Bmp);
+                memory.Position = 0;
+                BitmapImage bitmapImage = new BitmapImage();
+                bitmapImage.BeginInit();
+                bitmapImage.StreamSource = memory;
+                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapImage.EndInit();
+
+                return bitmapImage;
             }
         }
 
