@@ -17,7 +17,7 @@ namespace RunApproachStatistics.ViewModel
 
         //live variables
         private System.Timers.Timer timer;
-        private int seconds;
+        private float seconds;
 
         public int DisplayWidth { get; set; }
         public int WidthChart { get; set; }
@@ -69,7 +69,7 @@ namespace RunApproachStatistics.ViewModel
             {
                 seconds = -1;
                 timer = new System.Timers.Timer();
-                timer.Interval = 1000D;
+                timer.Interval = 500D;
                 timer.Elapsed += new System.Timers.ElapsedEventHandler(this.timer_Elapsed);
                 timer.Start();
             }
@@ -87,18 +87,16 @@ namespace RunApproachStatistics.ViewModel
             String measurement = App.portController.getLatestMeasurement().Replace(",", "");
             String[] splitString = measurement.Split(' ');
 
-            seconds++;
+            seconds += (float)0.5;
 
             Application.Current.Dispatcher.Invoke(new Action(() =>
             {
-                //DistanceArray.Add(new KeyValuePair<float, float>(seconds, float.Parse(splitString[0], CultureInfo.InvariantCulture)));
                 SpeedArray.Add(new KeyValuePair<float, float>(seconds, float.Parse(splitString[0], CultureInfo.InvariantCulture)));
                
                 try
                 {
                     DistanceArray.Add(new KeyValuePair<float, float>(seconds, float.Parse(splitString[1], CultureInfo.InvariantCulture)));
-                    //SpeedArray.Add(new KeyValuePair<float, float>(seconds, float.Parse(splitString[1], CultureInfo.InvariantCulture)));
-                }
+                 }
                 catch (Exception ex)
                 {
                     //No problem
