@@ -56,7 +56,7 @@ namespace RunApproachStatistics.Services
                 distance = 0;
             }
             
-            line = "D " + String.Format(CultureInfo.InvariantCulture, "{0:0000.000}", distance) + "  " + String.Format(CultureInfo.InvariantCulture, "{0:0000.000}", speed);
+            line = "D " + String.Format(CultureInfo.InvariantCulture, "{0:0000.000}", speed) + "  " + String.Format(CultureInfo.InvariantCulture, "{0:0000.000}", distance);
            
             readPort.checkReceivedData(line);
         }

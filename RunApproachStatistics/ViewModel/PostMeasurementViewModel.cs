@@ -127,13 +127,11 @@ namespace RunApproachStatistics.ViewModel
 
         public String Gymnast
         {
-            get
-            {
-                return name + " " + (surnamePrefix != null ? surnamePrefix + " " : "") + surname;
-            }
+            get { return gymnast; }
             set
             {
                 gymnast = value;
+                Validator.Validate(() => Gymnast);
                 OnPropertyChanged("Gymnast");
             }
         }
@@ -356,14 +354,15 @@ namespace RunApproachStatistics.ViewModel
                 name = SelectedThumbnail.Vault.gymnast.name;
                 surnamePrefix = SelectedThumbnail.Vault.gymnast.surname_prefix;
                 surname = SelectedThumbnail.Vault.gymnast.surname;
+                Gymnast = (String.IsNullOrEmpty(name) ? "" : name + " ") + (surnamePrefix != null ? surnamePrefix + " " : "") + surname;
             }
             else
             {
                 name = "";
                 surnamePrefix = "";
                 surname = "";
+                Gymnast = "";
             }
-            
         }
 
         private void calculateTotalScore()
@@ -421,7 +420,17 @@ namespace RunApproachStatistics.ViewModel
         public void SaveAction(object commandParam)
         {
             SelectedThumbnail.Vault.rating_star = ratingVM.RatingValue;
-            String[] fullName = Gymnast.Split(' ');
+
+            // Save Gymnast
+            if (Gymnast == null || Gymnast.Equals("") || GetErrorArr("Gymnast") != null)
+            {
+                SelectedThumbnail.Vault.gymnast = null;
+            }
+            else
+            {
+                SelectedThumbnail.Vault.gymnast_id = gymnastIds[Gymnasts.IndexOf(Gymnast)];
+            }
+
             vaultModule.update(SelectedThumbnail.Vault);
         }
 
