@@ -186,13 +186,13 @@ namespace RunApproachStatistics.ViewModel
         {
             get
             {
-                if (SelectedThumbnail != null)
-                    return SelectedThumbnail.Vault.location != null ? SelectedThumbnail.Vault.location.name : "";
-                return "";
+                return location;
             }
             set
             {
-                SelectedThumbnail.Vault.location.name = value;
+                location = value;
+                Validator.Validate(() => Location);
+                //SelectedThumbnail.Vault.location.name = value;
                 OnPropertyChanged("Location");
             }
         }
@@ -346,6 +346,16 @@ namespace RunApproachStatistics.ViewModel
             DScore = SelectedThumbnail.Vault.rating_official_D.ToString();
             Penalty = selectedThumbnail.Vault.penalty.ToString();
 
+            // Check for location
+            if (SelectedThumbnail.Vault.location != null)
+            {
+                Location = SelectedThumbnail.Vault.location.name.ToString();
+            }
+            else
+            {
+                location = "";
+            }
+
             // Check for vaultnumber
             if (SelectedThumbnail.Vault.vaultnumber != null)
             {
@@ -498,7 +508,7 @@ namespace RunApproachStatistics.ViewModel
                                       }
                                       else
                                       {
-                                          //SelectedThumbnail.Vault.vaultnumber = null;
+                                            SelectedThumbnail.Vault.vaultnumber = null;
                                       }
 
                                       return RuleResult.Valid();
@@ -506,6 +516,32 @@ namespace RunApproachStatistics.ViewModel
                                   else
                                   {
                                       return RuleResult.Invalid("Vault number is not in list");
+                                  }
+                              });
+
+            Validator.AddRule(() => Location,
+                              () => Locations,
+                              () =>
+                              {
+                                  if (Location == null || Location == "" || Locations.Contains(Location))
+                                  {
+                                      if (Location != null)
+                                      {
+                                          if (Locations.Contains(Location))
+                                          {
+                                              SelectedThumbnail.Vault.location_id = locationIds[Locations.IndexOf(Location)];
+                                          }
+                                      }
+                                      else
+                                      {
+                                          SelectedThumbnail.Vault.location = null;
+                                      }
+
+                                      return RuleResult.Valid();
+                                  }
+                                  else
+                                  {
+                                      return RuleResult.Invalid("Location is not in list");
                                   }
                               });
         }
