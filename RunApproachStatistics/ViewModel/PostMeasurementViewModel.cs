@@ -120,7 +120,7 @@ namespace RunApproachStatistics.ViewModel
                 OnPropertyChanged("TimeSpan");
                 OnPropertyChanged("VaultNumber");
                 OnPropertyChanged("Location");
-                OnPropertyChanged("SelectedVaultKind");
+                OnPropertyChanged("VaultKind");
                 OnPropertyChanged("TotalScore");
             }
         }
@@ -207,12 +207,15 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
+
+
         public String VaultKind
         {
             get { return vaultKind; }
             set
             {
                 vaultKind = value;
+                Validator.Validate(() => VaultKind);
                 OnPropertyChanged("VaultKind");
             }
         }
@@ -346,6 +349,17 @@ namespace RunApproachStatistics.ViewModel
             DScore = SelectedThumbnail.Vault.rating_official_D.ToString();
             Penalty = selectedThumbnail.Vault.penalty.ToString();
 
+            //Check for vaultkind
+            if (SelectedThumbnail.Vault.vaultkind != null)
+            {
+                VaultKind = SelectedThumbnail.Vault.vaultkind.name.ToString();
+            }
+            else
+            {
+                vaultKind = "";
+                VaultKind = "";
+            }
+
             // Check for location
             if (SelectedThumbnail.Vault.location != null)
             {
@@ -354,6 +368,7 @@ namespace RunApproachStatistics.ViewModel
             else
             {
                 location = "";
+                Location = "";
             }
 
             // Check for vaultnumber
@@ -364,6 +379,7 @@ namespace RunApproachStatistics.ViewModel
             else
             {
                 vaultNumber = "";
+                VaultNumber = "";
             }
 
             // Check for gymnast
@@ -542,6 +558,33 @@ namespace RunApproachStatistics.ViewModel
                                   else
                                   {
                                       return RuleResult.Invalid("Location is not in list");
+                                  }
+                              });
+
+            Validator.AddRule(() => VaultKind,
+                              () => VaultKinds,
+                              () =>
+                              {
+                                  if (VaultKind == null || VaultKind == "" || VaultKinds.Contains(VaultKind))
+                                  {
+                                      if (VaultKind != null)
+                                      {
+                                          if (VaultKinds.Contains(VaultKind))
+                                          {
+                                              SelectedThumbnail.Vault.vaultkind_id = vaultKindIds[VaultKinds.IndexOf(VaultKind)];
+                                          }
+                                          
+                                      }
+                                      else
+                                      {
+                                          SelectedThumbnail.Vault.vaultkind = null;
+                                      }
+
+                                      return RuleResult.Valid();
+                                  }
+                                  else
+                                  {
+                                      return RuleResult.Invalid("Vaultkind is not in list");
                                   }
                               });
         }
