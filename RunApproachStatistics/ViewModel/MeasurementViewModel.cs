@@ -741,7 +741,7 @@ namespace RunApproachStatistics.ViewModel
                                   }
                                   else
                                   {
-                                      return RuleResult.Invalid("Gymnast is not in list");
+                                      return RuleResult.Invalid("Vault number is not in list");
                                   }
                               });
 
