@@ -200,7 +200,7 @@ namespace RunApproachStatistics.Services
 
         public void Capture()
         {
-            captureBuffer.Open(cameraWindow.Camera.Width, cameraWindow.Camera.Height, fps, false);
+            captureBuffer.Open(cameraWindow.Camera != null ? cameraWindow.Camera.Width : 640, cameraWindow.Camera != null ? cameraWindow.Camera.Height : 480, fps, false);
             save = true;
             Console.WriteLine("Camera started: " + DateTime.Now.ToString("dd_MM_yyyyTHH_mm_ss_fff"));
         }
