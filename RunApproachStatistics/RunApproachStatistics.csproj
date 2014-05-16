@@ -415,6 +415,11 @@
     </Content>
     <Resource Include="Images\Logo.png" />
     <Resource Include="Images\videoControl_stop.png" />
+    <Resource Include="Images\videoControl_backward_b.png" />
+    <Resource Include="Images\videoControl_forward_b.png" />
+    <Resource Include="Images\videoControl_pause_b.png" />
+    <Resource Include="Images\videoControl_play_b.png" />
+    <Resource Include="Images\videoControl_stop_b.png" />
     <Content Include="postproc-52.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

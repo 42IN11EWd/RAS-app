@@ -107,14 +107,14 @@ namespace RunApproachStatistics.Services
                 switch (subLine)
                 {
                     case "D-":
-                    case "D ": writeMeasurement(line); break;
+                    case "D ": lastCommandReceived = "D"; writeMeasurement(line); break;
                     case "PL": lastCommandReceived = "PL";  break;
-                    case "DT": Console.WriteLine("Single distance measurement started"); break;
-                    case "VT": Console.WriteLine("Continous distance + speed measurement started"); break;
+                    case "DT": lastCommandReceived = "DT"; Console.WriteLine("Single distance measurement started"); break;
+                    case "VT": lastCommandReceived = "VT"; Console.WriteLine("Continous distance + speed measurement started"); break;
                     case "MF": lastCommandReceived = "MF"; break;
                     case "MW": lastCommandReceived = "MW"; break;
                     case "SA": lastCommandReceived = "SA"; break;
-                    case "me": onSettingsRecieved(line); break;
+                    case "me": lastCommandReceived = "me"; onSettingsRecieved(line); break;
                 }
             }
         }
@@ -157,7 +157,7 @@ namespace RunApproachStatistics.Services
         /// <param name="line">Measurement data line</param>
         public void writeMeasurement(String line)
         {
-            String distance, speed = "";
+            String distance = "", speed = "";
             try
             {
                 if (line.Length < 9)
@@ -177,30 +177,30 @@ namespace RunApproachStatistics.Services
 
             // Check if distance data is negative
             if (line.Substring(1, 1) == "-")
-                distance = line.Substring(1, 9);
+                speed = line.Substring(1, 9);
             else
-                distance = line.Substring(2, 8);
+                speed = line.Substring(2, 8);
 
             // Check if speed data is available
             if (line.Substring(10, 1) == " ")
             {
                 if (line.Substring(11, 1) == "-")
-                    speed = " " + line.Substring(11, 9);
+                    distance = " " + line.Substring(11, 9);
                 else
-                    speed = " " + line.Substring(12, 8);
+                    distance = " " + line.Substring(12, 8);
             }
 
             if (save)
             {
                 lock (writeBuffer)
                 {
-                    writeBuffer.Add(distance + speed + ",");
+                    writeBuffer.Add(speed + distance + ",");
                 }
             }
 
             lock (dynamicBuffer)
             {
-                dynamicBuffer.Add(distance + speed + ",");
+                dynamicBuffer.Add(speed + distance + ",");
                 resetBuffer();
             }
         }

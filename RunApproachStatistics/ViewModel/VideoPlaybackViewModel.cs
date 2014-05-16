@@ -1,4 +1,5 @@
 ﻿using RunApproachStatistics.Controllers;
+using RunApproachStatistics.Model.Entity;
 using RunApproachStatistics.Modules;
 using RunApproachStatistics.Modules.Interfaces;
 using RunApproachStatistics.MVVM;
@@ -109,6 +110,11 @@ namespace RunApproachStatistics.ViewModel
             // Set Graph
             GraphViewModel graphVM = new GraphViewModel(_app, this, 10,2000);
             GraphView = graphVM;
+        }
+
+        public void setVaultToPlay(vault selectedVault)
+        {
+            Console.WriteLine(selectedVault.vault_id);
         }
 
         protected override void initRelayCommands()

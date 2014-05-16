@@ -77,7 +77,6 @@ namespace RunApproachStatistics.Modules
                 query.rating_official_D = vault.rating_official_D;
                 query.rating_official_E = vault.rating_official_E;
                 query.penalty = vault.penalty;
-                query.vaultnumber_id = 1;
 
                 try
                 {
@@ -318,30 +317,33 @@ namespace RunApproachStatistics.Modules
             {
                 try
                 {
-                    writer = new VideoFileWriter();
-                    writer.Open(filePath, CaptureBuffer.width, CaptureBuffer.height, CaptureBuffer.fps, VideoCodec.MPEG4, 2000000);
-
-                    foreach(Bitmap bmp in frames)
+                    if (CaptureBuffer.fps > 0)
                     {
-                        writer.WriteVideoFrame(bmp);
+                        writer = new VideoFileWriter();
+                        writer.Open(filePath, CaptureBuffer.width, CaptureBuffer.height, CaptureBuffer.fps, VideoCodec.MPEG4, 2000000);
+
+                        foreach(Bitmap bmp in frames)
+                        {
+                            writer.WriteVideoFrame(bmp);
+                        }
+
+                        // Close the writer
+                        writer.Close();
+                        writer = null;
+                        frames = null;
+
+                        // Upload the file to the server.
+                        WebClient myWebClient = new WebClient();
+                        NetworkCredential myCredentials = new NetworkCredential("", "");
+                        myWebClient.Credentials = myCredentials;
+                        byte[] responseArray = myWebClient.UploadFile("ftp://student.aii.avans.nl/GRP/42IN11EWd/Videos/" + fileName, filePath);
+
+                        String temp = System.Text.Encoding.ASCII.GetString(responseArray);
+
+                        // Decode and display the response.
+                        Console.WriteLine("\nResponse Received.The contents of the file uploaded are:\n{0}",
+                            System.Text.Encoding.ASCII.GetString(responseArray));
                     }
-
-                    // Close the writer
-                    writer.Close();
-                    writer = null;
-                    frames = null;
-
-                    // Upload the file to the server.
-                    WebClient myWebClient = new WebClient();
-                    NetworkCredential myCredentials = new NetworkCredential("", "");
-                    myWebClient.Credentials = myCredentials;
-                    byte[] responseArray = myWebClient.UploadFile("ftp://student.aii.avans.nl/GRP/42IN11EWd/Videos/" + fileName, filePath);
-
-                    String temp = System.Text.Encoding.ASCII.GetString(responseArray);
-
-                    // Decode and display the response.
-                    Console.WriteLine("\nResponse Received.The contents of the file uploaded are:\n{0}",
-                        System.Text.Encoding.ASCII.GetString(responseArray));
                 }
                 catch (Exception e)
                 {

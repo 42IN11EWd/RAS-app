@@ -18,12 +18,14 @@ namespace RunApproachStatistics.ViewModel
         private IApplicationController _app;
         private vault vault = new vault();
         private Visibility liveLabelVisibility;
+        private Thickness livePadding;
 
         public ThumbnailViewModel(IApplicationController app)
             : base()
         {
             _app = app;
             LiveLabelVisibility = Visibility.Hidden;
+
         }
 
         public vault Vault
@@ -38,6 +40,16 @@ namespace RunApproachStatistics.ViewModel
                 OnPropertyChanged("VaultNumber");
 
                 setThumbnail();
+            }
+        }
+
+        public Thickness LivePadding
+        {
+            get { return livePadding; }
+            set
+            {
+                livePadding = value;
+                OnPropertyChanged("LivePadding");
             }
         }
 
@@ -76,8 +88,8 @@ namespace RunApproachStatistics.ViewModel
             get { return vault.vaultnumber != null ? vault.vaultnumber.code : ""; }
         }
 
-        private System.Drawing.Brush selectionBackground;
-        public System.Drawing.Brush SelectionBackground
+        private System.Windows.Media.Brush selectionBackground;
+        public System.Windows.Media.Brush SelectionBackground
         {
             get { return selectionBackground; }
             set
@@ -95,12 +107,12 @@ namespace RunApproachStatistics.ViewModel
             {
                 thumbnailImage = value;
                 OnPropertyChanged("ThumbnailImage");
-                OnPropertyChanged("HasThumnailImage");
+                OnPropertyChanged("HasThumbnailImage");
                 OnPropertyChanged("NoThumbnailRectangle");
             }
         }
 
-        public Visibility HasThumnailImage
+        public Visibility HasThumbnailImage
         {
             get { return ThumbnailImage != null ? Visibility.Visible : Visibility.Hidden; }
         }
@@ -114,15 +126,15 @@ namespace RunApproachStatistics.ViewModel
         {
             if (typeOfSelection.Equals("Missing"))
             {
-                SelectionBackground = System.Drawing.Brushes.Red;
+                SelectionBackground = System.Windows.Media.Brushes.Red; 
             }
             else if (typeOfSelection.Equals("Select"))
             {
-                SelectionBackground = System.Drawing.Brushes.LightBlue;
+                SelectionBackground = System.Windows.Media.Brushes.LightBlue;
             }
             else
             {
-                SelectionBackground = System.Drawing.Brushes.Transparent;
+                SelectionBackground = System.Windows.Media.Brushes.Transparent;
             }
         }
 
@@ -162,10 +174,12 @@ namespace RunApproachStatistics.ViewModel
                 LiveLabelVisibility = Visibility.Visible;
                 Vault.timestamp = DateTime.Now;
                 OnPropertyChanged("Datetime");
+                LivePadding = new Thickness(15,0,15,0);
             }
             else
             {
                 LiveLabelVisibility = Visibility.Hidden;
+                LivePadding = new Thickness(0);
             }
         }
 

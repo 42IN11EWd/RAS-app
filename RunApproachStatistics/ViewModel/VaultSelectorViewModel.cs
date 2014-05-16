@@ -33,7 +33,7 @@ namespace RunApproachStatistics.ViewModel
         private ObservableCollection<String> filterItems;
         private String selectedFilterItem;
         private ObservableCollection<String> filterList; // ?
-        private String dynamicToVaultText;
+        private String compareButtonText;
 
         #region Modules
 
@@ -46,7 +46,7 @@ namespace RunApproachStatistics.ViewModel
         public RelayCommand SaveChangesCommand { get; private set; }
         public RelayCommand CancelChangesCommand { get; private set; }
         public RelayCommand DeleteVaultCommand { get; private set; }
-        public RelayCommand DynamicToVaultCommand { get; private set; }
+        public RelayCommand CompareCommand { get; private set; }
         public RelayCommand RemoveAllFiltersCommand { get; private set; }
         public RelayCommand SelectedItemsChangedCommand { get; private set; }
 
@@ -318,13 +318,25 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        public String DynamicToVaultText
+        public String CompareButtonText
         {
-            get { return dynamicToVaultText; }
+            get 
+            { 
+                if(SelectedThumbnails.Count == 1)
+                {
+                    return CompareButtonText = "View";
+                }
+                else if(SelectedThumbnails.Count > 1)
+                {
+                    return CompareButtonText = "Compare";
+                }
+                
+                return ""; 
+            }
             set
             {
-                dynamicToVaultText = value;
-                OnPropertyChanged("DynamicToVaultText");
+                compareButtonText = value;
+               // OnPropertyChanged("CompareButtonText");
             }
         }
 
@@ -356,8 +368,25 @@ namespace RunApproachStatistics.ViewModel
             }
 
         }
+        public void updateFields()
+        {
+            OnPropertyChanged("SelectedThumbnails");
+            OnPropertyChanged("CompareButtonText");
+            OnPropertyChanged("StarRating");
+            OnPropertyChanged("Gymnast");
+            OnPropertyChanged("Datetime");
+            OnPropertyChanged("TimeSpan");
+            OnPropertyChanged("VaultNumber");
+            OnPropertyChanged("Location");
+            OnPropertyChanged("SelectedVaultKind");
+            OnPropertyChanged("DScore");
+            OnPropertyChanged("EScore");
+            OnPropertyChanged("Penalty");
+            OnPropertyChanged("TotalScore");
+            
+        }
 
-        #region Command Methodes
+        #region RelayCommands
 
         public void SaveChanges(object commandParam)
         {
@@ -367,21 +396,13 @@ namespace RunApproachStatistics.ViewModel
             }
                 
             SelectedThumbnails.Clear();
+            updateFields();
         }
 
         public void CancelChanges(object commandParam)
         {
             SelectedThumbnails.Clear();
-        }
-
-        public void SelectedItemsChanged(object commandParam)
-        {
-            IList selectedthumbnails = (IList)commandParam;
-            SelectedThumbnails.Clear();
-            foreach (ThumbnailViewModel thumbnail in selectedthumbnails)
-                SelectedThumbnails.Add(thumbnail);
-
-            OnPropertyChanged("SelectedThumbnails");
+            updateFields();
         }
 
         public void DeleteVault(object commandParam)
@@ -407,24 +428,37 @@ namespace RunApproachStatistics.ViewModel
 
         }
 
-        public void DynamicToVault(object commandParam)
+        public void CompareAction(object commandParam)
         {
-            // Do something
+            List<vault> vaults = new List<vault>();
+            for(int i = 0; i < SelectedThumbnails.Count; i++)
+            {
+                vaults.Add(SelectedThumbnails[i].Vault);
+            }
+            if(SelectedThumbnails.Count == 1)
+            {
+                _app.ShowVideoPlaybackView(vaults[0]);
+            }
+            else if(SelectedThumbnails.Count == 2)
+            {
+                _app.ShowCompareVaultsView(vaults);
+            }
         }
 
         public void RemoveAllFilters(object commandParam)
         {
             // Do something
         }
+        
 
-        #endregion Command Methodes
+        #endregion RelayCommands
 
         protected override void initRelayCommands()
         {
             SaveChangesCommand = new RelayCommand(SaveChanges);
             CancelChangesCommand = new RelayCommand(CancelChanges);
             DeleteVaultCommand = new RelayCommand(DeleteVault);
-            DynamicToVaultCommand = new RelayCommand(DynamicToVault);
+            CompareCommand = new RelayCommand(CompareAction);
             RemoveAllFiltersCommand = new RelayCommand(RemoveAllFilters);
             SelectedItemsChangedCommand = new RelayCommand((thumbnails) =>
             {
@@ -434,19 +468,8 @@ namespace RunApproachStatistics.ViewModel
                 {
                     SelectedThumbnails.Add(thumbnail);
                 }
-
-                OnPropertyChanged("SelectedThumbnails");
-                OnPropertyChanged("StarRating");
-                OnPropertyChanged("Gymnast");
-                OnPropertyChanged("Datetime");
-                OnPropertyChanged("TimeSpan");
-                OnPropertyChanged("VaultNumber");
-                OnPropertyChanged("Location");
-                OnPropertyChanged("SelectedVaultKind");
-                OnPropertyChanged("DScore");
-                OnPropertyChanged("EScore");
-                OnPropertyChanged("Penalty");
-                OnPropertyChanged("TotalScore");
+                updateFields();
+                
             });
         }
     }

@@ -100,10 +100,11 @@ namespace RunApproachStatistics
             _setContent(cameraViewModel);
         }
 
-        public void ShowCompareVaultsView()
+        public void ShowCompareVaultsView(List<vault> vaults)
         {
             CompareVaultsViewModel compareVaultsViewModel = new CompareVaultsViewModel(this);
             _setContent(compareVaultsViewModel);
+            compareVaultsViewModel.setVaultsToCompare(vaults);
         }
 
         public void ShowLoginView()
@@ -198,10 +199,11 @@ namespace RunApproachStatistics
             settingsWindow.Content = vaultNumberEditorViewModel;
         }
 
-        public void ShowVideoPlaybackView()
+        public void ShowVideoPlaybackView(vault selectedVault)
         {
             VideoPlaybackViewModel videoPlaybackViewModel = new VideoPlaybackViewModel(this);
             _setContent(videoPlaybackViewModel);
+            videoPlaybackViewModel.setVaultToPlay(selectedVault);
         }
 
         public void ToggleLockScreen()

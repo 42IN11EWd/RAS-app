@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RunApproachStatistics.Model.Entity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,9 +18,9 @@ namespace RunApproachStatistics.Controllers
 
         void ShowCameraView();
 
-        void ShowCompareVaultsView();
+        void ShowCompareVaultsView(List<vault> vaults);
 
-        void ShowVideoPlaybackView();
+        void ShowVideoPlaybackView(vault selectedVault);
 
         void ShowLoginView();
 

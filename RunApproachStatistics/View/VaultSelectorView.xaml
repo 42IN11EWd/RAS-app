@@ -88,9 +88,9 @@
                         <ComboBoxItem Content="Official Rating"/>
                         <ComboBoxItem Content="Date &amp; Time"/>
                     </ComboBox>
-                    <ListBox FontSize="22" HorizontalAlignment="Left" Height="643" Margin="10,52,0,0" ItemsSource="{Binding FilterItems}" SelectedItem="{Binding SelectedFilterItem}" VerticalAlignment="Top" Width="368"/>
+                    <ListBox FontSize="22" HorizontalAlignment="Left" Height="643" Margin="10,52,0,0" ItemsSource="{Binding Path=FilterItems}" SelectedItem="{Binding Path=SelectedFilterItem}" VerticalAlignment="Top" Width="368"/>
                     <ListBox FontSize="22" HorizontalAlignment="Left" Height="300" ItemsSource="{Binding FilterList}" Margin="10,705,0,0" VerticalAlignment="Top" Width="368" />
-                    <Button Command="{Binding DynamicToVaultCommand}"   Content="{Binding DynamicToVaultText}"  FontSize="24" Height="50" HorizontalAlignment="Left"    Margin="10,0,0,10" VerticalAlignment="Bottom" Width="175"/>
+                    <Button Command="{Binding CompareCommand}" IsEnabled="{Binding Path=ButtonEnabled}"  Content="{Binding Path=CompareButtonText}"  FontSize="24" Height="50" HorizontalAlignment="Left"    Margin="10,0,0,10" VerticalAlignment="Bottom" Width="175"/>
                     <Button Command="{Binding RemoveAllFiltersCommand}"        Content="Remove Filters"                FontSize="24" Height="50" HorizontalAlignment="Right"   Margin="0,0,10,10" VerticalAlignment="Bottom" Width="175"/>
                 </Grid>
             </Border>

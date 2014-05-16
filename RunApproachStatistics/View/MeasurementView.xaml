@@ -7,6 +7,7 @@
              xmlns:v="clr-namespace:RunApproachStatistics.View"
              mc:Ignorable="d" 
              d:DesignWidth="1920" d:DesignHeight="1080" Background="White" >
+    
     <Viewbox Stretch="Uniform">
         <Grid Width="1920" Height="1080">
 
@@ -14,21 +15,30 @@
 
             <ContentControl x:Name="RatingContainer"
 			    Content="{Binding Path=RatingControl}" Margin="1652,495,50,540" Width="218" Height="45"/>
-            <ListView Grid.Column="1"  SelectedItem="{Binding SelectedThumbnail}" ItemsSource="{Binding ThumbnailCollection}" Margin="0,0,0,0" Height="1080" VerticalAlignment="Top" HorizontalAlignment="Left" VerticalContentAlignment="Top" Width="300">
-                <!-- ItemsPanelTemplate -->
+
+            <ListView Grid.Column="1"  SelectedItem="{Binding SelectedThumbnail}" ItemsSource="{Binding ThumbnailCollection}" Margin="0,0,0,0" Height="1080" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        <Setter Property="VerticalContentAlignment" Value="Top"/>
+                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                        <Setter Property="VerticalAlignment" Value="Top"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <UniformGrid Columns="1" />
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
 
-                <!-- ItemTemplate -->
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <v:ThumbnailView/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            
             <Grid Height="635" Width="1130" Name="cameraGrid" Margin="336,31,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Background="Black" Grid.Column="1">
                 <ContentControl x:Name="cameraView" Content="{Binding Path=CameraView}"/>
             </Grid>
@@ -53,10 +63,10 @@
             <Label Content="Location" Height="45" FontSize="24" Width="160" HorizontalAlignment="Right" Margin="0,0,265,735" VerticalAlignment="Bottom"/>
             <Label Content="Vault kind" Height="45" FontSize="24" Margin="0,0,265,800" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="160"/>
 
-            <toolkit:AutoCompleteBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right" Padding="0" Margin="0,0,50,800" Text="{Binding Path=VaultKind, ValidatesOnNotifyDataErrors=True}" SelectedItem="{Binding Path=VaultKind, Mode=TwoWay}" Style="{StaticResource autoCompleteTextBoxInError}" VerticalAlignment="Bottom" ItemsSource="{Binding Path=VaultKinds}" FilterMode="Contains"/>
-            <toolkit:AutoCompleteBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right" Padding="0" Margin="0,0,50,735" Text="{Binding Path=Location, ValidatesOnNotifyDataErrors=True}" SelectedItem="{Binding Path=Location, Mode=TwoWay}" Style="{StaticResource autoCompleteTextBoxInError}" VerticalAlignment="Bottom" ItemsSource="{Binding Path=Locations}" FilterMode="Contains"/>
-            <toolkit:AutoCompleteBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right" Padding="0" Margin="0,0,50,670" Text="{Binding Path=Gymnast, ValidatesOnNotifyDataErrors=True}" SelectedItem="{Binding Path=Gymnast, Mode=TwoWay}" Style="{StaticResource autoCompleteTextBoxInError}" VerticalAlignment="Bottom" ItemsSource="{Binding Path=Gymnasts}" FilterMode="Contains"/>
-            <toolkit:AutoCompleteBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right" Padding="0" Margin="0,0,50,605" Text="{Binding Path=VaultNumber, ValidatesOnNotifyDataErrors=True}" SelectedItem="{Binding Path=VaultNumber, Mode=TwoWay}" Style="{StaticResource autoCompleteTextBoxInError}" VerticalAlignment="Bottom" ItemsSource="{Binding Path=VaultNumbers}" FilterMode="Contains"/>
+            <toolkit:AutoCompleteBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right" Padding="0" Margin="0,0,50,800" Text="{Binding Path=VaultKind, ValidatesOnNotifyDataErrors=True, Mode=TwoWay}" Style="{StaticResource autoCompleteTextBoxInError}" VerticalAlignment="Bottom" ItemsSource="{Binding Path=VaultKinds}" FilterMode="Contains"/>
+            <toolkit:AutoCompleteBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right" Padding="0" Margin="0,0,50,735" Text="{Binding Path=Location, ValidatesOnNotifyDataErrors=True, Mode=TwoWay}" Style="{StaticResource autoCompleteTextBoxInError}" VerticalAlignment="Bottom" ItemsSource="{Binding Path=Locations}" FilterMode="Contains"/>
+            <toolkit:AutoCompleteBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right" Padding="0" Margin="0,0,50,670" Text="{Binding Path=Gymnast, ValidatesOnNotifyDataErrors=True, Mode=TwoWay}" Style="{StaticResource autoCompleteTextBoxInError}" VerticalAlignment="Bottom" ItemsSource="{Binding Path=Gymnasts}" FilterMode="Contains"/>
+            <toolkit:AutoCompleteBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right" Padding="0" Margin="0,0,50,605" Text="{Binding Path=VaultNumber, ValidatesOnNotifyDataErrors=True, Mode=TwoWay}" Style="{StaticResource autoCompleteTextBoxInError}" VerticalAlignment="Bottom" ItemsSource="{Binding Path=VaultNumbers}" FilterMode="Contains"/>
             <TextBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right" Padding="0" Margin="0,0,50,475" TextWrapping="Wrap" Text="{Binding Path=Dscore, ValidatesOnNotifyDataErrors=True}" Style="{StaticResource textBoxInError}" VerticalAlignment="Bottom" />
             <TextBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right" Padding="0" Margin="0,0,50,410" TextWrapping="Wrap" Text="{Binding Path=Escore, ValidatesOnNotifyDataErrors=True}" Style="{StaticResource textBoxInError}" VerticalAlignment="Bottom" />
             <TextBox FontSize="24" Width="218" Height="45" HorizontalAlignment="Right" Padding="0" Margin="0,0,50,345" TextWrapping="Wrap" Text="{Binding Path=Penalty, ValidatesOnNotifyDataErrors=True}" Style="{StaticResource textBoxInError}" VerticalAlignment="Bottom"/>
