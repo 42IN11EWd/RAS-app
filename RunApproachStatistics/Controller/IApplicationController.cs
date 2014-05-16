@@ -20,7 +20,7 @@ namespace RunApproachStatistics.Controllers
 
         void ShowCompareVaultsView(List<vault> vaults);
 
-        void ShowVideoPlaybackView();
+        void ShowVideoPlaybackView(vault selectedVault);
 
         void ShowLoginView();
 

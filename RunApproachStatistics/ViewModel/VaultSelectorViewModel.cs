@@ -437,7 +437,7 @@ namespace RunApproachStatistics.ViewModel
             }
             if(SelectedThumbnails.Count == 1)
             {
-                _app.ShowHomeView();
+                _app.ShowVideoPlaybackView(vaults[0]);
             }
             else if(SelectedThumbnails.Count == 2)
             {

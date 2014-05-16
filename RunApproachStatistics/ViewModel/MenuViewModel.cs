@@ -47,7 +47,7 @@ namespace RunApproachStatistics.ViewModel
             ToggleLaser = !ToggleLaser;
 
             OnPropertyChanged("PilotLaserTitle");
-            _app.ShowVideoPlaybackView();
+
         }
         public void StartSession(object commandParam)
         {
