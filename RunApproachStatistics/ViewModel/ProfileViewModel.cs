@@ -720,7 +720,7 @@ namespace RunApproachStatistics.ViewModel
             foreach (gymnast gymnast in gymnastList)
             {
                 String tempFullname = gymnast.name + (!String.IsNullOrWhiteSpace(gymnast.surname_prefix) ? " " + gymnast.surname_prefix + " " : " ") + gymnast.surname;
-                if (tempFullname.Contains(FilterField))
+                if (tempFullname.ToLower().Contains(FilterField.ToLower()))
                 {
                     filterList.Add(gymnast);
                 }
