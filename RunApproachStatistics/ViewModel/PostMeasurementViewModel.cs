@@ -163,15 +163,11 @@ namespace RunApproachStatistics.ViewModel
 
         public String VaultNumber
         {
-            get
-            {
-                if (SelectedThumbnail != null)
-                    return SelectedThumbnail.Vault.vaultnumber != null ? SelectedThumbnail.Vault.vaultnumber.code : "";
-                return "";
-            }
+            get { return vaultNumber; }
             set
             {
-                SelectedThumbnail.Vault.vaultnumber.code = value;
+                vaultNumber = value;
+                Validator.Validate(() => VaultNumber);
                 OnPropertyChanged("VaultNumber");
             }
         }
@@ -349,6 +345,15 @@ namespace RunApproachStatistics.ViewModel
             EScore = SelectedThumbnail.Vault.rating_official_E.ToString();
             DScore = SelectedThumbnail.Vault.rating_official_D.ToString();
             Penalty = selectedThumbnail.Vault.penalty.ToString();
+            if (SelectedThumbnail.Vault.vaultnumber != null)
+            {
+                VaultNumber = SelectedThumbnail.Vault.vaultnumber.code.ToString();
+            }
+            else
+            {
+                vaultNumber = "";
+            }
+
             if (SelectedThumbnail.Vault.gymnast != null)
             {
                 name = SelectedThumbnail.Vault.gymnast.name;
@@ -375,6 +380,11 @@ namespace RunApproachStatistics.ViewModel
             else
             {
                 SelectedThumbnail.Vault.gymnast_id = gymnastIds[Gymnasts.IndexOf(Gymnast)];
+            }
+
+            if (SelectedThumbnail.Vault.vaultnumber != null)
+            {
+                VaultNumber = VaultNumbers[vaultNumberIds.IndexOf((int)SelectedThumbnail.Vault.vaultnumber_id)];
             }
         }
 
@@ -472,6 +482,29 @@ namespace RunApproachStatistics.ViewModel
                                   else
                                   {
                                       return RuleResult.Invalid("Gymnast is not in list");
+                                  }
+                              });
+
+            Validator.AddRule(() => VaultNumber,
+                              () => VaultNumbers,
+                              () =>
+                              {
+                                  if (VaultNumber == null || VaultNumber == "" || VaultNumbers.Contains(VaultNumber))
+                                  {
+                                      if (VaultNumber != null)
+                                      {
+                                          SelectedThumbnail.Vault.vaultnumber_id = vaultNumberIds[VaultNumbers.IndexOf(VaultNumber)];
+                                      }
+                                      else
+                                      {
+                                          SelectedThumbnail.Vault.vaultnumber = null;
+                                      }
+
+                                      return RuleResult.Valid();
+                                  }
+                                  else
+                                  {
+                                      return RuleResult.Invalid("Vault number is not in list");
                                   }
                               });
         }
