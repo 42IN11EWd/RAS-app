@@ -100,10 +100,11 @@ namespace RunApproachStatistics
             _setContent(cameraViewModel);
         }
 
-        public void ShowCompareVaultsView()
+        public void ShowCompareVaultsView(List<vault> vaults)
         {
             CompareVaultsViewModel compareVaultsViewModel = new CompareVaultsViewModel(this);
             _setContent(compareVaultsViewModel);
+            compareVaultsViewModel.setVaultsToCompare(vaults);
         }
 
         public void ShowLoginView()

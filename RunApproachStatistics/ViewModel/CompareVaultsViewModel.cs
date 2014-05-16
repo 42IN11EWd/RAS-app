@@ -1,4 +1,5 @@
 ﻿using RunApproachStatistics.Controllers;
+using RunApproachStatistics.Model.Entity;
 using RunApproachStatistics.Modules;
 using RunApproachStatistics.Modules.Interfaces;
 using RunApproachStatistics.MVVM;
@@ -40,6 +41,10 @@ namespace RunApproachStatistics.ViewModel
             MenuViewModel menuViewModel = new MenuViewModel(_app);
             menuViewModel.VisibilityLaser = true;
             Menu = menuViewModel;
+        }
+        public void setVaultsToCompare(List<vault> vaults)
+        {
+
         }
 
         protected override void initRelayCommands()
