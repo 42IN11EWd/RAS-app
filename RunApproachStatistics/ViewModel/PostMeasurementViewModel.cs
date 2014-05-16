@@ -365,6 +365,19 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
+        private void saveGymnast()
+        {
+            // Save Gymnast
+            if (Gymnast == null || Gymnast.Equals("") || GetErrorArr("Gymnast") != null)
+            {
+                SelectedThumbnail.Vault.gymnast = null;
+            }
+            else
+            {
+                SelectedThumbnail.Vault.gymnast_id = gymnastIds[Gymnasts.IndexOf(Gymnast)];
+            }
+        }
+
         private void calculateTotalScore()
         {
             if (DScore != null && EScore != null && !DScore.Equals("") && !EScore.Equals("")
@@ -420,17 +433,7 @@ namespace RunApproachStatistics.ViewModel
         public void SaveAction(object commandParam)
         {
             SelectedThumbnail.Vault.rating_star = ratingVM.RatingValue;
-
-            // Save Gymnast
-            if (Gymnast == null || Gymnast.Equals("") || GetErrorArr("Gymnast") != null)
-            {
-                SelectedThumbnail.Vault.gymnast = null;
-            }
-            else
-            {
-                SelectedThumbnail.Vault.gymnast_id = gymnastIds[Gymnasts.IndexOf(Gymnast)];
-            }
-
+            saveGymnast();
             vaultModule.update(SelectedThumbnail.Vault);
         }
 
