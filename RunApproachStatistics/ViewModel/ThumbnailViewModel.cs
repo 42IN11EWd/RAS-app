@@ -18,12 +18,14 @@ namespace RunApproachStatistics.ViewModel
         private IApplicationController _app;
         private vault vault = new vault();
         private Visibility liveLabelVisibility;
+        private Thickness livePadding;
 
         public ThumbnailViewModel(IApplicationController app)
             : base()
         {
             _app = app;
             LiveLabelVisibility = Visibility.Hidden;
+
         }
 
         public vault Vault
@@ -38,6 +40,16 @@ namespace RunApproachStatistics.ViewModel
                 OnPropertyChanged("VaultNumber");
 
                 setThumbnail();
+            }
+        }
+
+        public Thickness LivePadding
+        {
+            get { return livePadding; }
+            set
+            {
+                livePadding = value;
+                OnPropertyChanged("LivePadding");
             }
         }
 
@@ -162,10 +174,12 @@ namespace RunApproachStatistics.ViewModel
                 LiveLabelVisibility = Visibility.Visible;
                 Vault.timestamp = DateTime.Now;
                 OnPropertyChanged("Datetime");
+                LivePadding = new Thickness(15,0,15,0);
             }
             else
             {
                 LiveLabelVisibility = Visibility.Hidden;
+                LivePadding = new Thickness(0);
             }
         }
 
