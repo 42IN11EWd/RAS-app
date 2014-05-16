@@ -45,6 +45,11 @@ namespace RunApproachStatistics.ViewModel
         private List<int> vaultNumberIds;
         private List<int> vaultKindIds;
 
+        //Splitted names
+        private String name;
+        private String surnamePrefix;
+        private String surname;
+
 
         #region Modules
 
@@ -107,7 +112,7 @@ namespace RunApproachStatistics.ViewModel
             set
             {
                 selectedThumbnail = value;
-                setScores();
+                setProperties();
                 ratingVM.RatingValue = (int)SelectedThumbnail.Vault.rating_star;
                 OnPropertyChanged("SelectedThumbnail");
                 OnPropertyChanged("Gymnast");
@@ -124,18 +129,11 @@ namespace RunApproachStatistics.ViewModel
         {
             get
             {
-                if (SelectedThumbnail != null)
-                {
-                    if (SelectedThumbnail.Vault.gymnast != null)
-                    {
-                        return SelectedThumbnail.Vault.gymnast.name + " " + (SelectedThumbnail.Vault.gymnast.surname_prefix != null ? SelectedThumbnail.Vault.gymnast.surname_prefix + " " : "") + SelectedThumbnail.Vault.gymnast.surname;
-                    }
-                }
-                return "";
+                return name + " " + (surnamePrefix != null ? surnamePrefix + " " : "") + surname;
             }
             set
             {
-                SelectedThumbnail.Vault.gymnast.name = value;
+                gymnast = value;
                 OnPropertyChanged("Gymnast");
             }
         }
@@ -164,21 +162,6 @@ namespace RunApproachStatistics.ViewModel
                 OnPropertyChanged("Datetime");
             }
         }
-
-        //public decimal Timespan
-        //{
-        //    get
-        //    {
-        //        if (SelectedThumbnail != null)
-        //            return SelectedThumbnail.Vault.duration;
-        //        return 0;
-        //    }
-        //    set
-        //    {
-        //        SelectedThumbnail.Vault.duration = value;
-        //        OnPropertyChanged("TimeSpan");
-        //    }
-        //}
 
         public String VaultNumber
         {
@@ -363,11 +346,24 @@ namespace RunApproachStatistics.ViewModel
             SetValidationRules();        
         }
 
-        private void setScores()
+        private void setProperties()
         {
             EScore = SelectedThumbnail.Vault.rating_official_E.ToString();
             DScore = SelectedThumbnail.Vault.rating_official_D.ToString();
             Penalty = selectedThumbnail.Vault.penalty.ToString();
+            if (SelectedThumbnail.Vault.gymnast != null)
+            {
+                name = SelectedThumbnail.Vault.gymnast.name;
+                surnamePrefix = SelectedThumbnail.Vault.gymnast.surname_prefix;
+                surname = SelectedThumbnail.Vault.gymnast.surname;
+            }
+            else
+            {
+                name = "";
+                surnamePrefix = "";
+                surname = "";
+            }
+            
         }
 
         private void calculateTotalScore()
@@ -425,6 +421,7 @@ namespace RunApproachStatistics.ViewModel
         public void SaveAction(object commandParam)
         {
             SelectedThumbnail.Vault.rating_star = ratingVM.RatingValue;
+            String[] fullName = Gymnast.Split(' ');
             vaultModule.update(SelectedThumbnail.Vault);
         }
 
@@ -450,6 +447,20 @@ namespace RunApproachStatistics.ViewModel
                               () =>
                               {
                                   return checkScore(Penalty.ToString(),"Penalty");
+                              });
+
+            Validator.AddRule(() => Gymnast,
+                              () => Gymnasts,
+                              () =>
+                              {
+                                  if (Gymnast == null || Gymnast == "" || Gymnasts.Contains(Gymnast))
+                                  {
+                                      return RuleResult.Valid();
+                                  }
+                                  else
+                                  {
+                                      return RuleResult.Invalid("Gymnast is not in list");
+                                  }
                               });
         }
 
