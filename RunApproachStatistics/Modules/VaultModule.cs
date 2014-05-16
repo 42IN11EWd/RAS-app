@@ -73,6 +73,7 @@ namespace RunApproachStatistics.Modules
                 query.vault_id = vault.vault_id;
                 query.location_id = vault.location_id;
                 query.vaultkind_id = vault.vaultkind_id;
+                query.vaultnumber_id = vault.vaultnumber_id;
                 query.rating_star = vault.rating_star;
                 query.rating_official_D = vault.rating_official_D;
                 query.rating_official_E = vault.rating_official_E;

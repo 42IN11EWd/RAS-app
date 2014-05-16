@@ -345,15 +345,18 @@ namespace RunApproachStatistics.ViewModel
             EScore = SelectedThumbnail.Vault.rating_official_E.ToString();
             DScore = SelectedThumbnail.Vault.rating_official_D.ToString();
             Penalty = selectedThumbnail.Vault.penalty.ToString();
+
+            // Check for vaultnumber
             if (SelectedThumbnail.Vault.vaultnumber != null)
             {
-                VaultNumber = SelectedThumbnail.Vault.vaultnumber.code.ToString();
+                vaultNumber = SelectedThumbnail.Vault.vaultnumber.code.ToString();
             }
             else
             {
                 vaultNumber = "";
             }
 
+            // Check for gymnast
             if (SelectedThumbnail.Vault.gymnast != null)
             {
                 name = SelectedThumbnail.Vault.gymnast.name;
@@ -370,7 +373,7 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        private void saveGymnast()
+        private void saveInfo()
         {
             // Save Gymnast
             if (Gymnast == null || Gymnast.Equals("") || GetErrorArr("Gymnast") != null)
@@ -380,11 +383,6 @@ namespace RunApproachStatistics.ViewModel
             else
             {
                 SelectedThumbnail.Vault.gymnast_id = gymnastIds[Gymnasts.IndexOf(Gymnast)];
-            }
-
-            if (SelectedThumbnail.Vault.vaultnumber != null)
-            {
-                VaultNumber = VaultNumbers[vaultNumberIds.IndexOf((int)SelectedThumbnail.Vault.vaultnumber_id)];
             }
         }
 
@@ -443,7 +441,7 @@ namespace RunApproachStatistics.ViewModel
         public void SaveAction(object commandParam)
         {
             SelectedThumbnail.Vault.rating_star = ratingVM.RatingValue;
-            saveGymnast();
+            saveInfo();
             vaultModule.update(SelectedThumbnail.Vault);
         }
 
@@ -493,11 +491,14 @@ namespace RunApproachStatistics.ViewModel
                                   {
                                       if (VaultNumber != null)
                                       {
-                                          SelectedThumbnail.Vault.vaultnumber_id = vaultNumberIds[VaultNumbers.IndexOf(VaultNumber)];
+                                          if (VaultNumbers.Contains(VaultNumber))
+                                          {
+                                              SelectedThumbnail.Vault.vaultnumber_id = vaultNumberIds[VaultNumbers.IndexOf(VaultNumber)];
+                                          }
                                       }
                                       else
                                       {
-                                          SelectedThumbnail.Vault.vaultnumber = null;
+                                          //SelectedThumbnail.Vault.vaultnumber = null;
                                       }
 
                                       return RuleResult.Valid();
