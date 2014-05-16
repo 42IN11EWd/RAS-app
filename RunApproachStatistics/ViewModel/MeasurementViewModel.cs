@@ -62,6 +62,9 @@ namespace RunApproachStatistics.ViewModel
 
         private GraphViewModel graphView;
 
+        private ThumbnailViewModel selectedThumbnail;
+        private vault selectedVault;
+
         public VideoCameraController VideoCameraController
         {
             get { return videoCameraController; }
@@ -393,6 +396,19 @@ namespace RunApproachStatistics.ViewModel
                 OnPropertyChanged("ThumbnailCollection");
             }
         }
+
+        public ThumbnailViewModel SelectedThumbnail
+        {
+            get { return selectedThumbnail; }
+            set
+            {
+                selectedThumbnail = value;
+                selectedVault = selectedThumbnail.Vault;
+                setVaultFields();
+                OnPropertyChanged("SelectedThumbnail");
+            }
+        }
+
         #endregion
 
         public MeasurementViewModel(IApplicationController app, PortController portController, VideoCameraController videoCameraController) : base()
@@ -445,10 +461,10 @@ namespace RunApproachStatistics.ViewModel
         }
 
         private void stopMeasuring()
-        {            
-            // Create new vault
-            vault newVault = new vault();
-
+        {
+            ThumbnailViewModel liveThumbnail = ThumbnailCollection[0];
+            vault newVault = liveThumbnail.Vault;
+            /*
             if (VaultKind == null || VaultKind.Equals("") || GetErrorArr("VaultKind") != null)
             {
                 newVault.vaultkind = null;
@@ -538,8 +554,7 @@ namespace RunApproachStatistics.ViewModel
                     //No problem
                 }
                 newVault.penalty = pDecimal;
-            }
-
+            }*/
 
             RatingViewModel ratingVM = (RatingViewModel)RatingControl;
             int rating = ratingVM.getScore();
@@ -598,10 +613,14 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        private void vaultCreated(object sender, vault e)
+        private void vaultCreated(object sender, vault receivedVault)
         {
             // Add vault to thumbnail list.
+            ThumbnailViewModel vaultThumb = new ThumbnailViewModel(_app);
+            vaultThumb.Vault = receivedVault;
             
+            // Add to collection
+            thumbnailCollection.Add(vaultThumb);
         }
 
         private void calculateTotalScore()
@@ -674,6 +693,11 @@ namespace RunApproachStatistics.ViewModel
             else
             {
                 Measuring = true;
+                vault newVault = new vault();
+                newVault.timestamp = DateTime.Now;
+
+                ThumbnailViewModel liveThumbnail = ThumbnailCollection[0];
+                liveThumbnail.Vault = newVault;
             }
         }
 
@@ -695,6 +719,15 @@ namespace RunApproachStatistics.ViewModel
                               {
                                   if (VaultKind == null || VaultKind == "" || VaultKinds.Contains(VaultKind))
                                   {
+                                      if (VaultKind != null)
+                                      {
+                                          selectedVault.vaultkind_id = vaultKindIds[VaultKinds.IndexOf(VaultKind)];
+                                      }
+                                      else
+                                      {
+                                          selectedVault.vaultkind = null;
+                                      }
+
                                       return RuleResult.Valid();
                                   }
                                   else
@@ -709,6 +742,15 @@ namespace RunApproachStatistics.ViewModel
                               {
                                   if (Location == null || Location == "" || Locations.Contains(Location))
                                   {
+                                      if (Location != null)
+                                      {
+                                          selectedVault.location_id = locationIds[Locations.IndexOf(Location)];
+                                      }
+                                      else
+                                      {
+                                          selectedVault.location = null;
+                                      }
+
                                       return RuleResult.Valid();
                                   }
                                   else
@@ -723,6 +765,15 @@ namespace RunApproachStatistics.ViewModel
                               {
                                   if (Gymnast == null || Gymnast == "" || Gymnasts.Contains(Gymnast))
                                   {
+                                      if (Gymnast != null)
+                                      {
+                                          selectedVault.gymnast_id = gymnastIds[Gymnasts.IndexOf(Gymnast)];
+                                      }
+                                      else
+                                      {
+                                          selectedVault.gymnast = null;
+                                      }
+
                                       return RuleResult.Valid();
                                   }
                                   else
@@ -737,6 +788,15 @@ namespace RunApproachStatistics.ViewModel
                               {
                                   if (VaultNumber == null || VaultNumber == "" || VaultNumbers.Contains(VaultNumber))
                                   {
+                                      if (VaultNumber != null)
+                                      {
+                                          selectedVault.vaultnumber_id = vaultNumberIds[VaultNumbers.IndexOf(VaultNumber)];
+                                      }
+                                      else
+                                      {
+                                          selectedVault.vaultnumber = null;
+                                      }
+
                                       return RuleResult.Valid();
                                   }
                                   else
@@ -748,26 +808,32 @@ namespace RunApproachStatistics.ViewModel
             Validator.AddRule(() => Escore,
                               () =>
                               {
-                                  return checkScore(Escore);
+                                  return checkScore(Escore, "escore");
                               });
 
             Validator.AddRule(() => Dscore,
                               () =>
                               {
-                                  return checkScore(Dscore);
+                                  return checkScore(Dscore, "dscore");
                               });
 
             Validator.AddRule(() => Penalty,
                               () =>
                               {
-                                    return checkScore(Penalty);
+                                    return checkScore(Penalty, "penalty");
                               });
         }
 
-        private RuleResult checkScore(String score)
+        private RuleResult checkScore(String score, String scoreType)
         {
             if (score.Equals(""))
             {
+                switch(scoreType)
+                {
+                    case "dscore": selectedVault.rating_official_D = null; break;
+                    case "escore": selectedVault.rating_official_E = null; break;
+                    case "penalty": selectedVault.penalty = null; break;
+                }
                 return RuleResult.Valid();
             }
             else
@@ -779,7 +845,20 @@ namespace RunApproachStatistics.ViewModel
                 }
                 else
                 {
-                    return RuleResult.Assert(CountDecimalPlaces((decimal)fScore) <= 3, "Score can contain maximal 3 decimals");
+                    if (CountDecimalPlaces((decimal)fScore) <= 3)
+                    {
+                        switch(scoreType)
+                        {
+                            case "dscore": selectedVault.rating_official_D = (decimal)fScore; break;
+                            case "escore": selectedVault.rating_official_E = (decimal)fScore; break;
+                            case "penalty": selectedVault.penalty = (decimal)fScore; break;
+                        }
+                        return RuleResult.Valid();
+                    }
+                    else
+                    {
+                        return RuleResult.Invalid("Score can contain maximal 3 decimals");
+                    }
                 }
             }
         }
@@ -797,6 +876,55 @@ namespace RunApproachStatistics.ViewModel
             }
 
             return result;
+        }
+
+        #endregion
+
+        #region Thumbnail Methods
+
+        private void setVaultFields()
+        {
+            if (selectedVault.vaultkind != null)
+            {
+                VaultKind = VaultKinds[vaultKindIds.IndexOf((int)selectedVault.vaultkind_id)];
+            }
+
+            if (selectedVault.location != null)
+            {
+                Location = selectedVault.location.name;
+            }
+
+            if (selectedVault.gymnast != null)
+            {
+                Gymnast = Gymnasts[gymnastIds.IndexOf((int)selectedVault.gymnast_id)];
+            }
+
+            if (selectedVault.vaultnumber != null)
+            {
+                VaultNumber = VaultNumbers[vaultNumberIds.IndexOf((int)selectedVault.vaultnumber_id)];
+            }
+
+            if (selectedVault.rating_star != null)
+            {
+                RatingViewModel rating = new RatingViewModel(_app);
+                rating.RatingValue = (int)selectedVault.rating_star;
+                RatingControl = rating;
+            }
+
+            if (selectedVault.rating_official_D != null)
+            {
+                Dscore = selectedVault.rating_official_D.ToString();
+            }
+
+            if (selectedVault.rating_official_E != null)
+            {
+                Escore = selectedVault.rating_official_E.ToString();
+            }
+
+            if (selectedVault.penalty != null)
+            {
+                Penalty = selectedVault.penalty.ToString();
+            }
         }
 
         #endregion
