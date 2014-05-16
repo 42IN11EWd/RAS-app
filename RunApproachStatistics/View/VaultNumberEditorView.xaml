@@ -4,32 +4,33 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="421" d:DesignWidth="850" Background="White">
+             d:DesignHeight="430" d:DesignWidth="850" Background="White">
     <Viewbox Stretch="Uniform">
-    <Grid Height="421" Width="850">
-        <Label FontSize="28" Content="Vault number editor" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <ListBox SelectedItem="{Binding Path=SelectedItem, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Path=Vaults}" FontSize="24" HorizontalAlignment="Left" Height="338" Margin="10,62,0,0" VerticalAlignment="Top" Width="261">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Path=code, UpdateSourceTrigger=PropertyChanged}"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-        <Button FontSize="20" Content="Delete" Command="{Binding DeleteCommand}" HorizontalAlignment="Left" Margin="614,375,0,0" VerticalAlignment="Top" Height="25" Width="100"  IsEnabled="{Binding Path=ButtonEnabled}"/>
-        <Button FontSize="20" Content="New" Command="{Binding NewCommand}" HorizontalAlignment="Left" Margin="482,375,0,0" VerticalAlignment="Top" Height="25" Width="100"/>
-        <Button FontSize="20" Content="Back" Command="{Binding BackCommand}" HorizontalAlignment="Left" Margin="296,375,0,0" VerticalAlignment="Top" Height="25" Width="100"/>
-        <Button FontSize="20" Content="Save" Command="{Binding SaveCommand}" HorizontalAlignment="Left" Margin="740,375,0,0" VerticalAlignment="Top" Height="25" Width="100"  IsEnabled="{Binding Path=ButtonEnabled}"/>
-        <Label Content="Code" FontSize="24" HorizontalAlignment="Left" Margin="354,62,0,0" VerticalAlignment="Top" Width="195" Height="40"/>
-        <Label Content="Gender" FontSize="24" HorizontalAlignment="Left" Margin="354,107,0,0" VerticalAlignment="Top" Width="195" Height="40"/>
-        <Label Content="Difficulty" FontSize="24" HorizontalAlignment="Left" Margin="354,152,0,0" VerticalAlignment="Top" Width="195" Height="40"/>
-        <Label Content="Description" FontSize="24" HorizontalAlignment="Left" Margin="354,197,0,0" VerticalAlignment="Top" Width="195" Height="40"/>
-        <TextBox TextWrapping="Wrap" FontSize="24" Width="286"  HorizontalAlignment="Left" Margin="554,197,0,0"  Text="{Binding Path=Description}"  IsEnabled="{Binding Path=ButtonEnabled}" VerticalAlignment="Top" Height="149"/>
-        <TextBox FontSize="24" HorizontalAlignment="Left" Height="40" Margin="554,62,0,0" TextWrapping="Wrap" Text="{Binding Path=Code}"  IsEnabled="{Binding Path=ButtonEnabled}" VerticalAlignment="Top" Width="286"/>
-        <TextBox FontSize="24" HorizontalAlignment="Left" Height="40" Margin="554,107,0,0" TextWrapping="Wrap" Text="{Binding Path=Gender}"  IsEnabled="{Binding Path=ButtonEnabled}" VerticalAlignment="Top" Width="286"/>
-        <TextBox FontSize="24" HorizontalAlignment="Left" Height="40" Margin="554,152,0,0" TextWrapping="Wrap" Text="{Binding Path=Difficulty}"  IsEnabled="{Binding Path=ButtonEnabled}" VerticalAlignment="Top" Width="286"/>
+        <Grid Height="421" Width="850">
+            <Label FontSize="26" Content="Vault number editor" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
+            <ListBox SelectedItem="{Binding Path=SelectedItem, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Path=Vaults}" FontSize="18" HorizontalAlignment="Left" Height="361" Margin="10,50,0,0" VerticalAlignment="Top" Width="261">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Path=code, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Button FontSize="18" Content="Save" Command="{Binding SaveCommand}" HorizontalAlignment="Left" Margin="720,383,0,0" VerticalAlignment="Top" Height="28" Width="100"  IsEnabled="{Binding Path=ButtonEnabled}"/>
+            <Button FontSize="18" Content="Delete" Command="{Binding DeleteCommand}" HorizontalAlignment="Left" Margin="602,383,0,0" VerticalAlignment="Top" Height="28" Width="100"  IsEnabled="{Binding Path=ButtonEnabled}"/>
+            <Button FontSize="18" Content="New" Command="{Binding NewCommand}" HorizontalAlignment="Left" Margin="478,386,0,0" VerticalAlignment="Top" Height="25" Width="100"/>
+            <Button FontSize="18" Content="Back" Command="{Binding BackCommand}" HorizontalAlignment="Left" Margin="296,386,0,0" VerticalAlignment="Top" Height="25" Width="100"/>
 
-    </Grid>
+            <Label Content="Code" FontSize="18" HorizontalAlignment="Left" Margin="354,62,0,0" VerticalAlignment="Top" Width="195" Height="40"/>
+            <Label Content="Gender" FontSize="18" HorizontalAlignment="Left" Margin="354,107,0,0" VerticalAlignment="Top" Width="195" Height="40"/>
+            <Label Content="Difficulty" FontSize="18" HorizontalAlignment="Left" Margin="354,152,0,0" VerticalAlignment="Top" Width="195" Height="40"/>
+            <Label Content="Description" FontSize="18" HorizontalAlignment="Left" Margin="354,197,0,0" VerticalAlignment="Top" Width="195" Height="40"/>
+
+            <TextBox FontSize="18" HorizontalAlignment="Right" Height="40" Margin="0,62,30,0" TextWrapping="Wrap" Text="{Binding Path=Code}"  IsEnabled="{Binding Path=ButtonEnabled}" VerticalAlignment="Top" Width="286"/>
+            <TextBox FontSize="18" HorizontalAlignment="Right" Height="40" Margin="0,107,30,0" TextWrapping="Wrap" Text="{Binding Path=Gender}"  IsEnabled="{Binding Path=ButtonEnabled}" VerticalAlignment="Top" Width="286"/>
+            <TextBox FontSize="18" HorizontalAlignment="Right" Height="40" Margin="0,152,30,0" TextWrapping="Wrap" Text="{Binding Path=Difficulty}"  IsEnabled="{Binding Path=ButtonEnabled}" VerticalAlignment="Top" Width="286"/>
+            <TextBox TextWrapping="Wrap" FontSize="18" Width="286"  HorizontalAlignment="Right" Margin="0,197,30,0"  Text="{Binding Path=Description}"  IsEnabled="{Binding Path=ButtonEnabled}" VerticalAlignment="Top" Height="149"/>
+        </Grid>
     </Viewbox>
 </UserControl>
