@@ -27,9 +27,7 @@ namespace RunApproachStatistics.Services
         private int   measurementIndex;
 
         private ILaserCameraSettingsModule laserCameraSettingsModule = new SettingsModule();
-
-        public event EventHandler<String> PortDataReceived;
-
+        
         #region Databinding
         
         public float MeasurementFrequency
@@ -67,12 +65,12 @@ namespace RunApproachStatistics.Services
                 {
                     while (!readPort.lastCommandReceived.Equals("PL"))
                     {
-                        Thread.Sleep(10);
+                        Thread.Sleep(50);
                         writePort.togglePilotLaser((value == 1) ? true : false);
                     }
                 }
 
-                if(value == 0)
+                if (value == 0)
                 {
                     initializeMeasurement();
                 }
@@ -87,19 +85,23 @@ namespace RunApproachStatistics.Services
 
             if (isLive)
             {
-                SerialPort port = new SerialPort("COM4", 115200, Parity.None, 8, StopBits.One);
+                SerialPort port = new SerialPort("COM3", 115200, Parity.None, 8, StopBits.One);
                 port.Open();
 
                 Thread readThread = new Thread(() => { readPort = new ReadPort(this, port); });
                 Thread writeThread = new Thread(() => { writePort = new WritePort(port); });
                 readThread.Start();
                 writeThread.Start();
+
+                readThread.Join();
+                writeThread.Join();
                 
                 writePort.stopMeasurement();
 
-                while (!readPort.settingsReceived)
+                while (!readPort.lastCommandReceived.Equals("me"))
                 {
                     // wait for settings
+                    Thread.Sleep(50);
                     getSettings();
                 }
 
