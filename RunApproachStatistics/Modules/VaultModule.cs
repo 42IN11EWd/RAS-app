@@ -68,16 +68,15 @@ namespace RunApproachStatistics.Modules
                             where qVault.vault_id == vault.vault_id
                             select qVault).First();
 
-                //eVault.context = vault.context;
-                //eVault.duration = vault.duration;
-                //eVault.gymnast = vault.gymnast_id;
-                //eVault.location = vault.location;
-                query.penalty = vault.penalty;
+                query.gymnast_id = vault.gymnast_id;
+                query.timestamp = vault.timestamp;
+                query.vault_id = vault.vault_id;
+                query.location_id = vault.location_id;
+                query.vaultkind_id = vault.vaultkind_id;
+                query.rating_star = vault.rating_star;
                 query.rating_official_D = vault.rating_official_D;
                 query.rating_official_E = vault.rating_official_E;
-                query.rating_star = vault.rating_star;
-                //eVault.timestamp = vault.timestamp;
-                //query.vaultnumber = vault.vaultnumber;
+                query.penalty = vault.penalty;
                 query.vaultnumber_id = 1;
 
                 try
@@ -116,7 +115,7 @@ namespace RunApproachStatistics.Modules
         {
             using (var db = new DataContext())
             {
-                return (from qVault in db.vault.Include("gymnast").Include("vaultnumber").Include("location")
+                return (from qVault in db.vault.Include("gymnast").Include("vaultkind").Include("vaultnumber").Include("location")
                         where qVault.deleted == false
                         select qVault
                 ).ToList();
