@@ -11,6 +11,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace RunApproachStatistics.ViewModel
 {
@@ -463,8 +464,17 @@ namespace RunApproachStatistics.ViewModel
         }
         public void DeleteAction(object commandParam)
         {
-            vaultModule.delete(SelectedThumbnail.Vault.vault_id);
-            thumbnailCollection.Remove(SelectedThumbnail);
+            if (!_app.IsLoggedIn)
+            {
+                _app.ShowLoginView();
+            }
+            if (_app.IsLoggedIn)
+            {
+                //TODO : Confirm if you are sure to delete this vault
+                vaultModule.delete(SelectedThumbnail.Vault.vault_id);
+                thumbnailCollection.Remove(SelectedThumbnail);
+                
+            }
         }
 
         public void SaveAction(object commandParam)
