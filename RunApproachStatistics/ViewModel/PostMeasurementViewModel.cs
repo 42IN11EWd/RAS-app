@@ -113,7 +113,6 @@ namespace RunApproachStatistics.ViewModel
             {
                 selectedThumbnail = value;
                 setProperties();
-                ratingVM.RatingValue = (int)SelectedThumbnail.Vault.rating_star;
                 OnPropertyChanged("SelectedThumbnail");
                 OnPropertyChanged("Gymnast");
                 OnPropertyChanged("Datetime");
@@ -345,57 +344,64 @@ namespace RunApproachStatistics.ViewModel
 
         private void setProperties()
         {
-            EScore = SelectedThumbnail.Vault.rating_official_E.ToString();
-            DScore = SelectedThumbnail.Vault.rating_official_D.ToString();
-            Penalty = selectedThumbnail.Vault.penalty.ToString();
+            if (SelectedThumbnail != null)
+            {
+                //Check for scores
+                EScore = SelectedThumbnail.Vault.rating_official_E.ToString();
+                DScore = SelectedThumbnail.Vault.rating_official_D.ToString();
+                Penalty = selectedThumbnail.Vault.penalty.ToString();
 
-            //Check for vaultkind
-            if (SelectedThumbnail.Vault.vaultkind != null)
-            {
-                VaultKind = SelectedThumbnail.Vault.vaultkind.name.ToString();
-            }
-            else
-            {
-                vaultKind = "";
-                VaultKind = "";
-            }
+                //Check ratingstars
+                ratingVM.RatingValue = (int)SelectedThumbnail.Vault.rating_star;
 
-            // Check for location
-            if (SelectedThumbnail.Vault.location != null)
-            {
-                Location = SelectedThumbnail.Vault.location.name.ToString();
-            }
-            else
-            {
-                location = "";
-                Location = "";
-            }
+                //Check for vaultkind
+                if (SelectedThumbnail.Vault.vaultkind != null)
+                {
+                    VaultKind = SelectedThumbnail.Vault.vaultkind.name.ToString();
+                }
+                else
+                {
+                    vaultKind = "";
+                    VaultKind = "";
+                }
 
-            // Check for vaultnumber
-            if (SelectedThumbnail.Vault.vaultnumber != null)
-            {
-                vaultNumber = SelectedThumbnail.Vault.vaultnumber.code.ToString();
-            }
-            else
-            {
-                vaultNumber = "";
-                VaultNumber = "";
-            }
+                // Check for location
+                if (SelectedThumbnail.Vault.location != null)
+                {
+                    Location = SelectedThumbnail.Vault.location.name.ToString();
+                }
+                else
+                {
+                    location = "";
+                    Location = "";
+                }
 
-            // Check for gymnast
-            if (SelectedThumbnail.Vault.gymnast != null)
-            {
-                name = SelectedThumbnail.Vault.gymnast.name;
-                surnamePrefix = SelectedThumbnail.Vault.gymnast.surname_prefix;
-                surname = SelectedThumbnail.Vault.gymnast.surname;
-                Gymnast = (String.IsNullOrEmpty(name) ? "" : name + " ") + (surnamePrefix != null ? surnamePrefix + " " : "") + surname;
-            }
-            else
-            {
-                name = "";
-                surnamePrefix = "";
-                surname = "";
-                Gymnast = "";
+                // Check for vaultnumber
+                if (SelectedThumbnail.Vault.vaultnumber != null)
+                {
+                    vaultNumber = SelectedThumbnail.Vault.vaultnumber.code.ToString();
+                }
+                else
+                {
+                    vaultNumber = "";
+                    VaultNumber = "";
+                }
+
+                // Check for gymnast
+                if (SelectedThumbnail.Vault.gymnast != null)
+                {
+                    name = SelectedThumbnail.Vault.gymnast.name;
+                    surnamePrefix = SelectedThumbnail.Vault.gymnast.surname_prefix;
+                    surname = SelectedThumbnail.Vault.gymnast.surname;
+                    Gymnast = (String.IsNullOrEmpty(name) ? "" : name + " ") + (surnamePrefix != null ? surnamePrefix + " " : "") + surname;
+                }
+                else
+                {
+                    name = "";
+                    surnamePrefix = "";
+                    surname = "";
+                    Gymnast = "";
+                }
             }
         }
 
@@ -445,7 +451,7 @@ namespace RunApproachStatistics.ViewModel
             }
             else
             {
-                TotalScore = "0";
+                TotalScore = "";
             }
         }
 
@@ -460,10 +466,7 @@ namespace RunApproachStatistics.ViewModel
             vaultModule.delete(SelectedThumbnail.Vault.vault_id);
             thumbnailCollection.Remove(SelectedThumbnail);
         }
-        public void CancelAction(object commandParam)
-        {
-            SelectedThumbnail = null;
-        }
+
         public void SaveAction(object commandParam)
         {
             SelectedThumbnail.Vault.rating_star = ratingVM.RatingValue;
@@ -650,7 +653,6 @@ namespace RunApproachStatistics.ViewModel
         {
             FinishCommand = new RelayCommand(FinishAction);
             DeleteCommand = new RelayCommand(DeleteAction);
-            CancelCommand = new RelayCommand(CancelAction);
             SaveCommand = new RelayCommand(SaveAction);
         }
     }

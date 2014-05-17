@@ -31,30 +31,28 @@
             <!-- END Column 0 -->
 
             <ContentControl x:Name="RatingContainer"
-			    Content="{Binding RatingControl}" Margin="1133,660,162,375" Grid.Column="1" />
+			    Content="{Binding RatingControl}" Margin="1133,595,162,440" Grid.Column="1" />
             <Label FontSize="24" Width="200" Height="45" Content="Gymnast"  HorizontalAlignment="Right" Margin="0,0,1217,440" VerticalAlignment="Bottom" Grid.Column="1"/>
             <Label FontSize="24" Width="200" Height="45" Content="Date and Time" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,1217,375" VerticalAlignment="Bottom"/>
-            <Label FontSize="24" Width="200" Height="45" Content="Timespan" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,1217,310" VerticalAlignment="Bottom"/>
-            <Label FontSize="24" Width="200" Height="45" Content="Vault number" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,1217,245" VerticalAlignment="Bottom"/>
-            <Label FontSize="24" Width="200" Height="45" Content="Location" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,1217,180" VerticalAlignment="Bottom"/>
-            <Label FontSize="24" Width="200" Height="45" Content="Vault kind" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,502,440" VerticalAlignment="Bottom"/>
-            <Label FontSize="24" Width="200" Height="45" Content="Rating" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,502,375" VerticalAlignment="Bottom"/>
-            <Label FontSize="24" Width="200" Height="45" Content="D-score" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,502,310" VerticalAlignment="Bottom"/>
-            <Label FontSize="24" Width="200" Height="45" Content="E-score" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,502,245" VerticalAlignment="Bottom"/>
-            <Label FontSize="24" Width="200" Height="45" Content="Penalty" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,502,180" VerticalAlignment="Bottom"/>
-            <Label FontSize="24" Width="200" Height="45" Content="Total score" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,502,115" VerticalAlignment="Bottom"/>
+            <Label FontSize="24" Width="200" Height="45" Content="Vault number" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,1217,310" VerticalAlignment="Bottom"/>
+            <Label FontSize="24" Width="200" Height="45" Content="Location" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,1217,245" VerticalAlignment="Bottom"/>
+            <Label FontSize="24" Width="200" Height="45" Content="Vault kind" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,1217,180" VerticalAlignment="Bottom"/>
+            <Label FontSize="24" Width="200" Height="45" Content="Rating" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,502,440" VerticalAlignment="Bottom"/>
+            <Label FontSize="24" Width="200" Height="45" Content="D-score" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,502,375" VerticalAlignment="Bottom"/>
+            <Label FontSize="24" Width="200" Height="45" Content="E-score" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,502,310" VerticalAlignment="Bottom"/>
+            <Label FontSize="24" Width="200" Height="45" Content="Penalty" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,502,245" VerticalAlignment="Bottom"/>
+            <Label FontSize="24" Width="200" Height="45" Content="Total score" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,502,180" VerticalAlignment="Bottom"/>
 
             <toolkit:AutoCompleteBox FontSize="24" Grid.Column="1" Width="300" Height="45" HorizontalAlignment="Right" Padding="0" Margin="0,0,877,440" Text="{Binding Path=Gymnast, ValidatesOnNotifyDataErrors=True, Mode=TwoWay}" Style="{StaticResource autoCompleteTextBoxInError}" VerticalAlignment="Bottom" ItemsSource="{Binding Path=Gymnasts}" FilterMode="Contains" IsEnabled="{Binding Path=ChangeState}"/>
             <Label FontSize="24" Width="300" Height="45" Content="{Binding Path=Datetime}" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,877,375" VerticalAlignment="Bottom"/>
-            <Label FontSize="24" Width="300" Height="45" Content="" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,877,310" VerticalAlignment="Bottom"/>
 
-            <toolkit:AutoCompleteBox FontSize="24" Grid.Column="1" Width="300" Height="45" HorizontalAlignment="Right" Padding="0" Margin="0,0,877,245" Text="{Binding Path=VaultNumber, ValidatesOnNotifyDataErrors=True, Mode=TwoWay}" Style="{StaticResource autoCompleteTextBoxInError}" VerticalAlignment="Bottom" ItemsSource="{Binding Path=VaultNumbers}" FilterMode="Contains" IsEnabled="{Binding Path=ChangeState}"/>
-            <toolkit:AutoCompleteBox FontSize="24" Grid.Column="1" Width="300" Height="45" HorizontalAlignment="Right" Padding="0" Margin="0,0,877,180" Text="{Binding Path=Location, ValidatesOnNotifyDataErrors=True, Mode=TwoWay}" Style="{StaticResource autoCompleteTextBoxInError}" VerticalAlignment="Bottom" ItemsSource="{Binding Path=Locations}" FilterMode="Contains" IsEnabled="{Binding Path=ChangeState}"/>
-            <toolkit:AutoCompleteBox FontSize="24" Grid.Column="1" Width="300" Height="45" HorizontalAlignment="Right" Padding="0" Margin="0,0,162,440" Text="{Binding Path=VaultKind, ValidatesOnNotifyDataErrors=True, Mode=TwoWay}" Style="{StaticResource autoCompleteTextBoxInError}" VerticalAlignment="Bottom" ItemsSource="{Binding Path=VaultKinds}" FilterMode="Contains" IsEnabled="{Binding Path=ChangeState}"/>
-            <TextBox x:Name="dScoreBox" FontSize="24" Width="300" Height="45" Grid.Column="1" HorizontalAlignment="Right"  Margin="0,0,162,310" TextWrapping="Wrap" Text="{Binding Path=DScore, ValidatesOnNotifyDataErrors=True}" VerticalAlignment="Bottom" Style="{StaticResource textBoxInError}" IsEnabled="{Binding ChangeState}"/>
-            <TextBox x:Name="eScoreBox" FontSize="24" Width="300" Height="45" Grid.Column="1" HorizontalAlignment="Right"  Margin="0,0,162,245" TextWrapping="Wrap" Text="{Binding Path=EScore, ValidatesOnNotifyDataErrors=True}" VerticalAlignment="Bottom" Style="{StaticResource textBoxInError}" IsEnabled="{Binding ChangeState}"/>
-            <TextBox x:Name="penaltyBox" FontSize="24" Width="300" Height="45" Grid.Column="1" HorizontalAlignment="Right"  Margin="0,0,162,180" TextWrapping="Wrap" Text="{Binding Path=Penalty, ValidatesOnNotifyDataErrors=True}" VerticalAlignment="Bottom" Style="{StaticResource textBoxInError}" IsEnabled="{Binding ChangeState}" />
-            <TextBox x:Name="totalScoreBox" FontSize="24" Width="300" Height="45" Grid.Column="1" HorizontalAlignment="Right"  Margin="0,0,162,115" TextWrapping="Wrap" Text="{Binding Path=TotalScore}" VerticalAlignment="Bottom" IsEnabled="False"/>
+            <toolkit:AutoCompleteBox FontSize="24" Grid.Column="1" Width="300" Height="45" HorizontalAlignment="Right" Padding="0" Margin="0,0,877,310" Text="{Binding Path=VaultNumber, ValidatesOnNotifyDataErrors=True, Mode=TwoWay}" Style="{StaticResource autoCompleteTextBoxInError}" VerticalAlignment="Bottom" ItemsSource="{Binding Path=VaultNumbers}" FilterMode="Contains" IsEnabled="{Binding Path=ChangeState}"/>
+            <toolkit:AutoCompleteBox FontSize="24" Grid.Column="1" Width="300" Height="45" HorizontalAlignment="Right" Padding="0" Margin="0,0,877,245" Text="{Binding Path=Location, ValidatesOnNotifyDataErrors=True, Mode=TwoWay}" Style="{StaticResource autoCompleteTextBoxInError}" VerticalAlignment="Bottom" ItemsSource="{Binding Path=Locations}" FilterMode="Contains" IsEnabled="{Binding Path=ChangeState}"/>
+            <toolkit:AutoCompleteBox FontSize="24" Grid.Column="1" Width="300" Height="45" HorizontalAlignment="Right" Padding="0" Margin="0,0,877,180" Text="{Binding Path=VaultKind, ValidatesOnNotifyDataErrors=True, Mode=TwoWay}" Style="{StaticResource autoCompleteTextBoxInError}" VerticalAlignment="Bottom" ItemsSource="{Binding Path=VaultKinds}" FilterMode="Contains" IsEnabled="{Binding Path=ChangeState}"/>
+            <TextBox x:Name="dScoreBox" FontSize="24" Width="300" Height="45" Grid.Column="1" HorizontalAlignment="Right"  Margin="0,0,162,375" TextWrapping="Wrap" Text="{Binding Path=DScore, ValidatesOnNotifyDataErrors=True}" VerticalAlignment="Bottom" Style="{StaticResource textBoxInError}" IsEnabled="{Binding ChangeState}"/>
+            <TextBox x:Name="eScoreBox" FontSize="24" Width="300" Height="45" Grid.Column="1" HorizontalAlignment="Right"  Margin="0,0,162,310" TextWrapping="Wrap" Text="{Binding Path=EScore, ValidatesOnNotifyDataErrors=True}" VerticalAlignment="Bottom" Style="{StaticResource textBoxInError}" IsEnabled="{Binding ChangeState}"/>
+            <TextBox x:Name="penaltyBox" FontSize="24" Width="300" Height="45" Grid.Column="1" HorizontalAlignment="Right"  Margin="0,0,162,245" TextWrapping="Wrap" Text="{Binding Path=Penalty, ValidatesOnNotifyDataErrors=True}" VerticalAlignment="Bottom" Style="{StaticResource textBoxInError}" IsEnabled="{Binding ChangeState}" />
+            <TextBox x:Name="totalScoreBox" FontSize="24" Width="300" Height="45" Grid.Column="1" HorizontalAlignment="Right"  Margin="0,0,162,180" TextWrapping="Wrap" Text="{Binding Path=TotalScore}" VerticalAlignment="Bottom" IsEnabled="False"/>
 
             <ListView Grid.Column="1"  SelectedItem="{Binding Path=SelectedThumbnail}" ItemsSource="{Binding Path=ThumbnailCollection}" Margin="178,10,0,0" Height="552" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1255">
                 <!-- ItemsPanelTemplate -->
@@ -72,11 +70,9 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <Button Content="Finish" FontSize="24" Grid.Column="1" Command="{Binding FinishCommand}" HorizontalAlignment="Right" Margin="0,0,82,27" VerticalAlignment="Bottom" Width="175" Height="50"/>
-            <Button Content="Delete" FontSize="24" Grid.Column="1" Command="{Binding DeleteCommand}" HorizontalAlignment="Right" Margin="0,0,422,27" VerticalAlignment="Bottom" Width="175" Height="50"/>
-            <Button Content="Cancel" FontSize="24" Grid.Column="1" Command="{Binding CancelCommand}" HorizontalAlignment="Right" Margin="0,0,653,27" VerticalAlignment="Bottom" Width="175" Height="50"/>
-            <!-- Multiple binding to save all info-->
-            <Button Content="Save" FontSize="24" Grid.Column="1" Command="{Binding SaveCommand}" HorizontalAlignment="Right" Margin="0,0,877,27" VerticalAlignment="Bottom" Width="175" Height="50"/>
+            <Button Content="Finish" FontSize="24" Grid.Column="1" Command="{Binding FinishCommand}" HorizontalAlignment="Right" Margin="0,0,162,47" VerticalAlignment="Bottom" Width="175" Height="50" />
+            <Button Content="Delete" FontSize="24" Grid.Column="1" Command="{Binding DeleteCommand}" HorizontalAlignment="Right" Margin="0,0,418,47" VerticalAlignment="Bottom" Width="175" Height="50" IsEnabled="{Binding ChangeState}"/>
+            <Button Content="Save" FontSize="24" Grid.Column="1" Command="{Binding SaveCommand}" HorizontalAlignment="Right" Margin="0,0,686,47" VerticalAlignment="Bottom" Width="175" Height="50" IsEnabled="{Binding ChangeState}"/>
 
 
         </Grid>
