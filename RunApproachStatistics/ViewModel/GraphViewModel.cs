@@ -29,6 +29,7 @@ namespace RunApproachStatistics.ViewModel
 
         private ObservableCollection<KeyValuePair<float, float>> distanceArray;
         private ObservableCollection<KeyValuePair<float, float>> speedArray;
+        private float graphSeconds;
 
         public ObservableCollection<KeyValuePair<float, float>> DistanceArray
         {
@@ -50,6 +51,16 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
+        public float GraphSeconds
+        {
+            get { return graphSeconds; }
+            set 
+            {
+                graphSeconds = value;
+                OnPropertyChanged("GraphSeconds");
+            }
+        }
+
         public GraphViewModel(IApplicationController app, AbstractViewModel chooseVM, float duration, int width) : base()
         {
             _app = app;
@@ -57,7 +68,15 @@ namespace RunApproachStatistics.ViewModel
             DistanceArray = new ObservableCollection<KeyValuePair<float, float>>();
             SpeedArray = new ObservableCollection<KeyValuePair<float, float>>();
 
-            //TODO check which viewmodel is active and set properties to specific VM
+            if (duration > 0)
+            {
+                GraphSeconds = 10;
+            }
+            else
+            {
+                GraphSeconds = 30;
+            }
+
             DisplayWidth = width;
             WidthChart = width;
             GridWidth = width;
@@ -90,21 +109,25 @@ namespace RunApproachStatistics.ViewModel
             seconds += (float)0.5;
 
             Application.Current.Dispatcher.Invoke(new Action(() =>
-            {
-                SpeedArray.Add(new KeyValuePair<float, float>(seconds, float.Parse(splitString[0], CultureInfo.InvariantCulture)));
-               
+            {               
                 try
                 {
                     DistanceArray.Add(new KeyValuePair<float, float>(seconds, float.Parse(splitString[1], CultureInfo.InvariantCulture)));
+                    SpeedArray.Add(new KeyValuePair<float, float>(seconds, float.Parse(splitString[0], CultureInfo.InvariantCulture)));
                  }
                 catch (Exception ex)
                 {
-                    //No problem
+                    DistanceArray.Add(new KeyValuePair<float, float>(seconds, float.Parse(splitString[0], CultureInfo.InvariantCulture)));
                 }
 
                 OnPropertyChanged("DistanceArray");
                 OnPropertyChanged("SpeedArray");
             }));
+        }
+
+        public void setGraphLength(float seconds)
+        {
+
         }
 
         protected override void initRelayCommands()
