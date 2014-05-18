@@ -269,8 +269,9 @@ namespace RunApproachStatistics.Modules
                 workerThread.Start();
             });
             createThread.Start();*/
-            Thread createThread = new Thread(() => createVaultWork(frames, writeBuffer, vault));
-            createThread.Start();
+
+            Thread createThread2 = new Thread(() => createVaultWork(frames, writeBuffer, vault));
+            createThread2.Start();
         }
 
         public void createVaultWork(List<Bitmap> frames, List<String> writeBuffer, vault vault)
@@ -289,7 +290,7 @@ namespace RunApproachStatistics.Modules
                 {
                     graphdata += s;
                 }
-                vault.graphdata = graphdata;
+                vault.graphdata = graphdata.Remove(graphdata.Length - 1); //Laatste komma weghalen
 
                 //generate thumbnail
                 try

@@ -473,10 +473,14 @@ namespace RunApproachStatistics.ViewModel
             vault newVault = liveThumbnail.Vault;
 
             RatingViewModel ratingVM = (RatingViewModel)RatingControl;
-            int rating = ratingVM.getScore();
-            newVault.rating_star = rating;
+            newVault.rating_star = ratingVM.getScore();
 
             newVault.timestamp = DateTime.Now;
+
+            if (Dscore != null && !Dscore.Equals("") && GetErrorArr("Dscore") != null)
+            {
+                newVault.rating_official_D = decimal.Parse(Dscore, CultureInfo.InvariantCulture);
+            }
 
             List<String> writeBuffer = portController.stopMeasurement();
             videoCameraController.StopCapture();
