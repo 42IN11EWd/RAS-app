@@ -108,13 +108,14 @@ namespace RunApproachStatistics.ViewModel
             // Set ReplayVideo
             VideoView = new VideoViewModel(_app);
             // Set Graph
-            GraphViewModel graphVM = new GraphViewModel(_app, this, 10, 2000);
+            GraphViewModel graphVM = new GraphViewModel(_app, this, false, 2000);
             GraphView = graphVM;
         }
 
         public void setVaultToPlay(vault selectedVault)
         {
             Console.WriteLine(selectedVault.vault_id);
+            //GraphView.insertGraphData(selectedVault.graphdata);
         }
 
         protected override void initRelayCommands()

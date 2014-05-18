@@ -443,7 +443,7 @@ namespace RunApproachStatistics.ViewModel
             ManualModeChecked = true;
 
             // Set Graph
-            GraphViewModel graphVM = new GraphViewModel(_app, this, 0,1500);
+            GraphViewModel graphVM = new GraphViewModel(_app, this, true, 1500);
             GraphViewMeasurement = graphVM;
 
             // Set validation

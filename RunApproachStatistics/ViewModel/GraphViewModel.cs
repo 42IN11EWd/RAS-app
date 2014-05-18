@@ -30,6 +30,7 @@ namespace RunApproachStatistics.ViewModel
         private ObservableCollection<KeyValuePair<float, float>> distanceArray;
         private ObservableCollection<KeyValuePair<float, float>> speedArray;
         private float graphSeconds;
+        private String graphData;
 
         public ObservableCollection<KeyValuePair<float, float>> DistanceArray
         {
@@ -61,20 +62,20 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        public GraphViewModel(IApplicationController app, AbstractViewModel chooseVM, float duration, int width) : base()
+        public GraphViewModel(IApplicationController app, AbstractViewModel chooseVM, Boolean isLive, int width) : base()
         {
             _app = app;
 
             DistanceArray = new ObservableCollection<KeyValuePair<float, float>>();
             SpeedArray = new ObservableCollection<KeyValuePair<float, float>>();
 
-            if (duration > 0)
+            if (isLive)
             {
-                GraphSeconds = 10;
+                GraphSeconds = 30;
             }
             else
             {
-                GraphSeconds = 30;
+                GraphSeconds = 10;
             }
 
             DisplayWidth = width;
@@ -84,7 +85,7 @@ namespace RunApproachStatistics.ViewModel
             SizeAxisDistance = 30;
             SizeAxisSpeed = 30;
 
-            if (duration <= 0)
+            if (isLive)
             {
                 seconds = -1;
                 timer = new System.Timers.Timer();
@@ -125,9 +126,59 @@ namespace RunApproachStatistics.ViewModel
             }));
         }
 
-        public void setGraphLength(float seconds)
+        public void insertGraphData(String graphData)
         {
+            this.graphData = graphData;
+            DistanceArray = new ObservableCollection<KeyValuePair<float, float>>();
+            SpeedArray = new ObservableCollection<KeyValuePair<float, float>>();
 
+            String[] measurements = graphData.Split(',');
+            Boolean hasSpeed = measurements[0].Split(' ')[1] != null;
+            double timePerMeasurement = GraphSeconds / measurements.Length;
+            float time = 0;
+
+            if (hasSpeed)
+            {
+                foreach (String measurement in measurements)
+                {
+                    if (measurement.Length > 0)
+                    {
+                        String[] splitString = measurement.Split(' ');
+
+                        SpeedArray.Add(new KeyValuePair<float, float>(time, float.Parse(splitString[0], CultureInfo.InvariantCulture)));
+                        DistanceArray.Add(new KeyValuePair<float, float>(time, float.Parse(splitString[1], CultureInfo.InvariantCulture)));
+                        time += (float)timePerMeasurement;
+                    }
+                }
+            }
+            else
+            {
+                foreach (String distance in measurements)
+                {
+                    if (distance.Length > 0)
+                    {
+                        DistanceArray.Add(new KeyValuePair<float, float>(time, float.Parse(distance, CultureInfo.InvariantCulture)));
+                        time += (float)timePerMeasurement;
+                    }
+                }
+            }
+
+            OnPropertyChanged("DistanceArray");
+            OnPropertyChanged("SpeedArray");
+        }
+
+        public void updateGraphLength(float seconds, String graphData = null)
+        {
+            GraphSeconds = seconds;
+
+            if (graphData == null)
+            {
+                insertGraphData(this.graphData);
+            }
+            else
+            {
+                insertGraphData(graphData);
+            }
         }
 
         protected override void initRelayCommands()
