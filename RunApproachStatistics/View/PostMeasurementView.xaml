@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:v="clr-namespace:RunApproachStatistics.View"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:mvvm="clr-namespace:RunApproachStatistics.MVVM"
              xmlns:toolkit="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
               mc:Ignorable="d" 
@@ -54,7 +55,7 @@
             <TextBox x:Name="penaltyBox" FontSize="24" Width="300" Height="45" Grid.Column="1" HorizontalAlignment="Right"  Margin="0,0,162,245" TextWrapping="Wrap" Text="{Binding Path=Penalty, ValidatesOnNotifyDataErrors=True}" VerticalAlignment="Bottom" Style="{StaticResource textBoxInError}" IsEnabled="{Binding ChangeState}" />
             <TextBox x:Name="totalScoreBox" FontSize="24" Width="300" Height="45" Grid.Column="1" HorizontalAlignment="Right"  Margin="0,0,162,180" TextWrapping="Wrap" Text="{Binding Path=TotalScore}" VerticalAlignment="Bottom" IsEnabled="False"/>
 
-            <ListView Grid.Column="1"  SelectedItem="{Binding Path=SelectedThumbnail}" ItemsSource="{Binding Path=ThumbnailCollection}" Margin="178,10,0,0" Height="552" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1255">
+            <ListView x:Name="VaultView" Grid.Column="1" SelectionMode="Multiple" ItemsSource="{Binding Path=ThumbnailCollection}" Margin="178,10,0,0" Height="552" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1255">
                 <!-- ItemsPanelTemplate -->
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -68,6 +69,11 @@
                         <v:ThumbnailView/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding Mode=OneWay, Path=SelectedItemsChangedCommand}" CommandParameter="{Binding Path=SelectedItems, ElementName=VaultView}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
             </ListView>
 
             <Button Content="Finish" FontSize="24" Grid.Column="1" Command="{Binding FinishCommand}" HorizontalAlignment="Right" Margin="0,0,162,47" VerticalAlignment="Bottom" Width="175" Height="50" />

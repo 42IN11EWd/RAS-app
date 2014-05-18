@@ -28,7 +28,6 @@ namespace RunApproachStatistics.ViewModel
         private bool buttonEnabled;
         private ObservableCollection<ThumbnailViewModel> thumbnailCollection;
         private ObservableCollection<ThumbnailViewModel> selectedThumbnails = new ObservableCollection<ThumbnailViewModel>();
-        private ThumbnailViewModel selectedThumbnail;
         private String selectedVaultKind;
         private ObservableCollection<String> filterItems;
         private String selectedFilterItem;
@@ -462,13 +461,16 @@ namespace RunApproachStatistics.ViewModel
             RemoveAllFiltersCommand = new RelayCommand(RemoveAllFilters);
             SelectedItemsChangedCommand = new RelayCommand((thumbnails) =>
             {
-                IList selectedthumbnails = (IList)thumbnails;
-                SelectedThumbnails.Clear();
-                foreach (ThumbnailViewModel thumbnail in selectedthumbnails)
+                if (thumbnails != null)
                 {
-                    SelectedThumbnails.Add(thumbnail);
+                    IList selectedthumbnails = (IList)thumbnails;
+                    SelectedThumbnails.Clear();
+                    foreach (ThumbnailViewModel thumbnail in selectedthumbnails)
+                    {
+                        SelectedThumbnails.Add(thumbnail);
+                    }
+                    updateFields();
                 }
-                updateFields();
                 
             });
         }

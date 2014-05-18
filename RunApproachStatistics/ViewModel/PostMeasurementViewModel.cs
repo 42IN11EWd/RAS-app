@@ -5,6 +5,7 @@ using RunApproachStatistics.Modules;
 using RunApproachStatistics.Modules.Interfaces;
 using RunApproachStatistics.MVVM;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
@@ -23,7 +24,7 @@ namespace RunApproachStatistics.ViewModel
         private RatingViewModel ratingVM;
 
         private ObservableCollection<ThumbnailViewModel> thumbnailCollection;
-        private ThumbnailViewModel selectedThumbnail;
+        private ObservableCollection<ThumbnailViewModel> selectedThumbnails = new ObservableCollection<ThumbnailViewModel>();
         private String selectedVaultKind;
 
         private vault vault = new vault();
@@ -64,6 +65,7 @@ namespace RunApproachStatistics.ViewModel
         public RelayCommand DeleteCommand { get; private set; }
         public RelayCommand CancelCommand { get; private set; }
         public RelayCommand SaveCommand { get; private set; }
+        public RelayCommand SelectedItemsChangedCommand { get; private set; }
 
 
         public PropertyChangedBase Menu
@@ -95,33 +97,20 @@ namespace RunApproachStatistics.ViewModel
                 OnPropertyChanged("ThumbnailCollection");
             }
         }
-        public ThumbnailViewModel SelectedThumbnail
+        public ObservableCollection<ThumbnailViewModel> SelectedThumbnails
         {
             get
             {
-                if (selectedThumbnail == null)
-                {
+                if (selectedThumbnails.Count == 0)
                     ChangeState = false;
-                }
-                    
-                else
-                {
+                if (selectedThumbnails.Count == 1)
                     ChangeState = true;
-                }
-                return selectedThumbnail;
+
+                return selectedThumbnails;
             }
             set
             {
-                selectedThumbnail = value;
-                setProperties();
-                OnPropertyChanged("SelectedThumbnail");
-                OnPropertyChanged("Gymnast");
-                OnPropertyChanged("Datetime");
-                OnPropertyChanged("TimeSpan");
-                OnPropertyChanged("VaultNumber");
-                OnPropertyChanged("Location");
-                OnPropertyChanged("VaultKind");
-                OnPropertyChanged("TotalScore");
+                selectedThumbnails = value;
             }
         }
 
@@ -150,13 +139,14 @@ namespace RunApproachStatistics.ViewModel
         {
             get
             {
-                if (SelectedThumbnail != null)
-                    return SelectedThumbnail.Vault.timestamp;
+                if (SelectedThumbnails.Count == 1)
+                    return SelectedThumbnails[0].Vault.timestamp;
                 return new DateTime();
             }
             set
             {
-                SelectedThumbnail.Vault.timestamp = value;
+                if (SelectedThumbnails.Count == 1)
+                    SelectedThumbnails[0].Vault.timestamp = value;
                 OnPropertyChanged("Datetime");
             }
         }
@@ -279,7 +269,7 @@ namespace RunApproachStatistics.ViewModel
         {
             get
             {
-                if (SelectedThumbnail != null)
+                if (SelectedThumbnails.Count == 1)
                     return totalscore;
                 return "";
             }
@@ -345,31 +335,32 @@ namespace RunApproachStatistics.ViewModel
 
         private void setProperties()
         {
-            if (SelectedThumbnail != null)
+            if (SelectedThumbnails.Count == 1)
             {
                 //Check for scores
-                EScore = SelectedThumbnail.Vault.rating_official_E.ToString();
-                DScore = SelectedThumbnail.Vault.rating_official_D.ToString();
-                Penalty = selectedThumbnail.Vault.penalty.ToString();
+                EScore = SelectedThumbnails[0].Vault.rating_official_E.ToString();
+                DScore = SelectedThumbnails[0].Vault.rating_official_D.ToString();
+                Penalty = selectedThumbnails[0].Vault.penalty.ToString();
 
                 //Check ratingstars
-                ratingVM.RatingValue = (int)SelectedThumbnail.Vault.rating_star;
+                ratingVM.RatingValue = (int)SelectedThumbnails[0].Vault.rating_star;
 
                 //Check for vaultkind
-                if (SelectedThumbnail.Vault.vaultkind != null)
+                if (SelectedThumbnails[0].Vault.vaultkind != null)
                 {
-                    VaultKind = SelectedThumbnail.Vault.vaultkind.name.ToString();
+                    VaultKind = SelectedThumbnails[0].Vault.vaultkind.name.ToString();
                 }
                 else
                 {
+                    //opm: Waarom 2 keer?
                     vaultKind = "";
                     VaultKind = "";
                 }
-
+                
                 // Check for location
-                if (SelectedThumbnail.Vault.location != null)
+                if (SelectedThumbnails[0].Vault.location != null)
                 {
-                    Location = SelectedThumbnail.Vault.location.name.ToString();
+                    Location = SelectedThumbnails[0].Vault.location.name.ToString();
                 }
                 else
                 {
@@ -378,9 +369,9 @@ namespace RunApproachStatistics.ViewModel
                 }
 
                 // Check for vaultnumber
-                if (SelectedThumbnail.Vault.vaultnumber != null)
+                if (SelectedThumbnails[0].Vault.vaultnumber != null)
                 {
-                    vaultNumber = SelectedThumbnail.Vault.vaultnumber.code.ToString();
+                    vaultNumber = SelectedThumbnails[0].Vault.vaultnumber.code.ToString();
                 }
                 else
                 {
@@ -389,11 +380,11 @@ namespace RunApproachStatistics.ViewModel
                 }
 
                 // Check for gymnast
-                if (SelectedThumbnail.Vault.gymnast != null)
+                if (SelectedThumbnails[0].Vault.gymnast != null)
                 {
-                    name = SelectedThumbnail.Vault.gymnast.name;
-                    surnamePrefix = SelectedThumbnail.Vault.gymnast.surname_prefix;
-                    surname = SelectedThumbnail.Vault.gymnast.surname;
+                    name = SelectedThumbnails[0].Vault.gymnast.name;
+                    surnamePrefix = SelectedThumbnails[0].Vault.gymnast.surname_prefix;
+                    surname = SelectedThumbnails[0].Vault.gymnast.surname;
                     Gymnast = (String.IsNullOrEmpty(name) ? "" : name + " ") + (surnamePrefix != null ? surnamePrefix + " " : "") + surname;
                 }
                 else
@@ -404,6 +395,19 @@ namespace RunApproachStatistics.ViewModel
                     Gymnast = "";
                 }
             }
+            if(SelectedThumbnails.Count == 0)
+            {
+                VaultKind = "";
+                Location = "";
+                Gymnast = "";
+                VaultNumber = "";
+                Datetime = new DateTime();
+                DScore = "";
+                EScore = "";
+                Penalty = "";
+                TotalScore = "";
+                ratingVM.RatingValue = 0;
+            }
         }
 
         private void saveInfo()
@@ -411,11 +415,11 @@ namespace RunApproachStatistics.ViewModel
             // Save Gymnast
             if (Gymnast == null || Gymnast.Equals("") || GetErrorArr("Gymnast") != null)
             {
-                SelectedThumbnail.Vault.gymnast = null;
+                SelectedThumbnails[0].Vault.gymnast = null;
             }
             else
             {
-                SelectedThumbnail.Vault.gymnast_id = gymnastIds[Gymnasts.IndexOf(Gymnast)];
+                SelectedThumbnails[0].Vault.gymnast_id = gymnastIds[Gymnasts.IndexOf(Gymnast)];
             }
         }
 
@@ -471,17 +475,27 @@ namespace RunApproachStatistics.ViewModel
             if (_app.IsLoggedIn)
             {
                 //TODO : Confirm if you are sure to delete this vault
-                vaultModule.delete(SelectedThumbnail.Vault.vault_id);
-                thumbnailCollection.Remove(SelectedThumbnail);
+                for (int i = 0; i < SelectedThumbnails.Count; i++)
+                {
+                    vaultModule.delete(SelectedThumbnails[i].Vault.vault_id);
+                    thumbnailCollection.Remove(SelectedThumbnails[i]);
+                }
                 
             }
         }
 
         public void SaveAction(object commandParam)
         {
-            SelectedThumbnail.Vault.rating_star = ratingVM.RatingValue;
+            //solution for multiple vaults
+            //SelectedThumbnail.Vault.rating_star = ratingVM.RatingValue;
             saveInfo();
-            vaultModule.update(SelectedThumbnail.Vault);
+            for (int i = 0; i < SelectedThumbnails.Count; i++)
+            {
+                vaultModule.update(SelectedThumbnails[i].Vault);
+            }
+            SelectedThumbnails.Clear();
+            setProperties();
+            OnPropertyChanged("SelectedThumbnails");
         }
 
         #endregion
@@ -532,12 +546,12 @@ namespace RunApproachStatistics.ViewModel
                                       {
                                           if (VaultNumbers.Contains(VaultNumber))
                                           {
-                                              SelectedThumbnail.Vault.vaultnumber_id = vaultNumberIds[VaultNumbers.IndexOf(VaultNumber)];
+                                              SelectedThumbnails[0].Vault.vaultnumber_id = vaultNumberIds[VaultNumbers.IndexOf(VaultNumber)];
                                           }
                                       }
                                       else
                                       {
-                                            SelectedThumbnail.Vault.vaultnumber = null;
+                                            SelectedThumbnails[0].Vault.vaultnumber = null;
                                       }
 
                                       return RuleResult.Valid();
@@ -558,12 +572,12 @@ namespace RunApproachStatistics.ViewModel
                                       {
                                           if (Locations.Contains(Location))
                                           {
-                                              SelectedThumbnail.Vault.location_id = locationIds[Locations.IndexOf(Location)];
+                                              SelectedThumbnails[0].Vault.location_id = locationIds[Locations.IndexOf(Location)];
                                           }
                                       }
                                       else
                                       {
-                                          SelectedThumbnail.Vault.location = null;
+                                          SelectedThumbnails[0].Vault.location = null;
                                       }
 
                                       return RuleResult.Valid();
@@ -584,13 +598,13 @@ namespace RunApproachStatistics.ViewModel
                                       {
                                           if (VaultKinds.Contains(VaultKind))
                                           {
-                                              SelectedThumbnail.Vault.vaultkind_id = vaultKindIds[VaultKinds.IndexOf(VaultKind)];
+                                              SelectedThumbnails[0].Vault.vaultkind_id = vaultKindIds[VaultKinds.IndexOf(VaultKind)];
                                           }
                                           
                                       }
                                       else
                                       {
-                                          SelectedThumbnail.Vault.vaultkind = null;
+                                          SelectedThumbnails[0].Vault.vaultkind = null;
                                       }
 
                                       return RuleResult.Valid();
@@ -622,13 +636,13 @@ namespace RunApproachStatistics.ViewModel
                         switch (type)
                         {
                             case "Escore":
-                                SelectedThumbnail.Vault.rating_official_E = (decimal)fScore;
+                                SelectedThumbnails[0].Vault.rating_official_E = (decimal)fScore;
                                 break;
                             case "Dscore":
-                                SelectedThumbnail.Vault.rating_official_D = (decimal)fScore;
+                                SelectedThumbnails[0].Vault.rating_official_D = (decimal)fScore;
                                 break;
                             case "Penalty":
-                                SelectedThumbnail.Vault.penalty = (decimal)fScore;
+                                SelectedThumbnails[0].Vault.penalty = (decimal)fScore;
                                 break;
                         }
                         return RuleResult.Valid();
@@ -664,6 +678,28 @@ namespace RunApproachStatistics.ViewModel
             FinishCommand = new RelayCommand(FinishAction);
             DeleteCommand = new RelayCommand(DeleteAction);
             SaveCommand = new RelayCommand(SaveAction);
+            SelectedItemsChangedCommand = new RelayCommand((thumbnails) =>
+            {
+                if (thumbnails != null)
+                {
+                    IList selectedthumbnails = (IList)thumbnails;
+                    SelectedThumbnails.Clear();
+                    foreach (ThumbnailViewModel thumbnail in selectedthumbnails)
+                    {
+                        SelectedThumbnails.Add(thumbnail);
+                    }
+                    setProperties();
+                    OnPropertyChanged("SelectedThumbnails");
+                    OnPropertyChanged("Gymnast");
+                    OnPropertyChanged("Datetime");
+                    OnPropertyChanged("TimeSpan");
+                    OnPropertyChanged("VaultNumber");
+                    OnPropertyChanged("Location");
+                    OnPropertyChanged("VaultKind");
+                    OnPropertyChanged("TotalScore");
+                }
+
+            });
         }
     }
 }
