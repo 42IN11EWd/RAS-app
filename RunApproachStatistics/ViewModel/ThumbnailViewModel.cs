@@ -25,6 +25,7 @@ namespace RunApproachStatistics.ViewModel
         {
             _app = app;
             LiveLabelVisibility = Visibility.Hidden;
+            LivePadding = new Thickness(5, 0, 5, 0);
 
         }
 
@@ -179,7 +180,6 @@ namespace RunApproachStatistics.ViewModel
             else
             {
                 LiveLabelVisibility = Visibility.Hidden;
-                LivePadding = new Thickness(0);
             }
         }
 

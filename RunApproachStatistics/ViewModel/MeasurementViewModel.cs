@@ -460,11 +460,12 @@ namespace RunApproachStatistics.ViewModel
             newVault.timestamp = DateTime.Now;
             selectedVault = newVault;
 
-            // Add empty thumbnail for live 
+            // Add empty thumbnail for live and set selected
             ThumbnailViewModel liveThumbnail = new ThumbnailViewModel(_app);
             liveThumbnail.setLive(true);
             liveThumbnail.Vault = newVault;
             thumbnailCollection.Add(liveThumbnail);
+            SelectedThumbnail = liveThumbnail;
         }
 
         private void stopMeasuring()

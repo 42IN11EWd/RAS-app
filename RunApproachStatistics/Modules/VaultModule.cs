@@ -217,7 +217,7 @@ namespace RunApproachStatistics.Modules
 
         public void createVault(List<Bitmap> frames, List<String> writeBuffer, vault vault)
         {
-            /*Thread createThread = new Thread(() => 
+            Thread createThread = new Thread(() => 
             {
                 vault vaultThread = vault;
                 // Create the filepath, add date stamp to filename
@@ -268,70 +268,7 @@ namespace RunApproachStatistics.Modules
                 // Start the thread.
                 workerThread.Start();
             });
-            createThread.Start();*/
-
-            Thread createThread2 = new Thread(() => createVaultWork(frames, writeBuffer, vault));
-            createThread2.Start();
-        }
-
-        public void createVaultWork(List<Bitmap> frames, List<String> writeBuffer, vault vault)
-        {
-            Boolean lockTaken = false;
-            try
-            {
-                Monitor.Enter(vault, ref lockTaken);
-                // Create the filepath, add date stamp to filename
-                String fileName = "LC_Video_" + vault.timestamp.ToString("yyyy_MM_dd_HH-mm-ss") + ".avi";
-                String filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), fileName);
-
-                //create the lasercamera string
-                String graphdata = "";
-                foreach (String s in writeBuffer)
-                {
-                    graphdata += s;
-                }
-                vault.graphdata = graphdata.Remove(graphdata.Length - 1); //Laatste komma weghalen
-
-                //generate thumbnail
-                try
-                {
-                    BitmapImage bImage = bmpToBitmapImage(frames[30]);
-                    byte[] data = null;
-                    JpegBitmapEncoder encoder = new JpegBitmapEncoder();
-                    encoder.Frames.Add(BitmapFrame.Create(bImage));
-                    using (MemoryStream ms = new MemoryStream())
-                    {
-                        encoder.Save(ms);
-                        data = ms.ToArray();
-                        vault.thumbnail = data;
-                    }
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                }
-
-                // Save the new vault and include the video path.            
-                vault.videopath = fileName;
-                create(vault);
-
-                // Send vault back to view, for thumbnail list
-                Application.Current.Dispatcher.Invoke(() =>
-                {
-                    OnVaultCreated(vault);
-                });
-
-                // Create a new thread to save the video
-                Worker workerObject = new Worker(filePath, fileName, frames);
-                Thread workerThread = new Thread(workerObject.DoWork);
-
-                // Start the thread.
-                workerThread.Start();
-            }
-            finally
-            {
-                Monitor.Exit(vault);
-            }
+            createThread.Start();
         }
 
         public event EventHandler<vault> VaultCreated;
