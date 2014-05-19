@@ -477,34 +477,30 @@ namespace RunApproachStatistics.ViewModel
 
             newVault.timestamp = DateTime.Now;
 
-            if (Dscore != null && !Dscore.Equals("") && GetErrorArr("Dscore") != null)
-            {
-                newVault.rating_official_D = decimal.Parse(Dscore, CultureInfo.InvariantCulture);
-            }
-
             List<String> writeBuffer = portController.stopMeasurement();
             videoCameraController.StopCapture();
             cameraModule.createVault(videoCameraController.RecordedVideo, writeBuffer, newVault);
             videoCameraController.Close();
 
-            // Clear fields, keep data if checked
-            clearFields();
-
             // Create new vault for the live thumbnail
             vault newLiveVault = new vault();
             liveThumbnail.Vault = newLiveVault;
+            SelectedThumbnail = liveThumbnail;
+
+            // Clear fields, keep data if checked
+            // Send the just created vault with it so the checked fields can be kept
+            clearFields(newVault);
         }
 
-        private void clearFields()
+        private void clearFields(vault savedVault)
         {
-            vault liveVault = ThumbnailCollection[0].Vault;
             if (!VaultKindChecked)
             {
                 VaultKind = "";
             }
             else
             {
-                VaultKind = VaultKinds[vaultKindIds.IndexOf((int)liveVault.vaultkind_id)];
+                VaultKind = VaultKinds[vaultKindIds.IndexOf((int)savedVault.vaultkind_id)];
             }
 
             if (!LocationChecked)
@@ -513,7 +509,7 @@ namespace RunApproachStatistics.ViewModel
             }
             else
             {
-                Location = Locations[locationIds.IndexOf((int)liveVault.location_id)];
+                Location = Locations[locationIds.IndexOf((int)savedVault.location_id)];
             }
 
             if (!GymnastChecked)
@@ -522,7 +518,7 @@ namespace RunApproachStatistics.ViewModel
             }
             else
             {
-                Gymnast = Gymnasts[gymnastIds.IndexOf((int)liveVault.gymnast_id)];
+                Gymnast = Gymnasts[gymnastIds.IndexOf((int)savedVault.gymnast_id)];
             }
 
             if (!VaultNumberChecked)
@@ -531,7 +527,7 @@ namespace RunApproachStatistics.ViewModel
             }
             else
             {
-                VaultNumber = VaultNumbers[vaultNumberIds.IndexOf((int)liveVault.vaultnumber_id)];
+                VaultNumber = VaultNumbers[vaultNumberIds.IndexOf((int)savedVault.vaultnumber_id)];
             }
 
             RatingViewModel ratingView = new RatingViewModel(_app);
@@ -539,7 +535,7 @@ namespace RunApproachStatistics.ViewModel
             RatingControl = ratingView;
             if (RatingChecked)
             {
-                ratingView.RatingValue = (int)liveVault.rating_star;
+                ratingView.RatingValue = (int)savedVault.rating_star;
             }
 
             if (!DscoreChecked)
@@ -548,7 +544,7 @@ namespace RunApproachStatistics.ViewModel
             }
             else
             {
-                Dscore = liveVault.rating_official_D.ToString();
+                Dscore = savedVault.rating_official_D.ToString();
             }
 
             if (!EscoreChecked)
@@ -557,7 +553,7 @@ namespace RunApproachStatistics.ViewModel
             }
             else
             {
-                Escore = liveVault.rating_official_E.ToString();
+                Escore = savedVault.rating_official_E.ToString();
             }
 
             if (!PenaltyChecked)
@@ -566,7 +562,7 @@ namespace RunApproachStatistics.ViewModel
             }
             else
             {
-                Penalty = liveVault.penalty.ToString();
+                Penalty = savedVault.penalty.ToString();
             }
         }
 
