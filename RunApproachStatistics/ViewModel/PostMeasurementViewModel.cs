@@ -29,6 +29,7 @@ namespace RunApproachStatistics.ViewModel
 
         private vault vault = new vault();
         private bool changeState;
+        private bool hasGymnast;
 
         private String vaultKind;
         private String location;
@@ -46,6 +47,8 @@ namespace RunApproachStatistics.ViewModel
         private List<int> gymnastIds;
         private List<int> vaultNumberIds;
         private List<int> vaultKindIds;
+
+        private List<vault> vaults;
 
         //Splitted names
         private String name;
@@ -295,7 +298,7 @@ namespace RunApproachStatistics.ViewModel
         public PostMeasurementViewModel(IApplicationController app) : base()
         {
             _app = app;
-
+            
             // Set menu
             MenuViewModel menuViewModel = new MenuViewModel(_app);
             menuViewModel.VisibilityLaser = false;
@@ -304,17 +307,8 @@ namespace RunApproachStatistics.ViewModel
             ratingVM = new RatingViewModel(_app);
             RatingControl = ratingVM;
 
-            // Useless test data.
-            thumbnailCollection = new ObservableCollection<ThumbnailViewModel>();
-            List<vault> vaults = vaultModule.getVaults();
-
-            for (int i = 0; i < vaults.Count; i++)
-            {
-                thumbnailCollection.Add(new ThumbnailViewModel(_app)
-                {
-                    Vault = vaults[i]
-                });
-            }
+            //Useless test data.
+            setData();
 
             //load autocompletion data
             VaultKinds = vaultModule.getVaultKindNames();
@@ -333,8 +327,42 @@ namespace RunApproachStatistics.ViewModel
             SetValidationRules();        
         }
 
+        private void setData()
+        {
+            thumbnailCollection = new ObservableCollection<ThumbnailViewModel>();
+            vaults = new List<vault>();
+            vaults = vaultModule.getVaults();
+
+            for (int i = 0; i < vaults.Count; i++)
+            {
+                thumbnailCollection.Add(new ThumbnailViewModel(_app)
+                {
+                    Vault = vaults[i]
+                });
+
+                if (vaults[i].gymnast_id == null)
+                {
+                    thumbnailCollection[i].noGymnast(hasGymnast);
+                }
+            }
+            OnPropertyChanged("ThumbnailCollection");
+        }
+
         private void setProperties()
         {
+            foreach (ThumbnailViewModel newVM in ThumbnailCollection)
+            {
+                if (newVM.Vault.gymnast_id == null)
+                {
+                    hasGymnast = false;
+                }
+                else
+                {
+                    hasGymnast = true;
+                }
+                newVM.noGymnast(hasGymnast);
+            }
+
             if (SelectedThumbnails.Count == 1)
             {
                 //Check for scores
@@ -395,6 +423,7 @@ namespace RunApproachStatistics.ViewModel
                     Gymnast = "";
                 }
             }
+
             if(SelectedThumbnails.Count == 0)
             {
                 VaultKind = "";
@@ -495,6 +524,7 @@ namespace RunApproachStatistics.ViewModel
             }
             SelectedThumbnails.Clear();
             setProperties();
+            setData();
             OnPropertyChanged("SelectedThumbnails");
         }
 
@@ -698,7 +728,6 @@ namespace RunApproachStatistics.ViewModel
                     OnPropertyChanged("VaultKind");
                     OnPropertyChanged("TotalScore");
                 }
-
             });
         }
     }

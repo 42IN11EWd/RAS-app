@@ -17,7 +17,7 @@ namespace RunApproachStatistics.ViewModel
     {
         private IApplicationController _app;
         private vault vault = new vault();
-        private Visibility liveLabelVisibility;
+        private Visibility liveLabelVisibility, gymnastVisibility;
         private Thickness livePadding;
 
         public ThumbnailViewModel(IApplicationController app)
@@ -26,7 +26,7 @@ namespace RunApproachStatistics.ViewModel
             _app = app;
             LiveLabelVisibility = Visibility.Hidden;
             LivePadding = new Thickness(5, 0, 5, 0);
-
+            GymnastVisibility = Visibility.Hidden;
         }
 
         public vault Vault
@@ -61,6 +61,16 @@ namespace RunApproachStatistics.ViewModel
             { 
                 liveLabelVisibility = value;
                 OnPropertyChanged("LiveLabelVisibility");
+            }
+        }
+
+        public Visibility GymnastVisibility
+        {
+            get { return gymnastVisibility; }
+            set
+            {
+                gymnastVisibility = value;
+                OnPropertyChanged("GymnastVisibility");
             }
         }
 
@@ -180,6 +190,18 @@ namespace RunApproachStatistics.ViewModel
             else
             {
                 LiveLabelVisibility = Visibility.Hidden;
+            }
+        }
+
+        public void noGymnast(Boolean hasGymnast)
+        {
+            if (hasGymnast)
+            {
+                GymnastVisibility = Visibility.Hidden;
+            }
+            else 
+            {
+                GymnastVisibility = Visibility.Visible;
             }
         }
 
