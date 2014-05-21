@@ -157,7 +157,7 @@ namespace RunApproachStatistics.ViewModel
 
 #endregion
 
-        public VideoViewModel(IApplicationController app)
+        public VideoViewModel(IApplicationController app, string videoPath)
             : base()
         {
             Console.WriteLine("VideoViewModel");
@@ -165,12 +165,13 @@ namespace RunApproachStatistics.ViewModel
             IsPlaying = false;
             Video = new MediaElement
             {
-                Source = new Uri(@"Movie.avi", UriKind.Relative),
                 VerticalAlignment = VerticalAlignment.Stretch,
                 Stretch = System.Windows.Media.Stretch.Fill,
                 ScrubbingEnabled = true,
                 LoadedBehavior = MediaState.Manual
             };
+            String desktopPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.DesktopDirectory);
+            Video.Source = new Uri(desktopPath + "\\" +  videoPath);
             Video.Loaded += Video_Loaded;
             Video.MediaEnded += Video_Ended;
 
