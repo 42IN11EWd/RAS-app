@@ -335,7 +335,7 @@ namespace RunApproachStatistics.Modules
 
                         // Upload the file to the server.
                         WebClient myWebClient = new WebClient();
-                        NetworkCredential myCredentials = new NetworkCredential("", "");
+                        NetworkCredential myCredentials = new NetworkCredential("snijhof", "MKD7529s09");
                         myWebClient.Credentials = myCredentials;
                         byte[] responseArray = myWebClient.UploadFile("ftp://student.aii.avans.nl/GRP/42IN11EWd/Videos/" + fileName, filePath);
 
