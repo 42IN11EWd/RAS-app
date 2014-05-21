@@ -7,6 +7,7 @@ using RunApproachStatistics.MVVM;
 using RunApproachStatistics.Services;
 using RunApproachStatistics.View;
 using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -40,6 +41,11 @@ namespace RunApproachStatistics.ViewModel
         private List<int> gymnastIds;
         private List<int> vaultNumberIds;
         private List<int> vaultKindIds;
+
+        private List<gymnast> gymnastList;
+        private List<vaultnumber> vaultNumberList;
+        private List<vaultkind> vaultKindList;
+        private List<location> locationsList;
 
         private Boolean vaultKindChecked;
         private Boolean locationChecked;
@@ -273,10 +279,9 @@ namespace RunApproachStatistics.ViewModel
 
         public List<String> Locations
         {
-            get { return locations; }
+            get { return locationsList.Select(l => l.name).ToList(); }
             set
-            { 
-                locations = value;
+            {
                 OnPropertyChanged("Locations");
             }
         }
@@ -294,10 +299,11 @@ namespace RunApproachStatistics.ViewModel
 
         public List<String> Gymnasts
         {
-            get { return gymnasts; }
+            get { return gymnastList
+                .Select(g => g.name + (g.surname_prefix != null ? " " + g.surname_prefix : "") + " " + g.surname)
+                .ToList(); }
             set
             {
-                gymnasts = value;
                 OnPropertyChanged("Gymnasts");
             }
         }
@@ -314,19 +320,17 @@ namespace RunApproachStatistics.ViewModel
         }
         public List<String> VaultNumbers
         {
-            get { return vaultNumbers; }
+            get { return vaultNumberList.Select(v => v.code).ToList(); }
             set
             {
-                vaultNumbers = value;
                 OnPropertyChanged("VaultNumbers");
             }
         }
         public List<String> VaultKinds
         {
-            get { return vaultKinds; }
+            get { return vaultKindList.Select(v => v.name).ToList(); }
             set
             {
-                vaultKinds = value;
                 OnPropertyChanged("VaultKinds");
             }
         }
@@ -421,6 +425,7 @@ namespace RunApproachStatistics.ViewModel
             RectangleColor = "White";
 
             //load autocompletion data
+            /*
             VaultKinds      = vaultModule.getVaultKindNames();
             vaultKindIds    = vaultModule.getVaultKindIds();
 
@@ -432,6 +437,13 @@ namespace RunApproachStatistics.ViewModel
 
             VaultNumbers    = vaultModule.getVaultNumberNames();
             vaultNumberIds  = vaultModule.getVaultNumberIds();
+            */
+
+            gymnastList     = vaultModule.getGymnasts();
+            vaultNumberList = vaultModule.getVaultNumbers();
+            vaultKindList   = vaultModule.getVaultKinds();
+            locationsList   = vaultModule.getLocations();
+
 
             // Set PortController
             this.portController = portController;
@@ -501,7 +513,7 @@ namespace RunApproachStatistics.ViewModel
             }
             else
             {
-                VaultKind = VaultKinds[vaultKindIds.IndexOf((int)savedVault.vaultkind_id)];
+                VaultKind = savedVault.vaultkind.name;
             }
 
             if (!LocationChecked)
@@ -510,7 +522,7 @@ namespace RunApproachStatistics.ViewModel
             }
             else
             {
-                Location = Locations[locationIds.IndexOf((int)savedVault.location_id)];
+                Location = savedVault.location.name;
             }
 
             if (!GymnastChecked)
@@ -519,7 +531,8 @@ namespace RunApproachStatistics.ViewModel
             }
             else
             {
-                Gymnast = Gymnasts[gymnastIds.IndexOf((int)savedVault.gymnast_id)];
+                Gymnast = savedVault.gymnast.name + savedVault.gymnast.surname_prefix != null ? " " + 
+                    savedVault.gymnast.surname_prefix : "" + savedVault.gymnast.surname;
             }
 
             if (!VaultNumberChecked)
@@ -528,7 +541,7 @@ namespace RunApproachStatistics.ViewModel
             }
             else
             {
-                VaultNumber = VaultNumbers[vaultNumberIds.IndexOf((int)savedVault.vaultnumber_id)];
+                VaultNumber = savedVault.vaultnumber.code;
             }
 
             RatingViewModel ratingView = new RatingViewModel(_app);
@@ -671,7 +684,8 @@ namespace RunApproachStatistics.ViewModel
                                   {
                                       if (!String.IsNullOrEmpty(VaultKind))
                                       {
-                                          selectedVault.vaultkind_id = vaultKindIds[VaultKinds.IndexOf(VaultKind)];
+                                          selectedVault.vaultkind = vaultKindList.Select(v => v)
+                                              .Where(x => x.name == VaultKind).First();
                                       }
                                       else
                                       {
@@ -694,7 +708,8 @@ namespace RunApproachStatistics.ViewModel
                                   {
                                       if (!String.IsNullOrEmpty(Location))
                                       {
-                                          selectedVault.location_id = locationIds[Locations.IndexOf(Location)];
+                                          selectedVault.location = locationsList.Select(l => l)
+                                              .Where(x => x.name == Location).First();
                                       }
                                       else
                                       {
@@ -717,7 +732,10 @@ namespace RunApproachStatistics.ViewModel
                                   {
                                       if (!String.IsNullOrEmpty(Gymnast))
                                       {
-                                          selectedVault.gymnast_id = gymnastIds[Gymnasts.IndexOf(Gymnast)];
+                                          selectedVault.gymnast = gymnastList.Select(g => g)
+                                              .Where(x => (x.name + (x.surname_prefix != null ? " " + x.surname_prefix : "") 
+                                                  + " " + x.surname) == Gymnast)
+                                              .First();
                                       }
                                       else
                                       {
@@ -740,7 +758,8 @@ namespace RunApproachStatistics.ViewModel
                                   {
                                       if (!String.IsNullOrEmpty(VaultNumber))
                                       {
-                                          selectedVault.vaultnumber_id = vaultNumberIds[VaultNumbers.IndexOf(VaultNumber)];
+                                          selectedVault.vaultnumber = vaultNumberList.Select(v => v)
+                                              .Where(x => x.code == VaultNumber).First();
                                       }
                                       else
                                       {
@@ -841,7 +860,8 @@ namespace RunApproachStatistics.ViewModel
         {
             if (selectedVault.vaultkind_id != null)
             {
-                VaultKind = VaultKinds[vaultKindIds.IndexOf((int)selectedVault.vaultkind_id)];
+
+                VaultKind = selectedVault.vaultkind.name;
             }
             else
             {
@@ -850,7 +870,7 @@ namespace RunApproachStatistics.ViewModel
 
             if (selectedVault.location_id != null)
             {
-                Location = Locations[locationIds.IndexOf((int)selectedVault.location_id)];
+                Location = selectedVault.location.name;
             }
             else
             {
@@ -859,7 +879,7 @@ namespace RunApproachStatistics.ViewModel
 
             if (selectedVault.gymnast_id != null)
             {
-                Gymnast = Gymnasts[gymnastIds.IndexOf((int)selectedVault.gymnast_id)];
+                Gymnast = selectedVault.gymnast.name;
             }
             else
             {
@@ -868,7 +888,7 @@ namespace RunApproachStatistics.ViewModel
 
             if (selectedVault.vaultnumber_id != null)
             {
-                VaultNumber = VaultNumbers[vaultNumberIds.IndexOf((int)selectedVault.vaultnumber_id)];
+                VaultNumber = selectedVault.vaultnumber.code;
             }
             else
             {

@@ -111,6 +111,50 @@ namespace RunApproachStatistics.Modules
             }
         }
 
+        public List<gymnast> getGymnasts()
+        {
+            using (var db = new DataContext())
+            {
+                return (from qGymnast in db.gymnast
+                        where qGymnast.deleted == false
+                        select qGymnast
+                ).ToList();
+            }
+        }
+
+        public List<location> getLocations()
+        {
+            using (var db = new DataContext())
+            {
+                return (from qLocation in db.location
+                        where qLocation.deleted == false
+                        select qLocation
+                ).ToList();
+            }
+        }
+
+        public List<vaultkind> getVaultKinds()
+        {
+            using(var db = new DataContext())
+            {
+                return (from qVaultKinds in db.vaultkind
+                        where qVaultKinds.deleted == false
+                        select qVaultKinds
+                ).ToList();
+            }
+        }
+
+        public List<vaultnumber> getVaultNumbers()
+        {
+            using(var db = new DataContext())
+            {
+                return (from qVaultNumbers in db.vaultnumber
+                        where qVaultNumbers.deleted == false
+                        select qVaultNumbers
+                ).ToList();
+            }
+        }
+
         public List<vault> getVaults()
         {
             using (var db = new DataContext())
