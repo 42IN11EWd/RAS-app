@@ -19,6 +19,8 @@ namespace RunApproachStatistics.ViewModel
         private vault vault = new vault();
         private Visibility liveLabelVisibility, gymnastVisibility;
         private Thickness livePadding;
+        private String gymnast;
+        private String vaultnumber;
 
         public ThumbnailViewModel(IApplicationController app)
             : base()
@@ -78,25 +80,36 @@ namespace RunApproachStatistics.ViewModel
         {
             get 
             {
-                if (vault.gymnast != null)
+                if (gymnast != null)
                 {
-                    return vault.gymnast.name + " " + (vault.gymnast.surname_prefix != null ? vault.gymnast.surname_prefix + " " : "") + vault.gymnast.surname;
+                    return gymnast;
+                    //return Vault.gymnast.name + " " + (Vault.gymnast.surname_prefix != null ? Vault.gymnast.surname_prefix + " " : "") + Vault.gymnast.surname;
                 }
                 else
                 {
                     return "";
                 }
             }
+            set
+            {
+                gymnast = value;
+                OnPropertyChanged("Gymnast");
+            }
         }
 
         public String Datetime
         {
-            get { return vault.timestamp.ToString(); }
+            get { return Vault.timestamp.ToString(); }
         }
 
         public String VaultNumber
         {
-            get { return vault.vaultnumber != null ? vault.vaultnumber.code : ""; }
+            get { return vaultnumber != null ? vaultnumber : ""; }
+            set
+            {
+                vaultnumber = value;
+                OnPropertyChanged("VaultNumber");
+            }
         }
 
         private System.Windows.Media.Brush selectionBackground;

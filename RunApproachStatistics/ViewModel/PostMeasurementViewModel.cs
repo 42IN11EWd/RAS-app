@@ -114,6 +114,7 @@ namespace RunApproachStatistics.ViewModel
             set
             {
                 selectedThumbnails = value;
+
             }
         }
 
@@ -340,9 +341,19 @@ namespace RunApproachStatistics.ViewModel
                     Vault = vaults[i]
                 });
 
+                if (vaults[i].vaultnumber != null)
+                {
+                    thumbnailCollection[i].VaultNumber = vaults[i].vaultnumber.code;
+                }
+
                 if (vaults[i].gymnast_id == null)
                 {
                     thumbnailCollection[i].noGymnast(hasGymnast);
+                    
+                }
+                else
+                {
+                    thumbnailCollection[i].Gymnast = vaults[i].gymnast.name + " " + (vaults[i].gymnast.surname_prefix != null ? vaults[i].gymnast.surname_prefix + " " : "") + vaults[i].gymnast.surname;
                 }
             }
             OnPropertyChanged("ThumbnailCollection");
@@ -380,8 +391,6 @@ namespace RunApproachStatistics.ViewModel
                 }
                 else
                 {
-                    //opm: Waarom 2 keer?
-                    vaultKind = "";
                     VaultKind = "";
                 }
                 
@@ -392,7 +401,6 @@ namespace RunApproachStatistics.ViewModel
                 }
                 else
                 {
-                    location = "";
                     Location = "";
                 }
 
@@ -522,9 +530,10 @@ namespace RunApproachStatistics.ViewModel
             {
                 vaultModule.update(SelectedThumbnails[i].Vault);
             }
+            
             SelectedThumbnails.Clear();
             setProperties();
-            setData();
+            //setData();
             OnPropertyChanged("SelectedThumbnails");
         }
 
@@ -558,6 +567,11 @@ namespace RunApproachStatistics.ViewModel
                               {
                                   if (Gymnast == null || Gymnast == "" || Gymnasts.Contains(Gymnast))
                                   {
+                                      if (Gymnasts.Contains(Gymnast))
+                                      {
+                                          int j = ThumbnailCollection.IndexOf(SelectedThumbnails[0]);
+                                          ThumbnailCollection[j].Gymnast = Gymnast;
+                                      }
                                       return RuleResult.Valid();
                                   }
                                   else
@@ -576,7 +590,8 @@ namespace RunApproachStatistics.ViewModel
                                       {
                                           if (VaultNumbers.Contains(VaultNumber))
                                           {
-                                              SelectedThumbnails[0].Vault.vaultnumber_id = vaultNumberIds[VaultNumbers.IndexOf(VaultNumber)];
+                                              int j = ThumbnailCollection.IndexOf(SelectedThumbnails[0]);
+                                              ThumbnailCollection[j].VaultNumber = VaultNumber;
                                           }
                                       }
                                       else

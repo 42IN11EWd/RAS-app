@@ -7,7 +7,9 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -23,6 +25,7 @@ namespace RunApproachStatistics.ViewModel
     public class VideoViewModel : AbstractViewModel
     {
         private IApplicationController _app;
+        private VideoPlaybackViewModel videoPlaybackViewModel;
         private BitmapImage pauseImage = new BitmapImage(new Uri(@"/Images/videoControl_pause.png", UriKind.Relative));
         private BitmapImage playImage = new BitmapImage(new Uri(@"/Images/videoControl_play.png", UriKind.Relative));
         private BitmapImage playButtonImage; 
@@ -157,20 +160,40 @@ namespace RunApproachStatistics.ViewModel
 
 #endregion
 
-        public VideoViewModel(IApplicationController app)
+        public VideoViewModel(IApplicationController app, VideoPlaybackViewModel videoPlaybackViewModel, string videoPath)
             : base()
         {
-            Console.WriteLine("VideoViewModel");
             _app = app;
+            this.videoPlaybackViewModel = videoPlaybackViewModel;
             IsPlaying = false;
+
+            String filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "RunApproachStatistics");
+            filePath = Path.Combine(filePath, videoPath);
+
+            if (!File.Exists(filePath))
+            {
+                try
+                {
+                    WebClient myWebClient = new WebClient();
+                    NetworkCredential myCredentials = new NetworkCredential("snijhof", "MKD7529s09");
+                    myWebClient.Credentials = myCredentials;
+                    myWebClient.DownloadFile("ftp://student.aii.avans.nl/GRP/42IN11EWd/Videos/" + videoPath, filePath);
+                }
+                catch (Exception e)
+                {
+                    //FOUT DISPLAYEN IN HET VIDEO SCHERM
+                }
+            }
+
             Video = new MediaElement
             {
-                Source = new Uri(@"Movie.avi", UriKind.Relative),
                 VerticalAlignment = VerticalAlignment.Stretch,
                 Stretch = System.Windows.Media.Stretch.Fill,
                 ScrubbingEnabled = true,
                 LoadedBehavior = MediaState.Manual
             };
+            
+            Video.Source = new Uri(filePath);
             Video.Loaded += Video_Loaded;
             Video.MediaEnded += Video_Ended;
 
@@ -198,6 +221,11 @@ namespace RunApproachStatistics.ViewModel
             timer.Interval = TimeSpan.FromMilliseconds(20);
             timer.Tick += new EventHandler(timer_Tick);
             timer.Start();
+
+            if (videoPlaybackViewModel != null)
+            {
+                videoPlaybackViewModel.updateSeconds((float)Maximum / 1000);
+            }
         }
 
         /// <summary>
