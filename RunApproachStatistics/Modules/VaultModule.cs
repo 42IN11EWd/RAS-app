@@ -222,7 +222,14 @@ namespace RunApproachStatistics.Modules
                 vault vaultThread = vault;
                 // Create the filepath, add date stamp to filename
                 String fileName = "LC_Video_" + vault.timestamp.ToString("yyyy_MM_dd_HH-mm-ss") + ".avi";
-                String filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), fileName);
+                String filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "RunApproachStatistics");
+
+                if (!Directory.Exists(filePath))
+                {
+                    Directory.CreateDirectory(filePath);
+                }
+
+                filePath = Path.Combine(filePath, fileName);
 
                 //create the lasercamera string
                 String graphdata = "";

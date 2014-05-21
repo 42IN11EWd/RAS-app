@@ -7,7 +7,9 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -164,6 +166,25 @@ namespace RunApproachStatistics.ViewModel
             _app = app;
             this.videoPlaybackViewModel = videoPlaybackViewModel;
             IsPlaying = false;
+
+            String filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "RunApproachStatistics");
+            filePath = Path.Combine(filePath, videoPath);
+
+            if (!File.Exists(filePath))
+            {
+                try
+                {
+                    WebClient myWebClient = new WebClient();
+                    NetworkCredential myCredentials = new NetworkCredential("snijhof", "MKD7529s09");
+                    myWebClient.Credentials = myCredentials;
+                    myWebClient.DownloadFile("ftp://student.aii.avans.nl/GRP/42IN11EWd/Videos/" + videoPath, filePath);
+                }
+                catch (Exception e)
+                {
+                    //FOUT DISPLAYEN IN HET VIDEO SCHERM
+                }
+            }
+
             Video = new MediaElement
             {
                 VerticalAlignment = VerticalAlignment.Stretch,
@@ -171,8 +192,8 @@ namespace RunApproachStatistics.ViewModel
                 ScrubbingEnabled = true,
                 LoadedBehavior = MediaState.Manual
             };
-            String desktopPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.DesktopDirectory);
-            Video.Source = new Uri(desktopPath + "\\" +  videoPath);
+            
+            Video.Source = new Uri(filePath);
             Video.Loaded += Video_Loaded;
             Video.MediaEnded += Video_Ended;
 
