@@ -109,7 +109,7 @@ namespace RunApproachStatistics.ViewModel
 
             
             // Set Graph
-            GraphViewModel graphVM = new GraphViewModel(_app, this, 10,2000);
+            GraphViewModel graphVM = new GraphViewModel(_app, this, false ,2000);
             GraphView = graphVM;
         }
 
