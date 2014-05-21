@@ -17,7 +17,7 @@ using System.Windows.Threading;
 
 namespace RunApproachStatistics.ViewModel
 {
-    class VideoPlaybackViewModel : AbstractViewModel
+    public class VideoPlaybackViewModel : AbstractViewModel
     {
         private IApplicationController _app;
         private PropertyChangedBase menu;
@@ -117,7 +117,13 @@ namespace RunApproachStatistics.ViewModel
         {
             this.selectedVault = selectedVault;
             // Set ReplayVideo
-            VideoView = new VideoViewModel(_app, selectedVault.videopath);
+            VideoView = new VideoViewModel(_app, this, selectedVault.videopath);
+            GraphView.insertGraphData(selectedVault.graphdata);
+        }
+
+        public void updateSeconds(float duration)
+        {
+            GraphView.updateGraphLength(duration);
         }
 
         protected override void initRelayCommands()

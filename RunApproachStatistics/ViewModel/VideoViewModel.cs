@@ -23,6 +23,7 @@ namespace RunApproachStatistics.ViewModel
     public class VideoViewModel : AbstractViewModel
     {
         private IApplicationController _app;
+        private VideoPlaybackViewModel videoPlaybackViewModel;
         private BitmapImage pauseImage = new BitmapImage(new Uri(@"/Images/videoControl_pause.png", UriKind.Relative));
         private BitmapImage playImage = new BitmapImage(new Uri(@"/Images/videoControl_play.png", UriKind.Relative));
         private BitmapImage playButtonImage; 
@@ -157,11 +158,11 @@ namespace RunApproachStatistics.ViewModel
 
 #endregion
 
-        public VideoViewModel(IApplicationController app, string videoPath)
+        public VideoViewModel(IApplicationController app, VideoPlaybackViewModel videoPlaybackViewModel, string videoPath)
             : base()
         {
-            Console.WriteLine("VideoViewModel");
             _app = app;
+            this.videoPlaybackViewModel = videoPlaybackViewModel;
             IsPlaying = false;
             Video = new MediaElement
             {
@@ -199,6 +200,11 @@ namespace RunApproachStatistics.ViewModel
             timer.Interval = TimeSpan.FromMilliseconds(20);
             timer.Tick += new EventHandler(timer_Tick);
             timer.Start();
+
+            if (videoPlaybackViewModel != null)
+            {
+                videoPlaybackViewModel.updateSeconds((float)Maximum / 1000);
+            }
         }
 
         /// <summary>
