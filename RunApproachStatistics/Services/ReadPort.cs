@@ -168,26 +168,30 @@ namespace RunApproachStatistics.Services
                 {
                     if (line.Length < 20)
                         return;
+
+                    // Check if distance data is negative
+                    if (line.Substring(1, 1) == "-")
+                        speed = line.Substring(1, 9);
+                    else
+                        speed = line.Substring(2, 8);
+
+                    // Check if speed data is available            
+                    if (line.Substring(11, 1) == "-")
+                        distance = " " + line.Substring(11, 9);
+                    else
+                        distance = " " + line.Substring(12, 8);
+                }
+                else
+                {
+                    if (line.Substring(1, 1) == "-")
+                        distance = line.Substring(1, 9);
+                    else
+                        distance = line.Substring(2, 8);
                 }
             }
             catch (Exception e)
             {
                 return;
-            }
-
-            // Check if distance data is negative
-            if (line.Substring(1, 1) == "-")
-                speed = line.Substring(1, 9);
-            else
-                speed = line.Substring(2, 8);
-
-            // Check if speed data is available
-            if (line.Substring(10, 1) == " ")
-            {
-                if (line.Substring(11, 1) == "-")
-                    distance = " " + line.Substring(11, 9);
-                else
-                    distance = " " + line.Substring(12, 8);
             }
 
             if (save)

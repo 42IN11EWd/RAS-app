@@ -3,21 +3,21 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:MouseBehaviours="clr-namespace:RunApproachStatistics.MVVM"
              mc:Ignorable="d" Background="White" d:DesignWidth="1920" d:DesignHeight="1080">
     <Viewbox Stretch="Uniform">
         <Grid Width="1920" Height="1080">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition x:Name="MenuColumn" Width="325"/>
-                <ColumnDefinition x:Name="ContentColumn" Width="437*" MinWidth="500"/>
+                <ColumnDefinition Width="325"/>
+                <ColumnDefinition Width="*" MinWidth="500"/>
             </Grid.ColumnDefinitions>
 
             <!-- START Column 0 -->
-            <ContentControl x:Name="menuContainer"
-			    Content="{Binding Menu}" Margin="0,0,0,0" />
+            <ContentControl Content="{Binding Path=Menu}" Margin="0" />
             <!-- END Column 0 -->
 
             <!-- START Column 1 -->
-            <Grid Name="cameraGrid"  Grid.Column="1">
+            <Grid Grid.Column="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
@@ -25,12 +25,12 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="200"></RowDefinition>
                     <RowDefinition Height="456"></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition Height="103"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="100"></RowDefinition>
                 </Grid.RowDefinitions>
 
                 <!-- START Column 0 -->
-                <Grid Grid.Column="0" Grid.Row="0" Margin="10,10,10,10">
+                <Grid Grid.Column="0" Grid.Row="0" Margin="10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
@@ -42,33 +42,29 @@
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Column="0" Grid.Row="0" FontSize="24" Text="Full name:"/>
-                    <TextBlock Grid.Column="0" Grid.Row="1" FontSize="24" Text="Date:"/>
-                    <TextBlock Grid.Column="0" Grid.Row="2" FontSize="24" Text="Vault Number:"/>
-                    <TextBlock Grid.Column="0" Grid.Row="3" FontSize="24" Text="Total Score:"/>
+                    <TextBlock FontSize="24" Grid.Column="0" Grid.Row="0" Text="Full name:"/>
+                    <TextBlock FontSize="24" Grid.Column="0" Grid.Row="1" Text="Date:"/>
+                    <TextBlock FontSize="24" Grid.Column="0" Grid.Row="2" Text="Vault Number:"/>
+                    <TextBlock FontSize="24" Grid.Column="0" Grid.Row="3" Text="Total Score:"/>
 
-                    <TextBlock Grid.Column="1" Grid.Row="0" FontSize="24" Text="NAME"/>
-                    <TextBlock Grid.Column="1" Grid.Row="1" FontSize="24" Text="DATE"/>
-                    <TextBlock Grid.Column="1" Grid.Row="2" FontSize="24" Text="VAULTNUMBER"/>
-                    <TextBlock Grid.Column="1" Grid.Row="3" FontSize="24" Text="TOTALSCORE"/>
+                    <TextBlock FontSize="24" Grid.Column="1" Grid.Row="0" Text="{Binding Path=LeftFullName}"/>
+                    <TextBlock FontSize="24" Grid.Column="1" Grid.Row="1" Text="{Binding Path=LeftDate}"/>
+                    <TextBlock FontSize="24" Grid.Column="1" Grid.Row="2" Text="{Binding Path=LeftVaultNumber}"/>
+                    <TextBlock FontSize="24" Grid.Column="1" Grid.Row="3" Text="{Binding Path=LeftTotalScore}"/>
 
-                    <Button Grid.Column="2" Grid.RowSpan="4"/>
+                    <Button Background="Red" Command="{Binding Path=LeftSelectionCommand}" Grid.Column="2" Grid.RowSpan="4">
+                        <CheckBox IsChecked="{Binding Path=LeftIsEnabled}" Content="Selected" />
+                    </Button>
                 </Grid>
 
                 <!-- VIDEO -->
-                <StackPanel Grid.Column="0" Grid.Row="1" Background="Black" VerticalAlignment="Stretch" Margin="10,10,10,10">
-                    <Viewbox VerticalAlignment="Center" Stretch="UniformToFill" StretchDirection="Both">
-                        <MediaElement  Name="VideoControl1" Source="Movie.mp4" MediaOpened="Element_MediaOpened" MediaEnded="Element_MediaEnded" VerticalAlignment="Stretch" Stretch="Fill" 
-     LoadedBehavior="Manual"></MediaElement>
-                    </Viewbox>
-                </StackPanel>
+                <ContentControl Content="{Binding Path=LeftVideoView}" Grid.Column="0" Grid.Row="1" Margin="0"/>
 
                 <!-- GRAPH -->
-                <Button Grid.Column="0" Grid.Row="2" Content="Graph" Background="AliceBlue" Margin="10,10,10,10"/>
-
+                <ContentControl Content="{Binding Path=DistanceGraphView}" Grid.Column="0" Grid.Row="2" Margin="0"/>
 
                 <!-- START Column 1 -->
-                <Grid Grid.Column="1" Grid.Row="0" Margin="10,10,10,10">
+                <Grid Grid.Column="1" Grid.Row="0" Margin="10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
@@ -80,52 +76,53 @@
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Column="0" Grid.Row="0" FontSize="24" Text="Full name:"/>
-                    <TextBlock Grid.Column="0" Grid.Row="1" FontSize="24" Text="Date:"/>
-                    <TextBlock Grid.Column="0" Grid.Row="2" FontSize="24" Text="Vault Number:"/>
-                    <TextBlock Grid.Column="0" Grid.Row="3" FontSize="24" Text="Total Score:"/>
+                    <TextBlock FontSize="24" Grid.Column="0" Grid.Row="0" Text="Full name:"/>
+                    <TextBlock FontSize="24" Grid.Column="0" Grid.Row="1" Text="Date:"/>
+                    <TextBlock FontSize="24" Grid.Column="0" Grid.Row="2" Text="Vault Number:"/>
+                    <TextBlock FontSize="24" Grid.Column="0" Grid.Row="3" Text="Total Score:"/>
 
-                    <TextBlock Grid.Column="1" Grid.Row="0" FontSize="24" Text="NAME"/>
-                    <TextBlock Grid.Column="1" Grid.Row="1" FontSize="24" Text="DATE"/>
-                    <TextBlock Grid.Column="1" Grid.Row="2" FontSize="24" Text="VAULTNUMBER"/>
-                    <TextBlock Grid.Column="1" Grid.Row="3" FontSize="24" Text="TOTALSCORE"/>
+                    <TextBlock FontSize="24" Grid.Column="1" Grid.Row="0" Text="{Binding Path=RightFullName}"/>
+                    <TextBlock FontSize="24" Grid.Column="1" Grid.Row="1" Text="{Binding Path=RightDate}"/>
+                    <TextBlock FontSize="24" Grid.Column="1" Grid.Row="2" Text="{Binding Path=RightVaultNumber}"/>
+                    <TextBlock FontSize="24" Grid.Column="1" Grid.Row="3" Text="{Binding Path=RightTotalScore}"/>
 
-                    <Button Grid.Column="2" Grid.RowSpan="4"/>
+                    <Button Background="Blue" Command="{Binding Path=RightSelectionCommand}" Grid.Column="2" Grid.RowSpan="4">
+                        <CheckBox Content="Selected" IsChecked="{Binding Path=RightIsEnabled}" />
+                    </Button>
                 </Grid>
 
                 <!-- VIDEO -->
-                <StackPanel Grid.Row="1" Grid.Column="1" Background="Black" VerticalAlignment="Stretch" Margin="10,10,10,10">
-                    <Viewbox VerticalAlignment="Center" Stretch="UniformToFill" StretchDirection="Both">
-                <MediaElement Name="VideoControl" Source="Movie.mp4" MediaOpened="Element_MediaOpened" MediaEnded="Element_MediaEnded" VerticalAlignment="Stretch" Stretch="Fill" 
-     LoadedBehavior="Manual"></MediaElement>
-                    </Viewbox>
-                </StackPanel>
+                <ContentControl Content="{Binding Path=RightVideoView}" Grid.Column="1" Grid.Row="1" Margin="0"/>
 
                 <!-- GRAPH -->
-                <Button Grid.Column="1" Grid.Row="2" Content="Graph" Background="AliceBlue" Margin="10,10,10,10"/>
-
-
-
+                <ContentControl Content="{Binding Path=SpeedGraphView}" Grid.Column="1" Grid.Row="2" Margin="0"/>
 
                 <!-- START VIDEO CONTROLS-->
-                <Grid Grid.ColumnSpan="2" Grid.Row="3" Margin="10,0,10,0">
-                    <Rectangle Fill="#8D000000" Height="103" VerticalAlignment="Bottom" />
-                    <Slider x:Name="TimeSlider" Margin="48,0,48,66" Foreground="#FFD4D4D4" Height="22" VerticalAlignment="Bottom"/>
+                <Grid Grid.ColumnSpan="2" Grid.Row="3" Margin="0">
+                    
+                    <Rectangle Fill="LightGray" Height="103" VerticalAlignment="Bottom"/>
+                    
+                    <Slider Height="22" Margin="48,0,48,66" Maximum="{Binding Path=Maximum}" MouseBehaviours:MouseBehaviour.MouseUpCommand="{Binding Path=MouseUpCommand}" MouseBehaviours:MouseBehaviour.MouseDownCommand="{Binding Path=MouseDownCommand}" SmallChange="1000" Value="{Binding Path=CurrentPosition, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Bottom"/>
+                    <Button Background="Transparent" Command="{Binding Path=PlayClickCommand}" Height="48" HorizontalAlignment="Center" Margin="80,0,0,12" VerticalAlignment="Bottom" Width="48">
+                        <Image HorizontalAlignment="Center" Margin="0,0,0,4" Source="{Binding Path=PlayButtonImage}" VerticalAlignment="Bottom" Width="64"/>
+                    </Button>
+                    <Button Background="Transparent" Command="{Binding Path=StopClickCommand}" Height="48" HorizontalAlignment="Center" Margin="0,0,80,12" VerticalAlignment="Bottom" Width="48" >
+                        <Image HorizontalAlignment="Center" Margin="0,0,0,4" Source="pack://application:,,,/Images/videoControl_stop_b.png" VerticalAlignment="Bottom" Width="48"/>
+                    </Button>
+                    <Button Background="Transparent" Command="{Binding Path=ForwardClickCommand}" Height="48" HorizontalAlignment="Center" Margin="240,0,0,12" VerticalAlignment="Bottom" Width="48">
+                        <Image HorizontalAlignment="Center" Margin="0,0,0,4" Source="pack://application:,,,/Images/videoControl_forward_b.png" VerticalAlignment="Bottom" Width="64"/>
+                    </Button>
+                    <Button Background="Transparent" Command="{Binding Path=BackwardClickCommand}" Height="48" HorizontalAlignment="Center" Margin="0,0,240,12" VerticalAlignment="Bottom" Width="48">
+                        <Image HorizontalAlignment="Center" Margin="0,0,0,4" Source="pack://application:,,,/Images/videoControl_backward_b.png" VerticalAlignment="Bottom" Width="64"/>
+                    </Button>
+                    <Slider Height="22" HorizontalAlignment="Right" IsSnapToTickEnabled="True" Margin="0,0,48,26" Maximum="0.5" Minimum="0.05" SmallChange="0.05" TickFrequency="0.05" Value="{Binding Path=PlaybackSpeed, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Bottom" Width="100"/>
 
-                    <Button Foreground="#FFFFFFFF" Background="#00000000" Name="btnPlay" Content=">" Click="OnMouseDownPlayMedia" Margin="0,0,0,4" HorizontalAlignment="Center" Width="64" Height="64" VerticalAlignment="Bottom" />
-                    <Button Foreground="#FFFFFFFF" Background="#00000000" Name="btnMoveForward" Content="&gt;&gt;" Margin="192,0,0,12" HorizontalAlignment="Center" Width="48" Height="48" VerticalAlignment="Bottom"/>
-                    <Button Foreground="#FFFFFFFF" Background="#00000000" Name="btnMoveBack" Content="&lt;&lt;" HorizontalAlignment="Center" Margin="-192,0,0,12" Width="48" Height="48" VerticalAlignment="Bottom" />
-
-                    <!--<Image Name="btnPlay" Margin="0,0,0,4" Source="play2.png" HorizontalAlignment="Center" Width="64" VerticalAlignment="Bottom" />
-            <Image Name="btnMoveForward" Margin="192,0,0,12" Source="next2.png" Height="48" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
-            <Image Name="btnMoveBack" HorizontalAlignment="Center" Margin="-192,0,0,12"  Source="prev2.png" Width="64" Height="806" VerticalAlignment="Bottom" />
-           -->
-                    <TextBlock HorizontalAlignment="Left" Margin="48,0,0,4" Name="Timetext" FontSize="37.333" Foreground="White" Text="00:00:000" Height="50" VerticalAlignment="Bottom"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="240,0,0,4" Name="TotalTimetext" FontSize="37.333" Foreground="White" Text="00:00:000" Height="50" VerticalAlignment="Bottom"/>
+                    <TextBlock FontSize="24" Foreground="Black" Height="50" HorizontalAlignment="Left" Margin="48,0,0,4" Text="{Binding Path=CurrentTime}" VerticalAlignment="Bottom"/>
+                    <TextBlock FontSize="24" Foreground="Black" Height="50" HorizontalAlignment="Left" Margin="240,0,0,4" Text="{Binding Path=TotalTime}" VerticalAlignment="Bottom"/>
+                    <TextBlock FontSize="24" Foreground="Black" Height="50" HorizontalAlignment="Right" Margin="0,0,180,16" Text="{Binding Path=PlaybackSpeedString}" VerticalAlignment="Bottom"/>
                 </Grid>
                 <!-- END VIDEO CONTROLS-->
             </Grid>
-            <!--<Button Content="Graph" Background="AliceBlue" Margin="10,0,10,10" VerticalAlignment="Bottom" Height="245" RenderTransformOrigin="0.5,0.501" Grid.Column="1"/>-->
             <!-- END Column 1 -->
         </Grid>
     </Viewbox>

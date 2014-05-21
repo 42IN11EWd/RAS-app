@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:RunApproachStatistics.View" x:Class="RunApproachStatistics.View.SettingsView" 
              xmlns:mvvm="clr-namespace:RunApproachStatistics.MVVM"
              mc:Ignorable="d" 
-             d:DesignWidth="850" Background="White" Height="421">
+             d:DesignWidth="850" Background="White" Height="430">
     <UserControl.Resources>
         <mvvm:MultiParameterConverter x:Key="ParameterConverter" />
         <Style x:Key="toolTipWhenDisabled" TargetType="{x:Type Button}">
@@ -20,50 +20,50 @@
     <Viewbox Stretch="Uniform">
         <Grid Width="850" Height="421">
             <!-- Main Settings XAML -->
-            <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="24"><Run Language="en-gb" Text="Settings"/></TextBlock>
-            <TextBlock HorizontalAlignment="Left" Margin="20,59,0,0" VerticalAlignment="Top"><Run Language="en-gb" Text="Frequency"/></TextBlock>
-            <TextBox x:Name="frequencyBox" Text="{Binding Path=MeasurementFrequency, ValidatesOnNotifyDataErrors=True}" HorizontalAlignment="Left" Height="23" Margin="123,58.376,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="161" Style="{StaticResource textBoxInError}" />
-            <TextBlock HorizontalAlignment="Left" Margin="20,87,0,0" VerticalAlignment="Top"><Run Language="en-gb" Text="Mean Value"/></TextBlock>
-            <TextBox x:Name="meanBox" Text="{Binding Path=MeanValue, ValidatesOnNotifyDataErrors=True}" Height="23" Margin="123,86.376,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="161" Style="{StaticResource textBoxInError}" />
-            <TextBlock HorizontalAlignment="Left" Margin="20,117,0,0" VerticalAlignment="Top"><Run Language="en-gb" Text="Camera position"/></TextBlock>
-            <ComboBox x:Name="positionBox" HorizontalAlignment="Left" Margin="123,114.375,0,0" VerticalAlignment="Top" Width="161" SelectedIndex="0">
+            <Label HorizontalAlignment="Left" Content="Settings" Margin="12,0,0,0" VerticalAlignment="Top" FontSize="26"/>
+            <Label HorizontalAlignment="Left" Height="34" Width="140" Content="Frequency" Margin="12,48,0,0" VerticalAlignment="Top" FontSize="18"/>
+            <TextBox x:Name="frequencyBox" FontSize="18" Text="{Binding Path=MeasurementFrequency, ValidatesOnNotifyDataErrors=True}" HorizontalAlignment="Left" Height="34" Margin="158,48,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="180" Style="{StaticResource textBoxInError}" />
+            <Label HorizontalAlignment="Left" Height="34" Width="140" FontSize="18" Content="Mean Value" Margin="12,87,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="meanBox"  FontSize="18" Text="{Binding Path=MeanValue, ValidatesOnNotifyDataErrors=True}" Height="34" Margin="158,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="180" Style="{StaticResource textBoxInError}" />
+            <Label HorizontalAlignment="Left" FontSize="18" Height="34" Content="Camera position" Margin="12,126,0,0" Width="140" VerticalAlignment="Top"/>
+            <ComboBox x:Name="positionBox" FontSize="18" HorizontalAlignment="Left" Margin="158,126,0,0" VerticalAlignment="Top" Height="34" Width="180" SelectedIndex="0">
                 <ComboBoxItem Content="Back"/>
                 <ComboBoxItem Content="Front"/>
             </ComboBox>
-            <TextBlock HorizontalAlignment="Left" Margin="20,144,0,0" VerticalAlignment="Top"><Run Language="en-gb" Text="Measurements"/></TextBlock>
-            <ComboBox x:Name="measurementBox" HorizontalAlignment="Left" Margin="123,141,0,0" VerticalAlignment="Top" Width="161" SelectedIndex="{Binding Path=MeasurementIndex}">
+            <Label HorizontalAlignment="Left" Height="34" Width="140" Content="Measurements" FontSize="18" Margin="12,165,0,0" VerticalAlignment="Top"/>
+            <ComboBox x:Name="measurementBox" FontSize="18" HorizontalAlignment="Left" Margin="158,165,0,0" VerticalAlignment="Top" Width="180" Height="34" SelectedIndex="{Binding Path=MeasurementIndex}">
                 <ComboBoxItem Content="Distance + Speed"/>
                 <ComboBoxItem Content="Distance"/>
             </ComboBox>
             <!-- End Main settings-->
 
             <!-- Measurement Screen XAML -->
-            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,227,0,0" FontSize="21.333"><Run Language="en-gb" Text="Measurement Screen:"/></TextBlock>
-            <TextBlock HorizontalAlignment="Left" Margin="20,280,0,0" VerticalAlignment="Top"><Run Language="en-gb" Text="Visible laser"/></TextBlock>
-            <ComboBox x:Name="pilotlaserBox" HorizontalAlignment="Left" Margin="123,277,0,0" VerticalAlignment="Top" Width="56" SelectedIndex="{Binding Path=PilotLaser, Mode=TwoWay}" RenderTransformOrigin="0.125,6.409">
+            <Label HorizontalAlignment="Left" Content="Measurementwindow" VerticalAlignment="Top" FontSize="16" Margin="10,252,0,0"/>
+            <Label HorizontalAlignment="Left" Width="140" Height="34" Content="Visible laser" Margin="12,207,0,0" VerticalAlignment="Top" FontSize="18"/>
+            <ComboBox x:Name="pilotlaserBox" FontSize="18" HorizontalAlignment="Left" Margin="158,207,0,0" VerticalAlignment="Top" Width="90" Height="34" SelectedIndex="{Binding Path=PilotLaser, Mode=TwoWay}" RenderTransformOrigin="0.125,6.409">
                 <ComboBoxItem Content="Off"/>
                 <ComboBoxItem Content="On"/>
             </ComboBox>
 
-            <TextBlock HorizontalAlignment="Left" Margin="20,307,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.512,1.733"><Run Language="en-gb" Text="Minimum"/></TextBlock>
-            <TextBox x:Name="measurementMinBox" Text="{Binding Path=MeasurementWindowMin, ValidatesOnNotifyDataErrors=True}" HorizontalAlignment="Left" Height="23" Margin="123,304,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="56" Style="{StaticResource textBoxInError}" />
-            <TextBlock HorizontalAlignment="Left" Margin="180,307,0,0" VerticalAlignment="Top"><Run Language="en-gb" Text="m"/></TextBlock>
-            <Button Content="Calibrate" Command="{Binding CalibrateMinimumDistance }" HorizontalAlignment="Left" Margin="204,304,0,0" Width="80" Height="23" VerticalAlignment="Top" />
+            <Label HorizontalAlignment="Left" Height="34" Width="140" Content="Minimum" FontSize="18" Margin="12,288,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.512,1.733"/>
+            <TextBox x:Name="measurementMinBox" FontSize="18" Text="{Binding Path=MeasurementWindowMin, ValidatesOnNotifyDataErrors=True}" HorizontalAlignment="Left" Height="34" Margin="158,289,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="64" Style="{StaticResource textBoxInError}" />
+            <Label HorizontalAlignment="Left" Content="m" FontSize="18" Margin="226,289,0,0" VerticalAlignment="Top"/>
+            <Button Content="Calibrate" FontSize="18" Command="{Binding CalibrateMinimumDistance }" HorizontalAlignment="Left" Margin="258,288,0,0" Width="80" Height="34" VerticalAlignment="Top" />
 
-            <TextBlock HorizontalAlignment="Left" Margin="20,335,0,0" Height="15" VerticalAlignment="Top"><Run Language="en-gb" Text="Maximum"/></TextBlock>
-            <TextBox x:Name="measurementMaxBox" Text="{Binding Path=MeasurementWindowMax, ValidatesOnNotifyDataErrors=True}" HorizontalAlignment="Left" Margin="123,332,0,0" TextWrapping="Wrap" Width="56" Height="23" VerticalAlignment="Top" Style="{StaticResource textBoxInError}"/>
-            <TextBlock HorizontalAlignment="Left" Margin="180,337,0,0" VerticalAlignment="Top"><Run Language="en-gb" Text="m"/></TextBlock>
-            <Button Content="Calibrate" Command="{Binding CalibrateMaximumDistance}" HorizontalAlignment="Left" Margin="204,332,0,0" Width="80" Height="23" VerticalAlignment="Top" />
+            <Label HorizontalAlignment="Left" Height="34" Width="140" Content="Maximum" FontSize="18" Margin="12,327,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="measurementMaxBox" FontSize="18" Text="{Binding Path=MeasurementWindowMax, ValidatesOnNotifyDataErrors=True}" HorizontalAlignment="Left" Margin="158,327,0,0" TextWrapping="Wrap" Width="64" Height="34" VerticalAlignment="Top" Style="{StaticResource textBoxInError}"/>
+            <Label HorizontalAlignment="Left" Content="m" FontSize="18" Margin="226,327,0,0" VerticalAlignment="Top"/>
+            <Button Content="Calibrate" FontSize="18" Command="{Binding CalibrateMaximumDistance}" HorizontalAlignment="Left" Margin="258,327,0,0" Width="80" Height="34" VerticalAlignment="Top" />
             <!-- End Measurement Screen-->
 
             <!-- Camera XAML -->
-            <ComboBox x:Name="videocameraBox" HorizontalAlignment="Right" Margin="0,57,10,0" VerticalAlignment="Top" Width="465" SelectedIndex="{Binding Path=SelectedCameraIndex, Mode=TwoWay}" ItemsSource="{Binding Path=Devices}" />
-            <Label Content="Camera" HorizontalAlignment="Right" Margin="0,55,480,0" VerticalAlignment="Top"/>
-            <ContentControl x:Name="cameraView" Content="{Binding Path=CameraView}" Height="293" VerticalAlignment="Top" HorizontalAlignment="Right" Width="520" Margin="0,87,10,0" Background="Black" />
+            <ComboBox x:Name="videocameraBox" Height="34" FontSize="18" HorizontalAlignment="Right" Margin="0,48,10,0" VerticalAlignment="Top" Width="408" SelectedIndex="{Binding Path=SelectedCameraIndex, Mode=TwoWay}" ItemsSource="{Binding Path=Devices}" />
+            <Label Content="Camera" FontSize="18" HorizontalAlignment="Right" Margin="0,48,423,0" VerticalAlignment="Top"/>
+            <ContentControl x:Name="cameraView" Content="{Binding Path=CameraView}" Height="268" VerticalAlignment="Top" HorizontalAlignment="Right" Width="477" Margin="0,87,10,0" Background="Black" />
             <!-- End Camera XAML -->
 
             <!-- Window Buttons XAML -->
-            <Button Command="{Binding SaveSettingsCommand}" IsEnabled="{Binding Path=IsValid}" Content="Save" HorizontalAlignment="Right" Margin="0,387,415,10" Width="115">
+            <Button Command="{Binding SaveSettingsCommand}" IsEnabled="{Binding Path=IsValid}" Height="28" FontSize="18" Content="Save" HorizontalAlignment="Right" Margin="0,383,10,10" Width="115">
                 <Button.CommandParameter>
                     <MultiBinding Converter="{StaticResource ParameterConverter}">
                         <MultiBinding.Bindings>
@@ -78,9 +78,9 @@
                     </MultiBinding>
                 </Button.CommandParameter>
             </Button>
-            <Button Command="{Binding CancelCommand}" Content="Cancel" HorizontalAlignment="Right" Margin="0,387,10,10" Width="115"/>
-            <Button Command="{Binding ShowLocationEditerCommand}" Content="Location editor" HorizontalAlignment="Left" Margin="10,387,0,0" VerticalAlignment="Top" Width="115" Height="24"/>
-            <Button Command="{Binding ShowVaultNumberEditerCommand}" Content="Vault number editor" HorizontalAlignment="Left" Margin="145,387,0,0" VerticalAlignment="Top" Width="115" Height="24"/>
+            <Button Command="{Binding CancelCommand}" Content="Cancel" Height="28" HorizontalAlignment="Right" FontSize="18" Margin="0,383,150,10" Width="114"/>
+            <Button Command="{Binding ShowLocationEditerCommand}" Content="Location editor" FontSize="18" HorizontalAlignment="Left" Margin="10,383,0,0" VerticalAlignment="Top" Width="180" Height="28"/>
+            <Button Command="{Binding ShowVaultNumberEditerCommand}" Content="Vault number editor" FontSize="18" HorizontalAlignment="Left" Margin="215,383,0,0" VerticalAlignment="Top" Width="180" Height="28"/>
             <!-- End Window Buttons-->
         </Grid>
     </Viewbox>

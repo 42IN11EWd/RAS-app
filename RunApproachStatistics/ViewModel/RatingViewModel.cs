@@ -18,6 +18,8 @@ namespace RunApproachStatistics.ViewModel
         private bool star5Checked;
         private bool[] starArray = new bool[6];
 
+        public event EventHandler<int> OnRatingChanged;
+
         #region Bindings
         public int RatingValue
         {
@@ -49,6 +51,7 @@ namespace RunApproachStatistics.ViewModel
                 OnPropertyChanged("Star4Checked");
                 OnPropertyChanged("Star5Checked");
                 OnPropertyChanged("RatingValue");
+                RatingChanged();
             }
         }
         public bool Star1Checked
@@ -144,6 +147,15 @@ namespace RunApproachStatistics.ViewModel
             }
 
             return 0;
+        }
+
+        protected virtual void RatingChanged()
+        {
+            EventHandler<int> handler = OnRatingChanged;
+            if (handler != null)
+            {
+                handler(this, RatingValue);
+            }
         }
     }
 }

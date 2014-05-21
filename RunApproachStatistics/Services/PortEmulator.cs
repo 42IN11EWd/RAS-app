@@ -53,10 +53,10 @@ namespace RunApproachStatistics.Services
             else
             {
                 speed = 0;
-                distance = 0;
+                distance = portController.MeasurementWindowMin;
             }
             
-            line = "D " + String.Format(CultureInfo.InvariantCulture, "{0:0000.000}", distance) + "  " + String.Format(CultureInfo.InvariantCulture, "{0:0000.000}", speed);
+            line = "D " + String.Format(CultureInfo.InvariantCulture, "{0:0000.000}", speed) + "  " + String.Format(CultureInfo.InvariantCulture, "{0:0000.000}", distance);
            
             readPort.checkReceivedData(line);
         }
