@@ -16,6 +16,7 @@
 
 
         <!-- START VIDEO CONTROLS-->
+        <Grid Visibility="{Binding Path=VideoControlsVisibility}">
         <Rectangle Fill="#8D000000" Height="103" VerticalAlignment="Bottom" />
         <Slider x:Name="TimeSlider" Background="Transparent" Value="{Binding CurrentPosition, Mode=TwoWay}" Maximum="{Binding Maximum}" Margin="48,0,48,66" Foreground="#FFD4D4D4" Height="22" VerticalAlignment="Bottom" SmallChange="1000" MouseBehaviours:MouseBehaviour.MouseUpCommand="{Binding MouseUpCommand}" MouseBehaviours:MouseBehaviour.MouseDownCommand="{Binding MouseDownCommand}"  />
         <Button Foreground="#FFFFFFFF" Background="#00000000" Command="{Binding PlayClickCommand}" Name="btnPlay"  Margin="80,0,0,4" HorizontalAlignment="Center" Width="64" Height="64" VerticalAlignment="Bottom">
@@ -36,7 +37,7 @@
         <TextBlock HorizontalAlignment="Left" Margin="240,0,0,4" Name="TotalTimetext" FontSize="37.333" Foreground="White" Text="{Binding TotalTime, Mode=OneWay}" Height="50" VerticalAlignment="Bottom"/>
 
         <TextBlock HorizontalAlignment="Right" Margin="0,0,180,16" Name="Speedtext" FontSize="37.333" Foreground="White" Text="{Binding PlaybackSpeedString, Mode=OneWay}" Height="50" VerticalAlignment="Bottom"/>
-
+        </Grid>
         <!-- END VIDEO CONTROLS-->
     </Grid>
 </UserControl>
