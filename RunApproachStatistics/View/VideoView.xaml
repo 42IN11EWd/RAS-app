@@ -6,11 +6,15 @@
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="1280">
     <Grid Name="cameraGrid" Margin="0,0,0,0">
-        <StackPanel Background="Black" VerticalAlignment="Stretch">
+       <StackPanel Background="Black" VerticalAlignment="Stretch">
             <Viewbox VerticalAlignment="Stretch" Stretch="None" >
                 <ContentControl Content="{Binding Video}" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch"/>              
             </Viewbox>
         </StackPanel>
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Video loading..." Foreground="White" FontSize="80" Visibility="{Binding Path=LoadingVisibility}"/>
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Failed loading video!" Foreground="White" FontSize="80" Visibility="{Binding Path=FailedLoadingVisibility}"/>
+
+
         <!-- START VIDEO CONTROLS-->
         <Rectangle Fill="#8D000000" Height="103" VerticalAlignment="Bottom" />
         <Slider x:Name="TimeSlider" Background="Transparent" Value="{Binding CurrentPosition, Mode=TwoWay}" Maximum="{Binding Maximum}" Margin="48,0,48,66" Foreground="#FFD4D4D4" Height="22" VerticalAlignment="Bottom" SmallChange="1000" MouseBehaviours:MouseBehaviour.MouseUpCommand="{Binding MouseUpCommand}" MouseBehaviours:MouseBehaviour.MouseDownCommand="{Binding MouseDownCommand}"  />
