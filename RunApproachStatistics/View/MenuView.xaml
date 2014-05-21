@@ -3,19 +3,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
-             d:DesignHeight="1080" d:DesignWidth="325" Background="White">
+             mc:Ignorable="d" d:DesignHeight="1080" d:DesignWidth="325" Background="White">
     <Viewbox Stretch="Uniform">
         <Grid Width="325" Height="1080" >
             <StackPanel Margin="0,10,0,-10">
                 <Image Source="pack://application:,,,/Images/Logo.png"/>
-                <Button Visibility="{Binding VisibilityLaser, Converter={StaticResource BoolToVis}}" Content="{Binding PilotLaserTitle}" Margin="35,30,35,0" FontSize="26"  Height="50" Command="{Binding SetPilotLaserCommand}"/>
+                <Button Visibility="{Binding VisibilityLaser, Converter={StaticResource BoolToVis}}" Content="{Binding PilotLaserTitle}" Margin="35,30,35,0" FontSize="26" Height="50" Command="{Binding SetPilotLaserCommand}"/>
                 <Button Content="Start Session" Margin="35,30,35,0" FontSize="26" Height="50" Command="{Binding StartSessionCommand}"/>
                 <Button Content="Select Vault" Margin="35,30,35,0" FontSize="26" Height="50" Command="{Binding SelectVaultCommand}"/>
-                <Button Content="Gymnast Profiles" Margin="35,30,35,0" FontSize="26"  Height="50" Command="{Binding GymnastProfilesCommand}"/>
+                <Button Content="Gymnast Profiles" Margin="35,30,35,0" FontSize="26" Height="50" Command="{Binding GymnastProfilesCommand}"/>
                 <Button Content="Settings" Margin="35,30,35,0" FontSize="26" Height="50" Command="{Binding SettingsCommand}"/>
-                <Button Content="Home" Margin="35,30,35,0" FontSize="26"  Height="50" Command="{Binding HomeCommand}"/>
-                
+                <Button Content="Home" Margin="35,30,35,0" FontSize="26" Height="50" Command="{Binding HomeCommand}"/>
+
+                <Button Content="{Binding LogName}" Margin="35,290,35,0" FontSize="26" Height="50" Command="{Binding LogCommand}"/>
             </StackPanel>
         </Grid>
     </Viewbox>
