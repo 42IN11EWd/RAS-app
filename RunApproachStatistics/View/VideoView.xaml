@@ -7,17 +7,17 @@
              d:DesignHeight="720" d:DesignWidth="1280">
     <Grid Name="cameraGrid" Margin="0,0,0,0">
         <StackPanel Background="Black" VerticalAlignment="Stretch">
-            <Viewbox VerticalAlignment="Center" Stretch="UniformToFill" StretchDirection="Both">
-                <ContentControl Content="{Binding Video}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>              
+            <Viewbox VerticalAlignment="Stretch" Stretch="None" >
+                <ContentControl Content="{Binding Video}" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch"/>              
             </Viewbox>
         </StackPanel>
         <!-- START VIDEO CONTROLS-->
         <Rectangle Fill="#8D000000" Height="103" VerticalAlignment="Bottom" />
-        <Slider x:Name="TimeSlider" Value="{Binding CurrentPosition, Mode=TwoWay}" Maximum="{Binding Maximum}" Margin="48,0,48,66" Foreground="#FFD4D4D4" Height="22" VerticalAlignment="Bottom" SmallChange="1000" MouseBehaviours:MouseBehaviour.MouseUpCommand="{Binding MouseUpCommand}" MouseBehaviours:MouseBehaviour.MouseDownCommand="{Binding MouseDownCommand}"  />
+        <Slider x:Name="TimeSlider" Background="Transparent" Value="{Binding CurrentPosition, Mode=TwoWay}" Maximum="{Binding Maximum}" Margin="48,0,48,66" Foreground="#FFD4D4D4" Height="22" VerticalAlignment="Bottom" SmallChange="1000" MouseBehaviours:MouseBehaviour.MouseUpCommand="{Binding MouseUpCommand}" MouseBehaviours:MouseBehaviour.MouseDownCommand="{Binding MouseDownCommand}"  />
         <Button Foreground="#FFFFFFFF" Background="#00000000" Command="{Binding PlayClickCommand}" Name="btnPlay"  Margin="80,0,0,4" HorizontalAlignment="Center" Width="64" Height="64" VerticalAlignment="Bottom">
             <Image Margin="0,0,0,4" Source="{Binding PlayButtonImage}" HorizontalAlignment="Center" Width="64" VerticalAlignment="Bottom" />
         </Button>
-        <Button Foreground="#FFFFFFFF" Background="#00000000" Command="{Binding StopClickCommand}" Name="btnStop"  Margin="0,0,80,4" HorizontalAlignment="Center" Width="64" Height="64" VerticalAlignment="Bottom">
+        <Button Foreground="#FFFFFFFF" Background="#00000000" Command="{Binding StopClickCommand}" Name="btnStop"  Margin="0,0,80,12" HorizontalAlignment="Center" Width="48" Height="48" VerticalAlignment="Bottom">
             <Image Margin="0,0,0,4" Source="pack://application:,,,/Images/videoControl_stop.png" HorizontalAlignment="Center" Width="64" VerticalAlignment="Bottom" />
         </Button>
         <Button Foreground="#FFFFFFFF" Background="#00000000" Command="{Binding ForwardClickCommand}" Name="btnMoveForward" Margin="240,0,0,12" HorizontalAlignment="Center" Width="48" Height="48" VerticalAlignment="Bottom">

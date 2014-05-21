@@ -25,6 +25,8 @@ namespace RunApproachStatistics.ViewModel
         private VideoViewModel videoView;
         private GraphViewModel graphView;
 
+        private vault selectedVault;
+
         private DispatcherTimer timer;
         private bool dragging = false;
 
@@ -99,14 +101,13 @@ namespace RunApproachStatistics.ViewModel
             : base()
         {
             _app = app;
-
+            
             // Set menu
             MenuViewModel menuViewModel = new MenuViewModel(_app);
             menuViewModel.VisibilityLaser = true;
             Menu = menuViewModel;
 
-            // Set ReplayVideo
-            VideoView = new VideoViewModel(_app);
+            
             // Set Graph
             GraphViewModel graphVM = new GraphViewModel(_app, this, 10,2000);
             GraphView = graphVM;
@@ -114,7 +115,9 @@ namespace RunApproachStatistics.ViewModel
 
         public void setVaultToPlay(vault selectedVault)
         {
-            Console.WriteLine(selectedVault.vault_id);
+            this.selectedVault = selectedVault;
+            // Set ReplayVideo
+            VideoView = new VideoViewModel(_app, selectedVault.videopath);
         }
 
         protected override void initRelayCommands()
