@@ -15,7 +15,7 @@
                 <Button Content="Settings" Margin="35,30,35,0" FontSize="26" Height="50" Command="{Binding SettingsCommand}"/>
                 <Button Content="Home" Margin="35,30,35,0" FontSize="26" Height="50" Command="{Binding HomeCommand}"/>
 
-                <Button Content="{Binding LogName}" Margin="35,290,35,0" FontSize="26" Height="50" Command="{Binding LogCommand}"/>
+                <Button Content="{Binding LogName}" Margin="35,290,35,0" FontSize="26" Height="50" Command="{Binding LogCommand}" VerticalAlignment="Bottom"/>
             </StackPanel>
         </Grid>
     </Viewbox>
