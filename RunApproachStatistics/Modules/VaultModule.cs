@@ -31,10 +31,31 @@ namespace RunApproachStatistics.Modules
     /// </summary>
     public class VaultModule : IVaultModule, ICameraModule
     {
+
         public void create(vault vault)
         {
             using (var db = new DataContext())
             {
+                if (vault.gymnast != null)
+                {
+                    db.gymnast.Attach(vault.gymnast);
+                }
+
+                if (vault.location != null)
+                {
+                    db.location.Attach(vault.location);
+                }
+
+                if (vault.vaultkind != null)
+                {
+                    db.vaultkind.Attach(vault.vaultkind);
+                }
+
+                if (vault.vaultnumber != null)
+                {
+                    db.vaultnumber.Attach(vault.vaultnumber);
+                }
+
                 db.vault.Add(vault);
 
                 try
@@ -126,7 +147,7 @@ namespace RunApproachStatistics.Modules
         {
             using (var db = new DataContext())
             {
-                return (from qLocation in db.location
+            return (from qLocation in db.location
                         where qLocation.deleted == false
                         select qLocation
                 ).ToList();
@@ -135,9 +156,9 @@ namespace RunApproachStatistics.Modules
 
         public List<vaultkind> getVaultKinds()
         {
-            using(var db = new DataContext())
+            using (var db = new DataContext())
             {
-                return (from qVaultKinds in db.vaultkind
+            return (from qVaultKinds in db.vaultkind
                         where qVaultKinds.deleted == false
                         select qVaultKinds
                 ).ToList();
@@ -146,9 +167,9 @@ namespace RunApproachStatistics.Modules
 
         public List<vaultnumber> getVaultNumbers()
         {
-            using(var db = new DataContext())
+            using (var db = new DataContext())
             {
-                return (from qVaultNumbers in db.vaultnumber
+            return (from qVaultNumbers in db.vaultnumber
                         where qVaultNumbers.deleted == false
                         select qVaultNumbers
                 ).ToList();

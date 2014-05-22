@@ -732,10 +732,12 @@ namespace RunApproachStatistics.ViewModel
                                   {
                                       if (!String.IsNullOrEmpty(Gymnast))
                                       {
-                                          selectedVault.gymnast = gymnastList.Select(g => g)
+                                          gymnast sGymnast = gymnastList.Select(g => g)
                                               .Where(x => (x.name + (x.surname_prefix != null ? " " + x.surname_prefix : "") 
                                                   + " " + x.surname) == Gymnast)
                                               .First();
+                                          selectedVault.gymnast_id = sGymnast.gymnast_id;
+                                          selectedVault.gymnast = sGymnast;
                                       }
                                       else
                                       {
@@ -879,7 +881,8 @@ namespace RunApproachStatistics.ViewModel
 
             if (selectedVault.gymnast_id != null)
             {
-                Gymnast = selectedVault.gymnast.name;
+                Gymnast = selectedVault.gymnast.name + (selectedVault.gymnast.surname_prefix != null ? " " +
+                    selectedVault.gymnast.surname_prefix : "") + " " + selectedVault.gymnast.surname;
             }
             else
             {
