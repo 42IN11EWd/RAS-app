@@ -22,10 +22,8 @@ namespace RunApproachStatistics.ViewModel
         private PropertyChangedBase menu;
         private PropertyChangedBase content;
 
+        #region Bindings
 
-        
-
-        //do not delete -----------------------------
         public PropertyChangedBase Menu
         {
             get { return menu; }
@@ -44,8 +42,9 @@ namespace RunApproachStatistics.ViewModel
                 OnPropertyChanged("Content");
             }
         }
-        //------------------------------------------
-        
+
+        #endregion
+
 
         public PostMeasurementViewModel(IApplicationController app)
             : base()

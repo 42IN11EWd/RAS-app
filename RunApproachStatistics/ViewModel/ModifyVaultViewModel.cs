@@ -25,6 +25,7 @@ namespace RunApproachStatistics.ViewModel
         private vault vault = new vault();
         private bool changeState;
         private bool hasGymnast;
+        private string kind;
 
         private String vaultKind;
         private String location;
@@ -281,19 +282,24 @@ namespace RunApproachStatistics.ViewModel
         {
             get
             {
-                //if VM = Post
-                //return FinishButtonText = "Finish";
-
-                //if VM = vaultselect
-                if (SelectedThumbnails.Count == 1)
+                if(kind == "POST")
                 {
-                    return FinishButtonText = "View";
-                }
-                else if (SelectedThumbnails.Count > 1)
-                {
-                    return FinishButtonText = "Compare";
+                    return FinishButtonText = "Finish";
                 }
 
+                if (kind == "SELECT")
+                {
+                    if (SelectedThumbnails.Count == 1)
+                    {
+                        return FinishButtonText = "View";
+                    }
+                    else if (SelectedThumbnails.Count > 1)
+                    {
+                        return FinishButtonText = "Compare";
+                    }
+
+                    return "";
+                }
                 return "";
             }
             set
@@ -306,6 +312,8 @@ namespace RunApproachStatistics.ViewModel
 
         public ModifyVaultViewModel(IApplicationController app, string kind) : base()
         {
+            _app = app;
+            this.kind = kind;
             ratingVM = new RatingViewModel(_app);
             RatingControl = ratingVM;
 
@@ -611,22 +619,26 @@ namespace RunApproachStatistics.ViewModel
         #region RelayCommands
         public void FinishAction(object commandParam)
         {
-            //if VM = post
-            //_app.ShowHomeView();
+            if(kind == "POST")
+            {
+                _app.ShowHomeView();
+            }
+            if (kind == "SELECT")
+            {
 
-            //if VM = vaultselect
-            List<vault> vaults = new List<vault>();
-            for (int i = 0; i < SelectedThumbnails.Count; i++)
-            {
-                vaults.Add(SelectedThumbnails[i].Vault);
-            }
-            if (SelectedThumbnails.Count == 1)
-            {
-                _app.ShowVideoPlaybackView(vaults[0]);
-            }
-            else if (SelectedThumbnails.Count == 2)
-            {
-                _app.ShowCompareVaultsView(vaults);
+                List<vault> vaults = new List<vault>();
+                for (int i = 0; i < SelectedThumbnails.Count; i++)
+                {
+                    vaults.Add(SelectedThumbnails[i].Vault);
+                }
+                if (SelectedThumbnails.Count == 1)
+                {
+                    _app.ShowVideoPlaybackView(vaults[0]);
+                }
+                else if (SelectedThumbnails.Count == 2)
+                {
+                    _app.ShowCompareVaultsView(vaults);
+                }
             }
         }
         public void DeleteAction(object commandParam)
