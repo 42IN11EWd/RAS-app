@@ -9,6 +9,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -158,9 +159,9 @@ namespace RunApproachStatistics.ViewModel
         public RelayCommand CancelCommand { get; private set; }
         public RelayCommand CalibrateMinimumDistance { get; private set; }
         public RelayCommand CalibrateMaximumDistance { get; private set; }
-
         public RelayCommand ShowLocationEditerCommand { get; private set; }
         public RelayCommand ShowVaultNumberEditerCommand { get; private set; }
+        public RelayCommand ClearLocalDataCommand { get; private set; }
 
         #endregion
 
@@ -281,13 +282,31 @@ namespace RunApproachStatistics.ViewModel
             MeasurementWindowMax = String.Format("{0:0000.000}", portController.calibrateMeasurementWindow());
         }
 
-        private void ShowVaultNumberEditer(object commandParam)
+        private void ShowVaultNumberEditor(object commandParam)
         {
             _app.ShowVaultNumberEditorView();
         }
-        private void ShowLocationEditer(object commandParam)
+        private void ShowLocationEditor(object commandParam)
         {
             _app.ShowLocationEditorView();
+        }
+
+        private void ClearLocalData(object commandParam)
+        {
+            MessageBoxResult result = MessageBox.Show("Warning: this action will delete all videos that are saved on this computer.", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    String filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "RunApproachStatistics");
+                    Array.ForEach(Directory.GetFiles(filePath), File.Delete);
+                    MessageBoxResult messageBox = MessageBox.Show("Files succesfully deleted.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch (Exception e)
+                {
+                    MessageBoxResult messageBox = MessageBox.Show("Error deleting files!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
         }
 
         #endregion
@@ -299,8 +318,9 @@ namespace RunApproachStatistics.ViewModel
             CalibrateMinimumDistance    = new RelayCommand(calibrateMinimumDistance);
             CalibrateMaximumDistance    = new RelayCommand(calibrateMaximumDistance);
 
-            ShowLocationEditerCommand = new RelayCommand(ShowLocationEditer);
-            ShowVaultNumberEditerCommand = new RelayCommand(ShowVaultNumberEditer);
+            ShowLocationEditerCommand = new RelayCommand(ShowLocationEditor);
+            ShowVaultNumberEditerCommand = new RelayCommand(ShowVaultNumberEditor);
+            ClearLocalDataCommand = new RelayCommand(ClearLocalData);
         }
 
         #region Validation Rules
