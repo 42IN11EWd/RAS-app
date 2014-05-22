@@ -18,6 +18,9 @@ namespace RunApproachStatistics.ViewModel
     {
         private IApplicationController _app;
         private PropertyChangedBase menu;
+        private PropertyChangedBase content;
+
+
         private PropertyChangedBase ratingControl;
         private RatingViewModel ratingVM;
 
@@ -49,6 +52,7 @@ namespace RunApproachStatistics.ViewModel
         public RelayCommand RemoveAllFiltersCommand { get; private set; }
         public RelayCommand SelectedItemsChangedCommand { get; private set; }
 
+        //do not delete -----------------------------
         public PropertyChangedBase Menu
         {
             get { return menu; }
@@ -58,6 +62,16 @@ namespace RunApproachStatistics.ViewModel
                 OnPropertyChanged("Menu");
             }
         }
+        public PropertyChangedBase Content
+        {
+            get { return content; }
+            set
+            {
+                content = value;
+                OnPropertyChanged("Content");
+            }
+        }
+        //------------------------------------------
 
         public PropertyChangedBase RatingControl
         {

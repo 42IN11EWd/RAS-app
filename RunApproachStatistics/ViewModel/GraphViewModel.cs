@@ -29,6 +29,8 @@ namespace RunApproachStatistics.ViewModel
 
         private ObservableCollection<KeyValuePair<float, float>> distanceArray;
         private ObservableCollection<KeyValuePair<float, float>> speedArray;
+        private Thickness lineMargin;
+        private Visibility lineVisibilty;
         private float graphSeconds;
         private String graphData;
 
@@ -52,6 +54,26 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
+        public Thickness LineMargin
+        {
+            get { return lineMargin; }
+            set
+            {
+                lineMargin = value;
+                OnPropertyChanged("LineMargin");
+            }
+        }
+
+        public Visibility LineVisibilty
+        {
+            get { return lineVisibilty; }
+            set
+            {
+                lineVisibilty = value;
+                OnPropertyChanged("LineVisibilty");
+            }
+        }
+
         public float GraphSeconds
         {
             get { return graphSeconds; }
@@ -72,10 +94,13 @@ namespace RunApproachStatistics.ViewModel
             if (isLive)
             {
                 GraphSeconds = 30;
+                LineVisibilty = Visibility.Hidden;
             }
             else
             {
                 GraphSeconds = 10;
+                LineVisibilty = Visibility.Visible;
+                LineMargin = new Thickness(87, 25, 0, 0);
             }
 
             DisplayWidth = width;
