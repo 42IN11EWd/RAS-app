@@ -33,6 +33,9 @@ namespace RunApproachStatistics.ViewModel
         private MediaElement _video;
         private DispatcherTimer timer;
 
+        private Visibility loadingVisibility;
+        private Visibility failedLoadingVisibility;
+
         private bool dragging = false;
         private bool isPlaying;
         private Double currentPosition;
@@ -79,6 +82,26 @@ namespace RunApproachStatistics.ViewModel
             {
                 _video = value;
                 OnPropertyChanged("Video");
+            }
+        }
+
+        public Visibility LoadingVisibility
+        {
+            get { return loadingVisibility; }
+            set
+            {
+                loadingVisibility = value;
+                OnPropertyChanged("LoadingVisibility");
+            }
+        }
+
+        public Visibility FailedLoadingVisibility
+        {
+            get { return failedLoadingVisibility; }
+            set
+            {
+                failedLoadingVisibility = value;
+                OnPropertyChanged("FailedLoadingVisibility");
             }
         }
 
@@ -166,6 +189,8 @@ namespace RunApproachStatistics.ViewModel
             _app = app;
             this.videoPlaybackViewModel = videoPlaybackViewModel;
             IsPlaying = false;
+            LoadingVisibility = Visibility.Visible;
+            FailedLoadingVisibility = Visibility.Hidden;
 
             String filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "RunApproachStatistics");
             filePath = Path.Combine(filePath, videoPath);
@@ -181,7 +206,8 @@ namespace RunApproachStatistics.ViewModel
                 }
                 catch (Exception e)
                 {
-                    //FOUT DISPLAYEN IN HET VIDEO SCHERM
+                    LoadingVisibility = Visibility.Hidden;
+                    FailedLoadingVisibility = Visibility.Visible;
                 }
             }
 
@@ -199,6 +225,8 @@ namespace RunApproachStatistics.ViewModel
 
             PlaybackSpeed = 1;
             CurrentTime = MillisecondsToTimespan(0);
+
+            LoadingVisibility = Visibility.Hidden;
         }
 
         /// <summary>
