@@ -129,7 +129,9 @@ namespace RunApproachStatistics
         public void ShowPostMeasurementView()
         {
             PostMeasurementViewModel postMeasurementViewModel = new PostMeasurementViewModel(this);
+            ModifyVaultViewModel modifyVaultViewModel = new ModifyVaultViewModel(this,"POST");
             _setContent(postMeasurementViewModel);
+            postMeasurementViewModel.Content = modifyVaultViewModel;
         }
 
         public void ShowProfileView()
@@ -165,14 +167,18 @@ namespace RunApproachStatistics
         public void ShowVaultSelectorView()
         {
             VaultSelectorViewModel vaultSelectorViewModel = new VaultSelectorViewModel(this);
+            ModifyVaultViewModel modifyVaultViewModel = new ModifyVaultViewModel(this, "SELECT");
             _setContent(vaultSelectorViewModel);
+            vaultSelectorViewModel.Content = modifyVaultViewModel;
         }
 
         public void ShowVaultSelectorView(gymnast gymnast)
         {
             VaultSelectorViewModel vaultSelectorViewModel = new VaultSelectorViewModel(this);
-            //vaultSelectorViewModel.setFilter(gymnast);
+            ModifyVaultViewModel modifyVaultViewModel = new ModifyVaultViewModel(this, "SELECT");
+            //modifyVaultViewModel.setFilter(gymnast);
             _setContent(vaultSelectorViewModel);
+            vaultSelectorViewModel.Content = modifyVaultViewModel;
         }
 
         public void ShowLocationEditorView()
