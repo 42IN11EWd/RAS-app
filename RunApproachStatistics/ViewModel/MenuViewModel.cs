@@ -16,6 +16,7 @@ namespace RunApproachStatistics.ViewModel
 
         public String PilotLaserTitle { get; set; }
         public Boolean VisibilityLaser { get; set; }
+        public String LogName { get; set; }
         public Boolean ToggleLaser { get; set; }
         public RelayCommand SetPilotLaserCommand { get; private set; }
         public RelayCommand StartSessionCommand { get; private set; }
@@ -23,6 +24,7 @@ namespace RunApproachStatistics.ViewModel
         public RelayCommand SelectVaultCommand { get; private set; }
         public RelayCommand SettingsCommand { get; private set; }
         public RelayCommand HomeCommand { get; private set; }
+        public RelayCommand LogCommand { get; private set; }
 
         #endregion
 
@@ -30,6 +32,7 @@ namespace RunApproachStatistics.ViewModel
         {
             _app = app;
             PilotLaserTitle = "Set Pilot Laser On";
+            LogName = "Login";
         }
 
         #region RelayCommands
@@ -70,6 +73,30 @@ namespace RunApproachStatistics.ViewModel
             _app.ShowHomeView();
         }
 
+        public void LoginoutCommand(object commandParam)
+        {
+            if (!_app.IsLoggedIn)
+            {
+                _app.ShowLoginView();
+                while(_app.IsLoginWindowOpen)
+                {
+                    //wait while window is open
+                }
+
+                if (_app.IsLoggedIn)
+                {
+                    LogName = "Logout";
+                    OnPropertyChanged("LogName");
+                }
+            }
+            else
+            {
+                LogName = "Login";
+                OnPropertyChanged("LogName");
+                _app.IsLoggedIn = false;
+            }
+        }
+
         #endregion
 
         protected override void initRelayCommands()
@@ -80,6 +107,7 @@ namespace RunApproachStatistics.ViewModel
             SelectVaultCommand = new RelayCommand(LoadSelectVault);
             SettingsCommand = new RelayCommand(LoadSettings);
             HomeCommand = new RelayCommand(LoadHomeScreen);
+            LogCommand = new RelayCommand(LoginoutCommand);
         }
     }
 }
