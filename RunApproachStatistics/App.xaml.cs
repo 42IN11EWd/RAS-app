@@ -11,6 +11,7 @@ using System.Configuration;
 using System.Data;
 using System.Globalization;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -53,6 +54,9 @@ namespace RunApproachStatistics
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+
+            // check connectivity with internet
+            CheckNetworkConnection();
 
             // init VideoCameraController
             videoCameraController = new VideoCameraController();
@@ -248,6 +252,33 @@ namespace RunApproachStatistics
                 {
                     HomeViewModel homeviewModel = (HomeViewModel)currentViewModel;
                     homeviewModel.VideoCameraController = videoCameraController;
+                }
+            }
+        }
+
+        public void CheckNetworkConnection()
+        {
+            bool isConnected = true;
+
+            try
+            {
+                if (new System.Net.NetworkInformation.Ping().Send("www.google.com").Status != IPStatus.Success)
+                    isConnected = false;
+            }
+            catch (PingException pe)
+            {
+                isConnected = false;
+            }
+            finally
+            {
+                if (!isConnected)
+                {
+                    MessageBoxResult result = MessageBox.Show("No active network connection could be found. The application will shut down.\n\nPlease connection to the internet then restart the application.", "Not connected to the internet", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+
+                    if (result == MessageBoxResult.OK)
+                    {
+                        Environment.Exit(0);
+                    }
                 }
             }
         }
