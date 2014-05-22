@@ -305,9 +305,14 @@ namespace RunApproachStatistics.ViewModel
         {
             // Set left vault
             setVaultLabels(vaults[0], "Left");
+            leftVideoView = new VideoViewModel(_app, null, this, vaults[0].videopath);
+            leftVideoView.ToggleVideoControls(false);
 
             // set Right vault
             setVaultLabels(vaults[1], "Right");
+
+            rightVideoView = new VideoViewModel(_app, null, this, vaults[1].videopath);
+            rightVideoView.ToggleVideoControls(false);
         }
 
         private void setVaultLabels(vault setVault, String side)
@@ -315,12 +320,12 @@ namespace RunApproachStatistics.ViewModel
             Type classType = this.GetType();
             if (setVault.gymnast != null)
             {
-                String fullName = setVault.gymnast.name + setVault.gymnast.surname_prefix != null ? " " + 
-                    setVault.gymnast.surname_prefix : "" + setVault.gymnast.surname;
+                String fullName = setVault.gymnast.name + (setVault.gymnast.surname_prefix != null ? " " + 
+                    setVault.gymnast.surname_prefix : "") + " " + setVault.gymnast.surname;
                 classType.GetProperty(side + "FullName").SetValue(this, fullName);
             }
 
-            classType.GetProperty(side + "Date").SetValue(this, setVault.timestamp);
+            classType.GetProperty(side + "Date").SetValue(this, setVault.timestamp.ToString());
 
             if (setVault.vaultnumber != null)
             {
@@ -334,8 +339,20 @@ namespace RunApproachStatistics.ViewModel
                 {
                     totalScore = totalScore - (decimal)setVault.penalty;
                 }
-                classType.GetProperty(side + "TotalScore").SetValue(this, totalScore);
+                classType.GetProperty(side + "TotalScore").SetValue(this, totalScore.ToString("0.000"));
             }
+        }
+
+        public void updateSeconds(float duration)
+        {
+            // langste gebruiken
+            // graph  .updateGraphLength(duration);
+        }
+
+        public void updateCurrentPosition(float position)
+        {
+            
+            
         }
 
         protected override void initRelayCommands()
