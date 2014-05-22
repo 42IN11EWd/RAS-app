@@ -312,6 +312,11 @@ namespace RunApproachStatistics.ViewModel
             // graph  .updateGraphLength(duration);
         }
 
+        public void updateCurrentPosition(float position)
+        {
+
+        }
+
         protected override void initRelayCommands()
         {
         }

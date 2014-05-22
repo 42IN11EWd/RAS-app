@@ -468,6 +468,14 @@ namespace RunApproachStatistics.ViewModel
                             CurrentPosition = position;
                         }
                         CurrentTime = MillisecondsToTimespan(CurrentPosition);
+                        if (videoPlaybackViewModel != null)
+            {
+                videoPlaybackViewModel.updateCurrentPosition((float)CurrentPosition / 1000);
+            }
+            else if (compareVaultsViewModel != null)
+            {
+                compareVaultsViewModel.updateCurrentPosition((float)CurrentPosition / 1000);
+            }
                     }
                 }
             }
