@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
              mc:Ignorable="d" 
-             d:DesignHeight="400" d:DesignWidth="{Binding Path=DisplayWidth }" Background="White" >
+             d:DesignHeight="400" d:DesignWidth="{Binding Path=DisplayWidth}" Background="White" >
     <UserControl.Resources>
         <Style x:Key="InvisibleDataPoint" TargetType="{x:Type chartingToolkit:LineDataPoint}">
             <Setter Property="Background" Value="Blue"/>
@@ -61,6 +61,7 @@
                     </chartingToolkit:LineSeries.Template>
                 </chartingToolkit:LineSeries>
             </chartingToolkit:Chart>
+            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="302" Stroke="Black" VerticalAlignment="Top" Width="2" Margin="{Binding Path=LineMargin}" Visibility="{Binding Path=LineVisibilty}"/>
         </Grid>
     </Viewbox>
 </UserControl>

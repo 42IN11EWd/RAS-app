@@ -27,15 +27,17 @@ namespace RunApproachStatistics.ViewModel
     {
         private IApplicationController _app;
         private VideoPlaybackViewModel videoPlaybackViewModel;
+        private CompareVaultsViewModel compareVaultsViewModel;
         private BitmapImage pauseImage = new BitmapImage(new Uri(@"/Images/videoControl_pause.png", UriKind.Relative));
         private BitmapImage playImage = new BitmapImage(new Uri(@"/Images/videoControl_play.png", UriKind.Relative));
         private BitmapImage playButtonImage;
-        
+
         private MediaElement _video;
         private DispatcherTimer timer;
 
         private Visibility loadingVisibility;
         private Visibility failedLoadingVisibility;
+        private Visibility videoControlsVisibility;
 
         private bool dragging = false;
         private bool isPlaying;
@@ -63,7 +65,7 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-#region DataBinding
+        #region DataBinding
         public RelayCommand PlayClickCommand { get; private set; }
 
         public RelayCommand StopClickCommand { get; private set; }
@@ -71,7 +73,7 @@ namespace RunApproachStatistics.ViewModel
         public RelayCommand ForwardClickCommand { get; private set; }
 
         public RelayCommand BackwardClickCommand { get; private set; }
-        
+
         public RelayCommand MouseUpCommand { get; private set; }
 
         public RelayCommand MouseDownCommand { get; private set; }
@@ -109,10 +111,12 @@ namespace RunApproachStatistics.ViewModel
         public String PlaybackSpeedString
         {
             get { return playbackSpeedString; }
-            set { playbackSpeedString = value;
-            OnPropertyChanged("PlaybackSpeedString");
+            set
+            {
+                playbackSpeedString = value;
+                OnPropertyChanged("PlaybackSpeedString");
             }
-        }       
+        }
 
         public Double PlaybackSpeed
         {
@@ -185,13 +189,24 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-#endregion
+        public Visibility VideoControlsVisibility
+        {
+            get { return videoControlsVisibility; }
+            set
+            {
+                videoControlsVisibility = value;
+                OnPropertyChanged("VideoControlsVisibility");
+            }
+        }
 
-        public VideoViewModel(IApplicationController app, VideoPlaybackViewModel videoPlaybackViewModel, string videoPath)
+        #endregion
+
+        public VideoViewModel(IApplicationController app, VideoPlaybackViewModel videoPlaybackViewModel, CompareVaultsViewModel compareVaultsViewModel, string videoPath)
             : base()
         {
             _app = app;
             this.videoPlaybackViewModel = videoPlaybackViewModel;
+            this.compareVaultsViewModel = compareVaultsViewModel;
             IsPlaying = false;
             LoadingVisibility = Visibility.Visible;
             FailedLoadingVisibility = Visibility.Hidden;
@@ -258,7 +273,7 @@ namespace RunApproachStatistics.ViewModel
         {
             // Play and pause to show first frame instead of black screen
             Video.Play();
-            Video.Pause();           
+            Video.Pause();
             // Set TotalTime
             while (!Video.NaturalDuration.HasTimeSpan)
             {
@@ -274,6 +289,10 @@ namespace RunApproachStatistics.ViewModel
             {
                 videoPlaybackViewModel.updateSeconds((float)Maximum / 1000);
             }
+            else if (compareVaultsViewModel != null)
+            {
+                compareVaultsViewModel.updateSeconds((float)Maximum / 1000);
+            }
         }
 
         /// <summary>
@@ -283,7 +302,7 @@ namespace RunApproachStatistics.ViewModel
         /// <param name="e"></param>
         private void Video_Ended(object sender, RoutedEventArgs e)
         {
-            Stop();            
+            Stop();
         }
 
         /// <summary>
@@ -317,7 +336,7 @@ namespace RunApproachStatistics.ViewModel
                 Stop();
             }
         }
-             
+
         /// <summary>
         /// Move to next frame when forward button has been pressed
         /// </summary>
@@ -409,6 +428,11 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
+        public void ToggleVideoControls(bool visible)
+        {
+            VideoControlsVisibility = visible ? Visibility.Visible : Visibility.Hidden;
+        }
+
         /// <summary>
         /// Convert milliseconds to a time string
         /// </summary>
@@ -444,6 +468,14 @@ namespace RunApproachStatistics.ViewModel
                             CurrentPosition = position;
                         }
                         CurrentTime = MillisecondsToTimespan(CurrentPosition);
+                        if (videoPlaybackViewModel != null)
+            {
+                videoPlaybackViewModel.updateCurrentPosition((float)CurrentPosition / 1000);
+            }
+            else if (compareVaultsViewModel != null)
+            {
+                compareVaultsViewModel.updateCurrentPosition((float)CurrentPosition / 1000);
+            }
                     }
                 }
             }

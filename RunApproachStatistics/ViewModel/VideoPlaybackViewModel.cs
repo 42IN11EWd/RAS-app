@@ -117,13 +117,18 @@ namespace RunApproachStatistics.ViewModel
         {
             this.selectedVault = selectedVault;
             // Set ReplayVideo
-            VideoView = new VideoViewModel(_app, this, selectedVault.videopath);
+            VideoView = new VideoViewModel(_app, this, null, selectedVault.videopath);
             GraphView.insertGraphData(selectedVault.graphdata);
         }
 
         public void updateSeconds(float duration)
         {
             GraphView.updateGraphLength(duration);
+        }
+
+        public void updateCurrentPosition(float position)
+        {
+            
         }
 
         protected override void initRelayCommands()
