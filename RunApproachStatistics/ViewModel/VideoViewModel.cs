@@ -119,10 +119,13 @@ namespace RunApproachStatistics.ViewModel
             get { return playbackSpeed; }
             set
             {
-                playbackSpeed = value;
-                Video.SpeedRatio = value;
-                PlaybackSpeedString = Math.Round(playbackSpeed, 2).ToString("0.00", CultureInfo.InvariantCulture);
-                OnPropertyChanged("PlaybackSpeed");
+                if (Video != null)
+                {
+                    playbackSpeed = value;
+                    Video.SpeedRatio = value;
+                    PlaybackSpeedString = Math.Round(playbackSpeed, 2).ToString("0.00", CultureInfo.InvariantCulture);
+                    OnPropertyChanged("PlaybackSpeed");
+                }
             }
         }
 
@@ -289,15 +292,18 @@ namespace RunApproachStatistics.ViewModel
         /// <param name="commandParam"></param>
         public void PlayMedia(object commandParam)
         {
-            if (IsPlaying)
+            if (Video != null)
             {
-                Pause();
+                if (IsPlaying)
+                {
+                    Pause();
+                }
+                else
+                {
+                    Play();
+                }
+                IsPlaying = !IsPlaying;
             }
-            else
-            {
-                Play();
-            }
-            IsPlaying = !IsPlaying;
         }
 
         /// <summary>
@@ -306,7 +312,10 @@ namespace RunApproachStatistics.ViewModel
         /// <param name="commandParam"></param>
         public void StopMedia(object commandParam)
         {
-            Stop();
+            if (Video != null)
+            {
+                Stop();
+            }
         }
              
         /// <summary>
@@ -315,16 +324,19 @@ namespace RunApproachStatistics.ViewModel
         /// <param name="commandParam"></param>
         public void ForwardMedia(object commandParam)
         {
-            IsPlaying = false;
-            Pause();
-            Double next = CurrentPosition + 40;
-            if (next > Maximum)
+            if (Video != null)
             {
-                next = Maximum;
+                IsPlaying = false;
+                Pause();
+                Double next = CurrentPosition + 40;
+                if (next > Maximum)
+                {
+                    next = Maximum;
+                }
+                dragging = true;
+                CurrentPosition = next;
+                dragging = false;
             }
-            dragging = true;
-            CurrentPosition = next;
-            dragging = false;
         }
 
         /// <summary>
@@ -333,16 +345,19 @@ namespace RunApproachStatistics.ViewModel
         /// <param name="commandParam"></param>
         public void BackwardMedia(object commandParam)
         {
-            IsPlaying = false;
-            Pause();
-            Double prev = CurrentPosition - 40;
-            if (prev < 0)
+            if (Video != null)
             {
-                prev = 0;
+                IsPlaying = false;
+                Pause();
+                Double prev = CurrentPosition - 40;
+                if (prev < 0)
+                {
+                    prev = 0;
+                }
+                dragging = true;
+                CurrentPosition = prev;
+                dragging = false;
             }
-            dragging = true;
-            CurrentPosition = prev;
-            dragging = false;
         }
 
         /// <summary>
@@ -351,8 +366,11 @@ namespace RunApproachStatistics.ViewModel
         /// <param name="commandParam"></param>
         public void MouseDown(object commandParam)
         {
-            Pause();
-            dragging = true;
+            if (Video != null)
+            {
+                Pause();
+                dragging = true;
+            }
         }
 
         /// <summary>
@@ -361,24 +379,34 @@ namespace RunApproachStatistics.ViewModel
         /// <param name="commandParam"></param>
         public void MouseUp(object commandParam)
         {
-            dragging = false;
-            if (IsPlaying) { Play(); }
+            if (Video != null)
+            {
+                dragging = false;
+                if (IsPlaying) { Play(); }
+            }
         }
 
         public void Play()
         {
-            Video.Play();
+            if (Video != null)
+            {
+                Video.Play();
+            }
         }
 
         public void Pause()
         {
-            Video.Pause();
+            if (Video != null)
+            { Video.Pause(); }
         }
 
         public void Stop()
         {
-            IsPlaying = false;
-            Video.Stop();
+            if (Video != null)
+            {
+                IsPlaying = false;
+                Video.Stop();
+            }
         }
 
         /// <summary>
@@ -402,18 +430,21 @@ namespace RunApproachStatistics.ViewModel
         /// <param name="e"></param>
         void timer_Tick(object sender, EventArgs e)
         {
-            // Check if the movie finished calculate it's total time
-            if (Video.NaturalDuration.HasTimeSpan)
+            if (Video != null)
             {
-                if (Video.NaturalDuration.TimeSpan.TotalMilliseconds > 0)
+                // Check if the movie finished calculate it's total time
+                if (Video.NaturalDuration.HasTimeSpan)
                 {
-                    if (!dragging)
+                    if (Video.NaturalDuration.TimeSpan.TotalMilliseconds > 0)
                     {
-                        Double position = Video.Position.TotalMilliseconds;
-                        // Updating time slider
-                        CurrentPosition = position;
+                        if (!dragging)
+                        {
+                            Double position = Video.Position.TotalMilliseconds;
+                            // Updating time slider
+                            CurrentPosition = position;
+                        }
+                        CurrentTime = MillisecondsToTimespan(CurrentPosition);
                     }
-                    CurrentTime = MillisecondsToTimespan(CurrentPosition);
                 }
             }
         }
