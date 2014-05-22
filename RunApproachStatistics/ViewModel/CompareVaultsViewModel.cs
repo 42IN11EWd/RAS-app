@@ -302,7 +302,14 @@ namespace RunApproachStatistics.ViewModel
         }
         public void setVaultsToCompare(List<vault> vaults)
         {
+            rightVideoView = new VideoViewModel(_app, null, this, vaults[1].videopath);
+            rightVideoView.ToggleVideoControls(false);
+        }
 
+        public void updateSeconds(float duration)
+        {
+            // langste gebruiken
+            // graph  .updateGraphLength(duration);
         }
 
         protected override void initRelayCommands()
