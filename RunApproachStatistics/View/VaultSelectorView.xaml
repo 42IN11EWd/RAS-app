@@ -20,62 +20,8 @@
             <!-- END Column 0 -->
 
             <!-- START Column 1 -->
-            <!-- Start scrollviewer(?) -->
-            <ListView x:Name="VaultView"  Grid.Column="1" SelectionMode="Multiple"  ItemsSource="{Binding Path=ThumbnailCollection}" Margin="10,10,0,0" Height="684" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1189">
-                <!-- ItemsPanelTemplate -->
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <UniformGrid Columns="4" />
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
-
-                <!-- ItemTemplate -->
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <v:ThumbnailView/>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="SelectionChanged">
-                        <i:InvokeCommandAction Command="{Binding Mode=OneWay, Path=SelectedItemsChangedCommand}" CommandParameter="{Binding Path=SelectedItems, ElementName=VaultView}"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </ListView>
-            <!-- End scrollviewer -->
-
-            <!-- Start 'static' labels -->
-            <Label Content="Gymnast"           FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="72,719,0,0"    VerticalAlignment="Top"/>
-            <Label Content="Date &amp; Time"   FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="72,766,0,0"    VerticalAlignment="Top"/>
-            <Label Content="Vault number"      FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="72,813,0,0"    VerticalAlignment="Top"/>
-            <Label Content="Location"          FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="72,860,0,0"    VerticalAlignment="Top"/>
-            <Label Content="Vault kind"       FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="72,907,0,0"   VerticalAlignment="Top"/>
-            <Label Content="Rating"            FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="648,719,0,0"   VerticalAlignment="Top"/>
-            <Label Content="D-Score"           FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="648,766,0,0"   VerticalAlignment="Top"/>
-            <Label Content="E-Score"           FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="648,813,0,0"   VerticalAlignment="Top"/>
-            <Label Content="Penalty"           FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="648,860,0,0"   VerticalAlignment="Top"/>
-            <Label Content="Total score"       FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="648,907,0,0"   VerticalAlignment="Top"/>
-            <!-- End 'static' labels -->
-
-            <!-- Start 'non-static' labels & textboxes -->
-            <TextBox Text="{Binding Path=Gymnast}" IsEnabled="{Binding Path=ButtonEnabled}" FontSize="24" Grid.Column="1" Height="42" HorizontalAlignment="Left" Margin="312,719,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250" TextWrapping="Wrap"/>
-            <Label  Content="{Binding Path=Datetime}" FontSize="24" Grid.Column="1" Height="42" HorizontalAlignment="Left" Margin="312,766,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250"/>
-            <TextBox Text="{Binding Path=VaultNumber}" IsEnabled="{Binding Path=ButtonEnabled}" FontSize="24" Grid.Column="1" Height="42" HorizontalAlignment="Left" Margin="312,813,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250" TextWrapping="Wrap" />
-            <TextBox Text="{Binding Path=Location}" IsEnabled="{Binding Path=ButtonEnabled}" FontSize="24" Grid.Column="1" Height="42" HorizontalAlignment="Left" Margin="312,860,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250" TextWrapping="Wrap"/>
-            <TextBox FontSize="24" Grid.Column="1" IsEnabled="{Binding Path=ButtonEnabled}" Height="42" HorizontalAlignment="Left" Margin="312,907,0,0" Text="{Binding Path=VaultKind}" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250"/>
-            <ContentControl x:Name="RatingContainer"
-			    Content="{Binding Path=RatingControl}" Margin="873,719,472,319" Grid.Column="1" IsEnabled="{Binding Path=ButtonEnabled}" />
-            <TextBox Text="{Binding Path=DScore}" IsEnabled="{Binding Path=ButtonEnabled}" FontSize="24" Grid.Column="1" Height="42" HorizontalAlignment="Left" Margin="873,766,0,0" TextWrapping="Wrap" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250"/>
-            <TextBox Text="{Binding Path=EScore}" IsEnabled="{Binding Path=ButtonEnabled}" FontSize="24" Grid.Column="1" Height="42" HorizontalAlignment="Left" Margin="873,813,0,0" TextWrapping="Wrap" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250"/>
-            <TextBox Text="{Binding Path=Penalty}" IsEnabled="{Binding Path=ButtonEnabled}" FontSize="24" Grid.Column="1" Height="42" HorizontalAlignment="Left" Margin="873,860,0,0" TextWrapping="Wrap" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250"/>
-            <Label Content="{Binding Path=TotalScore}" FontSize="24" Grid.Column="1" Height="42" HorizontalAlignment="Left" Margin="873,907,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250"/>
-            <!-- End 'non-static' labels -->
-
-            <!-- Start edit buttons -->
-            <Button Content="Save"      Command="{Binding SaveChangesCommand}"    FontSize="24" Grid.Column="1" Height="50" HorizontalAlignment="Left" Margin="550,0,0,10"  VerticalAlignment="Bottom" Width="175" IsEnabled="{Binding Path=ButtonEnabled}"/>
-            <Button Content="Cancel"    Command="{Binding CancelChangesCommand}"  FontSize="24" Grid.Column="1" Height="50" HorizontalAlignment="Left" Margin="775,0,0,10"  VerticalAlignment="Bottom" Width="175" IsEnabled="{Binding Path=ButtonEnabled}"/>
-            <Button Content="Delete"    Command="{Binding DeleteVaultCommand}"    FontSize="24" Grid.Column="1" Height="50" HorizontalAlignment="Left" Margin="1000,0,0,10" VerticalAlignment="Bottom" Width="175" IsEnabled="{Binding Path=ButtonEnabled}"/>
-            <!-- End edit buttons -->
-
+            <ContentControl x:Name="contentContainer"
+			    Content="{Binding Content}" Margin="0,0,400,0" Grid.Column="1"/>
             <!-- Start filter -->
             <Border BorderBrush="Black" BorderThickness="1" Grid.Column="1" HorizontalAlignment="Right" Height="1080" VerticalAlignment="Center" Width="390">
                 <Grid>

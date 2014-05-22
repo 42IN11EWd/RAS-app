@@ -61,6 +61,9 @@
         <DataTemplate DataType="{x:Type vm:GraphViewModel}">
             <v:GraphView DataContext="{Binding}" />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ModifyVaultViewModel}">
+            <v:ModifyVaultView DataContext="{Binding}" />
+        </DataTemplate>
         <!-- END Set the view models -->
         
         <!-- START UI Definitions -->
