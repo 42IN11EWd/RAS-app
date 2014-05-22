@@ -29,7 +29,7 @@ namespace RunApproachStatistics.ViewModel
         private VideoPlaybackViewModel videoPlaybackViewModel;
         private BitmapImage pauseImage = new BitmapImage(new Uri(@"/Images/videoControl_pause.png", UriKind.Relative));
         private BitmapImage playImage = new BitmapImage(new Uri(@"/Images/videoControl_play.png", UriKind.Relative));
-        private BitmapImage playButtonImage; 
+        private BitmapImage playButtonImage;
         
         private MediaElement _video;
         private DispatcherTimer timer;
