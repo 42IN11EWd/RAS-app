@@ -11,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -197,20 +198,36 @@ namespace RunApproachStatistics.ViewModel
 
             if (!File.Exists(filePath))
             {
-                try
+                Thread thread = new Thread(() =>
                 {
-                    WebClient myWebClient = new WebClient();
-                    NetworkCredential myCredentials = new NetworkCredential("snijhof", "MKD7529s09");
-                    myWebClient.Credentials = myCredentials;
-                    myWebClient.DownloadFile("ftp://student.aii.avans.nl/GRP/42IN11EWd/Videos/" + videoPath, filePath);
-                }
-                catch (Exception e)
-                {
-                    LoadingVisibility = Visibility.Hidden;
-                    FailedLoadingVisibility = Visibility.Visible;
-                }
-            }
+                    try
+                    {
+                        WebClient myWebClient = new WebClient();
+                        NetworkCredential myCredentials = new NetworkCredential("snijhof", "MKD7529s09");
+                        myWebClient.Credentials = myCredentials;
+                        myWebClient.DownloadFile("ftp://student.aii.avans.nl/GRP/42IN11EWd/Videos/" + videoPath, filePath);
 
+                        System.Windows.Application.Current.Dispatcher.Invoke(new Action(() =>
+                        {
+                            addVideoElement(filePath);
+                        }));
+                    }
+                    catch (Exception e)
+                    {
+                        LoadingVisibility = Visibility.Hidden;
+                        FailedLoadingVisibility = Visibility.Visible;
+                    }
+                });
+                thread.Start();
+            }
+            else
+            {
+                addVideoElement(filePath);
+            }
+        }
+
+        private void addVideoElement(string filePath)
+        {
             Video = new MediaElement
             {
                 VerticalAlignment = VerticalAlignment.Stretch,
@@ -218,7 +235,7 @@ namespace RunApproachStatistics.ViewModel
                 ScrubbingEnabled = true,
                 LoadedBehavior = MediaState.Manual
             };
-            
+
             Video.Source = new Uri(filePath);
             Video.Loaded += Video_Loaded;
             Video.MediaEnded += Video_Ended;
