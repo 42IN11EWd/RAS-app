@@ -298,7 +298,10 @@ namespace RunApproachStatistics.ViewModel
         {
             get
             {
+                //if VM = Post
+                //return FinishButtonText = "Finish";
 
+                //if VM = vaultselect
                 if (SelectedThumbnails.Count == 1)
                 {
                     return FinishButtonText = "View";

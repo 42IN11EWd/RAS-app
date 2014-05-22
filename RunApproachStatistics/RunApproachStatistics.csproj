@@ -153,6 +153,7 @@
     <Compile Include="Services\VideoCamera.cs" />
     <Compile Include="Services\VideoCameraController.cs" />
     <Compile Include="Services\WritePort.cs" />
+    <Compile Include="ViewModel\ModifyVaultViewModel.cs" />
     <Compile Include="ViewModel\ValidationViewModel.cs" />
     <Compile Include="ViewModel\VideoPlaybackViewModel.cs" />
     <Compile Include="ViewModel\VideoViewModel.cs" />
@@ -203,6 +204,9 @@
     </Compile>
     <Compile Include="View\MeasurementView.xaml.cs">
       <DependentUpon>MeasurementView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ModifyVaultView.xaml.cs">
+      <DependentUpon>ModifyVaultView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\PostMeasurementView.xaml.cs">
       <DependentUpon>PostMeasurementView.xaml</DependentUpon>
@@ -285,6 +289,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\MeasurementView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ModifyVaultView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
