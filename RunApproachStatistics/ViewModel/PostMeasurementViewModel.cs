@@ -678,14 +678,6 @@ namespace RunApproachStatistics.ViewModel
                               {
                                   if (Gymnast == null || Gymnast == "" || Gymnasts.Contains(Gymnast))
                                   {
-                                      if (Gymnasts.Contains(Gymnast))
-                                      {
-                                          //SAVEPROBLEM
-                                         /* for (int i = 0; i < SelectedThumbnails.Count; i++)
-                                          {
-                                              SelectedThumbnails[i].Gymnast = Gymnast;
-                                          }*/
-                                      }
                                       return RuleResult.Valid();
                                   }
                                   else
@@ -700,22 +692,6 @@ namespace RunApproachStatistics.ViewModel
                               {
                                   if (VaultNumber == null || VaultNumber == "" || VaultNumbers.Contains(VaultNumber))
                                   {
-                                      if (VaultNumber != null)
-                                      {
-                                          if (VaultNumbers.Contains(VaultNumber))
-                                          {
-                                              //SAVEPROBLEM
-                                              /*for (int i = 0; i < SelectedThumbnails.Count; i++)
-                                              {
-                                                  SelectedThumbnails[i].VaultNumber = VaultNumber;
-                                              }*/
-                                          }
-                                      }
-                                      else
-                                      {
-                                          //SelectedThumbnails[0].Vault.vaultnumber = null;
-                                      }
-
                                       return RuleResult.Valid();
                                   }
                                   else
@@ -730,23 +706,6 @@ namespace RunApproachStatistics.ViewModel
                               {
                                   if (Location == null || Location == "" || Locations.Contains(Location))
                                   {
-                                      if (Location != null)
-                                      {
-                                          if (Locations.Contains(Location))
-                                          {
-                                              //SAVEPROBLEM
-                                              /*for (int i = 0; i < SelectedThumbnails.Count; i++ )
-                                              {
-                                                  SelectedThumbnails[i].Vault.location_id = locationIds[Locations.IndexOf(Location)];
-                                              }*/
-                                                  
-                                          }
-                                      }
-                                      else
-                                      {
-                                          //SelectedThumbnails[0].Vault.location = null;
-                                      }
-
                                       return RuleResult.Valid();
                                   }
                                   else
@@ -761,23 +720,6 @@ namespace RunApproachStatistics.ViewModel
                               {
                                   if (VaultKind == null || VaultKind == "" || VaultKinds.Contains(VaultKind))
                                   {
-                                      if (VaultKind != null)
-                                      {
-                                          if (VaultKinds.Contains(VaultKind))
-                                          {
-                                              //SAVEPROBLEM
-                                              /*for (int i = 0; i < SelectedThumbnails.Count; i++)
-                                              {
-                                                  SelectedThumbnails[i].Vault.vaultkind_id = vaultKindIds[VaultKinds.IndexOf(VaultKind)];
-                                              }*/
-                                          }
-
-                                      }
-                                      else
-                                      {
-                                          //SelectedThumbnails[0].Vault.vaultkind = null;
-                                      }
-
                                       return RuleResult.Valid();
                                   }
                                   else
@@ -804,28 +746,6 @@ namespace RunApproachStatistics.ViewModel
                 {
                     if (CountDecimalPlaces((decimal)fScore) <= 3)
                     {
-                        switch (type)
-                        {
-                            case "Escore":
-                                //SAVEPROBLEM
-                               /* for (int i = 0; i < SelectedThumbnails.Count; i++)
-                                {
-                                    SelectedThumbnails[i].Vault.rating_official_E = (decimal)fScore;
-                                }*/
-                                break;
-                            case "Dscore":
-                               /* for (int i = 0; i < SelectedThumbnails.Count; i++)
-                                {
-                                    SelectedThumbnails[i].Vault.rating_official_D = (decimal)fScore;
-                                }*/
-                                break;
-                            case "Penalty":
-                                /*for (int i = 0; i < SelectedThumbnails.Count; i++)
-                                {
-                                    SelectedThumbnails[i].Vault.penalty = (decimal)fScore;
-                                }*/
-                                break;
-                        }
                         return RuleResult.Valid();
                     }
                     else
