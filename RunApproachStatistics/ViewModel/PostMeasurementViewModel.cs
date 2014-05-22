@@ -296,10 +296,11 @@ namespace RunApproachStatistics.ViewModel
 
         #endregion
 
-        public PostMeasurementViewModel(IApplicationController app) : base()
+        public PostMeasurementViewModel(IApplicationController app)
+            : base()
         {
             _app = app;
-            
+
             // Set menu
             MenuViewModel menuViewModel = new MenuViewModel(_app);
             menuViewModel.VisibilityLaser = false;
@@ -325,7 +326,7 @@ namespace RunApproachStatistics.ViewModel
             vaultNumberIds = vaultModule.getVaultNumberIds();
 
             // Set validation
-            SetValidationRules();        
+            SetValidationRules();
         }
 
         private void setData()
@@ -349,7 +350,7 @@ namespace RunApproachStatistics.ViewModel
                 if (vaults[i].gymnast_id == null)
                 {
                     thumbnailCollection[i].noGymnast(hasGymnast);
-                    
+
                 }
                 else
                 {
@@ -374,54 +375,128 @@ namespace RunApproachStatistics.ViewModel
                 newVM.noGymnast(hasGymnast);
             }
 
-            if (SelectedThumbnails.Count == 1)
+            //Check for scores
+            for (int i = 0; i < SelectedThumbnails.Count; i++)
             {
-                //Check for scores
-                EScore = SelectedThumbnails[0].Vault.rating_official_E.ToString();
-                DScore = SelectedThumbnails[0].Vault.rating_official_D.ToString();
-                Penalty = selectedThumbnails[0].Vault.penalty.ToString();
-
-                //Check ratingstars
-                ratingVM.RatingValue = (int)SelectedThumbnails[0].Vault.rating_star;
-
-                //Check for vaultkind
+                if (SelectedThumbnails[0].Vault.rating_official_D == selectedThumbnails[i].Vault.rating_official_D)
+                {
+                    DScore = SelectedThumbnails[0].Vault.rating_official_D.ToString();
+                }
+                else
+                {
+                    DScore = "";
+                    break;
+                }
+            }
+            for (int i = 0; i < SelectedThumbnails.Count; i++)
+            {
+                if (SelectedThumbnails[0].Vault.rating_official_E == selectedThumbnails[i].Vault.rating_official_E)
+                {
+                    EScore = SelectedThumbnails[0].Vault.rating_official_E.ToString();
+                }
+                else
+                {
+                    EScore = "";
+                    break;
+                }
+            }
+            for (int i = 0; i < SelectedThumbnails.Count; i++)
+            {
+                if (SelectedThumbnails[0].Vault.penalty == selectedThumbnails[i].Vault.penalty)
+                {
+                    Penalty = SelectedThumbnails[0].Vault.penalty.ToString();
+                }
+                else
+                {
+                    Penalty = "";
+                    break;
+                }
+            }
+            for (int i = 0; i < SelectedThumbnails.Count; i++)
+            {
+                if (SelectedThumbnails[0].Vault.rating_star == selectedThumbnails[i].Vault.rating_star)
+                {
+                    ratingVM.RatingValue = (int)SelectedThumbnails[0].Vault.rating_star;
+                }
+                else
+                {
+                    ratingVM.RatingValue = 0;
+                    break;
+                }
+            }
+            for (int i = 0; i < SelectedThumbnails.Count; i++)
+            {
                 if (SelectedThumbnails[0].Vault.vaultkind != null)
                 {
-                    VaultKind = SelectedThumbnails[0].Vault.vaultkind.name.ToString();
+                    if (SelectedThumbnails[0].Vault.vaultkind == selectedThumbnails[i].Vault.vaultkind)
+                    {
+                        VaultKind = SelectedThumbnails[0].Vault.vaultkind.name.ToString();
+                    }
+                    else
+                    {
+                        VaultKind = "";
+                        break;
+                    }
                 }
                 else
                 {
                     VaultKind = "";
                 }
-                
-                // Check for location
+            }
+            for (int i = 0; i < SelectedThumbnails.Count; i++)
+            {
                 if (SelectedThumbnails[0].Vault.location != null)
                 {
-                    Location = SelectedThumbnails[0].Vault.location.name.ToString();
+                    if (SelectedThumbnails[0].Vault.location == selectedThumbnails[i].Vault.location)
+                    {
+                        Location = SelectedThumbnails[0].Vault.location.name.ToString();
+                    }
+                    else
+                    {
+                        Location = "";
+                        break;
+                    }
                 }
                 else
                 {
                     Location = "";
                 }
-
-                // Check for vaultnumber
+            }
+            for (int i = 0; i < SelectedThumbnails.Count; i++)
+            {
                 if (SelectedThumbnails[0].Vault.vaultnumber != null)
                 {
-                    vaultNumber = SelectedThumbnails[0].Vault.vaultnumber.code.ToString();
+                    if (SelectedThumbnails[0].Vault.vaultnumber == selectedThumbnails[i].Vault.vaultnumber)
+                    {
+                        vaultNumber = SelectedThumbnails[0].Vault.vaultnumber.code.ToString();
+                    }
+                    else
+                    {
+                        VaultNumber = "";
+                        break;
+                    }
                 }
                 else
                 {
-                    vaultNumber = "";
                     VaultNumber = "";
                 }
-
-                // Check for gymnast
+            }
+            for (int i = 0; i < SelectedThumbnails.Count; i++)
+            {
                 if (SelectedThumbnails[0].Vault.gymnast != null)
                 {
-                    name = SelectedThumbnails[0].Vault.gymnast.name;
-                    surnamePrefix = SelectedThumbnails[0].Vault.gymnast.surname_prefix;
-                    surname = SelectedThumbnails[0].Vault.gymnast.surname;
-                    Gymnast = (String.IsNullOrEmpty(name) ? "" : name + " ") + (surnamePrefix != null ? surnamePrefix + " " : "") + surname;
+                    if (SelectedThumbnails[0].Vault.gymnast == selectedThumbnails[i].Vault.gymnast)
+                    {
+                        name = SelectedThumbnails[0].Vault.gymnast.name;
+                        surnamePrefix = SelectedThumbnails[0].Vault.gymnast.surname_prefix;
+                        surname = SelectedThumbnails[0].Vault.gymnast.surname;
+                        Gymnast = (String.IsNullOrEmpty(name) ? "" : name + " ") + (surnamePrefix != null ? surnamePrefix + " " : "") + surname;
+                    }
+                    else
+                    {
+                        Gymnast = "";
+                        break;
+                    }
                 }
                 else
                 {
@@ -429,10 +504,11 @@ namespace RunApproachStatistics.ViewModel
                     surnamePrefix = "";
                     surname = "";
                     Gymnast = "";
+
                 }
             }
 
-            if(SelectedThumbnails.Count == 0)
+            if (SelectedThumbnails.Count == 0)
             {
                 VaultKind = "";
                 Location = "";
@@ -450,13 +526,48 @@ namespace RunApproachStatistics.ViewModel
         private void saveInfo()
         {
             // Save Gymnast
-            if (Gymnast == null || Gymnast.Equals("") || GetErrorArr("Gymnast") != null)
+            /*if (Gymnast == null || Gymnast.Equals("") || GetErrorArr("Gymnast") != null)
             {
                 SelectedThumbnails[0].Vault.gymnast = null;
             }
             else
             {
                 SelectedThumbnails[0].Vault.gymnast_id = gymnastIds[Gymnasts.IndexOf(Gymnast)];
+            }*/
+            for (int i = 0; i < SelectedThumbnails.Count; i++)
+            {
+                if (VaultKind != "")
+                {
+                    SelectedThumbnails[i].Vault.vaultkind_id = vaultKindIds[VaultKinds.IndexOf(VaultKind)];
+                }
+                if (Location != "")
+                {
+                    SelectedThumbnails[i].Vault.location_id = locationIds[Locations.IndexOf(Location)];
+                }
+                if (Gymnast != "")
+                {
+                    SelectedThumbnails[i].Vault.gymnast_id = gymnastIds[Gymnasts.IndexOf(Gymnast)];
+                }
+                if (VaultNumber != "")
+                {
+                    SelectedThumbnails[i].Vault.vaultnumber_id = vaultNumberIds[VaultNumbers.IndexOf(VaultNumber)];
+                }
+                if (DScore != "")
+                {
+                    SelectedThumbnails[i].Vault.rating_official_D = decimal.Parse(DScore);
+                }
+                if (EScore != "")
+                {
+                    SelectedThumbnails[i].Vault.rating_official_E = decimal.Parse(EScore);
+                }
+                if (Penalty != "")
+                {
+                    SelectedThumbnails[i].Vault.penalty = decimal.Parse(Penalty);
+                }
+                if(ratingVM.RatingValue != 0)
+                {
+                    SelectedThumbnails[i].Vault.rating_star = ratingVM.RatingValue;
+                }
             }
         }
 
@@ -517,7 +628,7 @@ namespace RunApproachStatistics.ViewModel
                     vaultModule.delete(SelectedThumbnails[i].Vault.vault_id);
                     thumbnailCollection.Remove(SelectedThumbnails[i]);
                 }
-                
+
             }
         }
 
@@ -530,10 +641,10 @@ namespace RunApproachStatistics.ViewModel
             {
                 vaultModule.update(SelectedThumbnails[i].Vault);
             }
-            
+
             SelectedThumbnails.Clear();
             setProperties();
-            //setData();
+            setData();
             OnPropertyChanged("SelectedThumbnails");
         }
 
@@ -546,19 +657,19 @@ namespace RunApproachStatistics.ViewModel
             Validator.AddRule(() => EScore,
                               () =>
                               {
-                                  return checkScore(EScore.ToString(),"Escore");
+                                  return checkScore(EScore.ToString(), "Escore");
                               });
 
             Validator.AddRule(() => DScore,
                               () =>
                               {
-                                  return checkScore(DScore.ToString(),"Dscore");
+                                  return checkScore(DScore.ToString(), "Dscore");
                               });
 
             Validator.AddRule(() => Penalty,
                               () =>
                               {
-                                  return checkScore(Penalty.ToString(),"Penalty");
+                                  return checkScore(Penalty.ToString(), "Penalty");
                               });
 
             Validator.AddRule(() => Gymnast,
@@ -569,8 +680,11 @@ namespace RunApproachStatistics.ViewModel
                                   {
                                       if (Gymnasts.Contains(Gymnast))
                                       {
-                                          int j = ThumbnailCollection.IndexOf(SelectedThumbnails[0]);
-                                          ThumbnailCollection[j].Gymnast = Gymnast;
+                                          //SAVEPROBLEM
+                                         /* for (int i = 0; i < SelectedThumbnails.Count; i++)
+                                          {
+                                              SelectedThumbnails[i].Gymnast = Gymnast;
+                                          }*/
                                       }
                                       return RuleResult.Valid();
                                   }
@@ -590,13 +704,16 @@ namespace RunApproachStatistics.ViewModel
                                       {
                                           if (VaultNumbers.Contains(VaultNumber))
                                           {
-                                              int j = ThumbnailCollection.IndexOf(SelectedThumbnails[0]);
-                                              ThumbnailCollection[j].VaultNumber = VaultNumber;
+                                              //SAVEPROBLEM
+                                              /*for (int i = 0; i < SelectedThumbnails.Count; i++)
+                                              {
+                                                  SelectedThumbnails[i].VaultNumber = VaultNumber;
+                                              }*/
                                           }
                                       }
                                       else
                                       {
-                                            SelectedThumbnails[0].Vault.vaultnumber = null;
+                                          //SelectedThumbnails[0].Vault.vaultnumber = null;
                                       }
 
                                       return RuleResult.Valid();
@@ -617,12 +734,17 @@ namespace RunApproachStatistics.ViewModel
                                       {
                                           if (Locations.Contains(Location))
                                           {
-                                              SelectedThumbnails[0].Vault.location_id = locationIds[Locations.IndexOf(Location)];
+                                              //SAVEPROBLEM
+                                              /*for (int i = 0; i < SelectedThumbnails.Count; i++ )
+                                              {
+                                                  SelectedThumbnails[i].Vault.location_id = locationIds[Locations.IndexOf(Location)];
+                                              }*/
+                                                  
                                           }
                                       }
                                       else
                                       {
-                                          SelectedThumbnails[0].Vault.location = null;
+                                          //SelectedThumbnails[0].Vault.location = null;
                                       }
 
                                       return RuleResult.Valid();
@@ -643,13 +765,17 @@ namespace RunApproachStatistics.ViewModel
                                       {
                                           if (VaultKinds.Contains(VaultKind))
                                           {
-                                              SelectedThumbnails[0].Vault.vaultkind_id = vaultKindIds[VaultKinds.IndexOf(VaultKind)];
+                                              //SAVEPROBLEM
+                                              /*for (int i = 0; i < SelectedThumbnails.Count; i++)
+                                              {
+                                                  SelectedThumbnails[i].Vault.vaultkind_id = vaultKindIds[VaultKinds.IndexOf(VaultKind)];
+                                              }*/
                                           }
-                                          
+
                                       }
                                       else
                                       {
-                                          SelectedThumbnails[0].Vault.vaultkind = null;
+                                          //SelectedThumbnails[0].Vault.vaultkind = null;
                                       }
 
                                       return RuleResult.Valid();
@@ -681,13 +807,23 @@ namespace RunApproachStatistics.ViewModel
                         switch (type)
                         {
                             case "Escore":
-                                SelectedThumbnails[0].Vault.rating_official_E = (decimal)fScore;
+                                //SAVEPROBLEM
+                               /* for (int i = 0; i < SelectedThumbnails.Count; i++)
+                                {
+                                    SelectedThumbnails[i].Vault.rating_official_E = (decimal)fScore;
+                                }*/
                                 break;
                             case "Dscore":
-                                SelectedThumbnails[0].Vault.rating_official_D = (decimal)fScore;
+                               /* for (int i = 0; i < SelectedThumbnails.Count; i++)
+                                {
+                                    SelectedThumbnails[i].Vault.rating_official_D = (decimal)fScore;
+                                }*/
                                 break;
                             case "Penalty":
-                                SelectedThumbnails[0].Vault.penalty = (decimal)fScore;
+                                /*for (int i = 0; i < SelectedThumbnails.Count; i++)
+                                {
+                                    SelectedThumbnails[i].Vault.penalty = (decimal)fScore;
+                                }*/
                                 break;
                         }
                         return RuleResult.Valid();
@@ -696,7 +832,7 @@ namespace RunApproachStatistics.ViewModel
                     {
                         return RuleResult.Invalid("Score can contain a maximum of 3 decimals");
                     }
-                   
+
                 }
             }
         }
