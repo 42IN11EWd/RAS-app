@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:RunApproachStatistics.View" x:Class="RunApproachStatistics.View.SettingsView" 
              xmlns:mvvm="clr-namespace:RunApproachStatistics.MVVM"
              mc:Ignorable="d" 
-             d:DesignWidth="850" Background="White" Height="430">
+             d:DesignWidth="875" Background="White" Height="460">
     <UserControl.Resources>
         <mvvm:MultiParameterConverter x:Key="ParameterConverter" />
         <Style x:Key="toolTipWhenDisabled" TargetType="{x:Type Button}">
@@ -18,7 +18,7 @@
         </Style>
     </UserControl.Resources>
     <Viewbox Stretch="Uniform">
-        <Grid Width="850" Height="421">
+        <Grid Width="875" Height="460">
             <!-- Main Settings XAML -->
             <Label HorizontalAlignment="Left" Content="Settings" Margin="12,0,0,0" VerticalAlignment="Top" FontSize="26"/>
             <Label HorizontalAlignment="Left" Height="34" Width="140" Content="Frequency" Margin="12,48,0,0" VerticalAlignment="Top" FontSize="18"/>
@@ -59,11 +59,11 @@
             <!-- Camera XAML -->
             <ComboBox x:Name="videocameraBox" Height="34" FontSize="18" HorizontalAlignment="Right" Margin="0,48,10,0" VerticalAlignment="Top" Width="408" SelectedIndex="{Binding Path=SelectedCameraIndex, Mode=TwoWay}" ItemsSource="{Binding Path=Devices}" />
             <Label Content="Camera" FontSize="18" HorizontalAlignment="Right" Margin="0,48,423,0" VerticalAlignment="Top"/>
-            <ContentControl x:Name="cameraView" Content="{Binding Path=CameraView}" Height="268" VerticalAlignment="Top" HorizontalAlignment="Right" Width="477" Margin="0,87,10,0" Background="Black" />
+            <ContentControl x:Name="cameraView" Content="{Binding Path=CameraView}" Height="274" VerticalAlignment="Top" HorizontalAlignment="Right" Width="471" Margin="0,87,10,0" Background="Black" />
             <!-- End Camera XAML -->
 
             <!-- Window Buttons XAML -->
-            <Button Command="{Binding SaveSettingsCommand}" IsEnabled="{Binding Path=IsValid}" Height="28" FontSize="18" Content="Save" HorizontalAlignment="Right" Margin="0,383,10,10" Width="115">
+            <Button Command="{Binding SaveSettingsCommand}" IsEnabled="{Binding Path=IsValid}" Height="28" FontSize="18" Content="Save" HorizontalAlignment="Right" Margin="0,422,142,10" Width="115">
                 <Button.CommandParameter>
                     <MultiBinding Converter="{StaticResource ParameterConverter}">
                         <MultiBinding.Bindings>
@@ -78,9 +78,10 @@
                     </MultiBinding>
                 </Button.CommandParameter>
             </Button>
-            <Button Command="{Binding CancelCommand}" Content="Cancel" Height="28" HorizontalAlignment="Right" FontSize="18" Margin="0,383,150,10" Width="114"/>
+            <Button Command="{Binding CancelCommand}" Content="Cancel" Height="28" HorizontalAlignment="Right" FontSize="18" Margin="0,422,10,10" Width="114"/>
             <Button Command="{Binding ShowLocationEditerCommand}" Content="Location editor" FontSize="18" HorizontalAlignment="Left" Margin="10,383,0,0" VerticalAlignment="Top" Width="180" Height="28"/>
-            <Button Command="{Binding ShowVaultNumberEditerCommand}" Content="Vault number editor" FontSize="18" HorizontalAlignment="Left" Margin="215,383,0,0" VerticalAlignment="Top" Width="180" Height="28"/>
+            <Button Command="{Binding ShowVaultNumberEditerCommand}" Content="Vault number editor" FontSize="18" HorizontalAlignment="Left" Margin="211,383,0,0" VerticalAlignment="Top" Width="180" Height="28"/>
+            <Button Command="{Binding ClearLocalDataCommand}" Content="Clear local data" FontSize="18" HorizontalAlignment="Left" Margin="10,422,0,0" VerticalAlignment="Top" Width="180" Height="28"/>
             <!-- End Window Buttons-->
         </Grid>
     </Viewbox>
