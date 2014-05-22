@@ -641,6 +641,11 @@ namespace RunApproachStatistics.ViewModel
                 }
             }
         }
+        public void CancelAction(object commandParam)
+        {
+            SelectedThumbnails.Clear();
+            setData();
+        }
         public void DeleteAction(object commandParam)
         {
             if (!_app.IsLoggedIn)
@@ -807,6 +812,7 @@ namespace RunApproachStatistics.ViewModel
             FinishCommand = new RelayCommand(FinishAction);
             DeleteCommand = new RelayCommand(DeleteAction);
             SaveCommand = new RelayCommand(SaveAction);
+            CancelCommand = new RelayCommand(CancelAction);
             SelectedItemsChangedCommand = new RelayCommand((thumbnails) =>
             {
                 if (thumbnails != null)
