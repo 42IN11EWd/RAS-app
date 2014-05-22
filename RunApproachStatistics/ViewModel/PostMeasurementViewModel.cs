@@ -25,7 +25,7 @@ namespace RunApproachStatistics.ViewModel
 
         private ObservableCollection<ThumbnailViewModel> thumbnailCollection;
         private ObservableCollection<ThumbnailViewModel> selectedThumbnails = new ObservableCollection<ThumbnailViewModel>();
-        private String selectedVaultKind;
+        private String finishButtonText;
 
         private vault vault = new vault();
         private bool changeState;
@@ -114,6 +114,7 @@ namespace RunApproachStatistics.ViewModel
             set
             {
                 selectedThumbnails = value;
+                
 
             }
         }
@@ -293,6 +294,30 @@ namespace RunApproachStatistics.ViewModel
                 OnPropertyChanged("ChangeState");
             }
         }
+        public String FinishButtonText
+        {
+            get
+            {
+                //if VM = Post
+                //return FinishButtonText = "Finish";
+
+                //if VM = vaultselect
+                if (SelectedThumbnails.Count == 1)
+                {
+                    return FinishButtonText = "View";
+                }
+                else if (SelectedThumbnails.Count > 1)
+                {
+                    return FinishButtonText = "Compare";
+                }
+
+                return "";
+            }
+            set
+            {
+                finishButtonText = value;
+            }
+        }
 
         #endregion
 
@@ -358,6 +383,7 @@ namespace RunApproachStatistics.ViewModel
                 }
             }
             OnPropertyChanged("ThumbnailCollection");
+            
         }
 
         private void setProperties()
@@ -612,7 +638,23 @@ namespace RunApproachStatistics.ViewModel
 
         public void FinishAction(object commandParam)
         {
-            _app.ShowHomeView();
+            //if VM = post
+            //_app.ShowHomeView();
+
+            //if VM = vaultselect
+            List<vault> vaults = new List<vault>();
+            for (int i = 0; i < SelectedThumbnails.Count; i++)
+            {
+                vaults.Add(SelectedThumbnails[i].Vault);
+            }
+            if (SelectedThumbnails.Count == 1)
+            {
+                _app.ShowVideoPlaybackView(vaults[0]);
+            }
+            else if (SelectedThumbnails.Count == 2)
+            {
+                _app.ShowCompareVaultsView(vaults);
+            }
         }
         public void DeleteAction(object commandParam)
         {
@@ -791,6 +833,7 @@ namespace RunApproachStatistics.ViewModel
                     }
                     setProperties();
                     OnPropertyChanged("SelectedThumbnails");
+                    OnPropertyChanged("FinishButtonText");
                     OnPropertyChanged("Gymnast");
                     OnPropertyChanged("Datetime");
                     OnPropertyChanged("TimeSpan");

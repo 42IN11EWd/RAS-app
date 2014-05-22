@@ -307,7 +307,7 @@ namespace RunApproachStatistics.Modules
                 //generate thumbnail
                 try
                 {
-                    BitmapImage bImage = bmpToBitmapImage(frames[30]);
+                    BitmapImage bImage = bmpToBitmapImage(frames[20]);
                     byte[] data = null;
                     JpegBitmapEncoder encoder = new JpegBitmapEncoder();
                     encoder.Frames.Add(BitmapFrame.Create(bImage));
