@@ -206,6 +206,17 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
+        public void updateSlider(double milliseconds)
+        {
+            double percentage = milliseconds / GraphSeconds;
+            lineMargin.Left = ((WidthChart - 87 - 87) * percentage) + 87; //Een left margin van 87 pixels is precies 0 op de grafiek
+
+            if (!(lineMargin.Left > (WidthChart - 87)))
+            {
+                LineMargin = lineMargin;
+            }
+        }
+
         protected override void initRelayCommands()
         {
 

@@ -349,9 +349,8 @@ namespace RunApproachStatistics.ViewModel
             // graph  .updateGraphLength(duration);
         }
 
-        public void updateCurrentPosition(float position)
-        {
-            
+        public void updateCurrentPosition(double seconds)
+        {            
             
         }
 
