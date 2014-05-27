@@ -96,6 +96,7 @@
     <Compile Include="Model\Entity\vaultkind.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Interfaces\IVaultKindModule.cs" />
     <Compile Include="MVVM\MouseBehaviour.cs" />
     <Compile Include="Model\Entity\DataModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -156,6 +157,7 @@
     <Compile Include="Services\WritePort.cs" />
     <Compile Include="ViewModel\ModifyVaultViewModel.cs" />
     <Compile Include="ViewModel\ValidationViewModel.cs" />
+    <Compile Include="ViewModel\VaultKindEditorViewModel.cs" />
     <Compile Include="ViewModel\VideoPlaybackViewModel.cs" />
     <Compile Include="ViewModel\VideoViewModel.cs" />
     <Compile Include="ViewModel\CameraViewModel.cs" />
