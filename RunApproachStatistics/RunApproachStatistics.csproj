@@ -147,6 +147,7 @@
     <Compile Include="Services\CameraSource\IVideoSource.cs" />
     <Compile Include="Services\CameraSource\VideoStream.cs" />
     <Compile Include="Services\CaptureBuffer.cs" />
+    <Compile Include="Services\CsvService.cs" />
     <Compile Include="Services\PortController.cs" />
     <Compile Include="Services\PortEmulator.cs" />
     <Compile Include="Services\ReadPort.cs" />
