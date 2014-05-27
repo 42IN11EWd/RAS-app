@@ -9,6 +9,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
+using System.Windows;
 
 namespace RunApproachStatistics.ViewModel
 {
@@ -21,6 +22,8 @@ namespace RunApproachStatistics.ViewModel
         private ObservableCollection<ThumbnailViewModel> thumbnailCollection;
         private ObservableCollection<ThumbnailViewModel> selectedThumbnails = new ObservableCollection<ThumbnailViewModel>();
         private String finishButtonText;
+
+        private Visibility thumbnailVisibility;
 
         private vault vault = new vault();
         private bool changeState;
@@ -82,6 +85,16 @@ namespace RunApproachStatistics.ViewModel
             {
                 thumbnailCollection = value;
                 OnPropertyChanged("ThumbnailCollection");
+            }
+        }
+
+        public Visibility ThumbnailVisibility
+        {
+            get { return thumbnailVisibility; }
+            set
+            {
+                thumbnailVisibility = value;
+                OnPropertyChanged("ThumbnailVisibility");
             }
         }
         public ObservableCollection<ThumbnailViewModel> SelectedThumbnails
@@ -336,7 +349,7 @@ namespace RunApproachStatistics.ViewModel
             // Set validation
             SetValidationRules();
         }
-        private void setData()
+        public void setData()
         {
             thumbnailCollection = new ObservableCollection<ThumbnailViewModel>();
             vaults = new List<vault>();

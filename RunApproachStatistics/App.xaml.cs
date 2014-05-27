@@ -171,9 +171,9 @@ namespace RunApproachStatistics
         public void ShowVaultSelectorView()
         {
             VaultSelectorViewModel vaultSelectorViewModel = new VaultSelectorViewModel(this);
-            ModifyVaultViewModel modifyVaultViewModel = new ModifyVaultViewModel(this, "SELECT");
+            //ModifyVaultViewModel modifyVaultViewModel = new ModifyVaultViewModel(this, "SELECT");
             _setContent(vaultSelectorViewModel);
-            vaultSelectorViewModel.Content = modifyVaultViewModel;
+            //vaultSelectorViewModel.Content = modifyVaultViewModel;
         }
 
         public void ShowVaultSelectorView(gymnast gymnast)

@@ -10,6 +10,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace RunApproachStatistics.ViewModel
@@ -20,9 +21,11 @@ namespace RunApproachStatistics.ViewModel
         private PropertyChangedBase menu;
         private PropertyChangedBase content;
 
-
         private PropertyChangedBase ratingControl;
         private RatingViewModel ratingVM;
+
+        private ModifyVaultViewModel modifyVaultVM;
+        private PropertyChangedBase modifyControl;
 
         private int starRating;
         private String[] vaultKind;
@@ -34,12 +37,21 @@ namespace RunApproachStatistics.ViewModel
         private String selectedVaultKind;
         private ObservableCollection<String> filterItems;
         private String selectedFilterItem;
-        private ObservableCollection<String> filterList; // ?
+        private ObservableCollection<String> filterList;
+        private String selectedExistingFilterItem;
+
         private String compareButtonText;
 
+        // List for all sort of info
+        private List<gymnast> gymnastList;
+        private ObservableCollection<location> locationList;
+        private ObservableCollection<Rating> ratingList; // later on
+        
         #region Modules
 
         private IVaultModule vaultModule = new VaultModule();
+        private UserModule userModule = new UserModule(); // list of all gymnasts
+        private ILocationModule locationModule = new EditorModule();
 
         #endregion
 
@@ -52,6 +64,7 @@ namespace RunApproachStatistics.ViewModel
         public RelayCommand RemoveAllFiltersCommand { get; private set; }
         public RelayCommand SelectedItemsChangedCommand { get; private set; }
 
+        public RelayCommand AddToFilterCommand { get; private set; }
         //do not delete -----------------------------
         public PropertyChangedBase Menu
         {
@@ -80,6 +93,16 @@ namespace RunApproachStatistics.ViewModel
             {
                 ratingControl = value;
                 OnPropertyChanged("RatingControl");
+            }
+        }
+
+        public PropertyChangedBase ModifyViewModelControl
+        {
+            get { return modifyControl; }
+            set
+            {
+                modifyControl = value;
+                OnPropertyChanged("ModifyViewModelControl");
             }
         }
 
@@ -290,6 +313,7 @@ namespace RunApproachStatistics.ViewModel
             {
                 filterText = value;
                 OnPropertyChanged("FilterText");
+                SetFilter();
             }
         }
 
@@ -300,6 +324,7 @@ namespace RunApproachStatistics.ViewModel
             {
                 filterType = value;
                 OnPropertyChanged("FilterType");
+                SetFilter();
             }
         }
 
@@ -307,8 +332,7 @@ namespace RunApproachStatistics.ViewModel
         {
             get
             {
-                // something fancy?
-                return filterItems; // TBD
+                return filterItems;
             }
         }
 
@@ -322,12 +346,21 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
+        public String SelectedExistingFilterItem
+        {
+            get { return selectedExistingFilterItem; }
+            set 
+            {
+                selectedExistingFilterItem = value;
+                OnPropertyChanged("SelectedExistingFilterItem");
+            }
+        }
+
         public ObservableCollection<String> FilterList
         {
             get
             {
-                // something fancy?
-                return filterList; // TBD
+                return filterList;
             }
         }
 
@@ -368,7 +401,10 @@ namespace RunApproachStatistics.ViewModel
             ratingVM = new RatingViewModel(_app);
             RatingControl = ratingVM;
 
-            thumbnailCollection = new ObservableCollection<ThumbnailViewModel>();
+            modifyVaultVM = new ModifyVaultViewModel(_app, "SELECT");
+            ModifyViewModelControl = modifyVaultVM;
+            this.Content = modifyVaultVM;
+            /*thumbnailCollection = new ObservableCollection<ThumbnailViewModel>();
             List<vault> vaults = vaultModule.getVaults();
 
             for (int i = 0; i < vaults.Count; i++)
@@ -377,8 +413,13 @@ namespace RunApproachStatistics.ViewModel
                 {
                     Vault = vaults[i]
                 });
+            }*/
 
-            }
+            // get all info on startup of this viewmodel
+            gymnastList = userModule.getGymnastCollection();
+            locationList = locationModule.readLocations();
+            FilterText = "";
+            filterList = new ObservableCollection<string>();
 
         }
         public void updateFields()
@@ -397,6 +438,42 @@ namespace RunApproachStatistics.ViewModel
             OnPropertyChanged("Penalty");
             OnPropertyChanged("TotalScore");
             
+        }
+
+        private void SetFilter()
+        {
+            if (filterType != null)
+            {
+                string[] valueOfType = filterType.Split(' ');
+                filterItems = new ObservableCollection<String>();
+                if (valueOfType[1].Equals("Gymnast"))
+                {
+                    filterItems.Clear();
+
+                    foreach (gymnast gymnast in gymnastList)
+                    {
+                        String tempFullname = gymnast.name + (!String.IsNullOrWhiteSpace(gymnast.surname_prefix) ? " " + gymnast.surname_prefix + " " : " ") + gymnast.surname;
+                        if (tempFullname.ToLower().Contains(FilterText.ToLower()))
+                        {
+                            filterItems.Add(tempFullname);
+                        }
+                    }
+                   
+                }
+                if (valueOfType[1].Equals("Location"))
+                {
+                    filterItems.Clear();
+                    foreach (location location in locationList)
+                    {
+                        String tempLocationName = location.name;
+                        if (tempLocationName.ToLower().Contains(FilterText.ToLower()))
+                        {
+                            filterItems.Add(tempLocationName);
+                        }
+                    }
+                }
+            }
+            OnPropertyChanged("FilterItems");
         }
 
         #region RelayCommands
@@ -434,11 +511,9 @@ namespace RunApproachStatistics.ViewModel
                 for (int i = 0; i < SelectedThumbnails.Count; i++ )
                 {
                     vaultModule.delete(SelectedThumbnails[i].Vault.vault_id);
-                    thumbnailCollection.Remove(SelectedThumbnails[i]);
+                    modifyVaultVM.ThumbnailCollection.Remove(SelectedThumbnails[i]);
                 }
-                    
             }
-
         }
 
         public void CompareAction(object commandParam)
@@ -460,10 +535,105 @@ namespace RunApproachStatistics.ViewModel
 
         public void RemoveAllFilters(object commandParam)
         {
-            // Do something
+            string itemFromFilter = selectedExistingFilterItem;
+            filterList.Remove(itemFromFilter);
+            modifyVaultVM.setData();
+            /*if (filterList.Count != 0)
+            {
+                foreach (String itemInFilter in filterList)
+                {
+                    ShowFilteredThumbnails(itemInFilter);
+                }
+            }*/
+            OnPropertyChanged("ModifyViewModelControl");
+            OnPropertyChanged("FilterList");
+        }
+
+        public void AddToFilters(object commandParam)
+        {
+            // Add value from sort to filter and update the thumbnails
+            modifyVaultVM.setData();
+            string itemToFilter = selectedFilterItem;
+            string[] valueToFilter = filterType.Split(' ');
+            string checkDuplicates = valueToFilter[1] + " : " + itemToFilter;
+
+            foreach (String newFilter in filterList)
+            {
+                if (newFilter.Equals(checkDuplicates))
+                {
+                    MessageBox.Show("Can't add the same filter, please choose antoher one.");
+                    return;
+                }
+            }
+            // no duplicates, add to list
+            filterList.Add(valueToFilter[1] + ":" + itemToFilter);
+            
+            ShowFilteredThumbnails(filterList);
+            
+            OnPropertyChanged("FilterList");
+        }
+
+        public void ShowFilteredThumbnails(ObservableCollection<string> itemsToFilter)
+        {
+            Dictionary<string, string> categoryAndName = new Dictionary<string, string>();
+            List<string> gymnastValues = new List<string>();
+            List<string> locationValues = new List<string>();
+
+            for (int k = 0; k < itemsToFilter.Count; k++)
+            {
+                categoryAndName.Add(itemsToFilter[k].Split(':')[1], itemsToFilter[k].Split(':')[0]);
+            }
+
+            for (int j = 0; j < categoryAndName.Count; j++)
+            {
+                if (categoryAndName.ElementAt(j).Value.Equals("Gymnast"))
+                {
+                    gymnastValues.Add(categoryAndName.ElementAt(j).Key);
+                }
+                else if (categoryAndName.ElementAt(j).Value.Equals("Location"))
+                {
+                    locationValues.Add(categoryAndName.ElementAt(j).Key);
+                }
+            }
+
+            for (int i = 0; i < modifyVaultVM.ThumbnailCollection.Count; i++)
+            {
+                if (gymnastValues.Count != 0 && locationValues.Count == 0)
+                {
+                    int matchCount = 0;
+                    for (int g = 0; g < gymnastValues.Count; g++)
+                    {
+                        if (modifyVaultVM.ThumbnailCollection[i].Gymnast.Equals(gymnastValues.ElementAt(g)))
+                        {
+                            matchCount++;
+                        }
+                    }
+                    if (matchCount == 0)
+                    {
+                        modifyVaultVM.ThumbnailCollection.RemoveAt(i);
+                        i--;
+                    }
+                }
+                else if (gymnastValues.Count != 0 && locationValues.Count != 0)
+                {
+                    int matchCount = 0;
+                    for (int l = 0; l < locationValues.Count; l++)
+                    {
+                        if (modifyVaultVM.ThumbnailCollection[i].Vault.location.name.Equals(locationValues.ElementAt(l)))
+                        {
+                            matchCount++;
+                        }
+                    }
+                    if (matchCount == 0)
+                    {
+                        modifyVaultVM.ThumbnailCollection.RemoveAt(i);
+                        i--;
+                    }
+                }
+            }
+            OnPropertyChanged("ModifyViewModelControl");
         }
         
-
         #endregion RelayCommands
 
         protected override void initRelayCommands()
@@ -473,6 +643,7 @@ namespace RunApproachStatistics.ViewModel
             DeleteVaultCommand = new RelayCommand(DeleteVault);
             CompareCommand = new RelayCommand(CompareAction);
             RemoveAllFiltersCommand = new RelayCommand(RemoveAllFilters);
+            AddToFilterCommand = new RelayCommand(AddToFilters);
             SelectedItemsChangedCommand = new RelayCommand((thumbnails) =>
             {
                 if (thumbnails != null)
