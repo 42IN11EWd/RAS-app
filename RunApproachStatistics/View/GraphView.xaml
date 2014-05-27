@@ -33,7 +33,7 @@
                     </Style>
                 </chartingToolkit:Chart.LegendStyle>
 
-                <chartingToolkit:LineSeries x:Name="distanceLine" DependentValuePath="Value" IndependentValuePath="Key" ItemsSource="{Binding Path=DistanceArray}" DataPointStyle="{StaticResource InvisibleDataPoint}" Margin="0,0,0,2">
+                <chartingToolkit:LineSeries x:Name="distanceLine" DependentValuePath="Value" IndependentValuePath="Key" ItemsSource="{Binding Path=DistanceArray}" DataPointStyle="{StaticResource InvisibleDataPoint}" Margin="0,0,0,2" MouseMove="line_MouseMove">
                     <chartingToolkit:LineSeries.Template>
                         <ControlTemplate TargetType="{x:Type chartingToolkit:LineSeries}">
                             <Canvas x:Name="PlotArea">
@@ -47,7 +47,7 @@
                     </chartingToolkit:LineSeries.Template>
                 </chartingToolkit:LineSeries>
 
-                <chartingToolkit:LineSeries x:Name="speedLine" DependentValuePath="Value" IndependentValuePath="Key" ItemsSource="{Binding Path=SpeedArray}" DataPointStyle="{StaticResource InvisibleDataPoint2}" Margin="0,0,0,2">
+                <chartingToolkit:LineSeries x:Name="speedLine" DependentValuePath="Value" IndependentValuePath="Key" ItemsSource="{Binding Path=SpeedArray}" DataPointStyle="{StaticResource InvisibleDataPoint2}" Margin="0,0,0,2" MouseMove="line_MouseMove">
                     <chartingToolkit:LineSeries.Template>
                         <ControlTemplate TargetType="{x:Type chartingToolkit:LineSeries}">
                             <Canvas x:Name="PlotArea">
