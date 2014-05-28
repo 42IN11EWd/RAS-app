@@ -55,19 +55,17 @@ namespace RunApproachStatistics.ViewModel
         #endregion
 
         #region DataBinding
+        public RelayCommand LeftSelectionCommand { get; private set; }
+        public RelayCommand RightSelectionCommand { get; private set; }
+
         public RelayCommand PlayClickCommand { get; private set; }
-
         public RelayCommand StopClickCommand { get; private set; }
-
         public RelayCommand ForwardClickCommand { get; private set; }
-
         public RelayCommand BackwardClickCommand { get; private set; }
-
         public RelayCommand MouseUpCommand { get; private set; }
-
         public RelayCommand MouseDownCommand { get; private set; }
 
-        #region vault info
+        #region Vault info
         // Left sided variables
         public String LeftFullName
         {
@@ -248,6 +246,9 @@ namespace RunApproachStatistics.ViewModel
             set
             {
                 playbackSpeed = value;
+                LeftVideoView.PlaybackSpeed = value;
+                RightVideoView.PlaybackSpeed = value;
+                PlaybackSpeedString = Math.Round(value, 2).ToString("0.00", CultureInfo.InvariantCulture);
                 OnPropertyChanged("PlaybackSpeed");
             }
         }
@@ -293,7 +294,34 @@ namespace RunApproachStatistics.ViewModel
         }
         #endregion
 
-        public CompareVaultsViewModel(IApplicationController app) : base()
+        #region Command Methodes
+        public void ToggleLeftSelection(object commandParam)
+        {
+            LeftIsEnabled = !LeftIsEnabled;
+        }
+
+        public void ToggleRightSelection(object commandParam)
+        {
+            RightIsEnabled = !RightIsEnabled;
+        }
+
+        // Insert video control button methodes?
+
+        public void MouseDown(object commandParam)
+        {
+            LeftVideoView.MouseDown(null);
+            RightVideoView.MouseDown(null);
+        }
+
+        public void MouseUp(object commandParam)
+        {
+            LeftVideoView.MouseUp(null);
+            RightVideoView.MouseUp(null);
+        }
+        #endregion
+
+        public CompareVaultsViewModel(IApplicationController app)
+            : base()
         {
             _app = app;
 
@@ -307,7 +335,7 @@ namespace RunApproachStatistics.ViewModel
         {
             // Set left vault
             setVaultLabels(vaults[0], "Left");
-            
+
             leftVideoView = new VideoViewModel(_app, null, this, vaults[0].videopath);
             leftVideoView.ToggleVideoControls(false);
 
@@ -333,29 +361,30 @@ namespace RunApproachStatistics.ViewModel
         private void setVaultLabels(vault setVault, String side)
         {
             Type classType = this.GetType();
+
+            String fullName = "Unknown gymnast";
             if (setVault.gymnast != null)
             {
-                String fullName = setVault.gymnast.name + (setVault.gymnast.surname_prefix != null ? " " + 
-                    setVault.gymnast.surname_prefix : "") + " " + setVault.gymnast.surname;
-                classType.GetProperty(side + "FullName").SetValue(this, fullName);
+                fullName = setVault.gymnast.name + (!String.IsNullOrWhiteSpace(setVault.gymnast.surname_prefix) ? " " + setVault.gymnast.surname_prefix + " " : " ") + setVault.gymnast.surname;
             }
+            classType.GetProperty(side + "FullName").SetValue(this, fullName);
 
-            classType.GetProperty(side + "Date").SetValue(this, setVault.timestamp.ToString());
-
-            if (setVault.vaultnumber != null)
+            String date = "Unknown date";
+            if (setVault.timestamp != null || !String.IsNullOrWhiteSpace(setVault.timestamp.ToShortDateString()))
             {
-                classType.GetProperty(side + "VaultNumber").SetValue(this, setVault.vaultnumber.code);
+                date = setVault.timestamp.ToShortDateString();
             }
+            classType.GetProperty(side + "Date").SetValue(this, date);
 
-            if (setVault.rating_official_E != null && setVault.rating_official_D != null)
+            String vaultnumber = "Vault Number undefined";
+            if (setVault.vaultnumber != null || setVault.vaultnumber.code != null)
             {
-                decimal totalScore = (decimal)setVault.rating_official_E + (decimal)setVault.rating_official_D;
-                if (setVault.penalty != null)
-                {
-                    totalScore = totalScore - (decimal)setVault.penalty;
-                }
-                classType.GetProperty(side + "TotalScore").SetValue(this, totalScore.ToString("0.000"));
+                vaultnumber = setVault.vaultnumber.code;
             }
+            classType.GetProperty(side + "VaultNumber").SetValue(this, setVault.vaultnumber.code);
+
+            decimal totalScore = setVault.rating_official_E.GetValueOrDefault() + setVault.rating_official_D.GetValueOrDefault() - setVault.penalty.GetValueOrDefault();
+            classType.GetProperty(side + "TotalScore").SetValue(this, totalScore.ToString("0.000"));
         }
 
         public void updateSeconds(float duration)
@@ -365,8 +394,8 @@ namespace RunApproachStatistics.ViewModel
         }
 
         public void updateCurrentPosition(double seconds)
-        {            
-            
+        {
+
         }
 
         public void forwardVideo(object commandParam)
@@ -376,7 +405,7 @@ namespace RunApproachStatistics.ViewModel
                 rightVideoView.ForwardMedia(commandParam);
             }
 
-            if(leftIsEnabled)
+            if (leftIsEnabled)
             {
                 leftVideoView.ForwardMedia(commandParam);
             }
@@ -423,7 +452,11 @@ namespace RunApproachStatistics.ViewModel
 
         protected override void initRelayCommands()
         {
+            LeftSelectionCommand = new RelayCommand(ToggleLeftSelection);
+            RightSelectionCommand = new RelayCommand(ToggleRightSelection);
 
+            MouseUpCommand = new RelayCommand(MouseUp);
+            MouseDownCommand = new RelayCommand(MouseDown);
         }
     }
 }
