@@ -19,20 +19,9 @@ namespace RunApproachStatistics.ViewModel
     public class PostMeasurementViewModel : ValidationViewModel
     {
         private IApplicationController _app;
-        private PropertyChangedBase menu;
         private PropertyChangedBase content;
 
         #region Bindings
-
-        public PropertyChangedBase Menu
-        {
-            get { return menu; }
-            set
-            {
-                menu = value;
-                OnPropertyChanged("Menu");
-            }
-        }
         public PropertyChangedBase Content
         {
             get { return content; }
