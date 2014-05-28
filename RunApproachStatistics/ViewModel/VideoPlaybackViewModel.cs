@@ -126,9 +126,9 @@ namespace RunApproachStatistics.ViewModel
             GraphView.updateGraphLength(duration);
         }
 
-        public void updateCurrentPosition(float position)
+        public void updateCurrentPosition(double seconds)
         {
-            
+            GraphView.updateSlider(seconds);
         }
 
         protected override void initRelayCommands()

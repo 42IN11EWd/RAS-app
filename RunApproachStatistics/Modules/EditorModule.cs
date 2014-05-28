@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace RunApproachStatistics.Modules
 {
-    public class EditorModule : ILocationModule, IVaultnumberModule
+    public class EditorModule : ILocationModule, IVaultnumberModule, IVaultKindModule
     {
         //Location methods
         public void deleteLocation(int id)
@@ -194,6 +194,93 @@ namespace RunApproachStatistics.Modules
             else
             {
                 createVaultnumber(vaultnumber);
+            }
+        }
+
+        // VaultKind methods
+        public void deleteVaultKind(int id)
+        {
+            using (var db = new DataContext())
+            {
+                var vaultKind = (from qvaultkind in db.vaultkind
+                                where qvaultkind.vaultkind_id == id
+                                select qvaultkind).First();
+
+                vaultKind.deleted = true;
+
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+            }
+        }
+
+        public ObservableCollection<vaultkind> readVaultKinds()
+        {
+            ObservableCollection<vaultkind> vaultKinds = new ObservableCollection<vaultkind>();
+
+            using (var db = new DataContext())
+            {
+                var query = from qvaultkind in db.vaultkind
+                            where qvaultkind.deleted == false
+                            select qvaultkind;
+
+                foreach (vaultkind vaultKind in query)
+                {
+                    vaultKinds.Add(vaultKind);
+                }
+            }
+
+            return vaultKinds;
+        }
+
+        public void createVaultKind(vaultkind vaultKind)
+        {
+            using (var db = new DataContext())
+            {
+                db.vaultkind.Add(vaultKind);
+
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+            }
+        }
+
+        public void updateVaultKind(vaultkind vaultKind)
+        {
+            if (vaultKind.vaultkind_id != 0)
+            {
+                using (var db = new DataContext())
+                {
+                    var query = (from qvaultkind in db.vaultkind
+                                where qvaultkind.vaultkind_id == vaultKind.vaultkind_id
+                                select qvaultkind).First();
+
+                    query.name = vaultKind.name;
+                    query.description = vaultKind.description;
+
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                    }
+                }
+            }
+            else
+            {
+                createVaultKind(vaultKind);
             }
         }
     }
