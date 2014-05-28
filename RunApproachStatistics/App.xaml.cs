@@ -209,6 +209,18 @@ namespace RunApproachStatistics
             settingsWindow.Content = vaultNumberEditorViewModel;
         }
 
+        public void ShowVaultKindEditorView()
+        {
+            if (settingsWindow == null)
+            {
+                settingsWindow = new DialogWindow();
+            }
+            VaultKindEditorViewModel vaultKindEditorViewModel = new VaultKindEditorViewModel(this);
+            vaultKindEditorViewModel.Content = vaultKindEditorViewModel;
+            settingsWindow.DataContext = vaultKindEditorViewModel;
+            settingsWindow.Content = vaultKindEditorViewModel;
+        }
+
         public void ShowVideoPlaybackView(vault selectedVault)
         {
             VideoPlaybackViewModel videoPlaybackViewModel = new VideoPlaybackViewModel(this);
