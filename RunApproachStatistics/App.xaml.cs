@@ -7,6 +7,7 @@ using RunApproachStatistics.View;
 using RunApproachStatistics.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Data;
 using System.Globalization;
@@ -130,12 +131,13 @@ namespace RunApproachStatistics
             _setContent(measurementViewModel);
         }
 
-        public void ShowPostMeasurementView()
+        public void ShowPostMeasurementView(ObservableCollection<ThumbnailViewModel> newThumbnailCollection)
         {
             PostMeasurementViewModel postMeasurementViewModel = new PostMeasurementViewModel(this);
             ModifyVaultViewModel modifyVaultViewModel = new ModifyVaultViewModel(this,"POST");
             _setContent(postMeasurementViewModel);
             postMeasurementViewModel.Content = modifyVaultViewModel;
+            modifyVaultViewModel.setMeasuredVaults(newThumbnailCollection);
         }
 
         public void ShowProfileView()
@@ -171,9 +173,7 @@ namespace RunApproachStatistics
         public void ShowVaultSelectorView()
         {
             VaultSelectorViewModel vaultSelectorViewModel = new VaultSelectorViewModel(this);
-            //ModifyVaultViewModel modifyVaultViewModel = new ModifyVaultViewModel(this, "SELECT");
             _setContent(vaultSelectorViewModel);
-            //vaultSelectorViewModel.Content = modifyVaultViewModel;
         }
 
         public void ShowVaultSelectorView(gymnast gymnast)

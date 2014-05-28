@@ -404,16 +404,7 @@ namespace RunApproachStatistics.ViewModel
             modifyVaultVM = new ModifyVaultViewModel(_app, "SELECT");
             ModifyViewModelControl = modifyVaultVM;
             this.Content = modifyVaultVM;
-            /*thumbnailCollection = new ObservableCollection<ThumbnailViewModel>();
-            List<vault> vaults = vaultModule.getVaults();
-
-            for (int i = 0; i < vaults.Count; i++)
-            {
-                thumbnailCollection.Add(new ThumbnailViewModel(_app)
-                {
-                    Vault = vaults[i]
-                });
-            }*/
+            modifyVaultVM.setData(null);
 
             // get all info on startup of this viewmodel
             gymnastList = userModule.getGymnastCollection();
@@ -537,7 +528,7 @@ namespace RunApproachStatistics.ViewModel
         {
             string itemFromFilter = selectedExistingFilterItem;
             filterList.Remove(itemFromFilter);
-            modifyVaultVM.setData();
+            modifyVaultVM.setData(null);
             /*if (filterList.Count != 0)
             {
                 foreach (String itemInFilter in filterList)
@@ -552,7 +543,7 @@ namespace RunApproachStatistics.ViewModel
         public void AddToFilters(object commandParam)
         {
             // Add value from sort to filter and update the thumbnails
-            modifyVaultVM.setData();
+            modifyVaultVM.setData(null);
             string itemToFilter = selectedFilterItem;
             string[] valueToFilter = filterType.Split(' ');
             string checkDuplicates = valueToFilter[1] + " : " + itemToFilter;

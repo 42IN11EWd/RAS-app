@@ -331,7 +331,7 @@ namespace RunApproachStatistics.ViewModel
             RatingControl = ratingVM;
 
             //Useless test data.
-            setData();
+            //setData();
 
             //load autocompletion data
             VaultKinds = vaultModule.getVaultKindNames();
@@ -349,11 +349,14 @@ namespace RunApproachStatistics.ViewModel
             // Set validation
             SetValidationRules();
         }
-        public void setData()
+        public void setData(List<vault> vaults)
         {
-            thumbnailCollection = new ObservableCollection<ThumbnailViewModel>();
-            vaults = new List<vault>();
-            vaults = vaultModule.getVaults();
+            if (vaults == null)
+            {
+                thumbnailCollection = new ObservableCollection<ThumbnailViewModel>();
+                vaults = new List<vault>();
+                vaults = vaultModule.getVaults();
+            }
 
             for (int i = 0; i < vaults.Count; i++)
             {
@@ -379,6 +382,25 @@ namespace RunApproachStatistics.ViewModel
             }
             OnPropertyChanged("ThumbnailCollection");
 
+        }
+
+        public void setMeasuredVaults(ObservableCollection<ThumbnailViewModel> newThumbnailCollection)
+        {
+            ThumbnailCollection = newThumbnailCollection;
+            for (int i = 0; i < thumbnailCollection.Count; i++)
+            {
+                thumbnailCollection[i].Vault = vaultModule.read(thumbnailCollection[i].Vault.vault_id);
+                if (thumbnailCollection[i].Vault.gymnast_id == null)
+                {
+                    thumbnailCollection[i].noGymnast(hasGymnast);
+
+                }
+                else
+                {
+                    
+                    thumbnailCollection[i].Gymnast = thumbnailCollection[i].Vault.gymnast.name + " " + (thumbnailCollection[i].Vault.gymnast.surname_prefix != null ? thumbnailCollection[i].Vault.gymnast.surname_prefix + " " : "") + thumbnailCollection[i].Vault.gymnast.surname;
+                }
+            }
         }
 
         private void setProperties()
@@ -657,7 +679,14 @@ namespace RunApproachStatistics.ViewModel
         public void CancelAction(object commandParam)
         {
             SelectedThumbnails.Clear();
-            setData();
+            if (kind == "POST")
+            {
+                setMeasuredVaults(ThumbnailCollection);
+            }
+            else if (kind == "SELECT")
+            {
+                setData(null);
+            }
         }
         public void DeleteAction(object commandParam)
         {
@@ -689,7 +718,15 @@ namespace RunApproachStatistics.ViewModel
 
             SelectedThumbnails.Clear();
             setProperties();
-            setData();
+            if(kind == "POST")
+            {
+                setMeasuredVaults(ThumbnailCollection);
+            }
+            else if(kind == "SELECT")
+            {
+                setData(null);
+            }
+            
             OnPropertyChanged("SelectedThumbnails");
         }
 

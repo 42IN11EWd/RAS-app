@@ -407,9 +407,12 @@ namespace RunApproachStatistics.ViewModel
             set
             {
                 selectedThumbnail = value;
-                selectedVault = selectedThumbnail.Vault;
-                setVaultFields();
-                OnPropertyChanged("SelectedThumbnail");
+                if (SelectedThumbnail != null)
+                {
+                    selectedVault = selectedThumbnail.Vault;
+                    setVaultFields();
+                    OnPropertyChanged("SelectedThumbnail");
+                }
             }
         }
 
@@ -649,7 +652,16 @@ namespace RunApproachStatistics.ViewModel
 
         public void LoadPostMeasurementScreen(object commandParam)
         {
-            _app.ShowPostMeasurementView();
+            ThumbnailCollection.RemoveAt(0);
+            if(ThumbnailCollection.Count == 0)
+            {
+                _app.ShowHomeView();
+            }
+            else
+            {
+               _app.ShowPostMeasurementView(ThumbnailCollection);
+            }
+           
         }
         public void StartMeasurement(object commandParam)
         {
