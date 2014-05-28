@@ -53,8 +53,8 @@ namespace RunApproachStatistics.ViewModel
         private String playbackSpeedString;
 
         private BitmapImage playButtonImage;
-        private BitmapImage pauseImage = new BitmapImage(new Uri(@"/Images/videoControl_pause.png", UriKind.Relative));
-        private BitmapImage playImage = new BitmapImage(new Uri(@"/Images/videoControl_play.png", UriKind.Relative));
+        private BitmapImage pauseImage = new BitmapImage(new Uri(@"/Images/videoControl_pause_b.png", UriKind.Relative));
+        private BitmapImage playImage = new BitmapImage(new Uri(@"/Images/videoControl_play_b.png", UriKind.Relative));
         #endregion
 
         #region DataBinding
@@ -392,8 +392,6 @@ namespace RunApproachStatistics.ViewModel
 
         public void playVideo(object commandParam)
         {
-            if ()
-
             if (rightIsEnabled)
             {
                 rightVideoView.PlayMedia(null);
@@ -404,7 +402,11 @@ namespace RunApproachStatistics.ViewModel
                 leftVideoView.PlayMedia(null);
             }
 
-            if(rightIsEnabled || leftIsEnabled)
+            if(leftVideoView.IsPlaying || rightVideoView.IsPlaying)
+            {
+                PlayButtonImage = pauseImage;
+            }
+            else
             {
                 PlayButtonImage = playImage;
             }
@@ -421,6 +423,8 @@ namespace RunApproachStatistics.ViewModel
             {
                 leftVideoView.StopMedia(null);
             }
+
+            PlayButtonImage = playImage;
         }
 
         protected override void initRelayCommands()
