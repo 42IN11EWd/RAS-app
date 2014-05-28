@@ -42,7 +42,23 @@ namespace RunApproachStatistics
         public Boolean IsLoggedIn
         {
             get { return isLoggedIn; }
-            set { isLoggedIn = value; }
+            set
+            {
+                isLoggedIn = value;
+
+                if (currentViewModel.Menu != null)
+                {
+                    MenuViewModel menu = (MenuViewModel)currentViewModel.Menu;
+                    if (isLoggedIn)
+                    {
+                        menu.LogName = "Logout";
+                    }
+                    else
+                    {
+                        menu.LogName = "Login";
+                    }
+                }
+            }
         }
 
         public Boolean IsLoginWindowOpen

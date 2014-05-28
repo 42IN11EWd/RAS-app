@@ -8,15 +8,24 @@ using System.Threading.Tasks;
 
 namespace RunApproachStatistics.ViewModel
 {
-    class MenuViewModel : AbstractViewModel
+    public class MenuViewModel : AbstractViewModel
     {
         private IApplicationController _app;
+        private String logName;
 
         #region DataBinding
 
         public String PilotLaserTitle { get; set; }
         public Boolean VisibilityLaser { get; set; }
-        public String LogName { get; set; }
+        public String LogName
+        {
+            get { return logName; }
+            set
+            {
+                logName = value;
+                OnPropertyChanged("LogName");
+            }
+        }
         public Boolean ToggleLaser { get; set; }
         public RelayCommand SetPilotLaserCommand { get; private set; }
         public RelayCommand StartSessionCommand { get; private set; }

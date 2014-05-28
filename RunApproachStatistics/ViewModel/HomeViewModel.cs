@@ -19,7 +19,6 @@ namespace RunApproachStatistics.ViewModel
     class HomeViewModel : AbstractViewModel
     {
         private IApplicationController _app;
-        private PropertyChangedBase menu;
         
         private CameraViewModel cameraView;
         private VideoViewModel videoView;
@@ -47,16 +46,6 @@ namespace RunApproachStatistics.ViewModel
         }
 
         #region DataBinding
-
-        public PropertyChangedBase Menu
-        {
-            get { return menu; }
-            set
-            {
-                menu = value;
-                OnPropertyChanged("Menu");
-            }
-        }
 
         public CameraViewModel CameraView
         {
