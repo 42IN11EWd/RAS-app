@@ -161,6 +161,7 @@ namespace RunApproachStatistics.ViewModel
         public RelayCommand CalibrateMaximumDistance { get; private set; }
         public RelayCommand ShowLocationEditerCommand { get; private set; }
         public RelayCommand ShowVaultNumberEditerCommand { get; private set; }
+        public RelayCommand ShowVaultKindEditorCommand { get; private set; }
         public RelayCommand ClearLocalDataCommand { get; private set; }
 
         #endregion
@@ -286,6 +287,12 @@ namespace RunApproachStatistics.ViewModel
         {
             _app.ShowVaultNumberEditorView();
         }
+
+        private void ShowVaultKindEditor(object commandParam)
+        {
+            _app.ShowVaultKindEditorView();
+        }
+
         private void ShowLocationEditor(object commandParam)
         {
             _app.ShowLocationEditorView();
@@ -320,6 +327,7 @@ namespace RunApproachStatistics.ViewModel
 
             ShowLocationEditerCommand = new RelayCommand(ShowLocationEditor);
             ShowVaultNumberEditerCommand = new RelayCommand(ShowVaultNumberEditor);
+            ShowVaultKindEditorCommand = new RelayCommand(ShowVaultKindEditor);
             ClearLocalDataCommand = new RelayCommand(ClearLocalData);
         }
 
