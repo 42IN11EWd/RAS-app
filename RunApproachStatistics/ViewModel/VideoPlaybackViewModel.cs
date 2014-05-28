@@ -20,7 +20,6 @@ namespace RunApproachStatistics.ViewModel
     public class VideoPlaybackViewModel : AbstractViewModel
     {
         private IApplicationController _app;
-        private PropertyChangedBase menu;
         
         private VideoViewModel videoView;
         private GraphViewModel graphView;
@@ -35,16 +34,6 @@ namespace RunApproachStatistics.ViewModel
         private double videoPosition;
 
         #region DataBinding
-
-        public PropertyChangedBase Menu
-        {
-            get { return menu; }
-            set
-            {
-                menu = value;
-                OnPropertyChanged("Menu");
-            }
-        }
 
         public VideoViewModel VideoView
         {
