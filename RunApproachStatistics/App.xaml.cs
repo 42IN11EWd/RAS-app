@@ -42,7 +42,23 @@ namespace RunApproachStatistics
         public Boolean IsLoggedIn
         {
             get { return isLoggedIn; }
-            set { isLoggedIn = value; }
+            set
+            {
+                isLoggedIn = value;
+
+                if (currentViewModel.Menu != null)
+                {
+                    MenuViewModel menu = (MenuViewModel)currentViewModel.Menu;
+                    if (isLoggedIn)
+                    {
+                        menu.LogName = "Logout";
+                    }
+                    else
+                    {
+                        menu.LogName = "Login";
+                    }
+                }
+            }
         }
 
         public Boolean IsLoginWindowOpen
@@ -207,6 +223,18 @@ namespace RunApproachStatistics
             vaultNumberEditorViewModel.Content = vaultNumberEditorViewModel;
             settingsWindow.DataContext = vaultNumberEditorViewModel;
             settingsWindow.Content = vaultNumberEditorViewModel;
+        }
+
+        public void ShowVaultKindEditorView()
+        {
+            if (settingsWindow == null)
+            {
+                settingsWindow = new DialogWindow();
+            }
+            VaultKindEditorViewModel vaultKindEditorViewModel = new VaultKindEditorViewModel(this);
+            vaultKindEditorViewModel.Content = vaultKindEditorViewModel;
+            settingsWindow.DataContext = vaultKindEditorViewModel;
+            settingsWindow.Content = vaultKindEditorViewModel;
         }
 
         public void ShowVideoPlaybackView(vault selectedVault)

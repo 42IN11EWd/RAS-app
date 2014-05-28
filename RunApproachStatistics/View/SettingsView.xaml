@@ -82,6 +82,7 @@
             <Button Command="{Binding ShowLocationEditerCommand}" Content="Location editor" FontSize="18" HorizontalAlignment="Left" Margin="10,383,0,0" VerticalAlignment="Top" Width="180" Height="28"/>
             <Button Command="{Binding ShowVaultNumberEditerCommand}" Content="Vault number editor" FontSize="18" HorizontalAlignment="Left" Margin="211,383,0,0" VerticalAlignment="Top" Width="180" Height="28"/>
             <Button Command="{Binding ClearLocalDataCommand}" Content="Clear local data" FontSize="18" HorizontalAlignment="Left" Margin="10,422,0,0" VerticalAlignment="Top" Width="180" Height="28"/>
+            <Button Command="{Binding ShowVaultKindEditorCommand}" Content="Vault kind editor" FontSize="18" HorizontalAlignment="Left" Margin="211,422,0,0" VerticalAlignment="Top" Width="180" Height="28"/>
             <!-- End Window Buttons-->
         </Grid>
     </Viewbox>

@@ -20,7 +20,6 @@ namespace RunApproachStatistics.ViewModel
     public class ProfileViewModel : AbstractViewModel
     {
         private IApplicationController _app;
-        private PropertyChangedBase menu;
         private UserModule uModule;
 
         private Visibility pictureCommandVisible;
@@ -73,16 +72,6 @@ namespace RunApproachStatistics.ViewModel
         public RelayCommand NewGymnastCommand { get; private set; }
         public RelayCommand ToMainscreenCommand { get; private set; }
         public RelayCommand SeeVaultsCommand { get; private set; }
-
-        public PropertyChangedBase Menu
-        {
-            get { return menu; }
-            set
-            {
-                menu = value;
-                OnPropertyChanged("Menu");
-            }
-        }
 
         public Visibility PictureCommandVisible
         {

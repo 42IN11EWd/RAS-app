@@ -229,6 +229,9 @@
     <Compile Include="View\ThumbnailView.xaml.cs">
       <DependentUpon>ThumbnailView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\VaultKindEditorView.xaml.cs">
+      <DependentUpon>VaultKindEditorView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\VaultNumberEditorView.xaml.cs">
       <DependentUpon>VaultNumberEditorView.xaml</DependentUpon>
     </Compile>
@@ -320,6 +323,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ThumbnailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\VaultKindEditorView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

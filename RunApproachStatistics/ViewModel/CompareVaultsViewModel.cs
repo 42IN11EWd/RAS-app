@@ -16,7 +16,6 @@ namespace RunApproachStatistics.ViewModel
     public class CompareVaultsViewModel : AbstractViewModel
     {
         private IApplicationController _app;
-        private PropertyChangedBase menu;
 
         #region Modules
 
@@ -280,16 +279,6 @@ namespace RunApproachStatistics.ViewModel
             {
                 playbackSpeedString = value;
                 OnPropertyChanged("PlaybackSpeedString");
-            }
-        }
-
-        public PropertyChangedBase Menu
-        {
-            get { return menu; }
-            set
-            {
-                menu = value;
-                OnPropertyChanged("Menu");
             }
         }
         #endregion
