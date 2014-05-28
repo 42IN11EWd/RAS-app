@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace RunApproachStatistics.ViewModel
 {
@@ -47,11 +48,14 @@ namespace RunApproachStatistics.ViewModel
 
         private Double currentPosition;
         private Double maximum;
-        private ImageSource playButtonImage;
         private Double playbackSpeed;
         private String currentTime;
         private String totalTime;
         private String playbackSpeedString;
+
+        private BitmapImage playButtonImage;
+        private BitmapImage pauseImage = new BitmapImage(new Uri(@"/Images/videoControl_pause.png", UriKind.Relative));
+        private BitmapImage playImage = new BitmapImage(new Uri(@"/Images/videoControl_play.png", UriKind.Relative));
         #endregion
 
         #region DataBinding
@@ -232,7 +236,7 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        public ImageSource PlayButtonImage
+        public BitmapImage PlayButtonImage
         {
             get { return playButtonImage; }
             set
@@ -301,6 +305,8 @@ namespace RunApproachStatistics.ViewModel
             MenuViewModel menuViewModel = new MenuViewModel(_app);
             menuViewModel.VisibilityLaser = true;
             Menu = menuViewModel;
+
+            PlayButtonImage = playImage;
         }
 
         public void setVaultsToCompare(List<vault> vaults)
@@ -317,12 +323,12 @@ namespace RunApproachStatistics.ViewModel
             rightVideoView.ToggleVideoControls(false);
 
             // Set video settings
-            /*double leftMax = leftVideoView.Maximum;
+            double leftMax = leftVideoView.Maximum;
             double rightMax = rightVideoView.Maximum;
             if(leftMax < rightMax)
             {
                 Maximum = rightMax;
-            }*/
+            }
         }
 
         private void setGraphs(List<vault> vaults)
@@ -365,7 +371,7 @@ namespace RunApproachStatistics.ViewModel
         }
 
         public void updateCurrentPosition(double seconds)
-        {            
+        {
             
         }
 
@@ -397,14 +403,21 @@ namespace RunApproachStatistics.ViewModel
 
         public void playVideo(object commandParam)
         {
+            if ()
+
             if (rightIsEnabled)
             {
-                rightVideoView.Play();
+                rightVideoView.PlayMedia(null);
             }
 
             if (leftIsEnabled)
             {
-                leftVideoView.Play();
+                leftVideoView.PlayMedia(null);
+            }
+
+            if(rightIsEnabled || leftIsEnabled)
+            {
+                PlayButtonImage = playImage;
             }
         }
 
@@ -412,18 +425,21 @@ namespace RunApproachStatistics.ViewModel
         {
             if (rightIsEnabled)
             {
-                rightVideoView.Pause();
+                rightVideoView.StopMedia(null);
             }
 
             if (leftIsEnabled)
             {
-                leftVideoView.Pause();
+                leftVideoView.StopMedia(null);
             }
         }
 
         protected override void initRelayCommands()
         {
-
+            PlayClickCommand        = new RelayCommand(playVideo);
+            StopClickCommand        = new RelayCommand(stopVideo);
+            ForwardClickCommand     = new RelayCommand(forwardVideo);
+            BackwardClickCommand    = new RelayCommand(rewindVideo);
         }
     }
 }
