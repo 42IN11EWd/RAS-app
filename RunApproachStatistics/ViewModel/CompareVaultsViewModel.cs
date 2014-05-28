@@ -10,13 +10,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace RunApproachStatistics.ViewModel
 {
     public class CompareVaultsViewModel : AbstractViewModel
     {
         private IApplicationController _app;
-        private PropertyChangedBase menu;
 
         #region Modules
 
@@ -47,27 +47,28 @@ namespace RunApproachStatistics.ViewModel
 
         private Double currentPosition;
         private Double maximum;
-        private ImageSource playButtonImage;
         private Double playbackSpeed;
         private String currentTime;
         private String totalTime;
         private String playbackSpeedString;
+
+        private BitmapImage playButtonImage;
+        private BitmapImage pauseImage = new BitmapImage(new Uri(@"/Images/videoControl_pause_b.png", UriKind.Relative));
+        private BitmapImage playImage = new BitmapImage(new Uri(@"/Images/videoControl_play_b.png", UriKind.Relative));
         #endregion
 
         #region DataBinding
+        public RelayCommand LeftSelectionCommand { get; private set; }
+        public RelayCommand RightSelectionCommand { get; private set; }
+
         public RelayCommand PlayClickCommand { get; private set; }
-
         public RelayCommand StopClickCommand { get; private set; }
-
         public RelayCommand ForwardClickCommand { get; private set; }
-
         public RelayCommand BackwardClickCommand { get; private set; }
-
         public RelayCommand MouseUpCommand { get; private set; }
-
         public RelayCommand MouseDownCommand { get; private set; }
 
-        #region vault info
+        #region Vault info
         // Left sided variables
         public String LeftFullName
         {
@@ -232,7 +233,7 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        public ImageSource PlayButtonImage
+        public BitmapImage PlayButtonImage
         {
             get { return playButtonImage; }
             set
@@ -248,6 +249,9 @@ namespace RunApproachStatistics.ViewModel
             set
             {
                 playbackSpeed = value;
+                LeftVideoView.PlaybackSpeed = value;
+                RightVideoView.PlaybackSpeed = value;
+                PlaybackSpeedString = Math.Round(value, 2).ToString("0.00", CultureInfo.InvariantCulture);
                 OnPropertyChanged("PlaybackSpeed");
             }
         }
@@ -281,19 +285,36 @@ namespace RunApproachStatistics.ViewModel
                 OnPropertyChanged("PlaybackSpeedString");
             }
         }
+        #endregion
 
-        public PropertyChangedBase Menu
+        #region Command Methodes
+        public void ToggleLeftSelection(object commandParam)
         {
-            get { return menu; }
-            set
-            {
-                menu = value;
-                OnPropertyChanged("Menu");
-            }
+            LeftIsEnabled = !LeftIsEnabled;
+        }
+
+        public void ToggleRightSelection(object commandParam)
+        {
+            RightIsEnabled = !RightIsEnabled;
+        }
+
+        // Insert video control button methodes?
+
+        public void MouseDown(object commandParam)
+        {
+            LeftVideoView.MouseDown(null);
+            RightVideoView.MouseDown(null);
+        }
+
+        public void MouseUp(object commandParam)
+        {
+            LeftVideoView.MouseUp(null);
+            RightVideoView.MouseUp(null);
         }
         #endregion
 
-        public CompareVaultsViewModel(IApplicationController app) : base()
+        public CompareVaultsViewModel(IApplicationController app)
+            : base()
         {
             _app = app;
 
@@ -301,13 +322,15 @@ namespace RunApproachStatistics.ViewModel
             MenuViewModel menuViewModel = new MenuViewModel(_app);
             menuViewModel.VisibilityLaser = true;
             Menu = menuViewModel;
+
+            PlayButtonImage = playImage;
         }
 
         public void setVaultsToCompare(List<vault> vaults)
         {
             // Set left vault
             setVaultLabels(vaults[0], "Left");
-            
+
             leftVideoView = new VideoViewModel(_app, null, this, vaults[0].videopath);
             leftVideoView.ToggleVideoControls(false);
 
@@ -317,12 +340,12 @@ namespace RunApproachStatistics.ViewModel
             rightVideoView.ToggleVideoControls(false);
 
             // Set video settings
-            /*double leftMax = leftVideoView.Maximum;
+            double leftMax = leftVideoView.Maximum;
             double rightMax = rightVideoView.Maximum;
             if(leftMax < rightMax)
             {
                 Maximum = rightMax;
-            }*/
+            }
         }
 
         private void setGraphs(List<vault> vaults)
@@ -333,29 +356,30 @@ namespace RunApproachStatistics.ViewModel
         private void setVaultLabels(vault setVault, String side)
         {
             Type classType = this.GetType();
+
+            String fullName = "Unknown gymnast";
             if (setVault.gymnast != null)
             {
-                String fullName = setVault.gymnast.name + (setVault.gymnast.surname_prefix != null ? " " + 
-                    setVault.gymnast.surname_prefix : "") + " " + setVault.gymnast.surname;
-                classType.GetProperty(side + "FullName").SetValue(this, fullName);
+                fullName = setVault.gymnast.name + (!String.IsNullOrWhiteSpace(setVault.gymnast.surname_prefix) ? " " + setVault.gymnast.surname_prefix + " " : " ") + setVault.gymnast.surname;
             }
+            classType.GetProperty(side + "FullName").SetValue(this, fullName);
 
-            classType.GetProperty(side + "Date").SetValue(this, setVault.timestamp.ToString());
-
-            if (setVault.vaultnumber != null)
+            String date = "Unknown date";
+            if (setVault.timestamp != null || !String.IsNullOrWhiteSpace(setVault.timestamp.ToShortDateString()))
             {
-                classType.GetProperty(side + "VaultNumber").SetValue(this, setVault.vaultnumber.code);
+                date = setVault.timestamp.ToShortDateString();
             }
+            classType.GetProperty(side + "Date").SetValue(this, date);
 
-            if (setVault.rating_official_E != null && setVault.rating_official_D != null)
+            String vaultnumber = "Vault Number undefined";
+            if (setVault.vaultnumber != null || setVault.vaultnumber.code != null)
             {
-                decimal totalScore = (decimal)setVault.rating_official_E + (decimal)setVault.rating_official_D;
-                if (setVault.penalty != null)
-                {
-                    totalScore = totalScore - (decimal)setVault.penalty;
-                }
-                classType.GetProperty(side + "TotalScore").SetValue(this, totalScore.ToString("0.000"));
+                vaultnumber = setVault.vaultnumber.code;
             }
+            classType.GetProperty(side + "VaultNumber").SetValue(this, setVault.vaultnumber.code);
+
+            decimal totalScore = setVault.rating_official_E.GetValueOrDefault() + setVault.rating_official_D.GetValueOrDefault() - setVault.penalty.GetValueOrDefault();
+            classType.GetProperty(side + "TotalScore").SetValue(this, totalScore.ToString("0.000"));
         }
 
         public void updateSeconds(float duration)
@@ -365,8 +389,8 @@ namespace RunApproachStatistics.ViewModel
         }
 
         public void updateCurrentPosition(double seconds)
-        {            
-            
+        {
+
         }
 
         public void forwardVideo(object commandParam)
@@ -376,7 +400,7 @@ namespace RunApproachStatistics.ViewModel
                 rightVideoView.ForwardMedia(commandParam);
             }
 
-            if(leftIsEnabled)
+            if (leftIsEnabled)
             {
                 leftVideoView.ForwardMedia(commandParam);
             }
@@ -399,12 +423,21 @@ namespace RunApproachStatistics.ViewModel
         {
             if (rightIsEnabled)
             {
-                rightVideoView.Play();
+                rightVideoView.PlayMedia(null);
             }
 
             if (leftIsEnabled)
             {
-                leftVideoView.Play();
+                leftVideoView.PlayMedia(null);
+            }
+
+            if(leftVideoView.IsPlaying || rightVideoView.IsPlaying)
+            {
+                PlayButtonImage = pauseImage;
+            }
+            else
+            {
+                PlayButtonImage = playImage;
             }
         }
 
@@ -412,18 +445,28 @@ namespace RunApproachStatistics.ViewModel
         {
             if (rightIsEnabled)
             {
-                rightVideoView.Pause();
+                rightVideoView.StopMedia(null);
             }
 
             if (leftIsEnabled)
             {
-                leftVideoView.Pause();
+                leftVideoView.StopMedia(null);
             }
+
+            PlayButtonImage = playImage;
         }
 
         protected override void initRelayCommands()
         {
+            PlayClickCommand        = new RelayCommand(playVideo);
+            StopClickCommand        = new RelayCommand(stopVideo);
+            ForwardClickCommand     = new RelayCommand(forwardVideo);
+            BackwardClickCommand    = new RelayCommand(rewindVideo);
+            LeftSelectionCommand = new RelayCommand(ToggleLeftSelection);
+            RightSelectionCommand = new RelayCommand(ToggleRightSelection);
 
+            MouseUpCommand = new RelayCommand(MouseUp);
+            MouseDownCommand = new RelayCommand(MouseDown);
         }
     }
 }

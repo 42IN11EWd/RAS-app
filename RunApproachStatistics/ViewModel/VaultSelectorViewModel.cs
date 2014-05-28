@@ -18,7 +18,6 @@ namespace RunApproachStatistics.ViewModel
     public class VaultSelectorViewModel : AbstractViewModel
     {
         private IApplicationController _app;
-        private PropertyChangedBase menu;
         private PropertyChangedBase content;
 
         private PropertyChangedBase ratingControl;
@@ -66,15 +65,7 @@ namespace RunApproachStatistics.ViewModel
 
         public RelayCommand AddToFilterCommand { get; private set; }
         //do not delete -----------------------------
-        public PropertyChangedBase Menu
-        {
-            get { return menu; }
-            set
-            {
-                menu = value;
-                OnPropertyChanged("Menu");
-            }
-        }
+        
         public PropertyChangedBase Content
         {
             get { return content; }

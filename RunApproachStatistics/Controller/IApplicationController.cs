@@ -42,6 +42,8 @@ namespace RunApproachStatistics.Controllers
 
         void ShowVaultNumberEditorView();
 
+        void ShowVaultKindEditorView();
+
         void ToggleLockScreen();
 
         void CloseLoginWindow(object sender = null, EventArgs e = null);

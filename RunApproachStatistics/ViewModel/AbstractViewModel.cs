@@ -9,6 +9,17 @@ namespace RunApproachStatistics.ViewModel
 {
     public abstract class AbstractViewModel : PropertyChangedBase
     {
+        private PropertyChangedBase menu;
+
+        public PropertyChangedBase Menu
+        {
+            get { return menu; }
+            set
+            {
+                menu = value;
+                OnPropertyChanged("Menu");
+            }
+        }
         public AbstractViewModel()
         {
             initRelayCommands();

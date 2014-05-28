@@ -104,15 +104,15 @@
 
                     <Slider Height="22" Margin="48,0,48,66" Maximum="{Binding Path=Maximum}" MouseBehaviours:MouseBehaviour.MouseUpCommand="{Binding Path=MouseUpCommand}" MouseBehaviours:MouseBehaviour.MouseDownCommand="{Binding Path=MouseDownCommand}" SmallChange="1000" Value="{Binding Path=CurrentPosition, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Bottom"/>
                     <Button Background="Transparent" Command="{Binding Path=PlayClickCommand}" Height="48" HorizontalAlignment="Center" Margin="812,0,735,12" VerticalAlignment="Bottom" Width="48">
-                        <Image HorizontalAlignment="Center" Source="pack://application:,,,/Images/videoControl_play_b.png" VerticalAlignment="Bottom" Width="46"/>
+                        <Image HorizontalAlignment="Center" Source="{Binding PlayButtonImage}" VerticalAlignment="Bottom" Width="46"/>
                     </Button>
                     <Button Background="Transparent" Command="{Binding Path=StopClickCommand}" Height="48" HorizontalAlignment="Center" Margin="731,0,816,12" VerticalAlignment="Bottom" Width="48" >
                         <Image HorizontalAlignment="Center" Source="pack://application:,,,/Images/videoControl_stop_b.png" VerticalAlignment="Bottom" Width="48"/>
                     </Button>
-                    <Button Background="Transparent" Command="{Binding Path=ForwardClickCommand}" Height="48" HorizontalAlignment="Center" Margin="240,0,0,12" VerticalAlignment="Bottom" Width="48">
+                    <Button Background="Transparent" Command="{Binding Path=ForwardClickCommand}" Height="48" HorizontalAlignment="Center" Margin="882,0,665,10" VerticalAlignment="Bottom" Width="48">
                         <Image HorizontalAlignment="Center" Margin="0,0,0,4" Source="pack://application:,,,/Images/videoControl_forward_b.png" VerticalAlignment="Bottom" Width="64"/>
                     </Button>
-                    <Button Background="Transparent" Command="{Binding Path=BackwardClickCommand}" Height="48" HorizontalAlignment="Center" Margin="0,0,240,12" VerticalAlignment="Bottom" Width="48">
+                    <Button Background="Transparent" Command="{Binding Path=BackwardClickCommand}" Height="48" HorizontalAlignment="Center" Margin="656,0,891,10" VerticalAlignment="Bottom" Width="48">
                         <Image HorizontalAlignment="Center" Margin="0,0,0,4" Source="pack://application:,,,/Images/videoControl_backward_b.png" VerticalAlignment="Bottom" Width="64"/>
                     </Button>
                     <Slider Height="22" HorizontalAlignment="Right" IsSnapToTickEnabled="True" Margin="0,0,48,26" Maximum="0.5" Minimum="0.05" SmallChange="0.05" TickFrequency="0.05" Value="{Binding Path=PlaybackSpeed, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Bottom" Width="100"/>
