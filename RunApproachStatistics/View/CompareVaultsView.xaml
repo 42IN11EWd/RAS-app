@@ -52,7 +52,7 @@
                     <TextBlock FontSize="24" Grid.Column="1" Grid.Row="2" Text="{Binding Path=LeftVaultNumber}"/>
                     <TextBlock FontSize="24" Grid.Column="1" Grid.Row="3" Text="{Binding Path=LeftTotalScore}"/>
 
-                    <Button Background="Red" Command="{Binding Path=LeftSelectionCommand}" Grid.Column="2" Grid.RowSpan="4">
+                    <Button Background="#FA2A2A" Command="{Binding Path=LeftSelectionCommand}" Grid.Column="2" Grid.RowSpan="4">
                         <CheckBox IsChecked="{Binding Path=LeftIsEnabled}" Content="Selected" />
                     </Button>
                 </Grid>
@@ -86,7 +86,7 @@
                     <TextBlock FontSize="24" Grid.Column="1" Grid.Row="2" Text="{Binding Path=RightVaultNumber}"/>
                     <TextBlock FontSize="24" Grid.Column="1" Grid.Row="3" Text="{Binding Path=RightTotalScore}"/>
 
-                    <Button Background="Blue" Command="{Binding Path=RightSelectionCommand}" Grid.Column="2" Grid.RowSpan="4">
+                    <Button Background="#2A54FA" Command="{Binding Path=RightSelectionCommand}" Grid.Column="2" Grid.RowSpan="4">
                         <CheckBox Content="Selected" IsChecked="{Binding Path=RightIsEnabled}" />
                     </Button>
                 </Grid>
@@ -99,15 +99,15 @@
 
                 <!-- START VIDEO CONTROLS-->
                 <Grid Grid.ColumnSpan="2" Grid.Row="3" Margin="0">
-                    
+
                     <Rectangle Fill="LightGray" Height="103" VerticalAlignment="Bottom"/>
-                    
+
                     <Slider Height="22" Margin="48,0,48,66" Maximum="{Binding Path=Maximum}" MouseBehaviours:MouseBehaviour.MouseUpCommand="{Binding Path=MouseUpCommand}" MouseBehaviours:MouseBehaviour.MouseDownCommand="{Binding Path=MouseDownCommand}" SmallChange="1000" Value="{Binding Path=CurrentPosition, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Bottom"/>
-                    <Button Background="Transparent" Command="{Binding Path=PlayClickCommand}" Height="48" HorizontalAlignment="Center" Margin="80,0,0,12" VerticalAlignment="Bottom" Width="48">
-                        <Image HorizontalAlignment="Center" Margin="0,0,0,4" Source="{Binding Path=PlayButtonImage}" VerticalAlignment="Bottom" Width="64"/>
+                    <Button Background="Transparent" Command="{Binding Path=PlayClickCommand}" Height="48" HorizontalAlignment="Center" Margin="812,0,735,12" VerticalAlignment="Bottom" Width="48">
+                        <Image HorizontalAlignment="Center" Source="pack://application:,,,/Images/videoControl_play_b.png" VerticalAlignment="Bottom" Width="46"/>
                     </Button>
-                    <Button Background="Transparent" Command="{Binding Path=StopClickCommand}" Height="48" HorizontalAlignment="Center" Margin="0,0,80,12" VerticalAlignment="Bottom" Width="48" >
-                        <Image HorizontalAlignment="Center" Margin="0,0,0,4" Source="pack://application:,,,/Images/videoControl_stop_b.png" VerticalAlignment="Bottom" Width="48"/>
+                    <Button Background="Transparent" Command="{Binding Path=StopClickCommand}" Height="48" HorizontalAlignment="Center" Margin="731,0,816,12" VerticalAlignment="Bottom" Width="48" >
+                        <Image HorizontalAlignment="Center" Source="pack://application:,,,/Images/videoControl_stop_b.png" VerticalAlignment="Bottom" Width="48"/>
                     </Button>
                     <Button Background="Transparent" Command="{Binding Path=ForwardClickCommand}" Height="48" HorizontalAlignment="Center" Margin="240,0,0,12" VerticalAlignment="Bottom" Width="48">
                         <Image HorizontalAlignment="Center" Margin="0,0,0,4" Source="pack://application:,,,/Images/videoControl_forward_b.png" VerticalAlignment="Bottom" Width="64"/>

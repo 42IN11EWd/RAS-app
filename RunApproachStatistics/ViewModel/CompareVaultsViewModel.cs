@@ -67,6 +67,7 @@ namespace RunApproachStatistics.ViewModel
 
         public RelayCommand MouseDownCommand { get; private set; }
 
+        #region vault info
         // Left sided variables
         public String LeftFullName
         {
@@ -188,6 +189,7 @@ namespace RunApproachStatistics.ViewModel
                 OnPropertyChanged("RightVideoView");
             }
         }
+        #endregion
 
         // Universal sided variables 
         public GraphViewModel DistanceGraphView
@@ -305,14 +307,27 @@ namespace RunApproachStatistics.ViewModel
         {
             // Set left vault
             setVaultLabels(vaults[0], "Left");
+            
             leftVideoView = new VideoViewModel(_app, null, this, vaults[0].videopath);
             leftVideoView.ToggleVideoControls(false);
 
             // set Right vault
             setVaultLabels(vaults[1], "Right");
-
             rightVideoView = new VideoViewModel(_app, null, this, vaults[1].videopath);
             rightVideoView.ToggleVideoControls(false);
+
+            // Set video settings
+            /*double leftMax = leftVideoView.Maximum;
+            double rightMax = rightVideoView.Maximum;
+            if(leftMax < rightMax)
+            {
+                Maximum = rightMax;
+            }*/
+        }
+
+        private void setGraphs(List<vault> vaults)
+        {
+
         }
 
         private void setVaultLabels(vault setVault, String side)
@@ -353,6 +368,58 @@ namespace RunApproachStatistics.ViewModel
         {
             
             
+        }
+
+        public void forwardVideo(object commandParam)
+        {
+            if (rightIsEnabled)
+            {
+                rightVideoView.ForwardMedia(commandParam);
+            }
+
+            if(leftIsEnabled)
+            {
+                leftVideoView.ForwardMedia(commandParam);
+            }
+        }
+
+        public void rewindVideo(object commandParam)
+        {
+            if (rightIsEnabled)
+            {
+                rightVideoView.BackwardMedia(commandParam);
+            }
+
+            if (leftIsEnabled)
+            {
+                leftVideoView.BackwardMedia(commandParam);
+            }
+        }
+
+        public void playVideo(object commandParam)
+        {
+            if (rightIsEnabled)
+            {
+                rightVideoView.Play();
+            }
+
+            if (leftIsEnabled)
+            {
+                leftVideoView.Play();
+            }
+        }
+
+        public void stopVideo(object commandParam)
+        {
+            if (rightIsEnabled)
+            {
+                rightVideoView.Pause();
+            }
+
+            if (leftIsEnabled)
+            {
+                leftVideoView.Pause();
+            }
         }
 
         protected override void initRelayCommands()
