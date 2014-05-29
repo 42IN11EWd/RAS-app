@@ -560,6 +560,8 @@ namespace RunApproachStatistics.ViewModel
             Dictionary<string, string> categoryAndName = new Dictionary<string, string>();
             List<string> gymnastValues = new List<string>();
             List<string> locationValues = new List<string>();
+            List<decimal> eRatings = new List<decimal>();
+            List<decimal> dRatings = new List<decimal>();
 
             for (int k = 0; k < itemsToFilter.Count; k++)
             {
@@ -578,7 +580,9 @@ namespace RunApproachStatistics.ViewModel
                 }
             }
 
-            for (int i = 0; i < modifyVaultVM.ThumbnailCollection.Count; i++)
+            vaultModule.filter(dRatings, eRatings, gymnastValues, locationValues);
+
+            /*for (int i = 0; i < modifyVaultVM.ThumbnailCollection.Count; i++)
             {
                 if (gymnastValues.Count != 0 && locationValues.Count == 0)
                 {
@@ -612,7 +616,7 @@ namespace RunApproachStatistics.ViewModel
                         i--;
                     }
                 }
-            }
+            }*/
             OnPropertyChanged("ModifyViewModelControl");
         }
         

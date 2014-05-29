@@ -44,8 +44,12 @@ namespace RunApproachStatistics.Modules.Interfaces
 
         List<location> getLocations();
 
-        List<vault> filter(decimal[] dRatings, decimal[] eRatings, int[] gymnasts, int[] locations, DateTime[] timestamps);
+        //List<vault> filter(decimal[] dRatings, decimal[] eRatings, int[] gymnasts, int[] locations, DateTime[] timestamps);
 
-        List<vault> filter(decimal[] dRatings, decimal[] eRatings, String[] gymnasts, String[] locations, DateTime[] timestamps);
+        //List<vault> filter(decimal[] dRatings, decimal[] eRatings, String[] gymnasts, String[] locations, DateTime[] timestamps);
+
+        List<vault> filter(List<decimal> dRatings, List<decimal> eRatings, List<int> gymnasts, List<int> locations);
+
+        List<vault> filter(List<decimal> dRatings, List<decimal> eRatings, List<string> gymnasts, List<string> locations);
     }
 }

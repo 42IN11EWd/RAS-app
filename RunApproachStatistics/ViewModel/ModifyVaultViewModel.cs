@@ -26,7 +26,7 @@ namespace RunApproachStatistics.ViewModel
         private Visibility thumbnailVisibility;
 
         private vault vault = new vault();
-        private bool changeState;
+        private bool changeState, finishButtonState;
         private bool hasGymnast;
         private string kind;
 
@@ -291,23 +291,41 @@ namespace RunApproachStatistics.ViewModel
                 OnPropertyChanged("ChangeState");
             }
         }
+
+        public bool FinishButtonState
+        {
+            get { return finishButtonState; }
+            set
+            {
+                finishButtonState = value;
+                OnPropertyChanged("FinishButtonState");
+            }
+        }
+
         public String FinishButtonText
         {
             get
             {
                 if(kind == "POST")
                 {
+                    FinishButtonState = true;
                     return FinishButtonText = "Finish";
                 }
 
                 if (kind == "SELECT")
                 {
-                    if (SelectedThumbnails.Count == 1)
+                    if (SelectedThumbnails.Count == 0)
                     {
+                        FinishButtonState = false;
+                    }
+                    else if (SelectedThumbnails.Count == 1)
+                    {
+                        FinishButtonState = true;
                         return FinishButtonText = "View";
                     }
                     else if (SelectedThumbnails.Count > 1)
                     {
+                        FinishButtonState = true;
                         return FinishButtonText = "Compare";
                     }
 
@@ -329,9 +347,6 @@ namespace RunApproachStatistics.ViewModel
             this.kind = kind;
             ratingVM = new RatingViewModel(_app);
             RatingControl = ratingVM;
-
-            //Useless test data.
-            //setData();
 
             //load autocompletion data
             VaultKinds = vaultModule.getVaultKindNames();
@@ -660,7 +675,6 @@ namespace RunApproachStatistics.ViewModel
             }
             if (kind == "SELECT")
             {
-
                 List<vault> vaults = new List<vault>();
                 for (int i = 0; i < SelectedThumbnails.Count; i++)
                 {
@@ -679,6 +693,7 @@ namespace RunApproachStatistics.ViewModel
         public void CancelAction(object commandParam)
         {
             SelectedThumbnails.Clear();
+            OnPropertyChanged("SelectedThumbnails");
             if (kind == "POST")
             {
                 setMeasuredVaults(ThumbnailCollection);
