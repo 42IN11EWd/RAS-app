@@ -366,6 +366,7 @@ namespace RunApproachStatistics.ViewModel
         }
         public void setData(List<vault> vaults)
         {
+            thumbnailCollection = new ObservableCollection<ThumbnailViewModel>();
             if (vaults == null)
             {
                 thumbnailCollection = new ObservableCollection<ThumbnailViewModel>();

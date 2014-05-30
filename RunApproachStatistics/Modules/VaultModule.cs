@@ -680,17 +680,24 @@ namespace RunApproachStatistics.Modules
             }
 
             List<vault> result = new List<vault>();
+            List<vault> inculdeGymnast = new List<vault>();
 
             for (int i = 0; i < gymnasts.Count; i++)
             {
                 foreach(vault newVault in list)
                 {
-                    if (newVault.gymnast != null || newVault.gymnast.name != "")
+                    if (newVault.gymnast == null)
+                    {
+
+                    }
+                    else if (newVault.gymnast != null || newVault.gymnast.name != "")
                     {
                         // TODO check for null in gymnast
-                        result.AddRange(list.Where(x => (x.gymnast.name == gymnasts[i]) && (x.gymnast != null) ).ToList());
+                        //result.AddRange(list.Where(x => (x.gymnast.name == gymnasts[i]) && (x.gymnast != null) ).ToList());
+                        inculdeGymnast.Add(newVault);
                     }
                 }
+                result.AddRange(inculdeGymnast.Where(x => x.gymnast.name + " " + (x.gymnast.surname_prefix != null ? x.gymnast.surname_prefix + " " : "") + x.gymnast.surname == gymnasts[i]).ToList());
             }
 
             return result;
@@ -721,10 +728,23 @@ namespace RunApproachStatistics.Modules
             }
 
             List<vault> result = new List<vault>();
-
+            List<vault> includeLocation = new List<vault>();
             for (int i = 0; i < locations.Count; i++)
             {
-                result.AddRange(list.Where(x => x.location.name == locations[i]).ToList());
+                foreach (vault newVault in list)
+                {
+                    if (newVault.location == null)
+                    {
+
+                    }
+                    else if (newVault.location != null || newVault.location.name != "")
+                    {
+                        // TODO check for null in gymnast
+                        //result.AddRange(list.Where(x => (x.gymnast.name == gymnasts[i]) && (x.gymnast != null) ).ToList());
+                        includeLocation.Add(newVault);
+                    }
+                }
+                result.AddRange(includeLocation.Where(x => x.location.name == locations[i]).ToList());
             }
 
             return result;

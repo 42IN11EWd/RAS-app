@@ -519,7 +519,7 @@ namespace RunApproachStatistics.ViewModel
         {
             string itemFromFilter = selectedExistingFilterItem;
             filterList.Remove(itemFromFilter);
-            modifyVaultVM.setData(null);
+            //modifyVaultVM.setData(null);
             /*if (filterList.Count != 0)
             {
                 foreach (String itemInFilter in filterList)
@@ -534,7 +534,7 @@ namespace RunApproachStatistics.ViewModel
         public void AddToFilters(object commandParam)
         {
             // Add value from sort to filter and update the thumbnails
-            modifyVaultVM.setData(null);
+            //modifyVaultVM.setData(null);
             string itemToFilter = selectedFilterItem;
             string[] valueToFilter = filterType.Split(' ');
             string checkDuplicates = valueToFilter[1] + " : " + itemToFilter;
@@ -579,9 +579,9 @@ namespace RunApproachStatistics.ViewModel
                     locationValues.Add(categoryAndName.ElementAt(j).Key);
                 }
             }
-
-            vaultModule.filter(dRatings, eRatings, gymnastValues, locationValues);
-
+            
+            List<vault> newVaults = vaultModule.filter(dRatings, eRatings, gymnastValues, locationValues);
+            modifyVaultVM.setData(newVaults);
             /*for (int i = 0; i < modifyVaultVM.ThumbnailCollection.Count; i++)
             {
                 if (gymnastValues.Count != 0 && locationValues.Count == 0)
