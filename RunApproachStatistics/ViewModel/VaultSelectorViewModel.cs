@@ -520,13 +520,7 @@ namespace RunApproachStatistics.ViewModel
             string itemFromFilter = selectedExistingFilterItem;
             filterList.Remove(itemFromFilter);
             //modifyVaultVM.setData(null);
-            /*if (filterList.Count != 0)
-            {
-                foreach (String itemInFilter in filterList)
-                {
-                    ShowFilteredThumbnails(itemInFilter);
-                }
-            }*/
+            ShowFilteredThumbnails(filterList);
             OnPropertyChanged("ModifyViewModelControl");
             OnPropertyChanged("FilterList");
         }

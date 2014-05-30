@@ -739,8 +739,6 @@ namespace RunApproachStatistics.Modules
                     }
                     else if (newVault.location != null || newVault.location.name != "")
                     {
-                        // TODO check for null in gymnast
-                        //result.AddRange(list.Where(x => (x.gymnast.name == gymnasts[i]) && (x.gymnast != null) ).ToList());
                         includeLocation.Add(newVault);
                     }
                 }
