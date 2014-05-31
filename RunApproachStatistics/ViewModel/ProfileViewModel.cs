@@ -329,6 +329,7 @@ namespace RunApproachStatistics.ViewModel
                 OnPropertyChanged("EditMemos");
             }
         }
+       
 
         public Visibility IsEditing
         {
@@ -565,40 +566,39 @@ namespace RunApproachStatistics.ViewModel
             {
                 _app.ShowLoginView();
 
-                while (_app.IsLoginWindowOpen)
-                {
-                    // waiting for the login window to close
-                }
             }
-
             if (_app.IsLoggedIn && SelectedFilterItem != null)
             {
-                uModule.delete(SelectedFilterItem.gymnast_id);
+                MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure?", "Delete Confirmation", MessageBoxButton.YesNo);
+                if (messageBoxResult == MessageBoxResult.Yes)
+                {
+                    uModule.delete(SelectedFilterItem.gymnast_id);
 
-                selectedFilterItem = null;
-                Name = "";
-                Prefix = "";
-                Surname = "";
-                FIGNumber = "";
-                DateOfBirth = "";
-                Nationality = "";
-                Gender = "";
-                Length = "";
-                Weight = "";
-                Memos = "";
-                Picture = null;
-                EnableFilter = true;
-                inEditingMode = false;
+                    selectedFilterItem = null;
+                    Name = "";
+                    Prefix = "";
+                    Surname = "";
+                    FIGNumber = "";
+                    DateOfBirth = "";
+                    Nationality = "";
+                    Gender = "";
+                    Length = "";
+                    Weight = "";
+                    Memos = "";
+                    Picture = null;
+                    EnableFilter = true;
+                    inEditingMode = false;
 
-                gymnastList = uModule.getGymnastCollection();
-                applyFilter();
-                OnPropertyChanged("FilterList");
-                OnPropertyChanged("Fullname");
-                OnPropertyChanged("IsEditing");
-                OnPropertyChanged("IsNotEditing");
-                OnPropertyChanged("PictureAvailable");
-                OnPropertyChanged("SelectedFilterItem");
-                OnPropertyChanged("EditPictureAvailable");
+                    gymnastList = uModule.getGymnastCollection();
+                    applyFilter();
+                    OnPropertyChanged("FilterList");
+                    OnPropertyChanged("Fullname");
+                    OnPropertyChanged("IsEditing");
+                    OnPropertyChanged("IsNotEditing");
+                    OnPropertyChanged("PictureAvailable");
+                    OnPropertyChanged("SelectedFilterItem");
+                    OnPropertyChanged("EditPictureAvailable");
+                }
             }
         }
 

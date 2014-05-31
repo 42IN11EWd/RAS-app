@@ -706,19 +706,32 @@ namespace RunApproachStatistics.ViewModel
         }
         public void DeleteAction(object commandParam)
         {
-            if (!_app.IsLoggedIn)
+            if(kind == "POST")
             {
-                _app.ShowLoginView();
+                delete();
             }
-            if (_app.IsLoggedIn)
+            else if (kind == "SELECT")
             {
-                //TODO : Confirm if you are sure to delete this vault
+                if (!_app.IsLoggedIn)
+                {
+                    _app.ShowLoginView();
+                }
+                if (_app.IsLoggedIn)
+                {
+                    delete();
+                }
+            }
+        }
+        public void delete()
+        {
+            MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure?", "Delete Confirmation", MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
                 for (int i = 0; i < SelectedThumbnails.Count; i++)
                 {
                     vaultModule.delete(SelectedThumbnails[i].Vault.vault_id);
                     thumbnailCollection.Remove(SelectedThumbnails[i]);
                 }
-
             }
         }
 
