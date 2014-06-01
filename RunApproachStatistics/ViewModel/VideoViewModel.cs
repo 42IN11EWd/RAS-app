@@ -292,6 +292,7 @@ namespace RunApproachStatistics.ViewModel
             else if (compareVaultsViewModel != null)
             {
                 compareVaultsViewModel.updateSeconds((float)Maximum / 1000);
+                compareVaultsViewModel.setVideoInfo();
             }
         }
 
