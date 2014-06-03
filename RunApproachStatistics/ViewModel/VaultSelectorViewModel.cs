@@ -531,7 +531,7 @@ namespace RunApproachStatistics.ViewModel
             //modifyVaultVM.setData(null);
             string itemToFilter = selectedFilterItem;
             string[] valueToFilter = filterType.Split(' ');
-            string checkDuplicates = valueToFilter[1] + " : " + itemToFilter;
+            string checkDuplicates = valueToFilter[1] + ":" + itemToFilter;
 
             foreach (String newFilter in filterList)
             {
