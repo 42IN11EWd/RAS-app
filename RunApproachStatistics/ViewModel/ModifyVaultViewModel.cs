@@ -758,6 +758,7 @@ namespace RunApproachStatistics.ViewModel
                     tempVaults.Add(thumb.Vault);
                 }
                 setData(tempVaults);
+                _app.RefreshThumbnailCollection();
             }
             OnPropertyChanged("SelectedThumbnails");
         }

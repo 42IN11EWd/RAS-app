@@ -404,6 +404,13 @@ namespace RunApproachStatistics.ViewModel
             filterList = new ObservableCollection<string>();
 
         }
+
+        public void RefreshList()
+        {
+            ShowFilteredThumbnails(filterList);
+            OnPropertyChanged("ThumbnailCollection");
+        }
+
         public void updateFields()
         {
             OnPropertyChanged("SelectedThumbnails");
