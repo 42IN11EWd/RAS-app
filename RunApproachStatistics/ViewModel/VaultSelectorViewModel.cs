@@ -519,7 +519,6 @@ namespace RunApproachStatistics.ViewModel
         {
             string itemFromFilter = selectedExistingFilterItem;
             filterList.Remove(itemFromFilter);
-            //modifyVaultVM.setData(null);
             ShowFilteredThumbnails(filterList);
             OnPropertyChanged("ModifyViewModelControl");
             OnPropertyChanged("FilterList");
@@ -527,8 +526,6 @@ namespace RunApproachStatistics.ViewModel
 
         public void AddToFilters(object commandParam)
         {
-            // Add value from sort to filter and update the thumbnails
-            //modifyVaultVM.setData(null);
             string itemToFilter = selectedFilterItem;
             string[] valueToFilter = filterType.Split(' ');
             string checkDuplicates = valueToFilter[1] + ":" + itemToFilter;
@@ -543,9 +540,7 @@ namespace RunApproachStatistics.ViewModel
             }
             // no duplicates, add to list
             filterList.Add(valueToFilter[1] + ":" + itemToFilter);
-            
             ShowFilteredThumbnails(filterList);
-            
             OnPropertyChanged("FilterList");
         }
 
@@ -576,41 +571,6 @@ namespace RunApproachStatistics.ViewModel
             
             List<vault> newVaults = vaultModule.filter(dRatings, eRatings, gymnastValues, locationValues);
             modifyVaultVM.setData(newVaults);
-            /*for (int i = 0; i < modifyVaultVM.ThumbnailCollection.Count; i++)
-            {
-                if (gymnastValues.Count != 0 && locationValues.Count == 0)
-                {
-                    int matchCount = 0;
-                    for (int g = 0; g < gymnastValues.Count; g++)
-                    {
-                        if (modifyVaultVM.ThumbnailCollection[i].Gymnast.Equals(gymnastValues.ElementAt(g)))
-                        {
-                            matchCount++;
-                        }
-                    }
-                    if (matchCount == 0)
-                    {
-                        modifyVaultVM.ThumbnailCollection.RemoveAt(i);
-                        i--;
-                    }
-                }
-                else if (gymnastValues.Count != 0 && locationValues.Count != 0)
-                {
-                    int matchCount = 0;
-                    for (int l = 0; l < locationValues.Count; l++)
-                    {
-                        if (modifyVaultVM.ThumbnailCollection[i].Vault.location.name.Equals(locationValues.ElementAt(l)))
-                        {
-                            matchCount++;
-                        }
-                    }
-                    if (matchCount == 0)
-                    {
-                        modifyVaultVM.ThumbnailCollection.RemoveAt(i);
-                        i--;
-                    }
-                }
-            }*/
             OnPropertyChanged("ModifyViewModelControl");
         }
         

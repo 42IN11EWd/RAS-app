@@ -73,7 +73,7 @@ namespace RunApproachStatistics.Modules
         {
             using (var db = new DataContext())
             {
-                var query = (from qVault in db.vault.Include("gymnast").Include("vaultnumber").Include("location")
+                var query = (from qVault in db.vault.Include("gymnast").Include("vaultnumber").Include("location").Include("vaultkind")
                              where qVault.vault_id == id
                              select qVault).First();
 
@@ -680,10 +680,11 @@ namespace RunApproachStatistics.Modules
             }
 
             List<vault> result = new List<vault>();
-            List<vault> inculdeGymnast = new List<vault>();
+            
 
             for (int i = 0; i < gymnasts.Count; i++)
             {
+                List<vault> inculdeGymnast = new List<vault>();
                 foreach(vault newVault in list)
                 {
                     if (newVault.gymnast == null)
@@ -728,9 +729,10 @@ namespace RunApproachStatistics.Modules
             }
 
             List<vault> result = new List<vault>();
-            List<vault> includeLocation = new List<vault>();
+            
             for (int i = 0; i < locations.Count; i++)
             {
+                List<vault> includeLocation = new List<vault>();
                 foreach (vault newVault in list)
                 {
                     if (newVault.location == null)

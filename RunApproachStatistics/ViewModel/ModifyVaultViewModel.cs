@@ -47,8 +47,6 @@ namespace RunApproachStatistics.ViewModel
         private List<int> vaultNumberIds;
         private List<int> vaultKindIds;
 
-        private List<vault> vaults;
-
         //Splitted names
         private String name;
         private String surnamePrefix;
@@ -369,7 +367,6 @@ namespace RunApproachStatistics.ViewModel
             thumbnailCollection = new ObservableCollection<ThumbnailViewModel>();
             if (vaults == null)
             {
-                thumbnailCollection = new ObservableCollection<ThumbnailViewModel>();
                 vaults = new List<vault>();
                 vaults = vaultModule.getVaults();
             }
@@ -396,7 +393,13 @@ namespace RunApproachStatistics.ViewModel
                     thumbnailCollection[i].Gymnast = vaults[i].gymnast.name + " " + (vaults[i].gymnast.surname_prefix != null ? vaults[i].gymnast.surname_prefix + " " : "") + vaults[i].gymnast.surname;
                 }
             }
+
+            for (int i = 0; i < thumbnailCollection.Count; i++)
+            {
+                thumbnailCollection[i].Vault = vaultModule.read(thumbnailCollection[i].Vault.vault_id);
+            }
             OnPropertyChanged("ThumbnailCollection");
+            OnPropertyChanged("FilterList");
 
         }
 
@@ -413,11 +416,12 @@ namespace RunApproachStatistics.ViewModel
                 }
                 else
                 {
-                    
                     thumbnailCollection[i].Gymnast = thumbnailCollection[i].Vault.gymnast.name + " " + (thumbnailCollection[i].Vault.gymnast.surname_prefix != null ? thumbnailCollection[i].Vault.gymnast.surname_prefix + " " : "") + thumbnailCollection[i].Vault.gymnast.surname;
                 }
             }
         }
+
+        
 
         private void setProperties()
         {
@@ -584,15 +588,6 @@ namespace RunApproachStatistics.ViewModel
 
         private void saveInfo()
         {
-            // Save Gymnast
-            /*if (Gymnast == null || Gymnast.Equals("") || GetErrorArr("Gymnast") != null)
-            {
-                SelectedThumbnails[0].Vault.gymnast = null;
-            }
-            else
-            {
-                SelectedThumbnails[0].Vault.gymnast_id = gymnastIds[Gymnasts.IndexOf(Gymnast)];
-            }*/
             for (int i = 0; i < SelectedThumbnails.Count; i++)
             {
                 if (VaultKind != "")
@@ -697,11 +692,17 @@ namespace RunApproachStatistics.ViewModel
             OnPropertyChanged("SelectedThumbnails");
             if (kind == "POST")
             {
+                // TODO : test
                 setMeasuredVaults(ThumbnailCollection);
             }
             else if (kind == "SELECT")
             {
-                setData(null);
+                List<vault> tempVaults = new List<vault>();
+                foreach(ThumbnailViewModel thumb in ThumbnailCollection)
+                {
+                    tempVaults.Add(thumb.Vault);
+                }
+                setData(tempVaults);
             }
         }
         public void DeleteAction(object commandParam)
@@ -727,7 +728,7 @@ namespace RunApproachStatistics.ViewModel
             MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure?", "Delete Confirmation", MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
             {
-                for (int i = 0; i < SelectedThumbnails.Count; i++)
+                for (int i = (SelectedThumbnails.Count -1); i >= 0; i--)
                 {
                     vaultModule.delete(SelectedThumbnails[i].Vault.vault_id);
                     thumbnailCollection.Remove(SelectedThumbnails[i]);
@@ -737,8 +738,6 @@ namespace RunApproachStatistics.ViewModel
 
         public void SaveAction(object commandParam)
         {
-            //solution for multiple vaults
-            //SelectedThumbnail.Vault.rating_star = ratingVM.RatingValue;
             saveInfo();
             for (int i = 0; i < SelectedThumbnails.Count; i++)
             {
@@ -753,9 +752,13 @@ namespace RunApproachStatistics.ViewModel
             }
             else if(kind == "SELECT")
             {
-                setData(null);
+                List<vault> tempVaults = new List<vault>();
+                foreach (ThumbnailViewModel thumb in ThumbnailCollection)
+                {
+                    tempVaults.Add(thumb.Vault);
+                }
+                setData(tempVaults);
             }
-            
             OnPropertyChanged("SelectedThumbnails");
         }
 
