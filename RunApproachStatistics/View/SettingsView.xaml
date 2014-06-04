@@ -26,12 +26,12 @@
             <Label HorizontalAlignment="Left" Height="34" Width="140" FontSize="18" Content="Mean Value" Margin="12,87,0,0" VerticalAlignment="Top"/>
             <TextBox x:Name="meanBox"  FontSize="18" Text="{Binding Path=MeanValue, ValidatesOnNotifyDataErrors=True}" Height="34" Margin="158,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="180" Style="{StaticResource textBoxInError}" />
             <Label HorizontalAlignment="Left" FontSize="18" Height="34" Content="Camera position" Margin="12,126,0,0" Width="140" VerticalAlignment="Top"/>
-            <ComboBox x:Name="positionBox" FontSize="18" HorizontalAlignment="Left" Margin="158,126,0,0" VerticalAlignment="Top" Height="34" Width="180" SelectedIndex="0">
+            <ComboBox x:Name="positionBox" FontSize="18" HorizontalAlignment="Left" Margin="158,126,0,0" VerticalAlignment="Top" Height="34" Width="180" SelectedIndex="{Binding Path=SelectedMeasurementPositionIndex, Mode=TwoWay}">
                 <ComboBoxItem Content="Back"/>
                 <ComboBoxItem Content="Front"/>
             </ComboBox>
             <Label HorizontalAlignment="Left" Height="34" Width="140" Content="Measurements" FontSize="18" Margin="12,165,0,0" VerticalAlignment="Top"/>
-            <ComboBox x:Name="measurementBox" FontSize="18" HorizontalAlignment="Left" Margin="158,165,0,0" VerticalAlignment="Top" Width="180" Height="34" SelectedIndex="{Binding Path=MeasurementIndex}">
+            <ComboBox x:Name="measurementBox" FontSize="18" HorizontalAlignment="Left" Margin="158,165,0,0" VerticalAlignment="Top" Width="180" Height="34" SelectedIndex="{Binding Path=MeasurementIndex, Mode=TwoWay}">
                 <ComboBoxItem Content="Distance + Speed"/>
                 <ComboBoxItem Content="Distance"/>
             </ComboBox>
@@ -55,11 +55,14 @@
             <Label HorizontalAlignment="Left" Content="m" FontSize="18" Margin="226,327,0,0" VerticalAlignment="Top"/>
             <Button Content="Calibrate" FontSize="18" Command="{Binding CalibrateMaximumDistance}" HorizontalAlignment="Left" Margin="258,327,0,0" Width="80" Height="34" VerticalAlignment="Top" />
             <!-- End Measurement Screen-->
-
+            <!-- Comport XAML -->
+            <Label Content="Lasercamera port" HorizontalAlignment="Left" FontSize="18" Margin="394,48,0,0" VerticalAlignment="Top" Width="158" Height="32"/>
+            <ComboBox HorizontalAlignment="Left" Margin="557,48,0,0" VerticalAlignment="Top" Width="308" Height="34" ItemsSource="{Binding ComPorts}" SelectedItem="{Binding SelectedComportIndex}"/>
+            
             <!-- Camera XAML -->
-            <ComboBox x:Name="videocameraBox" Height="34" FontSize="18" HorizontalAlignment="Right" Margin="0,48,10,0" VerticalAlignment="Top" Width="408" SelectedIndex="{Binding Path=SelectedCameraIndex, Mode=TwoWay}" ItemsSource="{Binding Path=Devices}" />
-            <Label Content="Camera" FontSize="18" HorizontalAlignment="Right" Margin="0,48,423,0" VerticalAlignment="Top"/>
-            <ContentControl x:Name="cameraView" Content="{Binding Path=CameraView}" Height="274" VerticalAlignment="Top" HorizontalAlignment="Right" Width="471" Margin="0,87,10,0" Background="Black" />
+            <ComboBox x:Name="videocameraBox" Height="34" FontSize="18" HorizontalAlignment="Right" Margin="0,98,10,0" VerticalAlignment="Top" Width="308" SelectedIndex="{Binding Path=SelectedCameraIndex, Mode=TwoWay}" ItemsSource="{Binding Path=Devices}" />
+            <Label Content="Camera" FontSize="18" HorizontalAlignment="Right" Margin="0,98,410,0" VerticalAlignment="Top"/>
+            <ContentControl x:Name="cameraView" Content="{Binding Path=CameraView}" Height="274" VerticalAlignment="Top" HorizontalAlignment="Right" Width="471" Margin="0,137,10,0" Background="Black" />
             <!-- End Camera XAML -->
 
             <!-- Window Buttons XAML -->
@@ -79,10 +82,12 @@
                 </Button.CommandParameter>
             </Button>
             <Button Command="{Binding CancelCommand}" Content="Cancel" Height="28" HorizontalAlignment="Right" FontSize="18" Margin="0,422,10,10" Width="114"/>
-            <Button Command="{Binding ShowLocationEditerCommand}" Content="Location editor" FontSize="18" HorizontalAlignment="Left" Margin="10,383,0,0" VerticalAlignment="Top" Width="180" Height="28"/>
-            <Button Command="{Binding ShowVaultNumberEditerCommand}" Content="Vault number editor" FontSize="18" HorizontalAlignment="Left" Margin="211,383,0,0" VerticalAlignment="Top" Width="180" Height="28"/>
-            <Button Command="{Binding ClearLocalDataCommand}" Content="Clear local data" FontSize="18" HorizontalAlignment="Left" Margin="10,422,0,0" VerticalAlignment="Top" Width="180" Height="28"/>
-            <Button Command="{Binding ShowVaultKindEditorCommand}" Content="Vault kind editor" FontSize="18" HorizontalAlignment="Left" Margin="211,422,0,0" VerticalAlignment="Top" Width="180" Height="28"/>
+            <Button Command="{Binding ShowLocationEditerCommand}" Content="Locations" FontSize="18" HorizontalAlignment="Left" Margin="10,422,0,0" VerticalAlignment="Top" Width="104" Height="28"/>
+            <Button Command="{Binding ShowVaultNumberEditerCommand}" Content="Vault number" FontSize="18" HorizontalAlignment="Left" Margin="258,422,0,0" VerticalAlignment="Top" Width="129" Height="28"/>
+            <Button Command="{Binding ClearLocalDataCommand}" Content="Clear local data" FontSize="18" HorizontalAlignment="Left" Margin="443,422,0,0" VerticalAlignment="Top" Width="153" Height="28"/>
+            <Button Command="{Binding ShowVaultKindEditorCommand}" Content="Vault event" FontSize="18" HorizontalAlignment="Left" Margin="125,422,0,0" VerticalAlignment="Top" Width="123" Height="28"/>
+            <Label Content="Editors" HorizontalAlignment="Left" FontSize="18" Margin="12,383,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.474,0.5"/>
+            
             <!-- End Window Buttons-->
         </Grid>
     </Viewbox>

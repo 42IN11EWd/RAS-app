@@ -48,5 +48,27 @@ namespace RunApproachStatistics.Modules
         {
             return settings.MeasurementIndex;
         }
+
+        public void setMeasurementPosition(int measurementPosition)
+        {
+            settings.MeasurementPosition = measurementPosition;
+            settings.Save();
+        }
+
+        public int getMeasurementPosition()
+        {
+            return settings.MeasurementPosition;
+        }
+
+        public void setComPortIndex(int comportIndex)
+        {
+            settings.ComportIndex = comportIndex;
+            settings.Save();
+        }
+
+        public int getComPortIndex()
+        {
+            return settings.ComportIndex;
+        }
     }
 }

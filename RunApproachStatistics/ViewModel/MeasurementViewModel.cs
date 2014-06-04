@@ -427,21 +427,6 @@ namespace RunApproachStatistics.ViewModel
 
             RectangleColor = "White";
 
-            //load autocompletion data
-            /*
-            VaultKinds      = vaultModule.getVaultKindNames();
-            vaultKindIds    = vaultModule.getVaultKindIds();
-
-            Locations       = vaultModule.getLocationNames();
-            locationIds     = vaultModule.getLocationIds();
-
-            Gymnasts        = vaultModule.getGymnastNames();
-            gymnastIds      = vaultModule.getGymnastIds();
-
-            VaultNumbers    = vaultModule.getVaultNumberNames();
-            vaultNumberIds  = vaultModule.getVaultNumberIds();
-            */
-
             gymnastList     = vaultModule.getGymnasts();
             vaultNumberList = vaultModule.getVaultNumbers();
             vaultKindList   = vaultModule.getVaultKinds();
