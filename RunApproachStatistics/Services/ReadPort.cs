@@ -245,7 +245,6 @@ namespace RunApproachStatistics.Services
             {
 
             }
-
             return dynamicBuffer[dynamicBuffer.Count - 1];
         }
     }

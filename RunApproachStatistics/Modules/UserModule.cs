@@ -25,15 +25,19 @@ namespace RunApproachStatistics.Modules
         {
             using (var db = new DataContext())
             {
-                db.gymnast.Add(gymnast);
+                bool dbexist = db.Database.Exists();
+                if (dbexist == true)
+                {
+                    db.gymnast.Add(gymnast);
 
-                try
-                {
-                    db.SaveChanges();
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                    }
                 }
             }
         }
@@ -54,32 +58,36 @@ namespace RunApproachStatistics.Modules
         {
             using (var db = new DataContext())
             {
-                var query = from qGymnast in db.gymnast
-                            where qGymnast.gymnast_id == gymnast.gymnast_id
-                            select qGymnast;
+                bool dbexist = db.Database.Exists();
+                if (dbexist == true)
+                {
+                    var query = from qGymnast in db.gymnast
+                                where qGymnast.gymnast_id == gymnast.gymnast_id
+                                select qGymnast;
 
-                foreach(gymnast eGymnast in query)
-                {
-                    eGymnast.turnbondID = gymnast.turnbondID;
-                    eGymnast.gender = gymnast.gender;
-                    eGymnast.nationality = gymnast.nationality;
-                    eGymnast.length = gymnast.length;
-                    eGymnast.weight = gymnast.weight;
-                    eGymnast.picture = gymnast.picture;
-                    eGymnast.birthdate = gymnast.birthdate;
-                    eGymnast.name = gymnast.name;
-                    eGymnast.surname = gymnast.surname;
-                    eGymnast.surname_prefix = gymnast.surname_prefix;
-                    eGymnast.note = gymnast.note;
-                }
+                    foreach (gymnast eGymnast in query)
+                    {
+                        eGymnast.turnbondID = gymnast.turnbondID;
+                        eGymnast.gender = gymnast.gender;
+                        eGymnast.nationality = gymnast.nationality;
+                        eGymnast.length = gymnast.length;
+                        eGymnast.weight = gymnast.weight;
+                        eGymnast.picture = gymnast.picture;
+                        eGymnast.birthdate = gymnast.birthdate;
+                        eGymnast.name = gymnast.name;
+                        eGymnast.surname = gymnast.surname;
+                        eGymnast.surname_prefix = gymnast.surname_prefix;
+                        eGymnast.note = gymnast.note;
+                    }
 
-                try
-                {
-                    db.SaveChanges();
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                    }
                 }
             }
         }
@@ -88,22 +96,26 @@ namespace RunApproachStatistics.Modules
         {
             using (var db = new DataContext())
             {
-                var query = from qGymnast in db.gymnast
-                            where qGymnast.gymnast_id == id
-                            select qGymnast;
+                bool dbexist = db.Database.Exists();
+                if (dbexist == true)
+                {
+                    var query = from qGymnast in db.gymnast
+                                where qGymnast.gymnast_id == id
+                                select qGymnast;
 
-                foreach (gymnast eGymnast in query)
-                {
-                    eGymnast.deleted = true;
-                }
+                    foreach (gymnast eGymnast in query)
+                    {
+                        eGymnast.deleted = true;
+                    }
 
-                try
-                {
-                    db.SaveChanges();
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                    }
                 }
             }
         }
@@ -112,10 +124,16 @@ namespace RunApproachStatistics.Modules
         {
             using (var db = new DataContext())
             {
-                return (from qGymnast in db.gymnast
-                        where qGymnast.deleted == false
-                        select qGymnast
-                ).ToList();
+                bool dbexist = db.Database.Exists();
+                if (dbexist == true)
+                {
+                    return (from qGymnast in db.gymnast
+                            where qGymnast.deleted == false
+                            select qGymnast
+                    ).ToList();
+                }
+                List<gymnast> list = new List<gymnast>();
+                return list;
             }
         }
 
@@ -126,16 +144,20 @@ namespace RunApproachStatistics.Modules
             Boolean correctLoginVariables = false;
             using (var db = new DataContext())
             {
-                var query = from qUser in db.user
-                            where qUser.username == username && qUser.password == password
-                            select qUser;
-                
-                foreach (user eUser in query)
+                bool dbexist = db.Database.Exists();
+                if (dbexist == true)
                 {
-                    if (eUser != null)
+                    var query = from qUser in db.user
+                                where qUser.username == username && qUser.password == password
+                                select qUser;
+
+                    foreach (user eUser in query)
                     {
-                        _isLoggedIn = true;
-                        correctLoginVariables = true;
+                        if (eUser != null)
+                        {
+                            _isLoggedIn = true;
+                            correctLoginVariables = true;
+                        }
                     }
                 }
             }

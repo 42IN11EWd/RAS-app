@@ -307,12 +307,7 @@ namespace RunApproachStatistics
             {
                 if (!isConnected)
                 {
-                    MessageBoxResult result = MessageBox.Show("No active network connection could be found. The application will shut down.\n\nPlease connect to the internet then restart the application.", "Not connected to the internet", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-
-                    if (result == MessageBoxResult.OK)
-                    {
-                        Environment.Exit(0);
-                    }
+                    MessageBoxResult result = MessageBox.Show("No active network connection could be found.\r\n Some functionalities will not be available", "Not connected to the internet", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 }
             }
         }

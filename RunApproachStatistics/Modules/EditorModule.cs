@@ -16,22 +16,26 @@ namespace RunApproachStatistics.Modules
         {
             using (var db = new DataContext())
             {
-                var query = from qlocation in db.location
-                            where qlocation.location_id == id
-                            select qlocation;
+                bool dbexist = db.Database.Exists();
+                if (dbexist == true)
+                {
+                    var query = from qlocation in db.location
+                                where qlocation.location_id == id
+                                select qlocation;
 
-                foreach (location elocation in query)
-                {
-                    elocation.deleted = true;
-                }
+                    foreach (location elocation in query)
+                    {
+                        elocation.deleted = true;
+                    }
 
-                try
-                {
-                    db.SaveChanges();
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                    }
                 }
             }
         }
@@ -42,13 +46,17 @@ namespace RunApproachStatistics.Modules
 
             using (var db = new DataContext())
             {
-                var query = from qlocation in db.location
-                            where qlocation.deleted == false
-                            select qlocation;
-
-                foreach (location elocation in query)
+                bool dbexist = db.Database.Exists();
+                if (dbexist == true)
                 {
-                    locations.Add(elocation);
+                    var query = from qlocation in db.location
+                                where qlocation.deleted == false
+                                select qlocation;
+
+                    foreach (location elocation in query)
+                    {
+                        locations.Add(elocation);
+                    }
                 }
             }
 
@@ -59,15 +67,19 @@ namespace RunApproachStatistics.Modules
         {
             using (var db = new DataContext())
             {
-                db.location.Add(location);
+                bool dbexist = db.Database.Exists();
+                if (dbexist == true)
+                {
+                    db.location.Add(location);
 
-                try
-                {
-                    db.SaveChanges();
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                    }
                 }
             }
         }
@@ -77,23 +89,27 @@ namespace RunApproachStatistics.Modules
             {
                 using (var db = new DataContext())
                 {
-                    var query = from qlocation in db.location
-                                where qlocation.location_id == location.location_id
-                                select qlocation;
+                    bool dbexist = db.Database.Exists();
+                    if (dbexist == true)
+                    {
+                        var query = from qlocation in db.location
+                                    where qlocation.location_id == location.location_id
+                                    select qlocation;
 
-                    foreach (location elocation in query)
-                    {
-                        elocation.name = location.name;
-                        elocation.description = location.description;
-                    }
+                        foreach (location elocation in query)
+                        {
+                            elocation.name = location.name;
+                            elocation.description = location.description;
+                        }
 
-                    try
-                    {
-                        db.SaveChanges();
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e);
+                        try
+                        {
+                            db.SaveChanges();
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e);
+                        }
                     }
                 }
             }
@@ -108,22 +124,26 @@ namespace RunApproachStatistics.Modules
         {
             using (var db = new DataContext())
             {
-                var query = from qvaultnumber in db.vaultnumber
-                            where qvaultnumber.vaultnumber_id == id
-                            select qvaultnumber;
+                bool dbexist = db.Database.Exists();
+                if (dbexist == true)
+                {
+                    var query = from qvaultnumber in db.vaultnumber
+                                where qvaultnumber.vaultnumber_id == id
+                                select qvaultnumber;
 
-                foreach (vaultnumber evaultnumber in query)
-                {
-                    evaultnumber.deleted = true;
-                }
+                    foreach (vaultnumber evaultnumber in query)
+                    {
+                        evaultnumber.deleted = true;
+                    }
 
-                try
-                {
-                    db.SaveChanges();
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                    }
                 }
             }
         }
@@ -134,13 +154,17 @@ namespace RunApproachStatistics.Modules
 
             using (var db = new DataContext())
             {
-                var query = from qvaultnumber in db.vaultnumber
-                            where qvaultnumber.deleted == false
-                            select qvaultnumber;
-
-                foreach (vaultnumber evaultnumber in query)
+                bool dbexist = db.Database.Exists();
+                if (dbexist == true)
                 {
-                    vaultnumbers.Add(evaultnumber);
+                    var query = from qvaultnumber in db.vaultnumber
+                                where qvaultnumber.deleted == false
+                                select qvaultnumber;
+
+                    foreach (vaultnumber evaultnumber in query)
+                    {
+                        vaultnumbers.Add(evaultnumber);
+                    }
                 }
             }
             return vaultnumbers;
@@ -150,15 +174,19 @@ namespace RunApproachStatistics.Modules
         {
             using (var db = new DataContext())
             {
-                db.vaultnumber.Add(vaultnumber);
+                bool dbexist = db.Database.Exists();
+                if (dbexist == true)
+                {
+                    db.vaultnumber.Add(vaultnumber);
 
-                try
-                {
-                    db.SaveChanges();
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                    }
                 }
             }
         }

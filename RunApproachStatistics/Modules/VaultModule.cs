@@ -36,35 +36,39 @@ namespace RunApproachStatistics.Modules
         {
             using (var db = new DataContext())
             {
-                if (vault.gymnast != null)
+                bool dbexist = db.Database.Exists();
+                if (dbexist == true)
                 {
-                    db.gymnast.Attach(vault.gymnast);
-                }
+                    if (vault.gymnast != null)
+                    {
+                        db.gymnast.Attach(vault.gymnast);
+                    }
 
-                if (vault.location != null)
-                {
-                    db.location.Attach(vault.location);
-                }
+                    if (vault.location != null)
+                    {
+                        db.location.Attach(vault.location);
+                    }
 
-                if (vault.vaultkind != null)
-                {
-                    db.vaultkind.Attach(vault.vaultkind);
-                }
+                    if (vault.vaultkind != null)
+                    {
+                        db.vaultkind.Attach(vault.vaultkind);
+                    }
 
-                if (vault.vaultnumber != null)
-                {
-                    db.vaultnumber.Attach(vault.vaultnumber);
-                }
+                    if (vault.vaultnumber != null)
+                    {
+                        db.vaultnumber.Attach(vault.vaultnumber);
+                    }
 
-                db.vault.Add(vault);
+                    db.vault.Add(vault);
 
-                try
-                {
-                    db.SaveChanges();
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                    }
                 }
             }
         }
@@ -73,11 +77,17 @@ namespace RunApproachStatistics.Modules
         {
             using (var db = new DataContext())
             {
-                var query = (from qVault in db.vault.Include("gymnast").Include("vaultnumber").Include("location").Include("vaultkind")
-                             where qVault.vault_id == id
-                             select qVault).First();
-
-                return query;
+                ;
+                bool dbexist = db.Database.Exists();
+                if (dbexist == true)
+                {
+                    var query = (from qVault in db.vault.Include("gymnast").Include("vaultnumber").Include("location").Include("vaultkind")
+                                 where qVault.vault_id == id
+                                 select qVault).First();
+                    return query;
+                }
+                vault v = new vault();
+                return v;
             }
         }
 
@@ -85,28 +95,32 @@ namespace RunApproachStatistics.Modules
         {
             using (var db = new DataContext())
             {
-                var query = (from qVault in db.vault
-                             where qVault.vault_id == vault.vault_id
-                             select qVault).First();
-
-                query.gymnast_id = vault.gymnast_id;
-                query.timestamp = vault.timestamp;
-                query.vault_id = vault.vault_id;
-                query.location_id = vault.location_id;
-                query.vaultkind_id = vault.vaultkind_id;
-                query.vaultnumber_id = vault.vaultnumber_id;
-                query.rating_star = vault.rating_star;
-                query.rating_official_D = vault.rating_official_D;
-                query.rating_official_E = vault.rating_official_E;
-                query.penalty = vault.penalty;
-
-                try
+                bool dbexist = db.Database.Exists();
+                if (dbexist == true)
                 {
-                    db.SaveChanges();
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
+                    var query = (from qVault in db.vault
+                                 where qVault.vault_id == vault.vault_id
+                                 select qVault).First();
+
+                    query.gymnast_id = vault.gymnast_id;
+                    query.timestamp = vault.timestamp;
+                    query.vault_id = vault.vault_id;
+                    query.location_id = vault.location_id;
+                    query.vaultkind_id = vault.vaultkind_id;
+                    query.vaultnumber_id = vault.vaultnumber_id;
+                    query.rating_star = vault.rating_star;
+                    query.rating_official_D = vault.rating_official_D;
+                    query.rating_official_E = vault.rating_official_E;
+                    query.penalty = vault.penalty;
+
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                    }
                 }
             }
         }
@@ -115,19 +129,23 @@ namespace RunApproachStatistics.Modules
         {
             using (var db = new DataContext())
             {
-                var query = (from qVault in db.vault
-                             where qVault.vault_id == id
-                             select qVault).First();
-
-                query.deleted = true;
-
-                try
+                bool dbexist = db.Database.Exists();
+                if (dbexist == true)
                 {
-                    db.SaveChanges();
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
+                    var query = (from qVault in db.vault
+                                 where qVault.vault_id == id
+                                 select qVault).First();
+
+                    query.deleted = true;
+
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                    }
                 }
             }
         }
@@ -136,10 +154,16 @@ namespace RunApproachStatistics.Modules
         {
             using (var db = new DataContext())
             {
-                return (from qGymnast in db.gymnast
-                        where qGymnast.deleted == false
-                        select qGymnast
-                ).ToList();
+                bool dbexist = db.Database.Exists();
+                if (dbexist == true)
+                {
+                    return (from qGymnast in db.gymnast
+                            where qGymnast.deleted == false
+                            select qGymnast
+                    ).ToList();
+                }
+                List<gymnast> list = new List<gymnast>();
+                return list;
             }
         }
 
@@ -147,10 +171,16 @@ namespace RunApproachStatistics.Modules
         {
             using (var db = new DataContext())
             {
-                return (from qLocation in db.location
-                        where qLocation.deleted == false
-                        select qLocation
-                    ).ToList();
+                bool dbexist = db.Database.Exists();
+                if (dbexist == true)
+                {
+                    return (from qLocation in db.location
+                            where qLocation.deleted == false
+                            select qLocation
+                        ).ToList();
+                }
+                List<location> list = new List<location>();
+                return list;
             }
         }
 
@@ -158,10 +188,16 @@ namespace RunApproachStatistics.Modules
         {
             using (var db = new DataContext())
             {
-                return (from qVaultKinds in db.vaultkind
-                        where qVaultKinds.deleted == false
-                        select qVaultKinds
-                    ).ToList();
+                bool dbexist = db.Database.Exists();
+                if (dbexist == true)
+                {
+                    return (from qVaultKinds in db.vaultkind
+                            where qVaultKinds.deleted == false
+                            select qVaultKinds
+                        ).ToList();
+                }
+                List<vaultkind> list = new List<vaultkind>();
+                return list;
             }
         }
 
@@ -169,10 +205,16 @@ namespace RunApproachStatistics.Modules
         {
             using (var db = new DataContext())
             {
-                return (from qVaultNumbers in db.vaultnumber
-                        where qVaultNumbers.deleted == false
-                        select qVaultNumbers
-                    ).ToList();
+                bool dbexist = db.Database.Exists();
+                if (dbexist == true)
+                {
+                    return (from qVaultNumbers in db.vaultnumber
+                            where qVaultNumbers.deleted == false
+                            select qVaultNumbers
+                        ).ToList();
+                }
+                List<vaultnumber> list = new List<vaultnumber>();
+                return list;
             }
         }
 
@@ -180,10 +222,16 @@ namespace RunApproachStatistics.Modules
         {
             using (var db = new DataContext())
             {
-                return (from qVault in db.vault.Include("gymnast").Include("vaultkind").Include("vaultnumber").Include("location")
-                        where qVault.deleted == false
-                        select qVault
-                ).ToList();
+                bool dbexist = db.Database.Exists();
+                if (dbexist == true)
+                {
+                    return (from qVault in db.vault.Include("gymnast").Include("vaultkind").Include("vaultnumber").Include("location")
+                            where qVault.deleted == false
+                            select qVault
+                    ).ToList();
+                }
+                List<vault> list = new List<vault>();
+                return list;
             }
         }
 
@@ -191,10 +239,16 @@ namespace RunApproachStatistics.Modules
         {
             using (var db = new DataContext())
             {
-                return (from qVaultKind in db.vaultkind
-                        where qVaultKind.deleted == false
-                        select qVaultKind.name
-                ).ToList();
+                bool dbexist = db.Database.Exists();
+                if (dbexist == true)
+                {
+                    return (from qVaultKind in db.vaultkind
+                            where qVaultKind.deleted == false
+                            select qVaultKind.name
+                    ).ToList();
+                }
+                List<String> list = new List<String>();
+                return list;
             }
         }
 
@@ -202,10 +256,16 @@ namespace RunApproachStatistics.Modules
         {
             using (var db = new DataContext())
             {
-                return (from qVaultKind in db.vaultkind
-                        where qVaultKind.deleted == false
-                        select qVaultKind.vaultkind_id
-                ).ToList();
+                bool dbexist = db.Database.Exists();
+                if (dbexist == true)
+                {
+                    return (from qVaultKind in db.vaultkind
+                            where qVaultKind.deleted == false
+                            select qVaultKind.vaultkind_id
+                    ).ToList();
+                }
+                List<int> list = new List<int>();
+                return list;
             }
         }
 
@@ -213,20 +273,32 @@ namespace RunApproachStatistics.Modules
         {
             using (var db = new DataContext())
             {
-                return (from qLocation in db.location
-                        where qLocation.deleted == false
-                        select qLocation.name
-                ).ToList();
+                bool dbexist = db.Database.Exists();
+                if (dbexist == true)
+                {
+                    return (from qLocation in db.location
+                            where qLocation.deleted == false
+                            select qLocation.name
+                    ).ToList();
+                }
+                List<String> list = new List<String>();
+                return list;
             }
         }
         public List<int> getLocationIds()
         {
             using (var db = new DataContext())
             {
-                return (from qLocation in db.location
-                        where qLocation.deleted == false
-                        select qLocation.location_id
-                ).ToList();
+                bool dbexist = db.Database.Exists();
+                if (dbexist == true)
+                {
+                    return (from qLocation in db.location
+                            where qLocation.deleted == false
+                            select qLocation.location_id
+                    ).ToList();
+                }
+                List<int> list = new List<int>();
+                return list;
             }
         }
 
@@ -234,20 +306,32 @@ namespace RunApproachStatistics.Modules
         {
             using (var db = new DataContext())
             {
-                return (from qGymnast in db.gymnast
-                        where qGymnast.deleted == false
-                        select qGymnast.name + (qGymnast.surname_prefix.Length > 0 ? " " + qGymnast.surname_prefix : "") + " " + qGymnast.surname
-                ).ToList();
+                bool dbexist = db.Database.Exists();
+                if (dbexist == true)
+                {
+                    return (from qGymnast in db.gymnast
+                            where qGymnast.deleted == false
+                            select qGymnast.name + (qGymnast.surname_prefix.Length > 0 ? " " + qGymnast.surname_prefix : "") + " " + qGymnast.surname
+                    ).ToList();
+                }
+                List<String> list = new List<String>();
+                return list;
             }
         }
         public List<int> getGymnastIds()
         {
             using (var db = new DataContext())
             {
-                return (from qGymnast in db.gymnast
-                        where qGymnast.deleted == false
-                        select qGymnast.gymnast_id
-                ).ToList();
+                bool dbexist = db.Database.Exists();
+                if (dbexist == true)
+                {
+                    return (from qGymnast in db.gymnast
+                            where qGymnast.deleted == false
+                            select qGymnast.gymnast_id
+                    ).ToList();
+                }
+                List<int> list = new List<int>();
+                return list;
             }
         }
 
@@ -255,10 +339,16 @@ namespace RunApproachStatistics.Modules
         {
             using (var db = new DataContext())
             {
-                return (from qVaultnumber in db.vaultnumber
-                        where qVaultnumber.deleted == false
-                        select qVaultnumber.code
-                ).ToList();
+                bool dbexist = db.Database.Exists();
+                if (dbexist == true)
+                {
+                    return (from qVaultnumber in db.vaultnumber
+                            where qVaultnumber.deleted == false
+                            select qVaultnumber.code
+                    ).ToList();
+                }
+                List<String> list = new List<String>();
+                return list;
             }
         }
 
@@ -266,10 +356,16 @@ namespace RunApproachStatistics.Modules
         {
             using (var db = new DataContext())
             {
-                return (from qVaultnumber in db.vaultnumber
-                        where qVaultnumber.deleted == false
-                        select qVaultnumber.vaultnumber_id
-                ).ToList();
+                bool dbexist = db.Database.Exists();
+                if (dbexist == true)
+                {
+                    return (from qVaultnumber in db.vaultnumber
+                            where qVaultnumber.deleted == false
+                            select qVaultnumber.vaultnumber_id
+                    ).ToList();
+                }
+                List<int> list = new List<int>();
+                return list;
             }
         }
 
@@ -357,18 +453,23 @@ namespace RunApproachStatistics.Modules
         {
             using (var db = new DataContext())
             {
-                var query = from qVault in db.vault
-                            where qVault.vaultnumber_id == id
-                            select qVault;
-
-                String data = String.Empty;
-
-                foreach (vault eVault in query)
+                bool dbexist = db.Database.Exists();
+                if (dbexist == true)
                 {
-                    data = eVault.graphdata;
-                }
+                    var query = from qVault in db.vault
+                                where qVault.vaultnumber_id == id
+                                select qVault;
 
-                return data;
+                    String data = String.Empty;
+
+                    foreach (vault eVault in query)
+                    {
+                        data = eVault.graphdata;
+                    }
+
+                    return data;
+                }
+                return " ";
             }
         }
 
