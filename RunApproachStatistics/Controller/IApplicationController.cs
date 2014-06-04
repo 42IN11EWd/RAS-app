@@ -38,6 +38,8 @@ namespace RunApproachStatistics.Controllers
 
         void ShowVaultSelectorView(RunApproachStatistics.Model.Entity.gymnast gymnast);
 
+        void RefreshThumbnailCollection();
+
         void ShowLocationEditorView();
 
         void ShowVaultNumberEditorView();

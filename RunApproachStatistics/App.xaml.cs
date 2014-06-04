@@ -196,9 +196,13 @@ namespace RunApproachStatistics
         {
             VaultSelectorViewModel vaultSelectorViewModel = new VaultSelectorViewModel(this);
             ModifyVaultViewModel modifyVaultViewModel = new ModifyVaultViewModel(this, "SELECT");
-            //modifyVaultViewModel.setFilter(gymnast);
             _setContent(vaultSelectorViewModel);
             vaultSelectorViewModel.Content = modifyVaultViewModel;
+        }
+
+        public void RefreshThumbnailCollection()
+        {
+            ((VaultSelectorViewModel)currentViewModel).RefreshList();
         }
 
         public void ShowLocationEditorView()
