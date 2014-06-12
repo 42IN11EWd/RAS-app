@@ -25,8 +25,8 @@
             <!-- Start filter -->
             <Border BorderBrush="Black" BorderThickness="1" Grid.Column="1" HorizontalAlignment="Right" Height="1080" VerticalAlignment="Center" Width="390">
                 <Grid>
-                    <TextBox FontSize="24" Height="38" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="200"/>
-                    <ComboBox FontSize="24" HorizontalAlignment="Left" Margin="209,10,0,0" SelectedItem="{Binding FilterType}" VerticalAlignment="Top" Width="169">
+                    <TextBox FontSize="24" Height="38" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="167"/>
+                    <ComboBox FontSize="24" HorizontalAlignment="Left" Margin="182,10,0,0" SelectedItem="{Binding FilterType}" VerticalAlignment="Top" Width="196">
                         <ComboBoxItem Content="Gymnast" IsSelected="True"/>
                         <ComboBoxItem Content="Location"/>
                         <ComboBoxItem Content="Vault Number"/>
