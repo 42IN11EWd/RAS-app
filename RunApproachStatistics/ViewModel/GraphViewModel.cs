@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace RunApproachStatistics.ViewModel
@@ -34,9 +35,13 @@ namespace RunApproachStatistics.ViewModel
         private float graphSeconds;
         private String graphData;
 
+        // Enable customization (show/hide second axis (default distance) and set name of first axis)
+        private Visibility hasSecondAxis;
+        private String axisTitle;
+
         public ObservableCollection<KeyValuePair<float, float>> DistanceArray
         {
-            get { return distanceArray;  }
+            get { return distanceArray; }
             set
             {
                 distanceArray = value;
@@ -46,7 +51,7 @@ namespace RunApproachStatistics.ViewModel
 
         public ObservableCollection<KeyValuePair<float, float>> SpeedArray
         {
-            get { return speedArray;  }
+            get { return speedArray; }
             set
             {
                 speedArray = value;
@@ -74,17 +79,43 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
+        public Visibility HasSecondAxis
+        {
+            get { return hasSecondAxis; }
+            set
+            {
+                hasSecondAxis = value;
+                OnPropertyChanged("HasSecondAxis");
+            }
+        }
+
+        public String AxisTitle
+        {
+            get { return axisTitle; }
+            set
+            {
+                axisTitle = value;
+                OnPropertyChanged("AxisTitle");
+            }
+        }
+
+        public Brush AxisTitleColor
+        {
+            get { return HasSecondAxis == Visibility.Visible ? Brushes.Blue : Brushes.Black; }
+        }
+
         public float GraphSeconds
         {
             get { return graphSeconds; }
-            set 
+            set
             {
                 graphSeconds = value;
                 OnPropertyChanged("GraphSeconds");
             }
         }
 
-        public GraphViewModel(IApplicationController app, AbstractViewModel chooseVM, Boolean isLive, int width) : base()
+        public GraphViewModel(IApplicationController app, AbstractViewModel chooseVM, Boolean isLive, int width)
+            : base()
         {
             _app = app;
 
@@ -118,6 +149,11 @@ namespace RunApproachStatistics.ViewModel
                 timer.Elapsed += new System.Timers.ElapsedEventHandler(this.timer_Elapsed);
                 timer.Start();
             }
+
+            // Setup default customization
+            HasSecondAxis = Visibility.Visible;
+            AxisTitle = "Distance";
+            OnPropertyChanged("AxisTitleColor");
         }
 
         private void timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
@@ -135,12 +171,12 @@ namespace RunApproachStatistics.ViewModel
             seconds += (float)0.5;
 
             Application.Current.Dispatcher.Invoke(new Action(() =>
-            {               
+            {
                 try
                 {
                     DistanceArray.Add(new KeyValuePair<float, float>(seconds, float.Parse(splitString[1], CultureInfo.InvariantCulture)));
                     SpeedArray.Add(new KeyValuePair<float, float>(seconds, float.Parse(splitString[0], CultureInfo.InvariantCulture)));
-                 }
+                }
                 catch (Exception ex)
                 {
                     DistanceArray.Add(new KeyValuePair<float, float>(seconds, float.Parse(splitString[0], CultureInfo.InvariantCulture)));
@@ -149,6 +185,52 @@ namespace RunApproachStatistics.ViewModel
                 OnPropertyChanged("DistanceArray");
                 OnPropertyChanged("SpeedArray");
             }));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type">Type of graph</param>
+        /// <param name="vault1Data">Data for player 1 (Red) of this particular type of graph</param>
+        /// <param name="vault2Data">Data for player 2 (Blue) of this particular type of graph</param>
+        public void setupSpecializedGraph(String type, String[] vault1Data, String[] vault2Data)
+        {
+            if (String.IsNullOrWhiteSpace(type) || !(type.Equals("Speed") || type.Equals("Distance")))
+            {
+                return;
+            }
+
+            HasSecondAxis = Visibility.Hidden;
+            AxisTitle = type;
+            OnPropertyChanged("AxisTitleColor");
+
+            SpeedArray = new ObservableCollection<KeyValuePair<float, float>>();
+            DistanceArray = new ObservableCollection<KeyValuePair<float, float>>();
+            double timePerMeasurementVault1 = GraphSeconds / vault1Data.Length;
+            double timePerMeasurementVault2 = GraphSeconds / vault2Data.Length;
+            float time = 0;
+
+            foreach (String vault1Measurement in vault1Data)
+            {
+                if (!String.IsNullOrWhiteSpace(vault1Measurement))
+                {
+                    SpeedArray.Add(new KeyValuePair<float, float>(time, float.Parse(vault1Measurement, CultureInfo.InvariantCulture)));
+                    time += (float)timePerMeasurementVault1;
+                }
+            }
+
+            time = 0;
+            foreach (String vault2Measurement in vault2Data)
+            {
+                if (!String.IsNullOrWhiteSpace(vault2Measurement))
+                {
+                    DistanceArray.Add(new KeyValuePair<float, float>(time, float.Parse(vault2Measurement, CultureInfo.InvariantCulture)));
+                    time += (float)timePerMeasurementVault2;
+                }
+            }
+
+            OnPropertyChanged("DistanceArray");
+            OnPropertyChanged("SpeedArray");
         }
 
         public void insertGraphData(String graphData)
