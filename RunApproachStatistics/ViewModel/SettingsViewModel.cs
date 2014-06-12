@@ -232,7 +232,6 @@ namespace RunApproachStatistics.ViewModel
 
             MeasurementIndex                 = laserCameraSettingsModule.getMeasurementIndex();
             SelectedMeasurementPositionIndex = laserCameraSettingsModule.getMeasurementPosition();
-            Selected
         }
 
         public void selectedCameraIndexChanged()

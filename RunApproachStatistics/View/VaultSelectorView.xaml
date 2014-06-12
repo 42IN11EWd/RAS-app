@@ -29,6 +29,7 @@
                     <ComboBox FontSize="24" HorizontalAlignment="Left" Margin="209,10,0,0" SelectedItem="{Binding FilterType}" VerticalAlignment="Top" Width="169">
                         <ComboBoxItem Content="Gymnast" IsSelected="True"/>
                         <ComboBoxItem Content="Location"/>
+                        <ComboBoxItem Content="Vault Number"/>
                     </ComboBox>
                     <ListBox FontSize="22" HorizontalAlignment="Left" Height="575" Margin="10,65,0,0" ItemsSource="{Binding Path=FilterItems}" SelectedItem="{Binding Path=SelectedFilterItem}" VerticalAlignment="Top" Width="368"/>
                     <Button Command="{Binding AddToFilterCommand}" Content="Add to filter" FontSize="24" Height="50" HorizontalAlignment="Right" Margin="0,650,10,378" Width="368"/>

@@ -544,165 +544,6 @@ namespace RunApproachStatistics.Modules
 
         #endregion
 
-        /*#region Filter methods
-        
-        /// <summary>
-        /// Filter that will filter vaults based on data and id's of gymnasts and locations.
-        /// The input is always the full list (automatic), and it will return the filtered list.
-        /// If a filter array is empty, it will pass the unfiltered list on to the next filter.
-        /// </summary>
-        /// <param name="dRatings">Array of d-ratings which should be in the final filtered list.</param>
-        /// <param name="eRatings">Array of e-ratings which should be in the final filtered list.</param>
-        /// <param name="gymnasts">Array of the id's of the gymnasts that should appear in the filtered list.</param>
-        /// <param name="locations">Array of the id's of the locations that should appear in the filtered list.</param>
-        /// <param name="timestamps">Array of datetimes the list should be filtered on.</param>
-        /// <returns>A filtered list of vaults.</returns>
-        public List<vault> filter(decimal[] dRatings, decimal[] eRatings, int[] gymnasts, int[] locations, DateTime[] timestamps)
-        {
-            return dRatingFilter(eRatingFilter(gymnastIdFilter(locationIdFilter(timestampFilter(getVaults(), timestamps), locations), gymnasts), eRatings), dRatings);
-        }
-
-        /// <summary>
-        /// Filter that will filter vaults based on data and names of gymnasts and locations.
-        /// The input is always the full list (automatic), and it will return the filtered list.
-        /// If a filter array is empty, it will pass the unfiltered list on to the next filter.
-        /// </summary>
-        /// <param name="dRatings">Array of d-ratings which should be in the final filtered list.</param>
-        /// <param name="eRatings">Array of e-ratings which should be in the final filtered list.</param>
-        /// <param name="gymnasts">Array of the names of gymnasts that should appear in the filtered list.</param>
-        /// <param name="locations">Array of the names of locations that should appear in the filtered list.</param>
-        /// <param name="timestamps">Array of datetimes the list should be filtered on.</param>
-        /// <returns>A filtered list of vaults.</returns>
-        public List<vault> filter(decimal[] dRatings, decimal[] eRatings, String[] gymnasts, String[] locations, DateTime[] timestamps)
-        {
-            return dRatingFilter(eRatingFilter(gymnastNameFilter(locationNameFilter(timestampFilter(getVaults(), timestamps), locations), gymnasts), eRatings), dRatings);
-        }
-
-        #region Filters
-
-        private List<vault> dRatingFilter(List<vault> list, decimal[] dRatings)
-        {
-            if (dRatings.Length == 0)
-            {
-                return list;
-            }
-
-            List<vault> result = new List<vault>();
-
-            for (int i = 0; i < dRatings.Length; i++)
-            {
-                result.AddRange(list.Where(x => x.rating_official_D == dRatings[i]).ToList());
-            }
-
-            return result;
-        }
-
-        private List<vault> eRatingFilter(List<vault> list, decimal[] eRatings)
-        {
-            if (eRatings.Length == 0)
-            {
-                return list;
-            }
-
-            List<vault> result = new List<vault>();
-
-            for (int i = 0; i < eRatings.Length; i++)
-            {
-                result.AddRange(list.Where(x => x.rating_official_E == eRatings[i]).ToList());
-            }
-
-            return result;
-        }
-
-        private List<vault> gymnastNameFilter(List<vault> list, String[] gymnasts)
-        {
-            if (gymnasts.Length == 0)
-            {
-                return list;
-            }
-
-            List<vault> result = new List<vault>();
-
-            for (int i = 0; i < gymnasts.Length; i++)
-            {
-                result.AddRange(list.Where(x => x.gymnast.name == gymnasts[i]).ToList());
-            }
-
-            return result;
-        }
-
-        private List<vault> gymnastIdFilter(List<vault> list, int[] gymnasts)
-        {
-            if (gymnasts.Length == 0)
-            {
-                return list;
-            }
-
-            List<vault> result = new List<vault>();
-
-            for (int i = 0; i < gymnasts.Length; i++)
-            {
-                result.AddRange(list.Where(x => x.gymnast_id == gymnasts[i]).ToList());
-            }
-
-            return result;
-        }
-
-        private List<vault> locationNameFilter(List<vault> list, String[] locations)
-        {
-            if (locations.Length == 0)
-            {
-                return list;
-            }
-
-            List<vault> result = new List<vault>();
-
-            for (int i = 0; i < locations.Length; i++)
-            {
-                result.AddRange(list.Where(x => x.location.name == locations[i]).ToList());
-            }
-
-            return result;
-        }
-
-        private List<vault> locationIdFilter(List<vault> list, int[] locations)
-        {
-            if (locations.Length == 0)
-            {
-                return list;
-            }
-
-            List<vault> result = new List<vault>();
-
-            for (int i = 0; i < locations.Length; i++)
-            {
-                result.AddRange(list.Where(x => x.location_id == locations[i]).ToList());
-            }
-
-            return result;
-        }
-
-        private List<vault> timestampFilter(List<vault> list, DateTime[] timestamps)
-        {
-            if (timestamps.Length == 0)
-            {
-                return list;
-            }
-
-            List<vault> result = new List<vault>();
-
-            for (int i = 0; i < timestamps.Length; i++)
-            {
-                result.AddRange(list.Where(x => x.timestamp == timestamps[i]).ToList());
-            }
-
-            return result;
-        }
-
-        #endregion
-
-        #endregion
-        */
         #region new Filter methods with List
 
         /// <summary>
@@ -732,9 +573,9 @@ namespace RunApproachStatistics.Modules
         /// <param name="locations">Array of the names of locations that should appear in the filtered list.</param>
         /// <param name="timestamps">Array of datetimes the list should be filtered on.</param>
         /// <returns>A filtered list of vaults.</returns>
-        public List<vault> filter(List<decimal> dRatings, List<decimal> eRatings, List<string> gymnasts, List<string> locations)
+        public List<vault> filter(List<decimal> dRatings, List<decimal> eRatings, List<string> gymnasts, List<string> locations, List<string> vaultNumbers)
         {
-            return dRatingFilter(eRatingFilter(gymnastNameFilter(locationNameFilter(getVaults(), locations), gymnasts), eRatings), dRatings);
+            return dRatingFilter(eRatingFilter(gymnastNameFilter(locationNameFilter(vaultNumberCodeFilter(getVaults(), vaultNumbers), locations), gymnasts), eRatings), dRatings);
         }
 
         #region Filters
@@ -868,22 +709,34 @@ namespace RunApproachStatistics.Modules
             return result;
         }
 
-        /* private List<vault> timestampFilter(List<vault> list, DateTime[] timestamps)
-         {
-             if (timestamps.Length == 0)
-             {
-                 return list;
-             }
+        private List<vault> vaultNumberCodeFilter(List<vault> list, List<string> vaultNumbers)
+        {
+            if(vaultNumbers.Count == 0)
+            {
+                return list;
+            }
 
-             List<vault> result = new List<vault>();
+            List<vault> result = new List<vault>();
 
-             for (int i = 0; i < timestamps.Length; i++)
-             {
-                 result.AddRange(list.Where(x => x.timestamp == timestamps[i]).ToList());
-             }
+            for(int i = 0; i < vaultNumbers.Count; i++)
+            {
+                List<vault> includeVaultnumbers = new List<vault>();
+                foreach (vault newVault in list)
+                {
+                    if (newVault.vaultnumber == null)
+                    {
 
-             return result;
-         }*/
+                    }
+                    else if (newVault.vaultnumber.code != null || newVault.vaultnumber.code != "")
+                    {
+                        includeVaultnumbers.Add(newVault);
+                    }
+                }
+                result.AddRange(includeVaultnumbers.Where(x => x.vaultnumber.code == vaultNumbers[i]).ToList());
+            }
+
+            return result;
+        }
         #endregion
         #endregion
     }

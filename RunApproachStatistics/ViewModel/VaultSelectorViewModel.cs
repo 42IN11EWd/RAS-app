@@ -44,6 +44,7 @@ namespace RunApproachStatistics.ViewModel
         // List for all sort of info
         private List<gymnast> gymnastList;
         private ObservableCollection<location> locationList;
+        private ObservableCollection<vaultnumber> vaultNumberList;
         private ObservableCollection<Rating> ratingList; // later on
         
         #region Modules
@@ -51,6 +52,7 @@ namespace RunApproachStatistics.ViewModel
         private IVaultModule vaultModule = new VaultModule();
         private UserModule userModule = new UserModule(); // list of all gymnasts
         private ILocationModule locationModule = new EditorModule();
+        private IVaultnumberModule vaultNumberModule = new EditorModule();
 
         #endregion
 
@@ -400,6 +402,7 @@ namespace RunApproachStatistics.ViewModel
             // get all info on startup of this viewmodel
             gymnastList = userModule.getGymnastCollection();
             locationList = locationModule.readLocations();
+            vaultNumberList = vaultNumberModule.readVaultnumbers();
             FilterText = "";
             filterList = new ObservableCollection<string>();
 
@@ -458,6 +461,18 @@ namespace RunApproachStatistics.ViewModel
                         if (tempLocationName.ToLower().Contains(FilterText.ToLower()))
                         {
                             filterItems.Add(tempLocationName);
+                        }
+                    }
+                }
+                if(valueOfType[1].Equals("Vault"))
+                {
+                    filterItems.Clear();
+                    foreach(vaultnumber number in vaultNumberList)
+                    {
+                        String tempVaultnumber = number.code;
+                        if(tempVaultnumber.ToLower().Contains(FilterText.ToLower()))
+                        {
+                            filterItems.Add(tempVaultnumber);
                         }
                     }
                 }
@@ -556,6 +571,8 @@ namespace RunApproachStatistics.ViewModel
             Dictionary<string, string> categoryAndName = new Dictionary<string, string>();
             List<string> gymnastValues = new List<string>();
             List<string> locationValues = new List<string>();
+            List<string> vaultNumberValues = new List<string>();
+
             List<decimal> eRatings = new List<decimal>();
             List<decimal> dRatings = new List<decimal>();
 
@@ -574,9 +591,13 @@ namespace RunApproachStatistics.ViewModel
                 {
                     locationValues.Add(categoryAndName.ElementAt(j).Key);
                 }
+                else if(categoryAndName.ElementAt(j).Value.Equals("Vault"))
+                {
+                    vaultNumberValues.Add(categoryAndName.ElementAt(j).Key);
+                }
             }
-            
-            List<vault> newVaults = vaultModule.filter(dRatings, eRatings, gymnastValues, locationValues);
+
+            List<vault> newVaults = vaultModule.filter(dRatings, eRatings, gymnastValues, locationValues, vaultNumberValues);
             modifyVaultVM.setData(newVaults);
             OnPropertyChanged("ModifyViewModelControl");
         }

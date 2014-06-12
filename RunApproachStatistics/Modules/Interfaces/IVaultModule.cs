@@ -50,6 +50,6 @@ namespace RunApproachStatistics.Modules.Interfaces
 
         List<vault> filter(List<decimal> dRatings, List<decimal> eRatings, List<int> gymnasts, List<int> locations);
 
-        List<vault> filter(List<decimal> dRatings, List<decimal> eRatings, List<string> gymnasts, List<string> locations);
+        List<vault> filter(List<decimal> dRatings, List<decimal> eRatings, List<string> gymnasts, List<string> locations, List<string> vaultNumbers);
     }
 }
