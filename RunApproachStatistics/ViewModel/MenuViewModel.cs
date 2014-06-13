@@ -57,6 +57,7 @@ namespace RunApproachStatistics.ViewModel
                 PilotLaserTitle = "Set Pilot Laser On";
             }
             ToggleLaser = !ToggleLaser;
+            _app.TogglePilotLaser();
 
             OnPropertyChanged("PilotLaserTitle");
 

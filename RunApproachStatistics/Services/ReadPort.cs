@@ -64,6 +64,7 @@ namespace RunApproachStatistics.Services
                 result = result.Replace(",", "");
                 
                 float fResult = float.Parse(result, CultureInfo.InvariantCulture);
+                
                 return fResult;
             }
         }
@@ -241,11 +242,19 @@ namespace RunApproachStatistics.Services
 
         public String getLatestMeasurement()
         {
-            while (modifiyingBuffer)
+            try
             {
+                while (modifiyingBuffer)
+                {
 
+                }
+                return dynamicBuffer[dynamicBuffer.Count - 1];
             }
-            return dynamicBuffer[dynamicBuffer.Count - 1];
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return "0,0";
+            }
         }
     }
 }

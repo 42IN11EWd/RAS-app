@@ -30,7 +30,7 @@ namespace RunApproachStatistics.ViewModel
         private PortController          portController;
 
         private int                          selectedComportIndex;
-        private Dictionary<String, String>   comports;
+        private String[]            comports;
 
         private int         selectedCameraIndex;
         private String[]    devices;
@@ -100,9 +100,13 @@ namespace RunApproachStatistics.ViewModel
         {
             get
             {
-                return comports.Select(k => k.Value).ToArray();
+                return comports;
             }
-            set {}
+            set 
+            {
+                comports = value;
+                OnPropertyChanged("ComPorts");
+            }
         }
 
         public String MeasurementFrequency
@@ -217,10 +221,9 @@ namespace RunApproachStatistics.ViewModel
             openVideoSource(this.videoCameraController.CameraWindow);
             Devices = videoCameraController.Devices;
 
-            comports = new Dictionary<String, String>();
-
             setSettingsProperties();
             setValidationRules();
+            getComPortDevices();
         }
 
         private void setSettingsProperties()
@@ -257,21 +260,8 @@ namespace RunApproachStatistics.ViewModel
 
         public void getComPortDevices()
         {
-            using (var searcher = new ManagementObjectSearcher("SELECT * FROM WIN32_SerialPort"))
-            {
-                String[] portnames = SerialPort.GetPortNames();
-                var ports = searcher.Get().Cast<ManagementBaseObject>().ToList();
-                var tList = (from n in portnames
-                             join p in ports
-                             on n equals p["DeviceID"].ToString()
-                             select new KeyValuePair<String, String>(n, p["caption"].ToString()));
-
-                foreach (KeyValuePair<String, String> port in tList)
-                {
-                    comports.Add(port.Key, port.Value);
-                }
-                OnPropertyChanged("ComPorts");
-            }
+            comports = SerialPort.GetPortNames();
+            OnPropertyChanged("ComPorts");
         }
 
         #region Relay Commands
@@ -310,6 +300,9 @@ namespace RunApproachStatistics.ViewModel
                     // save measurement index
                     int measureIndex = Convert.ToInt32(commandParams[3]);
                     laserCameraSettingsModule.setMeasurementIndex(measureIndex);
+
+                    // save comport
+                    //laserCameraSettingsModule.setComPortIndex(comports.)
 
                     // Save selected videocamera
                     int cameraIndex = Convert.ToInt32(commandParams[6]);

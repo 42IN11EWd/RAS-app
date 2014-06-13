@@ -14,6 +14,7 @@ namespace RunApproachStatistics.Controllers
         /// <summary>
         /// Show the main screen
         /// </summary>
+        void TogglePilotLaser();
         void ShowMainScreen();
 
         void ShowHomeView();

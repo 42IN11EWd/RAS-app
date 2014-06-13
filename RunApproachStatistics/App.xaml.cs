@@ -324,5 +324,17 @@ namespace RunApproachStatistics
                 currentViewModel = viewModel;
             }
         }
+
+        public void TogglePilotLaser()
+        {
+            if(portController.PilotLaser == 0)
+            {
+                portController.PilotLaser = 1;
+            }
+            else
+            {
+                portController.PilotLaser = 0;
+            }
+        }
     }
 }

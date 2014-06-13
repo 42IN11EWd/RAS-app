@@ -60,13 +60,13 @@ namespace RunApproachStatistics.Modules
             return settings.MeasurementPosition;
         }
 
-        public void setComPortIndex(int comportIndex)
+        public void setComPortIndex(string comportIndex)
         {
             settings.ComportIndex = comportIndex;
             settings.Save();
         }
 
-        public int getComPortIndex()
+        public string getComPortIndex()
         {
             return settings.ComportIndex;
         }

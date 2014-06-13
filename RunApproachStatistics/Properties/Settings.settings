@@ -11,8 +11,8 @@
     <Setting Name="MeasurementPosition" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="ComportIndex" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+    <Setting Name="ComportIndex" Type="System.String" Scope="User">
+      <Value Profile="(Default)">COM1</Value>
     </Setting>
   </Settings>
 </SettingsFile>

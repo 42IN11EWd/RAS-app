@@ -23,7 +23,7 @@
                 <chartingToolkit:Chart.Axes>
                     <chartingToolkit:LinearAxis FontSize="{Binding SizeAxisTime}" x:Name="xAxis1" Orientation="X" Location="Bottom" Title="Time" Cursor="None" Interval="1" Maximum="{Binding Path=GraphSeconds}" Minimum="0"/>
                     <chartingToolkit:LinearAxis FontSize="{Binding SizeAxisDistance}" x:Name="yAxis1" Orientation="Y" Location="Left" Title="{Binding AxisTitle}" Foreground="{Binding AxisTitleColor}" ShowGridLines="True" Minimum="0" Maximum="30" Interval="5"/>
-                    <chartingToolkit:LinearAxis FontSize="{Binding SizeAxisSpeed}" Orientation="Y" Location="Right" Title="Speed" Foreground="Red" ShowGridLines="True" Interval="5" Maximum="15" HorizontalAlignment="Right" Width="33" Visibility="{Binding HasSecondAxis}"/>
+                    <chartingToolkit:LinearAxis FontSize="{Binding SizeAxisSpeed}" Orientation="Y" Location="Right" Title="Speed" Foreground="Red" ShowGridLines="True" Interval="5" Maximum="10" HorizontalAlignment="Right" Width="33" Visibility="{Binding HasSecondAxis}"/>
                 </chartingToolkit:Chart.Axes>
                 <chartingToolkit:Chart.LegendStyle>
                     <Style TargetType="{x:Type Control}">

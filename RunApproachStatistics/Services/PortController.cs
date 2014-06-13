@@ -65,7 +65,7 @@ namespace RunApproachStatistics.Services
                 {
                     while (!readPort.lastCommandReceived.Equals("PL"))
                     {
-                        Thread.Sleep(50);
+                        Thread.Sleep(150);
                         writePort.togglePilotLaser((value == 1) ? true : false);
                     }
                 }
@@ -200,7 +200,8 @@ namespace RunApproachStatistics.Services
                     while (!readPort.lastCommandReceived.Equals("SA"))
                     {
                         Thread.Sleep(10);
-                        writePort.setMeanValue((float)settings[1]);
+                        float mean = float.Parse(settings[1].ToString());
+                        writePort.setMeanValue(mean);
                     }
                 }
 
