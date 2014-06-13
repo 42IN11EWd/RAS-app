@@ -26,6 +26,9 @@ namespace RunApproachStatistics.ViewModel
         private ModifyVaultViewModel modifyVaultVM;
         private PropertyChangedBase modifyControl;
 
+        private bool dateVisibility;
+        private String selectedDate;
+
         private int starRating;
         private String[] vaultKind;
         private String filterText;
@@ -67,6 +70,8 @@ namespace RunApproachStatistics.ViewModel
 
         public RelayCommand AddToFilterCommand { get; private set; }
         //do not delete -----------------------------
+
+        public RelayCommand AddDateToFilterCommand { get; private set; }
         
         public PropertyChangedBase Content
         {
@@ -96,6 +101,26 @@ namespace RunApproachStatistics.ViewModel
             {
                 modifyControl = value;
                 OnPropertyChanged("ModifyViewModelControl");
+            }
+        }
+
+        public bool DateVisibility
+        {
+            get {  return dateVisibility; }
+            set
+            {
+                dateVisibility = value;
+                OnPropertyChanged("DateVisibility");
+            }
+        }
+
+        public String SelectedDate
+        {
+            get { return selectedDate; }
+            set
+            {
+                selectedDate = value;
+                OnPropertyChanged("SelectedDate");
             }
         }
 
@@ -399,6 +424,9 @@ namespace RunApproachStatistics.ViewModel
             this.Content = modifyVaultVM;
             modifyVaultVM.setData(null);
 
+            dateVisibility = false;
+            OnPropertyChanged("DateVisibility");
+
             // get all info on startup of this viewmodel
             gymnastList = userModule.getGymnastCollection();
             locationList = locationModule.readLocations();
@@ -441,7 +469,7 @@ namespace RunApproachStatistics.ViewModel
                 if (valueOfType[1].Equals("Gymnast"))
                 {
                     filterItems.Clear();
-
+                    dateVisibility = false;
                     foreach (gymnast gymnast in gymnastList)
                     {
                         String tempFullname = gymnast.name + (!String.IsNullOrWhiteSpace(gymnast.surname_prefix) ? " " + gymnast.surname_prefix + " " : " ") + gymnast.surname;
@@ -455,6 +483,7 @@ namespace RunApproachStatistics.ViewModel
                 if (valueOfType[1].Equals("Location"))
                 {
                     filterItems.Clear();
+                    dateVisibility = false;
                     foreach (location location in locationList)
                     {
                         String tempLocationName = location.name;
@@ -467,6 +496,7 @@ namespace RunApproachStatistics.ViewModel
                 if(valueOfType[1].Equals("Vault"))
                 {
                     filterItems.Clear();
+                    dateVisibility = false;
                     foreach(vaultnumber number in vaultNumberList)
                     {
                         String tempVaultnumber = number.code;
@@ -476,7 +506,14 @@ namespace RunApproachStatistics.ViewModel
                         }
                     }
                 }
+                if(valueOfType[1].Equals("Date"))
+                {
+                    filterItems.Clear();
+                    dateVisibility = true;
+                    OnPropertyChanged("DateVisibility");
+                }
             }
+            OnPropertyChanged("DateVisibility");
             OnPropertyChanged("FilterItems");
         }
 
@@ -549,21 +586,30 @@ namespace RunApproachStatistics.ViewModel
         public void AddToFilters(object commandParam)
         {
             string itemToFilter = selectedFilterItem;
-            string[] valueToFilter = filterType.Split(' ');
-            string checkDuplicates = valueToFilter[1] + ":" + itemToFilter;
-
-            foreach (String newFilter in filterList)
+            if (itemToFilter != null && itemToFilter != null)
             {
-                if (newFilter.Equals(checkDuplicates))
+                string[] valueToFilter = filterType.Split(' ');
+                string checkDuplicates = valueToFilter[1] + ":" + itemToFilter;
+
+                foreach (String newFilter in filterList)
                 {
-                    MessageBox.Show("Can't add the same filter, please choose antoher one.");
-                    return;
+                    if (newFilter.Equals(checkDuplicates))
+                    {
+                        MessageBox.Show("Can't add the same filter, please choose antoher one.");
+                        return;
+                    }
                 }
+                // no duplicates, add to list
+                filterList.Add(valueToFilter[1] + ":" + itemToFilter);
+                ShowFilteredThumbnails(filterList);
             }
-            // no duplicates, add to list
-            filterList.Add(valueToFilter[1] + ":" + itemToFilter);
-            ShowFilteredThumbnails(filterList);
             OnPropertyChanged("FilterList");
+        }
+
+        public void AddDateToFilter(object commandParam)
+        {
+            filterItems.Add(selectedDate.Split(' ')[0]);
+            OnPropertyChanged("FilterItems");
         }
 
         public void ShowFilteredThumbnails(ObservableCollection<string> itemsToFilter)
@@ -572,6 +618,7 @@ namespace RunApproachStatistics.ViewModel
             List<string> gymnastValues = new List<string>();
             List<string> locationValues = new List<string>();
             List<string> vaultNumberValues = new List<string>();
+            List<string> dateValues = new List<string>();
 
             List<decimal> eRatings = new List<decimal>();
             List<decimal> dRatings = new List<decimal>();
@@ -595,9 +642,13 @@ namespace RunApproachStatistics.ViewModel
                 {
                     vaultNumberValues.Add(categoryAndName.ElementAt(j).Key);
                 }
+                else if(categoryAndName.ElementAt(j).Value.Equals("Date"))
+                {
+                    dateValues.Add(categoryAndName.ElementAt(j).Key);
+                }
             }
 
-            List<vault> newVaults = vaultModule.filter(dRatings, eRatings, gymnastValues, locationValues, vaultNumberValues);
+            List<vault> newVaults = vaultModule.filter(dRatings, eRatings, gymnastValues, locationValues, vaultNumberValues,dateValues);
             modifyVaultVM.setData(newVaults);
             OnPropertyChanged("ModifyViewModelControl");
         }
@@ -612,6 +663,7 @@ namespace RunApproachStatistics.ViewModel
             CompareCommand = new RelayCommand(CompareAction);
             RemoveAllFiltersCommand = new RelayCommand(RemoveAllFilters);
             AddToFilterCommand = new RelayCommand(AddToFilters);
+            AddDateToFilterCommand = new RelayCommand(AddDateToFilter);
             SelectedItemsChangedCommand = new RelayCommand((thumbnails) =>
             {
                 if (thumbnails != null)

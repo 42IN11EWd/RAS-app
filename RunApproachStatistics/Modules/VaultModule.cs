@@ -573,9 +573,9 @@ namespace RunApproachStatistics.Modules
         /// <param name="locations">Array of the names of locations that should appear in the filtered list.</param>
         /// <param name="timestamps">Array of datetimes the list should be filtered on.</param>
         /// <returns>A filtered list of vaults.</returns>
-        public List<vault> filter(List<decimal> dRatings, List<decimal> eRatings, List<string> gymnasts, List<string> locations, List<string> vaultNumbers)
+        public List<vault> filter(List<decimal> dRatings, List<decimal> eRatings, List<string> gymnasts, List<string> locations, List<string> vaultNumbers, List<string> dateValues)
         {
-            return dRatingFilter(eRatingFilter(gymnastNameFilter(locationNameFilter(vaultNumberCodeFilter(getVaults(), vaultNumbers), locations), gymnasts), eRatings), dRatings);
+            return dRatingFilter(eRatingFilter(gymnastNameFilter(locationNameFilter(vaultNumberCodeFilter(dateFilter(getVaults(), dateValues), vaultNumbers), locations), gymnasts), eRatings), dRatings);
         }
 
         #region Filters
@@ -733,6 +733,35 @@ namespace RunApproachStatistics.Modules
                     }
                 }
                 result.AddRange(includeVaultnumbers.Where(x => x.vaultnumber.code == vaultNumbers[i]).ToList());
+            }
+
+            return result;
+        }
+
+        private List<vault> dateFilter(List<vault> list, List<string> dateValues)
+        {
+            if(dateValues.Count == 0)
+            {
+                return list;
+            }
+
+            List<vault> result = new List<vault>();
+
+            for (int i = 0; i < dateValues.Count; i++)
+            {
+                List<vault> includeVaultnumbers = new List<vault>();
+                foreach (vault newVault in list)
+                {
+                    if (newVault.timestamp == null)
+                    {
+
+                    }
+                    else if (newVault.timestamp != null)
+                    {
+                        includeVaultnumbers.Add(newVault);
+                    }
+                }
+                result.AddRange(includeVaultnumbers.Where(x => x.timestamp.ToString().Split(' ')[0] == dateValues[i]).ToList());
             }
 
             return result;

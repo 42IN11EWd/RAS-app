@@ -8,7 +8,24 @@
              mc:Ignorable="d" 
              d:DesignWidth="1920" d:DesignHeight="1080" Background="White">
     <Viewbox Stretch="Uniform">
-        <Grid Height="1080" Width="1920">
+        <StackPanel>
+            <StackPanel.Resources>
+                <Style TargetType="Calendar" x:Key="DateTimeCalendar">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Calendar">
+                                <Viewbox Height="360" Width="360">
+                                    <CalendarItem x:Name="PART_CalendarItem"
+                                        Background="{TemplateBinding Background}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"/>
+                                </Viewbox>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </StackPanel.Resources>
+           <Grid Height="1080" Width="1920">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition x:Name="MenuColumn" Width="325"/>
                 <ColumnDefinition x:Name="ContentColumn" Width="*" MinWidth="500"/>
@@ -25,13 +42,16 @@
             <!-- Start filter -->
             <Border BorderBrush="Black" BorderThickness="1" Grid.Column="1" HorizontalAlignment="Right" Height="1080" VerticalAlignment="Center" Width="390">
                 <Grid>
-                    <TextBox FontSize="24" Height="38" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="167"/>
-                    <ComboBox FontSize="24" HorizontalAlignment="Left" Margin="182,10,0,0" SelectedItem="{Binding FilterType}" VerticalAlignment="Top" Width="196">
+                    <TextBox FontSize="24" Height="38" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="179"/>
+                    <ComboBox FontSize="24" HorizontalAlignment="Left" Margin="194,10,0,0" SelectedItem="{Binding FilterType}" VerticalAlignment="Top" Width="184">
                         <ComboBoxItem Content="Gymnast" IsSelected="True"/>
                         <ComboBoxItem Content="Location"/>
                         <ComboBoxItem Content="Vault Number"/>
+                        <ComboBoxItem Content="Date"/>
                     </ComboBox>
-                    <ListBox FontSize="22" HorizontalAlignment="Left" Height="575" Margin="10,65,0,0" ItemsSource="{Binding Path=FilterItems}" SelectedItem="{Binding Path=SelectedFilterItem}" VerticalAlignment="Top" Width="368"/>
+                    <DatePicker SelectedDate="{Binding SelectedDate}" CalendarStyle="{StaticResource DateTimeCalendar}"  FontSize="24" Margin="10,53,127,982" IsEnabled="{Binding DateVisibility}"></DatePicker>
+                    <Button Command="{Binding AddDateToFilterCommand}" Content="Add date" Margin="266,53,10,984" IsEnabled="{Binding DateVisibility}" FontSize="24"></Button>
+                    <ListBox FontSize="22" HorizontalAlignment="Left" Height="539" Margin="10,101,0,0" ItemsSource="{Binding Path=FilterItems}" SelectedItem="{Binding Path=SelectedFilterItem}" VerticalAlignment="Top" Width="368"/>
                     <Button Command="{Binding AddToFilterCommand}" Content="Add to filter" FontSize="24" Height="50" HorizontalAlignment="Right" Margin="0,650,10,378" Width="368"/>
                     <ListBox FontSize="22" HorizontalAlignment="Left" Height="300" ItemsSource="{Binding FilterList}" SelectedItem="{Binding Path=SelectedExistingFilterItem}" Margin="10,710,0,0" VerticalAlignment="Top" Width="368" />
                     <Button Command="{Binding RemoveAllFiltersCommand}"        Content="Remove Filters"                FontSize="24" Height="50" HorizontalAlignment="Right"   Margin="0,0,10,10" VerticalAlignment="Bottom" Width="368"/>
@@ -41,5 +61,6 @@
             <!-- End filter -->
             <!-- END Column 1 -->
         </Grid>
+        </StackPanel>
     </Viewbox>
 </UserControl>
