@@ -336,8 +336,6 @@ namespace RunApproachStatistics.ViewModel
             RightIsEnabled = !RightIsEnabled;
         }
 
-        // Insert video control button methodes?
-
         public void MouseDown(object commandParam)
         {
             if (rightIsEnabled || leftIsEnabled)
@@ -382,6 +380,9 @@ namespace RunApproachStatistics.ViewModel
             Menu = menuViewModel;
 
             PlayButtonImage = playImage;
+
+            DistanceGraphView = new GraphViewModel(_app, this, false, 1000);
+            SpeedGraphView = new GraphViewModel(_app, this, false, 1000);
         }
 
         public void setVaultsToCompare(List<vault> vaults)
@@ -396,6 +397,48 @@ namespace RunApproachStatistics.ViewModel
             rightVideoView = new VideoViewModel(_app, null, this, vaults[1].videopath);
             rightVideoView.ToggleVideoControls(false);
 
+            String[][][] vaultsSpecialized = new String[vaults.Count][][]; // [vaultnumber][typenumber][measurementnumber], VN = 0 || 1. TN = 0 (Distance} || 1 (Speed). MN = Numeric (Aantal measurements)
+
+
+            for (int i = 0; i < vaults.Count; i++)
+            {
+
+                String[] measurements = vaults[i].graphdata.Split(',');
+                Boolean hasSpeed = measurements[0].Split(' ')[1] != null;
+
+                vaultsSpecialized[i] = new String[2][];
+                for (int j = 0; j < 2; j++)
+                {
+                    vaultsSpecialized[i][j] = new String[measurements.Length];
+                }
+
+                if (hasSpeed)
+                {
+                    for (int j = 0; j < measurements.Length; j++)
+                    {
+                        if (!String.IsNullOrWhiteSpace(measurements[j]))
+                        {
+                            String[] splitString = measurements[j].Split(' ');
+
+                            vaultsSpecialized[i][0][j] = splitString[0];
+                            vaultsSpecialized[i][1][j] = splitString[1];
+                        }
+                    }
+                }
+                else
+                {
+                    for (int j = 0; j < measurements.Length; j++)
+                    {
+                        if (!String.IsNullOrWhiteSpace(measurements[j]))
+                        {
+                            vaultsSpecialized[i][0][j] = measurements[j];
+                        }
+                    }
+                }
+            }
+
+            DistanceGraphView.setupSpecializedGraph("Distance", vaultsSpecialized[0][0], vaultsSpecialized[1][0]);
+            SpeedGraphView.setupSpecializedGraph("Speed", vaultsSpecialized[0][1], vaultsSpecialized[1][1]);
         }
 
         public void setVideoInfo()
@@ -403,7 +446,7 @@ namespace RunApproachStatistics.ViewModel
             // Set video settings
             double leftMax = leftVideoView.Maximum;
             double rightMax = rightVideoView.Maximum;
-            if(leftMax < rightMax)
+            if (leftMax < rightMax)
             {
                 Maximum = rightMax;
             }
@@ -411,10 +454,10 @@ namespace RunApproachStatistics.ViewModel
             {
                 Maximum = leftMax;
             }
-            TotalTime       = MillisecondsToTimespan(Maximum);
-            CurrentTime     = MillisecondsToTimespan(0);
+            TotalTime = MillisecondsToTimespan(Maximum);
+            CurrentTime = MillisecondsToTimespan(0);
             CurrentPosition = 0;
-            PlaybackSpeed   = 1.0;
+            PlaybackSpeed = 1.0;
             setSliderEnabled();
         }
 
@@ -444,7 +487,7 @@ namespace RunApproachStatistics.ViewModel
             String fullName = "Unknown gymnast";
             if (setVault.gymnast != null)
             {
-                fullName = setVault.gymnast.name + (!String.IsNullOrWhiteSpace(setVault.gymnast.surname_prefix) ? " " + 
+                fullName = setVault.gymnast.name + (!String.IsNullOrWhiteSpace(setVault.gymnast.surname_prefix) ? " " +
                                                     setVault.gymnast.surname_prefix + " " : " ") + setVault.gymnast.surname;
             }
             classType.GetProperty(side + "FullName").SetValue(this, fullName);
@@ -472,7 +515,8 @@ namespace RunApproachStatistics.ViewModel
             // langste gebruiken
             // graph  .updateGraphLength(duration);
 
-            
+            DistanceGraphView.updateGraphLength(duration);
+            SpeedGraphView.updateGraphLength(duration);
         }
 
         public void updateCurrentPosition(double seconds, Boolean videoIsPlaying)
@@ -490,6 +534,9 @@ namespace RunApproachStatistics.ViewModel
                     CurrentPosition = milliseconds;
                 }
             }
+
+            DistanceGraphView.updateSlider(seconds);
+            SpeedGraphView.updateSlider(seconds);
         }
 
         private void setSliderEnabled()
@@ -542,7 +589,7 @@ namespace RunApproachStatistics.ViewModel
                 leftVideoView.PlayMedia(null);
             }
 
-            if(leftVideoView.IsPlaying || rightVideoView.IsPlaying)
+            if (leftVideoView.IsPlaying || rightVideoView.IsPlaying)
             {
                 PlayButtonImage = pauseImage;
             }
@@ -564,22 +611,22 @@ namespace RunApproachStatistics.ViewModel
                 leftVideoView.StopMedia(null);
             }
 
-            CurrentTime     = MillisecondsToTimespan(0);
+            CurrentTime = MillisecondsToTimespan(0);
             CurrentPosition = 0;
             PlayButtonImage = playImage;
         }
 
         protected override void initRelayCommands()
         {
-            PlayClickCommand        = new RelayCommand(playVideo);
-            StopClickCommand        = new RelayCommand(stopVideo);
-            ForwardClickCommand     = new RelayCommand(forwardVideo);
-            BackwardClickCommand    = new RelayCommand(rewindVideo);
-            LeftSelectionCommand    = new RelayCommand(ToggleLeftSelection);
-            RightSelectionCommand   = new RelayCommand(ToggleRightSelection);
+            PlayClickCommand = new RelayCommand(playVideo);
+            StopClickCommand = new RelayCommand(stopVideo);
+            ForwardClickCommand = new RelayCommand(forwardVideo);
+            BackwardClickCommand = new RelayCommand(rewindVideo);
+            LeftSelectionCommand = new RelayCommand(ToggleLeftSelection);
+            RightSelectionCommand = new RelayCommand(ToggleRightSelection);
 
-            MouseUpCommand          = new RelayCommand(MouseUp);
-            MouseDownCommand        = new RelayCommand(MouseDown);
+            MouseUpCommand = new RelayCommand(MouseUp);
+            MouseDownCommand = new RelayCommand(MouseDown);
         }
     }
 }
