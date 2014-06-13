@@ -476,7 +476,7 @@ namespace RunApproachStatistics.ViewModel
                         }
                         else if (compareVaultsViewModel != null)
                         {
-                            compareVaultsViewModel.updateCurrentPosition(CurrentPosition / 1000);
+                            compareVaultsViewModel.updateCurrentPosition(CurrentPosition / 1000, this.IsPlaying);
                         }
                     }
                 }

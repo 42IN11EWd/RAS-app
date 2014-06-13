@@ -475,12 +475,17 @@ namespace RunApproachStatistics.ViewModel
             
         }
 
-        public void updateCurrentPosition(double seconds)
+        public void updateCurrentPosition(double seconds, Boolean videoIsPlaying)
         {
-            if (!dragging)
+            if (!dragging)    
             {
                 double milliseconds = (seconds * 1000);
-                if (milliseconds > CurrentPosition)
+
+                if (videoIsPlaying && currentPosition < milliseconds)
+                {
+                    CurrentPosition = milliseconds;
+                } 
+                else if (!videoIsPlaying && Math.Abs(milliseconds - currentPosition) > 5)
                 {
                     CurrentPosition = milliseconds;
                 }
@@ -493,7 +498,7 @@ namespace RunApproachStatistics.ViewModel
             {
                 SliderEnabled = true;
             }
-            else
+            else 
             {
                 SliderEnabled = false;
             }
