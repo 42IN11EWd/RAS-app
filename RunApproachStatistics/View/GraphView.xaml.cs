@@ -60,5 +60,13 @@ namespace RunApproachStatistics.View
             lineChart.ToolTip                   = toolTip;
             toolTip.IsOpen                      = true;           
         }
+
+        private void lineChart_MouseLeave(object sender, MouseEventArgs e)
+        {
+            if (toolTip.IsOpen)
+            {
+                toolTip.IsOpen = false;
+            }
+        }
     }
 }
