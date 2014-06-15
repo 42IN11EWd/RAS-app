@@ -17,23 +17,27 @@ namespace RunApproachStatistics.Services
 
         private float speed;
         private float distance;
+
         private Boolean isContinuousMeasurement;
+        private Boolean useSpeed;
+
         public PortEmulator(ReadPort readPort, PortController portController)
         {
             this.readPort = readPort;
             this.portController = portController;
         }
 
-        public void startEmulationMeasurement(Boolean isContinuousMeasurement)
+        public void startEmulationMeasurement(Boolean isContinuousMeasurement, Boolean useSpeed)
         {
             this.isContinuousMeasurement = isContinuousMeasurement;
-            measurementTimer = new Timer(this.measurementTimer_Tick);
+            this.useSpeed                = useSpeed;
+            measurementTimer             = new Timer(this.measurementTimer_Tick);
 
-            speed = 0;
+            speed    = 0;
             distance = portController.MeasurementWindowMin;
 
             int timeSpan = (int)(portController.MeasurementFrequency / portController.MeanValue);
-            timeSpan = 1000 / timeSpan;
+            timeSpan     = 1000 / timeSpan;
             measurementTimer.Change(new TimeSpan(0, 0, 0, 0, 0), new TimeSpan(0, 0, 0, 0, timeSpan));
         }
 
@@ -56,7 +60,14 @@ namespace RunApproachStatistics.Services
                 distance = portController.MeasurementWindowMin;
             }
             
-            line = "D " + String.Format(CultureInfo.InvariantCulture, "{0:0000.000}", speed) + "  " + String.Format(CultureInfo.InvariantCulture, "{0:0000.000}", distance);
+            if (useSpeed)
+            {
+                line = "D " + String.Format(CultureInfo.InvariantCulture, "{0:0000.000}", speed) + "  " + String.Format(CultureInfo.InvariantCulture, "{0:0000.000}", distance);
+            }
+            else
+            {
+                line = "D " + String.Format(CultureInfo.InvariantCulture, "{0:0000.000}", distance);
+            }
            
             readPort.checkReceivedData(line);
         }

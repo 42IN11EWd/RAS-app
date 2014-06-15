@@ -29,8 +29,8 @@ namespace RunApproachStatistics.ViewModel
         private VideoCameraController   videoCameraController;
         private PortController          portController;
 
-        private int                          selectedComportIndex;
-        private String[]            comports;
+        private int         selectedComportIndex;
+        private String[]    comports;
 
         private int         selectedCameraIndex;
         private String[]    devices;
@@ -221,9 +221,9 @@ namespace RunApproachStatistics.ViewModel
             openVideoSource(this.videoCameraController.CameraWindow);
             Devices = videoCameraController.Devices;
 
+            getComPortDevices();
             setSettingsProperties();
             setValidationRules();
-            getComPortDevices();
         }
 
         private void setSettingsProperties()
@@ -235,6 +235,12 @@ namespace RunApproachStatistics.ViewModel
 
             MeasurementIndex                 = laserCameraSettingsModule.getMeasurementIndex();
             SelectedMeasurementPositionIndex = laserCameraSettingsModule.getMeasurementPosition();
+
+            // Get comport index from name
+            String comportName   = laserCameraSettingsModule.getComPortName();
+            int comportIndex     = Array.IndexOf(comports, comportName);
+            comportIndex         = (comportIndex != -1) ? comportIndex : 0;
+            SelectedComportIndex = comportIndex;
         }
 
         public void selectedCameraIndexChanged()
@@ -261,6 +267,11 @@ namespace RunApproachStatistics.ViewModel
         public void getComPortDevices()
         {
             comports = SerialPort.GetPortNames();
+            if (comports.Length == 0)
+            {
+                comports = new String[] { "No usable comports found" };
+            }
+
             OnPropertyChanged("ComPorts");
         }
 
@@ -291,6 +302,7 @@ namespace RunApproachStatistics.ViewModel
                     // 4: Measurement window min
                     // 5: Measurement window max
                     // 6: videocamera index
+                    // 7: comport index
                     portController.writeSettings(commandParams);
 
                     // save measurement position
@@ -301,12 +313,13 @@ namespace RunApproachStatistics.ViewModel
                     int measureIndex = Convert.ToInt32(commandParams[3]);
                     laserCameraSettingsModule.setMeasurementIndex(measureIndex);
 
-                    // save comport
-                    //laserCameraSettingsModule.setComPortIndex(comports.)
-
                     // Save selected videocamera
                     int cameraIndex = Convert.ToInt32(commandParams[6]);
                     videoCameraSettingsModule.saveVideocameraIndex(cameraIndex);
+
+                    // save comport
+                    int comportIndex = Convert.ToInt32(commandParams[7]);
+                    laserCameraSettingsModule.setComPortName(comports[comportIndex]);
 
                     _app.CloseSettingsWindow();
                 }
@@ -329,12 +342,12 @@ namespace RunApproachStatistics.ViewModel
 
         private void calibrateMinimumDistance(object commandParam)
         {
-            MeasurementWindowMin = String.Format("{0:0000.000}", portController.calibrateMeasurementWindow());
+            MeasurementWindowMin = String.Format("{0:####.###}", portController.calibrateMeasurementWindow());
         }
 
         private void calibrateMaximumDistance(object commandParam)
         {
-            MeasurementWindowMax = String.Format("{0:0000.000}", portController.calibrateMeasurementWindow());
+            MeasurementWindowMax = String.Format("{0:####.###}", portController.calibrateMeasurementWindow());
         }
 
         private void ShowVaultNumberEditor(object commandParam)
