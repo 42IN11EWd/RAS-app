@@ -25,7 +25,7 @@
             <TextBox x:Name="frequencyBox" FontSize="18" Text="{Binding Path=MeasurementFrequency, ValidatesOnNotifyDataErrors=True}" HorizontalAlignment="Left" Height="34" Margin="158,48,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="180" Style="{StaticResource textBoxInError}" />
             <Label HorizontalAlignment="Left" Height="34" Width="140" FontSize="18" Content="Mean Value" Margin="12,87,0,0" VerticalAlignment="Top"/>
             <TextBox x:Name="meanBox"  FontSize="18" Text="{Binding Path=MeanValue, ValidatesOnNotifyDataErrors=True}" Height="34" Margin="158,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="180" Style="{StaticResource textBoxInError}" />
-            <Label HorizontalAlignment="Left" FontSize="18" Height="34" Content="Camera position" Margin="12,126,0,0" Width="140" VerticalAlignment="Top"/>
+            <Label HorizontalAlignment="Left" FontSize="18" Height="34" Content="Laser position" Margin="12,126,0,0" Width="140" VerticalAlignment="Top"/>
             <ComboBox x:Name="positionBox" FontSize="18" HorizontalAlignment="Left" Margin="158,126,0,0" VerticalAlignment="Top" Height="34" Width="180" SelectedIndex="{Binding Path=SelectedMeasurementPositionIndex, Mode=TwoWay}">
                 <ComboBoxItem Content="Back"/>
                 <ComboBoxItem Content="Front"/>
