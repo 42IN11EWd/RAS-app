@@ -41,7 +41,7 @@ namespace RunApproachStatistics.ViewModel
         {
             _app = app;
             PilotLaserTitle = "Set Pilot Laser On";
-            LogName = "Login";
+            LogName = _app.IsLoggedIn ? "Logout" : "Login";
         }
 
         #region RelayCommands
