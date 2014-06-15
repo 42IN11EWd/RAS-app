@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows;
+using System.Linq;
 
 namespace RunApproachStatistics.ViewModel
 {
@@ -51,6 +52,11 @@ namespace RunApproachStatistics.ViewModel
         private String name;
         private String surnamePrefix;
         private String surname;
+
+        private List<gymnast>       gymnastList;
+        private List<vaultnumber>   vaultNumberList;
+        private List<vaultkind>     vaultKindList;
+        private List<location>      locationsList;
 
         #region Modules
 
@@ -125,12 +131,26 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        public List<String> Gymnasts
+        /*public List<String> Gymnasts
         {
             get { return gymnasts; }
             set
             {
                 gymnasts = value;
+                OnPropertyChanged("Gymnasts");
+            }
+        }*/
+
+        public List<String> Gymnasts
+        {
+            get
+            {
+                return gymnastList
+                    .Select(g => g.name + (g.surname_prefix != null ? " " + g.surname_prefix : "") + " " + g.surname)
+                    .ToList();
+            }
+            set
+            {
                 OnPropertyChanged("Gymnasts");
             }
         }
@@ -162,13 +182,30 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        public List<String> VaultNumbers
+        /*public List<String> VaultNumbers
         {
             get { return vaultNumbers; }
             set
             {
                 vaultNumbers = value;
                 OnPropertyChanged("VaultNumbers");
+            }
+        }*/
+
+        public List<String> VaultNumbers
+        {
+            get { return vaultNumberList.Select(v => v.code).ToList(); }
+            set
+            {
+                OnPropertyChanged("VaultNumbers");
+            }
+        }
+        public List<String> VaultKinds
+        {
+            get { return vaultKindList.Select(v => v.name).ToList(); }
+            set
+            {
+                OnPropertyChanged("VaultKinds");
             }
         }
 
@@ -182,12 +219,11 @@ namespace RunApproachStatistics.ViewModel
             {
                 location = value;
                 Validator.Validate(() => Location);
-                //SelectedThumbnail.Vault.location.name = value;
                 OnPropertyChanged("Location");
             }
         }
 
-        public List<String> Locations
+        /*public List<String> Locations
         {
             get { return locations; }
             set
@@ -195,8 +231,16 @@ namespace RunApproachStatistics.ViewModel
                 locations = value;
                 OnPropertyChanged("Locations");
             }
-        }
+        }*/
 
+        public List<String> Locations
+        {
+            get { return locationsList.Select(l => l.name).ToList(); }
+            set
+            {
+                OnPropertyChanged("Locations");
+            }
+        }
 
 
         public String VaultKind
@@ -210,7 +254,7 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        public List<String> VaultKinds
+        /*public List<String> VaultKinds
         {
             get { return vaultKinds; }
             set
@@ -218,7 +262,7 @@ namespace RunApproachStatistics.ViewModel
                 vaultKinds = value;
                 OnPropertyChanged("VaultKinds");
             }
-        }
+        }*/
 
         public String DScore
         {
@@ -347,21 +391,32 @@ namespace RunApproachStatistics.ViewModel
             RatingControl = ratingVM;
 
             //load autocompletion data
-            VaultKinds = vaultModule.getVaultKindNames();
-            vaultKindIds = vaultModule.getVaultKindIds();
-
-            Locations = vaultModule.getLocationNames();
-            locationIds = vaultModule.getLocationIds();
-
-            Gymnasts = vaultModule.getGymnastNames();
-            gymnastIds = vaultModule.getGymnastIds();
-
-            VaultNumbers = vaultModule.getVaultNumberNames();
-            vaultNumberIds = vaultModule.getVaultNumberIds();
+            gymnastList     = vaultModule.getGymnasts();
+            vaultNumberList = vaultModule.getVaultNumbers();
+            vaultKindList   = vaultModule.getVaultKinds();
+            locationsList   = vaultModule.getLocations();
 
             // Set validation
             SetValidationRules();
         }
+
+        public ModifyVaultViewModel(IApplicationController app, string kind, List<gymnast> gymnastList, List<vaultnumber> vaultNumberList, 
+                List<vaultkind> vaultKindList, List<location> locationsList) : base()
+        {
+            _app = app;
+            this.kind = kind;
+            ratingVM = new RatingViewModel(_app);
+            RatingControl = ratingVM;
+
+            this.gymnastList     = gymnastList;
+            this.vaultNumberList = vaultNumberList;
+            this.vaultKindList   = vaultKindList;
+            this.locationsList   = locationsList;
+
+            // Set validation
+            SetValidationRules();
+        }
+
         public void setData(List<vault> vaults)
         {
             thumbnailCollection = new ObservableCollection<ThumbnailViewModel>();
@@ -394,10 +449,10 @@ namespace RunApproachStatistics.ViewModel
                 }
             }
 
-            for (int i = 0; i < thumbnailCollection.Count; i++)
+            /*for (int i = 0; i < thumbnailCollection.Count; i++)
             {
                 thumbnailCollection[i].Vault = vaultModule.read(thumbnailCollection[i].Vault.vault_id);
-            }
+            }*/
             OnPropertyChanged("ThumbnailCollection");
             OnPropertyChanged("FilterList");
 
@@ -420,8 +475,6 @@ namespace RunApproachStatistics.ViewModel
                 }
             }
         }
-
-        
 
         private void setProperties()
         {
@@ -592,19 +645,20 @@ namespace RunApproachStatistics.ViewModel
             {
                 if (VaultKind != "")
                 {
-                    SelectedThumbnails[i].Vault.vaultkind_id = vaultKindIds[VaultKinds.IndexOf(VaultKind)];
+                    SelectedThumbnails[i].Vault.vaultkind_id = vaultKindList.Where(v => v.name == VaultKind).First().vaultkind_id;
                 }
                 if (Location != "")
                 {
-                    SelectedThumbnails[i].Vault.location_id = locationIds[Locations.IndexOf(Location)];
+                    SelectedThumbnails[i].Vault.location_id = locationsList.Where(l => l.name == Location).First().location_id;
                 }
                 if (Gymnast != "")
                 {
-                    SelectedThumbnails[i].Vault.gymnast_id = gymnastIds[Gymnasts.IndexOf(Gymnast)];
+                    SelectedThumbnails[i].Vault.gymnast_id = gymnastList.Where(g => 
+                        (g.name + (!String.IsNullOrWhiteSpace(g.surname_prefix) ? " " + g.surname_prefix + " " : " ") + g.surname) == Gymnast).First().gymnast_id;
                 }
                 if (VaultNumber != "")
                 {
-                    SelectedThumbnails[i].Vault.vaultnumber_id = vaultNumberIds[VaultNumbers.IndexOf(VaultNumber)];
+                    SelectedThumbnails[i].Vault.vaultnumber_id = vaultNumberList.Where(v => v.code == VaultNumber).First().vaultnumber_id;
                 }
                 if (DScore != "")
                 {
@@ -627,8 +681,7 @@ namespace RunApproachStatistics.ViewModel
 
         private void calculateTotalScore()
         {
-            if (DScore != null && EScore != null && !DScore.Equals("") && !EScore.Equals("")
-                && GetErrorArr("DScore") == null && GetErrorArr("EScore") == null)
+            if (!String.IsNullOrEmpty(DScore) && String.IsNullOrWhiteSpace(EScore) && GetErrorArr("DScore") == null && GetErrorArr("EScore") == null)
             {
                 try
                 {
@@ -636,16 +689,9 @@ namespace RunApproachStatistics.ViewModel
                     float escore = float.Parse(EScore.ToString(), CultureInfo.InvariantCulture);
                     float penalty = 0;
 
-                    if (Penalty != null && !Penalty.Equals(""))
+                    if (String.IsNullOrWhiteSpace(Penalty))
                     {
-                        try
-                        {
-                            penalty = float.Parse(Penalty.ToString(), CultureInfo.InvariantCulture);
-                        }
-                        catch
-                        {
-                            //No problem
-                        }
+                        float.TryParse(Penalty, out penalty);
                     }
 
                     float totalscore = (dscore + escore) - penalty;
@@ -705,6 +751,7 @@ namespace RunApproachStatistics.ViewModel
                 setData(tempVaults);
             }
         }
+
         public void DeleteAction(object commandParam)
         {
             if(kind == "POST")
@@ -752,12 +799,12 @@ namespace RunApproachStatistics.ViewModel
             }
             else if(kind == "SELECT")
             {
-                List<vault> tempVaults = new List<vault>();
+                /*List<vault> tempVaults = new List<vault>();
                 foreach (ThumbnailViewModel thumb in ThumbnailCollection)
                 {
                     tempVaults.Add(thumb.Vault);
                 }
-                setData(tempVaults);
+                setData(tempVaults);*/
                 _app.RefreshThumbnailCollection();
             }
             OnPropertyChanged("SelectedThumbnails");

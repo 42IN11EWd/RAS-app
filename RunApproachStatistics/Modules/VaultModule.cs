@@ -77,7 +77,6 @@ namespace RunApproachStatistics.Modules
         {
             using (var db = new DataContext())
             {
-                ;
                 bool dbexist = db.Database.Exists();
                 if (dbexist == true)
                 {
