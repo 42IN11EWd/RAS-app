@@ -435,11 +435,6 @@ namespace RunApproachStatistics.ViewModel
             dateVisibility = false;
             OnPropertyChanged("DateVisibility");
 
-            // get all info on startup of this viewmodel
-            gymnastList = userModule.getGymnastCollection();
-            locationList = locationModule.readLocations();
-            vaultNumberList = vaultNumberModule.readVaultnumbers();
-
             FilterText = "";
             filterList = new ObservableCollection<string>();
 
