@@ -98,6 +98,11 @@
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Modules\Interfaces\IVaultKindModule.cs" />
+    <Compile Include="MVVM\CommandBehaviour\BehaviourBinding.cs" />
+    <Compile Include="MVVM\CommandBehaviour\CommandBehaviour.cs" />
+    <Compile Include="MVVM\CommandBehaviour\CommandBehaviourBinding.cs" />
+    <Compile Include="MVVM\CommandBehaviour\EventHandlerGenerator.cs" />
+    <Compile Include="MVVM\CommandBehaviour\ExecutionStrategy.cs" />
     <Compile Include="MVVM\MouseBehaviour.cs" />
     <Compile Include="Model\Entity\DataModel.Context.cs">
       <AutoGen>True</AutoGen>
