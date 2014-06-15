@@ -35,9 +35,14 @@ namespace RunApproachStatistics.ViewModel
         private float graphSeconds;
         private String graphData;
 
+        private String type;
+        private String[] vault1Data;
+        private String[] vault2Data;
+
         // Enable customization (show/hide second axis (default distance) and set name of first axis)
         private Visibility hasSecondAxis;
         private String axisTitle;
+        private Boolean IsSpecializedGraph { get; set; }
 
         public ObservableCollection<KeyValuePair<float, float>> DistanceArray
         {
@@ -154,6 +159,7 @@ namespace RunApproachStatistics.ViewModel
             HasSecondAxis = Visibility.Visible;
             AxisTitle = "Distance";
             OnPropertyChanged("AxisTitleColor");
+            IsSpecializedGraph = false;
         }
 
         private void timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
@@ -204,31 +210,36 @@ namespace RunApproachStatistics.ViewModel
             AxisTitle = type;
             OnPropertyChanged("AxisTitleColor");
 
+            this.type = type;
+            this.vault1Data = vault1Data;
+            this.vault2Data = vault2Data;
+            
             SpeedArray = new ObservableCollection<KeyValuePair<float, float>>();
             DistanceArray = new ObservableCollection<KeyValuePair<float, float>>();
             double timePerMeasurementVault1 = GraphSeconds / vault1Data.Length;
             double timePerMeasurementVault2 = GraphSeconds / vault2Data.Length;
-            float time = 0;
+            float time1 = 0;
+            float time2 = 0;
 
             foreach (String vault1Measurement in vault1Data)
             {
                 if (!String.IsNullOrWhiteSpace(vault1Measurement))
                 {
-                    SpeedArray.Add(new KeyValuePair<float, float>(time, float.Parse(vault1Measurement, CultureInfo.InvariantCulture)));
-                    time += (float)timePerMeasurementVault1;
+                    SpeedArray.Add(new KeyValuePair<float, float>(time1, float.Parse(vault1Measurement, CultureInfo.InvariantCulture)));
+                    time1 += (float)timePerMeasurementVault1;
                 }
             }
 
-            time = 0;
             foreach (String vault2Measurement in vault2Data)
             {
                 if (!String.IsNullOrWhiteSpace(vault2Measurement))
                 {
-                    DistanceArray.Add(new KeyValuePair<float, float>(time, float.Parse(vault2Measurement, CultureInfo.InvariantCulture)));
-                    time += (float)timePerMeasurementVault2;
+                    DistanceArray.Add(new KeyValuePair<float, float>(time2, float.Parse(vault2Measurement, CultureInfo.InvariantCulture)));
+                    time2 += (float)timePerMeasurementVault2;
                 }
             }
 
+            IsSpecializedGraph = true;
             OnPropertyChanged("DistanceArray");
             OnPropertyChanged("SpeedArray");
         }
@@ -276,6 +287,11 @@ namespace RunApproachStatistics.ViewModel
 
         public void updateGraphLength(float seconds, String graphData = null)
         {
+            if (IsSpecializedGraph)
+            {
+                return;
+            }
+
             GraphSeconds = seconds;
 
             if (graphData == null)
@@ -285,6 +301,34 @@ namespace RunApproachStatistics.ViewModel
             else
             {
                 insertGraphData(graphData);
+            }
+        }
+
+        public void updateSpecializedGraphLength(float seconds, String type = "", String[] vault1Data = null, String[] vault2Data = null)
+        {
+            if (!IsSpecializedGraph || (!String.IsNullOrWhiteSpace(type) && !(type.Equals("Speed") || type.Equals("Distance"))))
+            {
+                return;
+            }
+
+            GraphSeconds = seconds;
+
+            if (String.IsNullOrWhiteSpace(type))
+            {
+                type = this.type;
+            }
+
+            HasSecondAxis = Visibility.Hidden;
+            AxisTitle = type;
+            OnPropertyChanged("AxisTitleColor");
+
+            if (vault1Data == null || vault2Data == null)
+            {
+                setupSpecializedGraph(type, this.vault1Data, this.vault2Data);
+            }
+            else
+            {
+                setupSpecializedGraph(type, vault1Data, vault2Data);
             }
         }
 

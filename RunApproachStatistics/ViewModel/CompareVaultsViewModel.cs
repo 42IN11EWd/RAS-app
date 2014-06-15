@@ -404,7 +404,7 @@ namespace RunApproachStatistics.ViewModel
             {
 
                 String[] measurements = vaults[i].graphdata.Split(',');
-                Boolean hasSpeed = measurements[0].Split(' ')[1] != null;
+                Boolean hasSpeed = !String.IsNullOrWhiteSpace(measurements[0].Split(' ')[1]);
 
                 vaultsSpecialized[i] = new String[2][];
                 for (int j = 0; j < 2; j++)
@@ -437,8 +437,13 @@ namespace RunApproachStatistics.ViewModel
                 }
             }
 
+            SpeedGraphView.setupSpecializedGraph("Speed", vaultsSpecialized[0][0], vaultsSpecialized[1][0]);
+            DistanceGraphView.setupSpecializedGraph("Distance", vaultsSpecialized[0][1], vaultsSpecialized[1][1]);
+
+            /*
             DistanceGraphView.setupSpecializedGraph("Distance", vaultsSpecialized[0][0], vaultsSpecialized[1][0]);
             SpeedGraphView.setupSpecializedGraph("Speed", vaultsSpecialized[0][1], vaultsSpecialized[1][1]);
+             */
         }
 
         public void setVideoInfo()
@@ -513,10 +518,10 @@ namespace RunApproachStatistics.ViewModel
         public void updateSeconds(float duration)
         {
             // langste gebruiken
-            // graph  .updateGraphLength(duration);
-
-            DistanceGraphView.updateGraphLength(duration);
-            SpeedGraphView.updateGraphLength(duration);
+            // graph  .updateSpecializedGraphLength(duration);
+            
+            DistanceGraphView.updateSpecializedGraphLength(duration);
+            SpeedGraphView.updateSpecializedGraphLength(duration);
         }
 
         public void updateCurrentPosition(double seconds, Boolean videoIsPlaying)
