@@ -70,7 +70,6 @@ namespace RunApproachStatistics.ViewModel
         public RelayCommand DeleteGymnastCommand { get; private set; }
         public RelayCommand EditGymnastCommand { get; private set; }
         public RelayCommand NewGymnastCommand { get; private set; }
-        public RelayCommand ToMainscreenCommand { get; private set; }
         public RelayCommand SeeVaultsCommand { get; private set; }
 
         public Visibility PictureCommandVisible
@@ -669,11 +668,6 @@ namespace RunApproachStatistics.ViewModel
             return !inEditingMode && !creatingNewGymnast;
         }
 
-        public void ToMainScreen(object commandParam)
-        {
-            _app.ShowHomeView();
-        }
-
         public void SeeVaults(object commandParam)
         {
             _app.ShowVaultSelectorView(SelectedFilterItem);
@@ -694,7 +688,6 @@ namespace RunApproachStatistics.ViewModel
             DeleteGymnastCommand = new RelayCommand(DeleteGymnast, e => CanDeleteGymnast());
             EditGymnastCommand = new RelayCommand(EditGymnast, e => CanEditGymnast());
             NewGymnastCommand = new RelayCommand(NewGymnast, e => CanNewGymnast());
-            ToMainscreenCommand = new RelayCommand(ToMainScreen);
             SeeVaultsCommand = new RelayCommand(SeeVaults, e => CanSeeVaults());
         }
 

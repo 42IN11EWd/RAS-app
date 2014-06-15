@@ -271,9 +271,9 @@ namespace RunApproachStatistics.ViewModel
         /// <param name="e"></param>
         private void Video_Loaded(object sender, RoutedEventArgs e)
         {
-            // Play and pause to show first frame instead of black screen
+            // Play and stop to show first frame instead of black screen
             Video.Play();
-            Video.Pause();
+            Stop();
             // Set TotalTime
             while (!Video.NaturalDuration.HasTimeSpan)
             {
@@ -281,7 +281,7 @@ namespace RunApproachStatistics.ViewModel
             Maximum = Video.NaturalDuration.TimeSpan.TotalMilliseconds;
             TotalTime = MillisecondsToTimespan(Maximum);
             timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMilliseconds(20);
+            timer.Interval = TimeSpan.FromMilliseconds(4);
             timer.Tick += new EventHandler(timer_Tick);
             timer.Start();
 

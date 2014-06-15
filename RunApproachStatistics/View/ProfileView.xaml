@@ -114,8 +114,7 @@
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
-                    <Button Command="{Binding Path=ToMainscreenCommand}" Content="To mainscreen" FontSize="24" Height="50" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="175"/>
-                    <Button Command="{Binding Path=SeeVaultsCommand}" Content="See vaults" FontSize="24" Height="50" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="175"/>
+                    <Button Command="{Binding Path=SeeVaultsCommand}" Content="See vaults" FontSize="24" Height="50" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="368"/>
                 </Grid>
             </Border>
             <!-- End filter -->
