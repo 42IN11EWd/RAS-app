@@ -172,12 +172,12 @@ namespace RunApproachStatistics.ViewModel
 
             Application.Current.Dispatcher.Invoke(new Action(() =>
             {
-                try
+                if (splitString.Length == 2)
                 {
                     DistanceArray.Add(new KeyValuePair<float, float>(seconds, float.Parse(splitString[1], CultureInfo.InvariantCulture)));
                     SpeedArray.Add(new KeyValuePair<float, float>(seconds, float.Parse(splitString[0], CultureInfo.InvariantCulture)));
                 }
-                catch (Exception ex)
+                else
                 {
                     DistanceArray.Add(new KeyValuePair<float, float>(seconds, float.Parse(splitString[0], CultureInfo.InvariantCulture)));
                 }

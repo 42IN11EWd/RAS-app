@@ -81,15 +81,14 @@ namespace RunApproachStatistics.Services
 
         public PortController()
         {
-            measurementIndex = laserCameraSettingsModule.getMeasurementIndex();
-
             if (isLive)
             {
-                SerialPort port = new SerialPort("COM3", 115200, Parity.None, 8, StopBits.One);
+                String comportName  = laserCameraSettingsModule.getComPortName();
+                SerialPort port     = new SerialPort(comportName, 115200, Parity.None, 8, StopBits.One);
                 port.Open();
 
-                Thread readThread = new Thread(() => { readPort = new ReadPort(this, port); });
-                Thread writeThread = new Thread(() => { writePort = new WritePort(port); });
+                Thread readThread   = new Thread(() => { readPort = new ReadPort(this, port); });
+                Thread writeThread  = new Thread(() => { writePort = new WritePort(port); });
                 readThread.Start();
                 writeThread.Start();
 
@@ -125,6 +124,8 @@ namespace RunApproachStatistics.Services
 
         public void initializeMeasurement()
         {
+            measurementIndex = laserCameraSettingsModule.getMeasurementIndex();
+
             if (isLive)
             {
                 if (measurementIndex == 0)
@@ -138,7 +139,14 @@ namespace RunApproachStatistics.Services
             }
             else
             {
-                portEmulator.startEmulationMeasurement(true);
+                if (measurementIndex == 0)
+                {
+                    portEmulator.startEmulationMeasurement(true, true);
+                }
+                else if (measurementIndex == 1)
+                {
+                    portEmulator.startEmulationMeasurement(true, false);
+                }
             }
         }
 
@@ -178,6 +186,7 @@ namespace RunApproachStatistics.Services
             // 4: Measurement window min
             // 5: Measurement window max
             // 6: videocamera index
+            // 7: comport index
 
             float measurementFrequency = (float)Convert.ToDouble(settings[0]);
             float meanValue = (float)Convert.ToDouble(settings[1]);
@@ -215,7 +224,7 @@ namespace RunApproachStatistics.Services
                 }
             }
 
-            MeanValue = meanValue;
+            MeanValue            = meanValue;
             MeasurementFrequency = measurementFrequency;
             MeasurementWindowMax = measurementWindowMax;
             MeasurementWindowMin = measurementWindowMin;

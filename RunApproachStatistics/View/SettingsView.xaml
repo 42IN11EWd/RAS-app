@@ -57,7 +57,7 @@
             <!-- End Measurement Screen-->
             <!-- Comport XAML -->
             <Label Content="Lasercamera port" HorizontalAlignment="Left" FontSize="18" Margin="394,48,0,0" VerticalAlignment="Top" Width="158" Height="32"/>
-            <ComboBox HorizontalAlignment="Left" Margin="557,48,0,0" VerticalAlignment="Top" Width="308" Height="34" ItemsSource="{Binding ComPorts}" SelectedItem="{Binding SelectedComportIndex}"/>
+            <ComboBox x:Name="comportBox" FontSize="18" HorizontalAlignment="Left" Margin="557,48,0,0" VerticalAlignment="Top" Width="308" Height="34" ItemsSource="{Binding ComPorts}" SelectedIndex="{Binding Path=SelectedComportIndex, Mode=TwoWay}"/>
             
             <!-- Camera XAML -->
             <ComboBox x:Name="videocameraBox" Height="34" FontSize="18" HorizontalAlignment="Right" Margin="0,98,10,0" VerticalAlignment="Top" Width="308" SelectedIndex="{Binding Path=SelectedCameraIndex, Mode=TwoWay}" ItemsSource="{Binding Path=Devices}" />
@@ -77,6 +77,7 @@
                             <Binding ElementName="measurementMinBox" Path="Text" />
                             <Binding ElementName="measurementMaxBox" Path="Text" />
                             <Binding ElementName="videocameraBox"    Path="SelectedIndex" />
+                            <Binding ElementName="comportBox"        Path="SelectedIndex" />
                         </MultiBinding.Bindings>
                     </MultiBinding>
                 </Button.CommandParameter>

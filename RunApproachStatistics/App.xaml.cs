@@ -183,6 +183,9 @@ namespace RunApproachStatistics
 
         private void settingsWindow_Closed(object sender, EventArgs e)
         {
+            // Init new measurement to reflect the changes made in the settings
+            portController.initializeMeasurement();
+
             CloseSettingsWindow(true);
         }
 

@@ -165,7 +165,7 @@ namespace RunApproachStatistics.Services
                 {
                     return;
                 }
-                else if (line.Substring(10, 1) == " ")
+                else if (line.Length >= 11 && line.Substring(10, 1) == " ")
                 {
                     if (line.Length < 20)
                         return;
@@ -248,7 +248,14 @@ namespace RunApproachStatistics.Services
                 {
 
                 }
-                return dynamicBuffer[dynamicBuffer.Count - 1];
+                if (portController.PilotLaser == 1)
+                {
+                    return "0,0";
+                }
+                else
+                {
+                    return dynamicBuffer[dynamicBuffer.Count - 1];
+                }
             }
             catch(Exception e)
             {

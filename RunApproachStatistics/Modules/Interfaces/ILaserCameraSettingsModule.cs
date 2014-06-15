@@ -12,7 +12,7 @@ namespace RunApproachStatistics.Modules.Interfaces
         int getMeasurementIndex();
         void setMeasurementPosition(int measurementPosition);
         int getMeasurementPosition();
-        void setComPortIndex(string comportIndex);
-        string getComPortIndex();
+        void setComPortName(string comportIndex);
+        string getComPortName();
     }
 }
