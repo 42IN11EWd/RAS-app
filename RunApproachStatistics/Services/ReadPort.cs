@@ -250,7 +250,7 @@ namespace RunApproachStatistics.Services
                 }
                 if (portController.PilotLaser == 1)
                 {
-                    return "0,0";
+                    return "0 0,";
                 }
                 else
                 {
@@ -260,7 +260,7 @@ namespace RunApproachStatistics.Services
             catch(Exception e)
             {
                 Console.WriteLine(e.Message);
-                return "0,0";
+                return "0 0,";
             }
         }
     }
