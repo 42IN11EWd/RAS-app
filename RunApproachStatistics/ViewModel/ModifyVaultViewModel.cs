@@ -40,7 +40,7 @@ namespace RunApproachStatistics.ViewModel
         private String escore;
         private String penalty;
         private String totalscore;
-<<<<<<< HEAD
+
         private List<String> locations;
         private List<String> gymnasts;
         private List<String> vaultNumbers;
@@ -50,8 +50,7 @@ namespace RunApproachStatistics.ViewModel
         private List<int> vaultNumberIds;
         private List<int> vaultKindIds;
         private int listRowCount;
-=======
->>>>>>> c4d364774d0bf94d78aacc26d9eaf7c9503a422d
+
 
         //Splitted names
         private String name;
