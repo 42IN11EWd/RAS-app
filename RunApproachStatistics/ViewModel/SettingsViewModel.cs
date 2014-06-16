@@ -411,7 +411,7 @@ namespace RunApproachStatistics.ViewModel
                                   }
                                   else
                                   {
-                                      return RuleResult.Assert((mFreq < 2000 && mFreq > 0), "Invalid value, must be between 1 and 2000");
+                                      return RuleResult.Assert((mFreq <= 2000 && mFreq > 0), "Invalid value, must be between 1 and 2000");
                                   }
                               });
 
@@ -425,7 +425,7 @@ namespace RunApproachStatistics.ViewModel
                                   }
                                   else
                                   {
-                                      return RuleResult.Assert((mValue < 10000 && mValue > 0), "Invalid value, must be between 1 and 10.000");
+                                      return RuleResult.Assert((mValue <= 10000 && mValue > 0), "Invalid value, must be between 1 and 10.000");
                                   }
                               });
 
@@ -439,7 +439,7 @@ namespace RunApproachStatistics.ViewModel
                                   }
                                   else
                                   {
-                                      return RuleResult.Assert((mWindowMax < 5000 && mWindowMax > 0), "Invalid value, must be between 1 and 10.000");
+                                      return RuleResult.Assert((mWindowMax <= 5000 && mWindowMax > 0), "Invalid value, must be between 1 and 10.000");
                                   }
                               });
 
@@ -453,7 +453,7 @@ namespace RunApproachStatistics.ViewModel
                                   }
                                   else
                                   {
-                                      return RuleResult.Assert((mWindowMin < 5000 && mWindowMin > 0), "Invalid value, must be between 1 and 10.000");
+                                      return RuleResult.Assert((mWindowMin <= 5000 && mWindowMin > 0), "Invalid value, must be between 1 and 10.000");
                                   }
                               });
 
