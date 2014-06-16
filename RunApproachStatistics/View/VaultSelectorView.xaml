@@ -49,7 +49,7 @@
                         <ComboBoxItem Content="Vault Number"/>
                         <ComboBoxItem Content="Date"/>
                     </ComboBox>
-                    <DatePicker Visibility="{Binding DateVisibility}" SelectedDate="{Binding SelectedDate}" CalendarStyle="{StaticResource DateTimeCalendar}"  FontSize="24" Margin="10,53,127,982"></DatePicker>
+                    <DatePicker Visibility="{Binding DateVisibility}" Text="{Binding TextDate}" SelectedDate="{Binding SelectedDate}" CalendarStyle="{StaticResource DateTimeCalendar}"  FontSize="24" Margin="10,53,127,982"></DatePicker>
                         <Button Command="{Binding AddDateToFilterCommand}" Content="Add date" Margin="266,53,10,984" Visibility="{Binding DateVisibility}" FontSize="24"></Button>
                     <ListBox FontSize="22" HorizontalAlignment="Left" Height="539" Margin="10,101,0,0" ItemsSource="{Binding Path=FilterItems}" SelectedItem="{Binding Path=SelectedFilterItem}" VerticalAlignment="Top" Width="368"/>
                     <Button Command="{Binding AddToFilterCommand}" Content="Add to filter" FontSize="24" Height="50" HorizontalAlignment="Right" Margin="0,650,10,378" Width="368"/>

@@ -28,6 +28,7 @@ namespace RunApproachStatistics.ViewModel
 
         private Visibility dateVisibility;
         private String selectedDate;
+        private String textDate;
 
         private int starRating;
         private String[] vaultKind;
@@ -111,6 +112,16 @@ namespace RunApproachStatistics.ViewModel
             {
                 dateVisibility = value;
                 OnPropertyChanged("DateVisibility");
+            }
+        }
+
+        public String TextDate
+        {
+            get { return textDate; }
+            set
+            {
+                textDate = value;
+                OnPropertyChanged("TextDate");
             }
         }
 
