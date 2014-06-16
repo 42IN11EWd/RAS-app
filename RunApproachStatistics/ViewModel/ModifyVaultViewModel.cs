@@ -11,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows;
 using System.Linq;
+using System.Windows.Input;
 
 namespace RunApproachStatistics.ViewModel
 {
@@ -706,6 +707,11 @@ namespace RunApproachStatistics.ViewModel
             {
                 TotalScore = "";
             }
+        }
+
+        private void ListViewDoubleClick(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("Doe het eens...");
         }
 
         #region RelayCommands
