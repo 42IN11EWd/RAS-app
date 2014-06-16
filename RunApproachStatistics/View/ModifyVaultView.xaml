@@ -71,7 +71,7 @@
         <Button Content="Deselect all"    Command="{Binding CancelCommand}"  FontSize="24" Grid.Column="1" Height="50" HorizontalAlignment="Left" Margin="569,0,0,10"  VerticalAlignment="Bottom" Width="175" IsEnabled="{Binding Path=ChangeState}"/>
         <Button Content="Delete"    Command="{Binding DeleteCommand}"    FontSize="24" Grid.Column="1" Height="50" HorizontalAlignment="Left" Margin="794,0,0,10" VerticalAlignment="Bottom" Width="175" IsEnabled="{Binding Path=ChangeState}"/>
         <Button Content="{Binding Path=FinishButtonText}" Command="{Binding FinishCommand}"         FontSize="24" Grid.Column="1"  HorizontalAlignment="Right" Margin="0,0,396,10" VerticalAlignment="Bottom" Width="175" Height="50" IsEnabled="{Binding Path=FinishButtonState}" />
-        <!--<Button Content="Export to .CSV" Command="{Binding ExportCommand}" HorizontalAlignment="Left" Margin="10,0,0,10" Width="175" Height="50" VerticalAlignment="Bottom" FontSize="24" IsEnabled="{Binding Path=ChangeState}"/>-->
+        <Button Content="Export to .CSV" Command="{Binding ExportCommand}" HorizontalAlignment="Left" Margin="10,0,0,10" Width="175" Height="50" VerticalAlignment="Bottom" FontSize="24" IsEnabled="{Binding Path=ChangeState}"/>
         <!-- End edit buttons -->
     </Grid>
 </UserControl>
