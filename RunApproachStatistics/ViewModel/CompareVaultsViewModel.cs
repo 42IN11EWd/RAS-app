@@ -51,8 +51,6 @@ namespace RunApproachStatistics.ViewModel
         private Double currentPosition;
         private Double maximum;
         private Double playbackSpeed;
-        private String currentTime;
-        private String totalTime;
         private String playbackSpeedString;
         private Boolean dragging = false;
         private Boolean sliderEnabled;
@@ -250,7 +248,6 @@ namespace RunApproachStatistics.ViewModel
                         leftPlaybackDelay = value - leftVideoView.CurrentPosition;
                     }
                 }
-                CurrentTime = MillisecondsToTimespan(value);
                 OnPropertyChanged("CurrentPosition");
             }
         }
@@ -285,26 +282,6 @@ namespace RunApproachStatistics.ViewModel
                 RightVideoView.PlaybackSpeed = value;
                 PlaybackSpeedString = Math.Round(value, 2).ToString("0.00", CultureInfo.InvariantCulture);
                 OnPropertyChanged("PlaybackSpeed");
-            }
-        }
-
-        public String CurrentTime
-        {
-            get { return currentTime; }
-            set
-            {
-                currentTime = value;
-                OnPropertyChanged("CurrentTime");
-            }
-        }
-
-        public String TotalTime
-        {
-            get { return totalTime; }
-            set
-            {
-                totalTime = value;
-                OnPropertyChanged("TotalTime");
             }
         }
 
@@ -480,8 +457,6 @@ namespace RunApproachStatistics.ViewModel
                 Maximum = leftMax;
             }
 
-            TotalTime       = MillisecondsToTimespan(Maximum);
-            CurrentTime     = MillisecondsToTimespan(0);
             CurrentPosition = 0;
             PlaybackSpeed   = 1.0;
             setSliderEnabled();
@@ -644,7 +619,6 @@ namespace RunApproachStatistics.ViewModel
 
             SelectionEnabled = true;
 
-            CurrentTime = MillisecondsToTimespan(0);
             CurrentPosition = 0;
             PlayButtonImage = playImage;
         }

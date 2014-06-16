@@ -116,9 +116,7 @@
                         <Image HorizontalAlignment="Center" Margin="0,0,0,4" Source="pack://application:,,,/Images/videoControl_backward_b.png" VerticalAlignment="Bottom" Width="64"/>
                     </Button>
                     <Slider Height="22" HorizontalAlignment="Right" IsSnapToTickEnabled="True" Margin="0,0,48,26" Maximum="1.0" Minimum="0.05" SmallChange="0.05" TickFrequency="0.05" Value="{Binding Path=PlaybackSpeed, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Bottom" Width="100"/>
-
-                    <TextBlock FontSize="24" Foreground="Black" Height="50" HorizontalAlignment="Left" Margin="48,0,0,4" Text="{Binding Path=CurrentTime}" VerticalAlignment="Bottom" Width="192"/>
-                    <TextBlock FontSize="24" Foreground="Black" Height="50" HorizontalAlignment="Left" Margin="240,0,0,4" Text="{Binding Path=TotalTime}" VerticalAlignment="Bottom" Width="185"/>
+                    
                     <TextBlock FontSize="24" Foreground="Black" Height="50" HorizontalAlignment="Right" Margin="0,0,180,16" Text="{Binding Path=PlaybackSpeedString}" VerticalAlignment="Bottom"/>
                 </Grid>
                 <!-- END VIDEO CONTROLS-->
