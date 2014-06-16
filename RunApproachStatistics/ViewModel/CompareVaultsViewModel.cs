@@ -545,17 +545,24 @@ namespace RunApproachStatistics.ViewModel
             {
                 double milliseconds = (seconds * 1000);
 
-                VideoViewModel viewmodel = null;
-                Boolean otherVideoPlaying = false;
+                VideoViewModel viewmodel    = null;
+                Boolean otherVideoPlaying   = false;
+
                 if (rightVideoPath.Equals(Path.GetFileName(filePath)))
                 {
                     viewmodel = RightVideoView;
                     otherVideoPlaying = LeftVideoView.IsPlaying;
+
+                    DistanceGraphView.updateRightVideoSlider(seconds);
+                    SpeedGraphView.updateRightVideoSlider(seconds);
                 }
                 else
                 {
                     viewmodel = LeftVideoView;
                     otherVideoPlaying = RightVideoView.IsPlaying;
+
+                    DistanceGraphView.updateLeftVideoSlider(seconds);
+                    SpeedGraphView.updateLeftVideoSlider(seconds);
                 }
 
                 if ((viewmodel.IsPlaying && !otherVideoPlaying) || (viewmodel.IsPlaying && currentPosition < milliseconds))
@@ -563,9 +570,6 @@ namespace RunApproachStatistics.ViewModel
                     CurrentPosition = milliseconds;
                 }
             }
-
-            DistanceGraphView.updateSlider(seconds);
-            SpeedGraphView.updateSlider(seconds);
         }
 
         private void setSliderEnabled()
