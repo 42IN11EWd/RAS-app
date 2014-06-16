@@ -555,7 +555,7 @@ namespace RunApproachStatistics.ViewModel
 
         public Boolean CanSaveChanges()
         {
-            return inEditingMode && madeChanges();
+            return IsValid && inEditingMode && madeChanges();
         }
 
         public void CancelChanges(object commandParam)
@@ -795,7 +795,7 @@ namespace RunApproachStatistics.ViewModel
                               () =>
                               {
                                   DateTime result;
-                                  String[] formats = { "yyyy-MM-dd", "dd-MM-yyyy" };
+                                  String[] formats = { "yyyy/MM/dd", "dd/MM/yyyy", "dd/M/yyyy", "d/M/yyyy", "d/MM/yyyy" };
                                   if (EditDateOfBirth != null && EditDateOfBirth.Length > 0 && !DateTime.TryParseExact(EditDateOfBirth, formats, CultureInfo.CurrentCulture, DateTimeStyles.None, out result))
                                   {
                                       return RuleResult.Invalid("Date of birth must be a date");
