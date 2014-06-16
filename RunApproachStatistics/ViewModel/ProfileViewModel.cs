@@ -441,7 +441,7 @@ namespace RunApproachStatistics.ViewModel
             creatingNewGymnast = false;
         }
 
-        #region Command Methodes
+        #region RelayCommand
 
         public void InitPictureUpload(object commandParam)
         {
