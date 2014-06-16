@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace RunApproachStatistics.ViewModel
 {
@@ -12,11 +13,22 @@ namespace RunApproachStatistics.ViewModel
     {
         private IApplicationController _app;
         private String logName;
+        private Visibility visibilityLaserOn;
 
         #region DataBinding
 
         public String PilotLaserTitle { get; set; }
         public Boolean VisibilityLaser { get; set; }
+
+        public Visibility VisibilityLaserOn
+        {
+            get { return visibilityLaserOn; }
+            set
+            {
+                visibilityLaserOn = value;
+                OnPropertyChanged("VisibilityLaserOn");
+            }
+        }
         public String LogName
         {
             get { return logName; }
@@ -42,6 +54,7 @@ namespace RunApproachStatistics.ViewModel
             _app = app;
             PilotLaserTitle = "Set Pilot Laser On";
             LogName = _app.IsLoggedIn ? "Logout" : "Login";
+            VisibilityLaserOn = Visibility.Hidden;
         }
 
         #region RelayCommands
@@ -51,16 +64,17 @@ namespace RunApproachStatistics.ViewModel
             if (!ToggleLaser) 
             {
                 PilotLaserTitle = "Set Pilot Laser Off";
+                VisibilityLaserOn = Visibility.Visible;
             } 
             else 
             {
                 PilotLaserTitle = "Set Pilot Laser On";
+                VisibilityLaserOn = Visibility.Hidden;
             }
             ToggleLaser = !ToggleLaser;
             _app.TogglePilotLaser();
 
             OnPropertyChanged("PilotLaserTitle");
-
         }
         public void StartSession(object commandParam)
         {
