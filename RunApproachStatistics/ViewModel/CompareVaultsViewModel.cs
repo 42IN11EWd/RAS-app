@@ -18,6 +18,7 @@ namespace RunApproachStatistics.ViewModel
     public class CompareVaultsViewModel : AbstractViewModel
     {
         private IApplicationController _app;
+        private Boolean aVideoFinished;
 
         #region Modules
 
@@ -247,6 +248,8 @@ namespace RunApproachStatistics.ViewModel
                     {
                         leftPlaybackDelay = value - leftVideoView.CurrentPosition;
                     }
+
+                    aVideoFinished = false;
                 }
                 OnPropertyChanged("CurrentPosition");
             }
@@ -366,17 +369,19 @@ namespace RunApproachStatistics.ViewModel
             _app = app;
 
             // Set menu
-            MenuViewModel menuViewModel     = new MenuViewModel(_app);
-            menuViewModel.VisibilityLaser   = true;
-            Menu                            = menuViewModel;
+            MenuViewModel menuViewModel = new MenuViewModel(_app);
+            menuViewModel.VisibilityLaser = true;
+            Menu = menuViewModel;
 
-            PlayButtonImage     = playImage;
-            SelectionEnabled    = true;
-            rightIsEnabled      = true;
-            LeftIsEnabled       = true;
+            PlayButtonImage = playImage;
+            SelectionEnabled = true;
+            rightIsEnabled = true;
+            LeftIsEnabled = true;
 
-            DistanceGraphView   = new GraphViewModel(_app, this, false, 1000);
-            SpeedGraphView      = new GraphViewModel(_app, this, false, 1000);
+            DistanceGraphView = new GraphViewModel(_app, this, false, 1000);
+            SpeedGraphView = new GraphViewModel(_app, this, false, 1000);
+
+            aVideoFinished = false;
         }
 
         public void setVaultsToCompare(List<vault> vaults)
@@ -458,7 +463,7 @@ namespace RunApproachStatistics.ViewModel
             }
 
             CurrentPosition = 0;
-            PlaybackSpeed   = 1.0;
+            PlaybackSpeed = 1.0;
             setSliderEnabled();
         }
 
@@ -516,12 +521,12 @@ namespace RunApproachStatistics.ViewModel
 
         public void updateCurrentPosition(double seconds, String filePath)
         {
-            if (!dragging)    
+            if (!dragging)
             {
                 double milliseconds = (seconds * 1000);
 
-                VideoViewModel viewmodel    = null;
-                Boolean otherVideoPlaying   = false;
+                VideoViewModel viewmodel = null;
+                Boolean otherVideoPlaying = false;
 
                 if (rightVideoPath.Equals(Path.GetFileName(filePath)))
                 {
@@ -553,7 +558,7 @@ namespace RunApproachStatistics.ViewModel
             {
                 SliderEnabled = true;
             }
-            else 
+            else
             {
                 SliderEnabled = false;
             }
@@ -587,25 +592,32 @@ namespace RunApproachStatistics.ViewModel
 
         public void playVideo(object commandParam)
         {
-            if (rightIsEnabled)
+            if (rightIsEnabled || leftIsEnabled)
             {
-                rightVideoView.PlayMedia(null);
-            }
+                if (PlayButtonImage.Equals(playImage))
+                {
+                    if (rightIsEnabled)
+                    {
+                        rightVideoView.PlayVideo();
+                    }
 
-            if (leftIsEnabled)
-            {
-                leftVideoView.PlayMedia(null);
-            }
+                    if (leftIsEnabled)
+                    {
+                        leftVideoView.PlayVideo();
+                    }
 
-            if (leftVideoView.IsPlaying || rightVideoView.IsPlaying)
-            {
-                PlayButtonImage = pauseImage;
-                SelectionEnabled = false;
-            }
-            else
-            {
-                PlayButtonImage = playImage;
-                SelectionEnabled = true;
+                    PlayButtonImage = pauseImage;
+                    SelectionEnabled = false;
+                    aVideoFinished = false;
+                }
+                else
+                {
+                    rightVideoView.PauzeVideo();
+                    leftVideoView.PauzeVideo();
+
+                    PlayButtonImage = playImage;
+                    SelectionEnabled = true;
+                }
             }
         }
 
@@ -621,10 +633,28 @@ namespace RunApproachStatistics.ViewModel
                 leftVideoView.StopMedia(null);
             }
 
-            SelectionEnabled = true;
+            if (rightIsEnabled || leftIsEnabled)
+            {
+                SelectionEnabled = true;
+                aVideoFinished = false;
+                CurrentPosition = 0;
+                PlayButtonImage = playImage;
+            }
+        }
 
-            CurrentPosition = 0;
-            PlayButtonImage = playImage;
+        public void VideoFinished()
+        {
+            if (aVideoFinished)
+            {
+                SelectionEnabled = true;
+                CurrentPosition = 0;
+                PlayButtonImage = playImage;
+                aVideoFinished = false;
+            }
+            else
+            {
+                aVideoFinished = true;
+            }
         }
 
         protected override void initRelayCommands()

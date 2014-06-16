@@ -305,6 +305,11 @@ namespace RunApproachStatistics.ViewModel
         private void Video_Ended(object sender, RoutedEventArgs e)
         {
             Stop();
+
+            if (compareVaultsViewModel != null)
+            {
+                compareVaultsViewModel.VideoFinished();
+            }
         }
 
         /// <summary>
@@ -324,6 +329,30 @@ namespace RunApproachStatistics.ViewModel
                     Play();
                 }
                 IsPlaying = !IsPlaying;
+            }
+        }
+
+        /// <summary>
+        /// Plays the video when play button is pressed
+        /// </summary>
+        public void PlayVideo()
+        {
+            if (Video != null)
+            {
+                Play();
+                IsPlaying = true;
+            }
+        }
+
+        /// <summary>
+        /// Pauzes the video when pauze button is pressed
+        /// </summary>
+        public void PauzeVideo()
+        {
+            if (Video != null)
+            {
+                Pause();
+                IsPlaying = false;
             }
         }
 
