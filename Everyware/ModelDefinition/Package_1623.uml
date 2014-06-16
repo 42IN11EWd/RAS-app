@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
   dslVersion="1.0.0.0"
   Id="c2e7e85b-0ff8-49a4-a2fa-003bafdf59f4"
   name="Modules" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
@@ -452,6 +452,113 @@
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="58e22c4e-82db-4911-b8a0-4b10224aa44a"
+        name="EditorModule"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <suppliersInternal>
+          <interfaceRealization
+            Id="5e28589b-7e15-49ef-9292-09d824d5f738">
+            <interfaceMoniker
+              Id="609ec85e-c152-47d5-a70a-a8b88b929fe6"
+              LastKnownName="ILocationModule"
+              LastKnownLocation="Package_1333.uml" />
+          </interfaceRealization>
+          <interfaceRealization
+            Id="d0e27816-3976-45ff-bfd1-f8a1a0ded230">
+            <interfaceMoniker
+              Id="8088d13d-5d40-496f-95cc-59dafddc4d34"
+              LastKnownName="IVaultKindModule"
+              LastKnownLocation="Package_1333.uml" />
+          </interfaceRealization>
+          <interfaceRealization
+            Id="7b520ac0-9631-4267-9ace-85b2934fbcbb">
+            <interfaceMoniker
+              Id="b7a48b1c-66ef-4e74-88ec-6124d1dddbc2"
+              LastKnownName="IVaultNumberModule"
+              LastKnownLocation="Package_1333.uml" />
+          </interfaceRealization>
+        </suppliersInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="a2a78275-79de-42cd-b956-d38ceb6b8c5a"
+        name="SettingsModule"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <suppliersInternal>
+          <interfaceRealization
+            Id="6831da51-dfda-451b-ac4e-9f066b43b360">
+            <interfaceMoniker
+              Id="3229a086-83b0-4f65-957f-a80f6de2116e"
+              LastKnownName="ILaserCameraSettingsModule"
+              LastKnownLocation="Package_1333.uml" />
+          </interfaceRealization>
+          <interfaceRealization
+            Id="1acee1ff-73a1-412d-aff1-ecadd81d8799">
+            <interfaceMoniker
+              Id="20c73527-4cb1-48cd-ab84-682f37c56d30"
+              LastKnownName="IVideoCameraSettingsModule"
+              LastKnownLocation="Package_1333.uml" />
+          </interfaceRealization>
+        </suppliersInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="ac77a67d-2da0-4256-abcd-a57af2848e9b"
+        name="UserModule"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <suppliersInternal>
+          <interfaceRealization
+            Id="9a8fadd4-3a81-4ac5-9c06-9ab1f53222b7">
+            <interfaceMoniker
+              Id="00051dfc-1898-40c3-93da-a683ef3ea53c"
+              LastKnownName="ILoginModule"
+              LastKnownLocation="Package_1333.uml" />
+          </interfaceRealization>
+          <interfaceRealization
+            Id="e27c66ee-a335-4c6b-8dae-23588d9a8c87">
+            <interfaceMoniker
+              Id="5663b630-c573-4d01-8b61-861e9ae92b43"
+              LastKnownName="IUserModule"
+              LastKnownLocation="Package_1333.uml" />
+          </interfaceRealization>
+        </suppliersInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="14d6732d-7b1e-4018-a47b-a2c04ad222b7"
+        name="VaultModule"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <suppliersInternal>
+          <interfaceRealization
+            Id="c93cd686-4309-45d8-9004-d989e1a4ca37">
+            <interfaceMoniker
+              Id="fcb31570-24c2-4355-97a6-4cf669631307"
+              LastKnownName="ICameraModule"
+              LastKnownLocation="Package_1333.uml" />
+          </interfaceRealization>
+          <interfaceRealization
+            Id="2adbeb59-e642-46b2-b64d-3d0693446f44">
+            <interfaceMoniker
+              Id="6866ec0f-d978-46fd-9f2d-4d297350887b"
+              LastKnownName="IVaultModule"
+              LastKnownLocation="Package_1333.uml" />
+          </interfaceRealization>
+        </suppliersInternal>
+      </class>
     </packageHasNamedElement>
   </packagedElements>
 </package>
