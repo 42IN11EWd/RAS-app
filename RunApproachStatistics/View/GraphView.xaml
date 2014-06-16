@@ -59,6 +59,9 @@
                             </Canvas>
                         </ControlTemplate>
                     </chartingToolkit:LineSeries.Template>
+                    <chartingToolkit:LineSeries.DependentRangeAxis>
+                        <chartingToolkit:LinearAxis Orientation="Y" ShowGridLines="False" HorizontalAlignment="Right" Visibility="Hidden" Maximum="10" Minimum="0" Interval="5"/>
+                    </chartingToolkit:LineSeries.DependentRangeAxis>
                 </chartingToolkit:LineSeries>
             </chartingToolkit:Chart>
             <Rectangle Fill="Black" HorizontalAlignment="Left" Height="302" Stroke="Black" VerticalAlignment="Top" Width="2" Margin="{Binding Path=LineMargin}" Visibility="{Binding Path=LineVisibilty}"/>

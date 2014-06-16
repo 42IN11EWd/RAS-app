@@ -419,7 +419,15 @@ namespace RunApproachStatistics.ViewModel
             ratingVM = new RatingViewModel(_app);
             RatingControl = ratingVM;
 
-            modifyVaultVM = new ModifyVaultViewModel(_app, "SELECT");
+            // get all info on startup of this viewmodel
+            List<location> locations = vaultModule.getLocations();
+            List<vaultnumber> vaultnumbers = vaultModule.getVaultNumbers();
+            locationList = new ObservableCollection<location>(locations);
+            vaultNumberList = new ObservableCollection<vaultnumber>(vaultnumbers);
+
+            gymnastList = userModule.getGymnastCollection();
+
+            modifyVaultVM = new ModifyVaultViewModel(_app, "SELECT", gymnastList, vaultnumbers, vaultModule.getVaultKinds(), locations);
             ModifyViewModelControl = modifyVaultVM;
             this.Content = modifyVaultVM;
             modifyVaultVM.setData(null);
@@ -427,10 +435,6 @@ namespace RunApproachStatistics.ViewModel
             dateVisibility = Visibility.Hidden;
             OnPropertyChanged("DateVisibility");
 
-            // get all info on startup of this viewmodel
-            gymnastList = userModule.getGymnastCollection();
-            locationList = locationModule.readLocations();
-            vaultNumberList = vaultNumberModule.readVaultnumbers();
             FilterText = "";
             filterList = new ObservableCollection<string>();
 

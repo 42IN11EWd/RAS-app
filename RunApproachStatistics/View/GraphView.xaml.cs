@@ -39,7 +39,12 @@ namespace RunApproachStatistics.View
             float xHitOnFloat                   = float.Parse(xHit.ToString());
             float specificXHit                  = (float)(Math.Round((double)xHitOnFloat, 3));            
 
-            IRangeAxis yAxis                    = (LinearAxis)lineChart.Axes[1];            
+            IRangeAxis yAxis                    = (LinearAxis)lineChart.Axes[1];
+            if (senderLine.Name.Contains("speed"))
+            {
+                yAxis = (LinearAxis)lineChart.Axes[2];
+            }
+
             var yHit                            = yAxis.GetValueAtPosition(new UnitValue(coordinate.Y, Unit.Pixels));
             float yHitOnFloat                   = float.Parse(yHit.ToString());
             var yMax                            = yAxis.Range.Maximum;

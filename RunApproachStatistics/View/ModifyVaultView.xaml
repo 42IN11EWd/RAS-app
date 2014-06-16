@@ -6,6 +6,7 @@
              xmlns:v="clr-namespace:RunApproachStatistics.View"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:mvvm="clr-namespace:RunApproachStatistics.MVVM"
+             xmlns:cmb="clr-namespace:RunApproachStatistics.MVVM.CommandBehaviour"
              xmlns:toolkit="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="1080" d:DesignWidth="1595" Background="White">
@@ -15,15 +16,24 @@
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <UniformGrid Columns="4" />
+                   
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
 
             <!-- ItemTemplate -->
             <ListView.ItemTemplate>
-                <DataTemplate>
-                    <v:ThumbnailView/>
+                <DataTemplate >
+                    <v:ThumbnailView >
+                        </v:ThumbnailView>
                 </DataTemplate>
             </ListView.ItemTemplate>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="cmb:CommandBehaviour.Command"  Value="{Binding Path=DataContext.doubleClickCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type v:ModifyVaultView}}}"/>
+                    <Setter Property="cmb:CommandBehaviour.CommandParameter" Value="{Binding Path=SelectedItem, ElementName=VaultView}"/>
+                    <Setter Property="cmb:CommandBehaviour.Event" Value="MouseDoubleClick"/>
+                </Style>
+            </ListView.ItemContainerStyle>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <i:InvokeCommandAction Command="{Binding Mode=OneWay, Path=SelectedItemsChangedCommand}" CommandParameter="{Binding Path=SelectedItems, ElementName=VaultView}"/>

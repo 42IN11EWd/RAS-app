@@ -74,6 +74,10 @@ namespace RunApproachStatistics.Services
                 {
                     initializeMeasurement();
                 }
+                else
+                {
+                    reallyStopMeasurement();
+                }
             }
         }
 
@@ -87,7 +91,7 @@ namespace RunApproachStatistics.Services
                 SerialPort port     = new SerialPort(comportName, 115200, Parity.None, 8, StopBits.One);
                 port.Open();
 
-                Thread readThread   = new Thread(() => { readPort = new ReadPort(this, port); });
+                Thread readThread   = new Thread(() => { readPort  = new ReadPort(this, port); });
                 Thread writeThread  = new Thread(() => { writePort = new WritePort(port); });
                 readThread.Start();
                 writeThread.Start();
@@ -160,6 +164,18 @@ namespace RunApproachStatistics.Services
             return readPort.stopMeasurement();
         }
 
+        public void reallyStopMeasurement()
+        {
+            if (isLive)
+            {
+                writePort.stopMeasurement();
+            }
+            else
+            {
+                portEmulator.stopEmulationMeasurement();
+            }
+        }
+
         public float calibrateMeasurementWindow()
         {
             return readPort.getLatestBufferDistance();
@@ -189,7 +205,7 @@ namespace RunApproachStatistics.Services
             // 7: comport index
 
             float measurementFrequency = (float)Convert.ToDouble(settings[0]);
-            float meanValue = (float)Convert.ToDouble(settings[1]);
+            float meanValue            = (float)Convert.ToDouble(settings[1]);
             float measurementWindowMin = (float)Convert.ToDouble(settings[4]);
             float measurementWindowMax = (float)Convert.ToDouble(settings[5]);
 

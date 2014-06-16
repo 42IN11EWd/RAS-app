@@ -33,14 +33,6 @@ namespace RunApproachStatistics.ViewModel
         private String escore;
         private String penalty;
         private String totalscore;
-        private List<String> locations;
-        private List<String> gymnasts;
-        private List<String> vaultNumbers;
-        private List<String> vaultKinds;
-        private List<int> locationIds;
-        private List<int> gymnastIds;
-        private List<int> vaultNumberIds;
-        private List<int> vaultKindIds;
 
         private List<gymnast> gymnastList;
         private List<vaultnumber> vaultNumberList;
