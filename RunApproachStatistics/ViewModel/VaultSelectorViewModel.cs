@@ -623,8 +623,33 @@ namespace RunApproachStatistics.ViewModel
 
         public void AddDateToFilter(object commandParam)
         {
-            filterItems.Add(selectedDate.Split(' ')[0]);
-            OnPropertyChanged("FilterItems");
+            if (!string.IsNullOrEmpty(selectedDate))
+            {
+                string selDate = selectedDate.Split(' ')[0];
+
+                if (selDate != null)
+                {
+                    string[] valueToFilter = filterType.Split(' ');
+                    string checkDuplicates = valueToFilter[1] + ":" + selDate;
+
+                    foreach (String newFilter in filterList)
+                    {
+                        if (newFilter.Equals(checkDuplicates))
+                        {
+                            MessageBox.Show("Can't add the same filter, please choose another one.");
+                            return;
+                        }
+                    }
+                    // no duplicates, add to list
+                    filterList.Add(valueToFilter[1] + ":" + selDate);
+                    ShowFilteredThumbnails(filterList);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please fill in a correct date");
+            }
+            OnPropertyChanged("FilterList");
         }
 
         public void ShowFilteredThumbnails(ObservableCollection<string> itemsToFilter)
