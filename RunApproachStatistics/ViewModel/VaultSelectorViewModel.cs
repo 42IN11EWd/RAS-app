@@ -26,7 +26,7 @@ namespace RunApproachStatistics.ViewModel
         private ModifyVaultViewModel modifyVaultVM;
         private PropertyChangedBase modifyControl;
 
-        private bool dateVisibility;
+        private Visibility dateVisibility;
         private String selectedDate;
 
         private int starRating;
@@ -104,7 +104,7 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        public bool DateVisibility
+        public Visibility DateVisibility
         {
             get {  return dateVisibility; }
             set
@@ -424,7 +424,7 @@ namespace RunApproachStatistics.ViewModel
             this.Content = modifyVaultVM;
             modifyVaultVM.setData(null);
 
-            dateVisibility = false;
+            dateVisibility = Visibility.Hidden;
             OnPropertyChanged("DateVisibility");
 
             // get all info on startup of this viewmodel
@@ -469,7 +469,7 @@ namespace RunApproachStatistics.ViewModel
                 if (valueOfType[1].Equals("Gymnast"))
                 {
                     filterItems.Clear();
-                    dateVisibility = false;
+                    dateVisibility = Visibility.Hidden;
                     foreach (gymnast gymnast in gymnastList)
                     {
                         String tempFullname = gymnast.name + (!String.IsNullOrWhiteSpace(gymnast.surname_prefix) ? " " + gymnast.surname_prefix + " " : " ") + gymnast.surname;
@@ -483,7 +483,7 @@ namespace RunApproachStatistics.ViewModel
                 if (valueOfType[1].Equals("Location"))
                 {
                     filterItems.Clear();
-                    dateVisibility = false;
+                    dateVisibility = Visibility.Hidden;
                     foreach (location location in locationList)
                     {
                         String tempLocationName = location.name;
@@ -496,7 +496,7 @@ namespace RunApproachStatistics.ViewModel
                 if(valueOfType[1].Equals("Vault"))
                 {
                     filterItems.Clear();
-                    dateVisibility = false;
+                    dateVisibility = Visibility.Hidden;
                     foreach(vaultnumber number in vaultNumberList)
                     {
                         String tempVaultnumber = number.code;
@@ -509,7 +509,7 @@ namespace RunApproachStatistics.ViewModel
                 if(valueOfType[1].Equals("Date"))
                 {
                     filterItems.Clear();
-                    dateVisibility = true;
+                    dateVisibility = Visibility.Visible;
                     OnPropertyChanged("DateVisibility");
                 }
             }
