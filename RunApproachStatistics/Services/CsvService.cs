@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,20 +9,32 @@ namespace RunApproachStatistics.Services
 {
     public static class CsvService
     {
-        public static String StringToCsv(String data)
+        public static String MeasurementDataToString(String data)
         {
-            String result = String.Empty;
-            result = data.Replace(' ', ',').Trim();
+            StringBuilder csv = new StringBuilder();
+            String[] measurements = data.Split(',');
+            csv.AppendLine("sep=,");
 
-            return result;
-        }
+            if (data.Contains(" ")) //Contains distance and speed
+            {
+                csv.AppendLine("Distance=,Speed=");
 
-        public static String CsvToString(String csv)
-        {
-            String result = String.Empty;
-            result = csv.Replace(',', ' ').Trim();
+                foreach (String s in measurements)
+                {
+                    csv.AppendLine(s.Replace(" ", ","));
+                }
+            }
+            else
+            { //Contains only distance
+                csv.AppendLine("Distance=");
 
-            return result;
+                foreach (String s in measurements)
+                {
+                    csv.AppendLine(s);
+                }
+            }
+
+            return csv.ToString();
         }
     }
 }

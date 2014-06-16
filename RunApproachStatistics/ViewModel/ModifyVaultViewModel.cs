@@ -12,6 +12,9 @@ using System.Globalization;
 using System.Windows;
 using System.Linq;
 using System.Windows.Input;
+using Microsoft.Win32;
+using System.Text;
+using RunApproachStatistics.Services;
 
 namespace RunApproachStatistics.ViewModel
 {
@@ -65,6 +68,7 @@ namespace RunApproachStatistics.ViewModel
         public RelayCommand DeleteCommand { get; private set; }
         public RelayCommand CancelCommand { get; private set; }
         public RelayCommand SaveCommand { get; private set; }
+        public RelayCommand ExportCommand { get; private set; }
         public RelayCommand SelectedItemsChangedCommand { get; private set; }
 
         public PropertyChangedBase RatingControl
@@ -771,6 +775,25 @@ namespace RunApproachStatistics.ViewModel
             OnPropertyChanged("SelectedThumbnails");
         }
 
+        public void ExportAction(object commandParam)
+        {
+            String content = CsvService.MeasurementDataToString(SelectedThumbnails[0].Vault.graphdata);
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "CSV File|*.csv";
+            saveFileDialog.Title = "Save an CSV File";
+            saveFileDialog.ShowDialog();
+
+            if (saveFileDialog.FileName != "")
+            {
+                System.IO.FileStream fs = (System.IO.FileStream)saveFileDialog.OpenFile();
+
+                fs.Write(Encoding.UTF8.GetBytes(content), 0, Encoding.UTF8.GetByteCount(content));
+
+                fs.Close();
+            }
+        }
+
         #endregion
 
         #region Validation rules
@@ -910,6 +933,7 @@ namespace RunApproachStatistics.ViewModel
             DeleteCommand = new RelayCommand(DeleteAction);
             SaveCommand = new RelayCommand(SaveAction);
             CancelCommand = new RelayCommand(CancelAction);
+            ExportCommand = new RelayCommand(ExportAction);
             SelectedItemsChangedCommand = new RelayCommand((thumbnails) =>
             {
                 if (thumbnails != null)
