@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
            mc:Ignorable="d" 
             x:Class="RunApproachStatistics.View.MainWindow" MinWidth="1024" MinHeight="576"
-        Title="MainView" WindowState="Maximized" d:DesignWidth="1920" d:DesignHeight="1080">
+        Title="Run Approach Statistics" WindowState="Maximized" d:DesignWidth="1920" d:DesignHeight="1080">
 
     <Window.InputBindings>
         <KeyBinding Key="L"

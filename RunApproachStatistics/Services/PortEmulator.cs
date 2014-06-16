@@ -51,7 +51,7 @@ namespace RunApproachStatistics.Services
             String line = "";
             if (distance < portController.MeasurementWindowMax)
             {
-                speed += (float)0.008;
+                speed += (float)0.0008;
                 distance += (float)0.006;
             }
             else
