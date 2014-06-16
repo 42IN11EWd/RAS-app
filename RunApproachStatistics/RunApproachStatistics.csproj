@@ -33,6 +33,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Images\Icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="AForge.Imaging">
       <HintPath>DLL\AForge.Imaging.dll</HintPath>
@@ -98,6 +101,11 @@
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Modules\Interfaces\IVaultKindModule.cs" />
+    <Compile Include="MVVM\CommandBehaviour\BehaviourBinding.cs" />
+    <Compile Include="MVVM\CommandBehaviour\CommandBehaviour.cs" />
+    <Compile Include="MVVM\CommandBehaviour\CommandBehaviourBinding.cs" />
+    <Compile Include="MVVM\CommandBehaviour\EventHandlerGenerator.cs" />
+    <Compile Include="MVVM\CommandBehaviour\ExecutionStrategy.cs" />
     <Compile Include="MVVM\MouseBehaviour.cs" />
     <Compile Include="Model\Entity\DataModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -439,6 +447,7 @@
     <Resource Include="Images\videoControl_pause_b.png" />
     <Resource Include="Images\videoControl_play_b.png" />
     <Resource Include="Images\videoControl_stop_b.png" />
+    <Resource Include="Images\Icon.ico" />
     <Content Include="postproc-52.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

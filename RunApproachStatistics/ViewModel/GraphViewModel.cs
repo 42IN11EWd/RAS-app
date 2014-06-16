@@ -27,7 +27,9 @@ namespace RunApproachStatistics.ViewModel
         public int SizeAxisTime { get; set; }
         public int SizeAxisDistance { get; set; }
         public int SizeAxisSpeed { get; set; }
-
+        public double AxisMaxLeft { get; set; }
+        public double AxisMaxRight { get; set; }
+        
         private ObservableCollection<KeyValuePair<float, float>> distanceArray;
         private ObservableCollection<KeyValuePair<float, float>> speedArray;
         private Thickness lineMargin;
@@ -160,6 +162,8 @@ namespace RunApproachStatistics.ViewModel
             AxisTitle = "Distance";
             OnPropertyChanged("AxisTitleColor");
             IsSpecializedGraph = false;
+            AxisMaxLeft = 30;
+            AxisMaxRight = 10;
         }
 
         private void timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
@@ -240,6 +244,8 @@ namespace RunApproachStatistics.ViewModel
             }
 
             IsSpecializedGraph = true;
+            AxisMaxLeft = type.Equals("Distance") ? 30 : 10;
+            AxisMaxRight = type.Equals("Distance") ? 30 : 10;
             OnPropertyChanged("DistanceArray");
             OnPropertyChanged("SpeedArray");
         }

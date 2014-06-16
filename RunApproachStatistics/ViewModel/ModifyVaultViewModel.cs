@@ -942,9 +942,15 @@ namespace RunApproachStatistics.ViewModel
 
         #endregion
 
+        public RelayCommand doubleClickCommand { get; private set; }
+
         protected override void initRelayCommands()
         {
-
+            doubleClickCommand = new RelayCommand((thumbnail) =>
+            {
+                ThumbnailViewModel thumbnailvm = (ThumbnailViewModel)thumbnail;
+                Console.WriteLine(thumbnailvm.Vault.gymnast.name);
+            });
             FinishCommand = new RelayCommand(FinishAction);
             DeleteCommand = new RelayCommand(DeleteAction);
             SaveCommand = new RelayCommand(SaveAction);

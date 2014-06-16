@@ -88,8 +88,27 @@ namespace RunApproachStatistics.Services
             if (isLive)
             {
                 String comportName  = laserCameraSettingsModule.getComPortName();
-                SerialPort port     = new SerialPort(comportName, 115200, Parity.None, 8, StopBits.One);
+                SerialPort port = new SerialPort(comportName, 115200, Parity.None, 8, StopBits.One);
                 port.Open();
+
+                //untested
+                /*foreach (String name in SerialPort.GetPortNames())
+                {
+                    port = new SerialPort(name, 115200, Parity.None, 8, StopBits.One);
+                    try
+                    {
+                        port.Open();
+                    }
+                    catch (Exception e)
+                    {
+                        //no problem
+                    }
+
+                    if (port.IsOpen)
+                    {
+                        break;
+                    }
+                }*/
 
                 Thread readThread   = new Thread(() => { readPort  = new ReadPort(this, port); });
                 Thread writeThread  = new Thread(() => { writePort = new WritePort(port); });

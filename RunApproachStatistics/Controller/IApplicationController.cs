@@ -37,7 +37,7 @@ namespace RunApproachStatistics.Controllers
 
         void ShowVaultSelectorView();
 
-        void ShowVaultSelectorView(RunApproachStatistics.Model.Entity.gymnast gymnast);
+        void ShowVaultSelectorView(String filterItem, String filterType);
 
         void RefreshThumbnailCollection();
 
