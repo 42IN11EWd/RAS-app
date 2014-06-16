@@ -195,12 +195,13 @@ namespace RunApproachStatistics
             _setContent(vaultSelectorViewModel);
         }
 
-        public void ShowVaultSelectorView(gymnast gymnast)
+        public void ShowVaultSelectorView(String filterItem, String filterType)
         {
             VaultSelectorViewModel vaultSelectorViewModel = new VaultSelectorViewModel(this);
-            ModifyVaultViewModel modifyVaultViewModel = new ModifyVaultViewModel(this, "SELECT");
             _setContent(vaultSelectorViewModel);
-            vaultSelectorViewModel.Content = modifyVaultViewModel;
+            vaultSelectorViewModel.FilterType = filterType;
+            vaultSelectorViewModel.SelectedFilterItem = filterItem;
+            vaultSelectorViewModel.AddToFilters(null);
         }
 
         public void RefreshThumbnailCollection()
