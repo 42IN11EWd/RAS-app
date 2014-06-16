@@ -29,7 +29,7 @@
 
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <UniformGrid Columns="1" Rows="4" />
+                        <UniformGrid Columns="1" Rows="{Binding Path=listRowCount}" />
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
 

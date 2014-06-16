@@ -48,6 +48,7 @@ namespace RunApproachStatistics.ViewModel
         private List<int> gymnastIds;
         private List<int> vaultNumberIds;
         private List<int> vaultKindIds;
+        private int listRowCount;
 
         //Splitted names
         private String name;
@@ -325,6 +326,15 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
+        public int ListRowCount
+        {
+            get { return listRowCount; }
+            set
+            {
+                listRowCount = value;
+                OnPropertyChanged("ListRowCount");
+            }
+        }
         public bool ChangeState
         {
             get { return changeState; }
@@ -448,7 +458,9 @@ namespace RunApproachStatistics.ViewModel
                 {
                     thumbnailCollection[i].Gymnast = vaults[i].gymnast.name + " " + (vaults[i].gymnast.surname_prefix != null ? vaults[i].gymnast.surname_prefix + " " : "") + vaults[i].gymnast.surname;
                 }
+                
             }
+            ListRowCount = thumbnailCollection.Count / 4;
 
             /*for (int i = 0; i < thumbnailCollection.Count; i++)
             {

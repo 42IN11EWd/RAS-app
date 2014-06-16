@@ -15,7 +15,7 @@
             <!-- ItemsPanelTemplate -->
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <UniformGrid Columns="4" Rows="3" />
+                    <UniformGrid Columns="4" Rows="{Binding Path=listRowCount}" />
                    
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
