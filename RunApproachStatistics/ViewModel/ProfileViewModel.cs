@@ -1,4 +1,5 @@
-﻿using RunApproachStatistics.Controllers;
+﻿using MvvmValidation;
+using RunApproachStatistics.Controllers;
 using RunApproachStatistics.Model.Entity;
 using RunApproachStatistics.Modules;
 using RunApproachStatistics.Modules.Interfaces;
@@ -7,6 +8,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -17,7 +20,7 @@ using System.Windows.Media.Imaging;
 
 namespace RunApproachStatistics.ViewModel
 {
-    public class ProfileViewModel : AbstractViewModel
+    public class ProfileViewModel : ValidationViewModel
     {
         private IApplicationController _app;
         private UserModule uModule;
@@ -232,6 +235,7 @@ namespace RunApproachStatistics.ViewModel
             set
             {
                 editName = value;
+                Validator.Validate(() => EditName);
                 OnPropertyChanged("EditName");
                 OnPropertyChanged("Fullname");
             }
@@ -243,6 +247,7 @@ namespace RunApproachStatistics.ViewModel
             set
             {
                 editPrefix = value;
+                Validator.Validate(() => EditPrefix);
                 OnPropertyChanged("EditPrefix");
                 OnPropertyChanged("Fullname");
             }
@@ -254,6 +259,7 @@ namespace RunApproachStatistics.ViewModel
             set
             {
                 editSurname = value;
+                Validator.Validate(() => EditSurname);
                 OnPropertyChanged("EditSurname");
                 OnPropertyChanged("Fullname");
             }
@@ -265,6 +271,7 @@ namespace RunApproachStatistics.ViewModel
             set
             {
                 editFIGNumber = value;
+                Validator.Validate(() => EditFIGNumber);
                 OnPropertyChanged("EditFIGNumber");
             }
         }
@@ -275,6 +282,7 @@ namespace RunApproachStatistics.ViewModel
             set
             {
                 editDateOfBirth = value;
+                Validator.Validate(() => EditDateOfBirth);
                 OnPropertyChanged("EditDateOfBirth");
             }
         }
@@ -285,6 +293,7 @@ namespace RunApproachStatistics.ViewModel
             set
             {
                 editNationality = value;
+                Validator.Validate(() => EditNationality);
                 OnPropertyChanged("EditNationality");
             }
         }
@@ -295,6 +304,7 @@ namespace RunApproachStatistics.ViewModel
             set
             {
                 editGender = value;
+                Validator.Validate(() => EditGender);
                 OnPropertyChanged("EditGender");
             }
         }
@@ -305,6 +315,7 @@ namespace RunApproachStatistics.ViewModel
             set
             {
                 editLength = value;
+                Validator.Validate(() => EditLength);
                 OnPropertyChanged("EditLength");
             }
         }
@@ -315,6 +326,7 @@ namespace RunApproachStatistics.ViewModel
             set
             {
                 editWeight = value;
+                Validator.Validate(() => EditWeight);
                 OnPropertyChanged("EditWeight");
             }
         }
@@ -376,8 +388,12 @@ namespace RunApproachStatistics.ViewModel
                     DateOfBirth = value.birthdate != null ? value.birthdate.Value.ToShortDateString() : "";
                     Nationality = value.nationality;
                     Gender = value.gender;
-                    Length = value.length.ToString();
-                    Weight = value.weight.ToString();
+
+                    decimal length = (decimal)value.length;
+                    decimal weight = (decimal)value.weight;
+
+                    Length = length.ToString();
+                    Weight = weight.ToString();
                     Memos = value.note;
 
                     if (value.picture != null)
@@ -439,9 +455,11 @@ namespace RunApproachStatistics.ViewModel
             EnableFilter = true;
             inEditingMode = false;
             creatingNewGymnast = false;
+
+            setValidationRules();
         }
 
-        #region Command Methodes
+        #region RelayCommand
 
         public void InitPictureUpload(object commandParam)
         {
@@ -479,8 +497,8 @@ namespace RunApproachStatistics.ViewModel
             gymnast.birthdate = DateTime.TryParse(EditDateOfBirth, out tmpDoB) ? tmpDoB : (DateTime?)null;
             gymnast.nationality = EditNationality;
             gymnast.gender = EditGender;
-            gymnast.length = decimal.TryParse(EditLength, out tmpLength) ? tmpLength : (decimal?)null;
-            gymnast.weight = decimal.TryParse(EditWeight, out tmpWeight) ? tmpWeight : (decimal?)null;
+            gymnast.length = decimal.TryParse(EditLength.Replace(",", "."), out tmpLength) ? tmpLength : (decimal?)null;
+            gymnast.weight = decimal.TryParse(EditWeight.Replace(",", "."), out tmpWeight) ? tmpWeight : (decimal?)null;
             gymnast.note = EditMemos;
             //gymnast.picture = EditPicture;
             if (EditPicture != null)
@@ -670,7 +688,9 @@ namespace RunApproachStatistics.ViewModel
 
         public void SeeVaults(object commandParam)
         {
-            _app.ShowVaultSelectorView(SelectedFilterItem);
+            String filterItem = selectedFilterItem.name + " "+ selectedFilterItem.surname_prefix + " " + selectedFilterItem.surname;
+            String filterType = "Profilefilter: Gymnast";
+            _app.ShowVaultSelectorView(filterItem, filterType);
         }
 
         public Boolean CanSeeVaults()
@@ -714,5 +734,132 @@ namespace RunApproachStatistics.ViewModel
         {
             return !(EditPicture == Picture && EditName == Name && EditPrefix == Prefix && EditSurname == Surname && EditFIGNumber == FIGNumber && EditDateOfBirth == DateOfBirth && EditNationality == Nationality && EditGender == Gender && EditLength == Length && EditWeight == Weight && EditMemos == Memos);
         }
+
+        #region Validation Rules
+        private void setValidationRules()
+        {
+            Validator.AddRule(() => EditName,
+                              () =>
+                              {
+                                  if (EditName == null || EditName.Length > 50 || EditName.Length < 1)
+                                  {
+                                      return RuleResult.Invalid("Name is too short or too long (max 50 characters)");
+                                  }
+                                  else
+                                  {
+                                      return RuleResult.Valid();
+                                  }
+                              });
+
+            Validator.AddRule(() => EditPrefix,
+                              () =>
+                              {
+                                  if (EditPrefix != null && EditPrefix.Length > 45)
+                                  {
+                                      return RuleResult.Invalid("Prefix is too long (max 45 characters)");
+                                  }
+                                  else
+                                  {
+                                      return RuleResult.Valid();
+                                  }
+                              });
+
+            Validator.AddRule(() => EditSurname,
+                              () =>
+                              {
+                                  if (EditSurname == null || EditSurname.Length > 50 || EditSurname.Length < 1)
+                                  {
+                                      return RuleResult.Invalid("Surname is too short or too long (max 50 characters)");
+                                  }
+                                  else
+                                  {
+                                      return RuleResult.Valid();
+                                  }
+                              });
+
+            Validator.AddRule(() => EditFIGNumber,
+                              () =>
+                              {
+                                  float temp;
+                                  if (EditFIGNumber == null || !float.TryParse(EditFIGNumber, out temp) || EditFIGNumber.Length < 1)
+                                  {
+                                      return RuleResult.Invalid("FIG Number must be a number and cannot be empty");
+                                  }
+                                  else
+                                  {
+                                      return RuleResult.Valid();
+                                  }
+                              });
+
+            Validator.AddRule(() => EditDateOfBirth,
+                              () =>
+                              {
+                                  DateTime result;
+                                  String[] formats = { "yyyy-MM-dd", "dd-MM-yyyy" };
+                                  if (EditDateOfBirth != null && EditDateOfBirth.Length > 0 && !DateTime.TryParseExact(EditDateOfBirth, formats, CultureInfo.CurrentCulture, DateTimeStyles.None, out result))
+                                  {
+                                      return RuleResult.Invalid("Date of birth must be a date");
+                                  }
+                                  else
+                                  {
+                                      return RuleResult.Valid();
+                                  }
+                              });
+
+            Validator.AddRule(() => EditNationality,
+                              () =>
+                              {
+                                  if (EditNationality != null && EditNationality.Length > 45)
+                                  {
+                                      return RuleResult.Invalid("Nationality is too long (max 45 characters)");
+                                  }
+                                  else
+                                  {
+                                      return RuleResult.Valid();
+                                  }
+                              });
+
+            Validator.AddRule(() => EditGender,
+                              () =>
+                              {
+                                  if (EditGender != null && (EditGender.Length > 1 || EditGender.Length < 1))
+                                  {
+                                      return RuleResult.Invalid("Gender is too short or too long (max 1 characters)");
+                                  }
+                                  else
+                                  {
+                                      return RuleResult.Valid();
+                                  }
+                              });
+
+            Validator.AddRule(() => EditWeight,
+                              () =>
+                              {
+                                  float temp;
+                                  if (EditWeight != null && EditWeight.Length > 0 && (!float.TryParse(EditWeight, out temp) || EditWeight.Contains(",") || EditWeight.Contains(".")))
+                                  {
+                                      return RuleResult.Invalid("Weight must be a number and may not contain decimals");
+                                  }
+                                  else
+                                  {
+                                      return RuleResult.Valid();
+                                  }
+                              });
+            
+            Validator.AddRule(() => EditLength,
+                              () =>
+                              {
+                                  float temp;
+                                  if (EditLength != null && EditLength.Length > 0 && (!float.TryParse(EditLength, out temp) || EditLength.Contains(",") || EditLength.Contains(".")))
+                                  {
+                                      return RuleResult.Invalid("Length must be a number and may not contain decimals");
+                                  }
+                                  else
+                                  {
+                                      return RuleResult.Valid();
+                                  }
+                              });
+        }
+        #endregion
     }
 }

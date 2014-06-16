@@ -11,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows;
 using System.Linq;
+using System.Windows.Input;
 
 namespace RunApproachStatistics.ViewModel
 {
@@ -39,14 +40,8 @@ namespace RunApproachStatistics.ViewModel
         private String escore;
         private String penalty;
         private String totalscore;
-        private List<String> locations;
-        private List<String> gymnasts;
-        private List<String> vaultNumbers;
-        private List<String> vaultKinds;
-        private List<int> locationIds;
-        private List<int> gymnastIds;
-        private List<int> vaultNumberIds;
-        private List<int> vaultKindIds;
+        private int listRowCount;
+
 
         //Splitted names
         private String name;
@@ -131,16 +126,6 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        /*public List<String> Gymnasts
-        {
-            get { return gymnasts; }
-            set
-            {
-                gymnasts = value;
-                OnPropertyChanged("Gymnasts");
-            }
-        }*/
-
         public List<String> Gymnasts
         {
             get
@@ -182,16 +167,6 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        /*public List<String> VaultNumbers
-        {
-            get { return vaultNumbers; }
-            set
-            {
-                vaultNumbers = value;
-                OnPropertyChanged("VaultNumbers");
-            }
-        }*/
-
         public List<String> VaultNumbers
         {
             get { return vaultNumberList.Select(v => v.code).ToList(); }
@@ -223,16 +198,6 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        /*public List<String> Locations
-        {
-            get { return locations; }
-            set
-            {
-                locations = value;
-                OnPropertyChanged("Locations");
-            }
-        }*/
-
         public List<String> Locations
         {
             get { return locationsList.Select(l => l.name).ToList(); }
@@ -253,16 +218,6 @@ namespace RunApproachStatistics.ViewModel
                 OnPropertyChanged("VaultKind");
             }
         }
-
-        /*public List<String> VaultKinds
-        {
-            get { return vaultKinds; }
-            set
-            {
-                vaultKinds = value;
-                OnPropertyChanged("VaultKinds");
-            }
-        }*/
 
         public String DScore
         {
@@ -324,6 +279,15 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
+        public int ListRowCount
+        {
+            get { return listRowCount; }
+            set
+            {
+                listRowCount = value;
+                OnPropertyChanged("ListRowCount");
+            }
+        }
         public bool ChangeState
         {
             get { return changeState; }
@@ -447,12 +411,10 @@ namespace RunApproachStatistics.ViewModel
                 {
                     thumbnailCollection[i].Gymnast = vaults[i].gymnast.name + " " + (vaults[i].gymnast.surname_prefix != null ? vaults[i].gymnast.surname_prefix + " " : "") + vaults[i].gymnast.surname;
                 }
+                
             }
+            ListRowCount = thumbnailCollection.Count / 4;
 
-            /*for (int i = 0; i < thumbnailCollection.Count; i++)
-            {
-                thumbnailCollection[i].Vault = vaultModule.read(thumbnailCollection[i].Vault.vault_id);
-            }*/
             OnPropertyChanged("ThumbnailCollection");
             OnPropertyChanged("FilterList");
 
@@ -708,6 +670,11 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
+        private void ListViewDoubleClick(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("Doe het eens...");
+        }
+
         #region RelayCommands
         public void FinishAction(object commandParam)
         {
@@ -799,12 +766,6 @@ namespace RunApproachStatistics.ViewModel
             }
             else if(kind == "SELECT")
             {
-                /*List<vault> tempVaults = new List<vault>();
-                foreach (ThumbnailViewModel thumb in ThumbnailCollection)
-                {
-                    tempVaults.Add(thumb.Vault);
-                }
-                setData(tempVaults);*/
                 _app.RefreshThumbnailCollection();
             }
             OnPropertyChanged("SelectedThumbnails");

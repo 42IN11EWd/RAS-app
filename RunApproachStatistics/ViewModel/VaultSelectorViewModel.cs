@@ -601,7 +601,7 @@ namespace RunApproachStatistics.ViewModel
         public void AddToFilters(object commandParam)
         {
             string itemToFilter = selectedFilterItem;
-            if (itemToFilter != null && itemToFilter != null)
+            if (itemToFilter != null)
             {
                 string[] valueToFilter = filterType.Split(' ');
                 string checkDuplicates = valueToFilter[1] + ":" + itemToFilter;
@@ -610,7 +610,7 @@ namespace RunApproachStatistics.ViewModel
                 {
                     if (newFilter.Equals(checkDuplicates))
                     {
-                        MessageBox.Show("Can't add the same filter, please choose antoher one.");
+                        MessageBox.Show("Can't add the same filter, please choose another one.");
                         return;
                     }
                 }

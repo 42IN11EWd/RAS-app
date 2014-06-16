@@ -39,8 +39,8 @@
             <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="70,490,0,0" Text="Nationality:" VerticalAlignment="Top" />
             <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="70,530,0,0" Text="Gender:" VerticalAlignment="Top" />
 
-            <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="70,630,0,0" Text="Length:" VerticalAlignment="Top" />
-            <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="70,670,0,0" Text="Weight:" VerticalAlignment="Top" />
+            <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="70,630,0,0" Text="Length in cm:" VerticalAlignment="Top" />
+            <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="70,670,0,0" Text="Weight in kg:" VerticalAlignment="Top" />
 
             <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="70,745,0,0" Text="Memo:" VerticalAlignment="Top" />
 
@@ -49,24 +49,24 @@
             <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,350,0,0" Text="{Binding Path=Surname}" VerticalAlignment="Top" Visibility="{Binding Path=IsNotEditing}" />
             <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,390,0,0" Text="{Binding Path=FIGNumber}" VerticalAlignment="Top" Visibility="{Binding Path=IsNotEditing}" />
 
-            <TextBox FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,270,0,0" Text="{Binding Path=EditName, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Visibility="{Binding Path=IsEditing}" Width="256" />
-            <TextBox FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,310,0,0" Text="{Binding Path=EditPrefix, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Visibility="{Binding Path=IsEditing}" Width="256" />
-            <TextBox FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,350,0,0" Text="{Binding Path=EditSurname, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Visibility="{Binding Path=IsEditing}" Width="256" />
-            <TextBox FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,390,0,0" Text="{Binding Path=EditFIGNumber, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Visibility="{Binding Path=IsEditing}" Width="256" />
+            <TextBox FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,270,0,0" Text="{Binding Path=EditName, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" VerticalAlignment="Top" Visibility="{Binding Path=IsEditing}" Width="256" Style="{StaticResource textBoxInError}"/>
+            <TextBox FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,310,0,0" Text="{Binding Path=EditPrefix, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" VerticalAlignment="Top" Visibility="{Binding Path=IsEditing}" Width="256" Style="{StaticResource textBoxInError}"/>
+            <TextBox FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,350,0,0" Text="{Binding Path=EditSurname, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" VerticalAlignment="Top" Visibility="{Binding Path=IsEditing}" Width="256" Style="{StaticResource textBoxInError}"/>
+            <TextBox FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,390,0,0" Text="{Binding Path=EditFIGNumber, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" VerticalAlignment="Top" Visibility="{Binding Path=IsEditing}" Width="256" Style="{StaticResource textBoxInError}"/>
 
             <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,450,0,0" Text="{Binding Path=DateOfBirth}" VerticalAlignment="Top" Visibility="{Binding Path=IsNotEditing}" />
             <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,490,0,0" Text="{Binding Path=Nationality}" VerticalAlignment="Top" Visibility="{Binding Path=IsNotEditing}" />
             <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,530,0,0" Text="{Binding Path=Gender}" VerticalAlignment="Top" Visibility="{Binding Path=IsNotEditing}" />
 
-            <TextBox FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,450,0,0" Text="{Binding Path=EditDateOfBirth, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Visibility="{Binding Path=IsEditing}" Width="256" />
-            <TextBox FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,490,0,0" Text="{Binding Path=EditNationality, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Visibility="{Binding Path=IsEditing}" Width="256" />
-            <TextBox FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,530,0,0" Text="{Binding Path=EditGender, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Visibility="{Binding Path=IsEditing}" Width="256" />
+            <TextBox FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,450,0,0" Text="{Binding Path=EditDateOfBirth, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" VerticalAlignment="Top" Visibility="{Binding Path=IsEditing}" Width="256" Style="{StaticResource textBoxInError}"/>
+            <TextBox FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,490,0,0" Text="{Binding Path=EditNationality, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" VerticalAlignment="Top" Visibility="{Binding Path=IsEditing}" Width="256" Style="{StaticResource textBoxInError}"/>
+            <TextBox FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,530,0,0" Text="{Binding Path=EditGender, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" VerticalAlignment="Top" Visibility="{Binding Path=IsEditing}" Width="256" Style="{StaticResource textBoxInError}"/>
 
             <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,630,0,0" Text="{Binding Path=Length}" VerticalAlignment="Top" Visibility="{Binding Path=IsNotEditing}" />
             <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,670,0,0" Text="{Binding Path=Weight}" VerticalAlignment="Top" Visibility="{Binding Path=IsNotEditing}" />
 
-            <TextBox FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,630,0,0" Text="{Binding Path=EditLength, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Visibility="{Binding Path=IsEditing}" Width="256" />
-            <TextBox FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,670,0,0" Text="{Binding Path=EditWeight, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Visibility="{Binding Path=IsEditing}" Width="256" />
+            <TextBox FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,630,0,0" Text="{Binding Path=EditLength, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" VerticalAlignment="Top" Visibility="{Binding Path=IsEditing}" Width="256" Style="{StaticResource textBoxInError}"/>
+            <TextBox FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="280,670,0,0" Text="{Binding Path=EditWeight, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" VerticalAlignment="Top" Visibility="{Binding Path=IsEditing}" Width="256" Style="{StaticResource textBoxInError}"/>
 
             <TextBlock  FontSize="24" Grid.Column="1" Height="200" HorizontalAlignment="Left" Margin="280,745,0,0" Text="{Binding Path=Memos}" TextWrapping="Wrap" VerticalAlignment="Top" Visibility="{Binding Path=IsNotEditing}" Width="420" />
             <TextBox  AcceptsReturn="True" FontSize="24" Grid.Column="1" Height="200" HorizontalAlignment="Left" Margin="280,745,0,0" Text="{Binding Path=EditMemos, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" VerticalAlignment="Top" Visibility="{Binding Path=IsEditing}" Width="420" />
@@ -114,7 +114,7 @@
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
-                    <Button Command="{Binding Path=SeeVaultsCommand}" Content="See vaults" FontSize="24" Height="50" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="368"/>
+                    <Button Command="{Binding Path=SeeVaultsCommand}" Content="Go to vaults" FontSize="24" Height="50" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="368"/>
                 </Grid>
             </Border>
             <!-- End filter -->

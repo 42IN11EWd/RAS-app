@@ -20,5 +20,21 @@
         isLeaf="false"
         isActiveClass="false" />
     </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="aeda9ba8-9bcd-4845-bfd3-86bb11baa25b"
+        name="MouseBehaviour"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="f01db2ef-5484-44f8-befc-540141cba699"
+        name="MultiParameterConverter"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
   </packagedElements>
 </package>

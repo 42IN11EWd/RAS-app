@@ -11,11 +11,11 @@
              mc:Ignorable="d" 
              d:DesignHeight="1080" d:DesignWidth="1595" Background="White">
     <Grid Width="1595" Height="1080">
-        <ListView x:Name="VaultView" SelectionMode="Multiple" ItemsSource="{Binding Path=ThumbnailCollection}" Margin="10,10,0,0" Height="684" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1189">
+        <ListView x:Name="VaultView" SelectionMode="Multiple" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" ItemsSource="{Binding Path=ThumbnailCollection}" Margin="10,10,0,0" Height="684" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1189">
             <!-- ItemsPanelTemplate -->
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <UniformGrid Columns="4" />
+                    <UniformGrid Columns="4" Rows="{Binding Path=listRowCount}" />
                    
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>

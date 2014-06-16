@@ -52,7 +52,7 @@
                     <TextBlock FontSize="24" Grid.Column="1" Grid.Row="2" Text="{Binding Path=LeftVaultNumber}"/>
                     <TextBlock FontSize="24" Grid.Column="1" Grid.Row="3" Text="{Binding Path=LeftTotalScore}"/>
 
-                    <Button Background="#FA2A2A" Command="{Binding Path=LeftSelectionCommand}" Grid.Column="2" Grid.RowSpan="4">
+                    <Button Background="#FA2A2A" Command="{Binding Path=LeftSelectionCommand}" Grid.Column="2" Grid.RowSpan="4" IsEnabled="{Binding Path=SelectionEnabled}">
                         <CheckBox IsChecked="{Binding Path=LeftIsEnabled}" Content="Selected" />
                     </Button>
                 </Grid>
@@ -86,7 +86,7 @@
                     <TextBlock FontSize="24" Grid.Column="1" Grid.Row="2" Text="{Binding Path=RightVaultNumber}"/>
                     <TextBlock FontSize="24" Grid.Column="1" Grid.Row="3" Text="{Binding Path=RightTotalScore}"/>
 
-                    <Button Background="#2A54FA" Command="{Binding Path=RightSelectionCommand}" Grid.Column="2" Grid.RowSpan="4">
+                    <Button Background="#2A54FA" Command="{Binding Path=RightSelectionCommand}" Grid.Column="2" Grid.RowSpan="4" IsEnabled="{Binding Path=SelectionEnabled}">
                         <CheckBox Content="Selected" IsChecked="{Binding Path=RightIsEnabled}" />
                     </Button>
                 </Grid>
