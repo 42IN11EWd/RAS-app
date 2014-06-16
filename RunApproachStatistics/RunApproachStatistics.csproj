@@ -448,6 +448,7 @@
     <Resource Include="Images\videoControl_play_b.png" />
     <Resource Include="Images\videoControl_stop_b.png" />
     <Resource Include="Images\Icon.ico" />
+    <Resource Include="Images\lock.png" />
     <Content Include="postproc-52.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
