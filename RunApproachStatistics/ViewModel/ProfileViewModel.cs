@@ -389,8 +389,8 @@ namespace RunApproachStatistics.ViewModel
                     Nationality = value.nationality;
                     Gender = value.gender;
 
-                    decimal length = (decimal)value.length;
-                    decimal weight = (decimal)value.weight;
+                    decimal length = value.length.HasValue == true ? (decimal)value.length : 0;
+                    decimal weight = value.weight.HasValue == true ? (decimal)value.weight : 0;
 
                     Length = length.ToString();
                     Weight = weight.ToString();
