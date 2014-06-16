@@ -159,7 +159,7 @@ namespace RunApproachStatistics.ViewModel
 
             // Setup default customization
             HasSecondAxis = Visibility.Visible;
-            AxisTitle = "Distance";
+            AxisTitle = "Distance (m)";
             OnPropertyChanged("AxisTitleColor");
             IsSpecializedGraph = false;
             AxisMaxLeft = 30;
@@ -211,7 +211,15 @@ namespace RunApproachStatistics.ViewModel
             }
 
             HasSecondAxis = Visibility.Hidden;
-            AxisTitle = type;
+
+            if (type.Equals("Speed"))
+            {
+                AxisTitle = type + " (m/s)";
+            }
+            else
+            {
+                AxisTitle = type + " (m)";
+            }
             OnPropertyChanged("AxisTitleColor");
 
             this.type = type;
