@@ -33,6 +33,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Images\Icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="AForge.Imaging">
       <HintPath>DLL\AForge.Imaging.dll</HintPath>
@@ -444,6 +447,7 @@
     <Resource Include="Images\videoControl_pause_b.png" />
     <Resource Include="Images\videoControl_play_b.png" />
     <Resource Include="Images\videoControl_stop_b.png" />
+    <Resource Include="Images\Icon.ico" />
     <Content Include="postproc-52.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
