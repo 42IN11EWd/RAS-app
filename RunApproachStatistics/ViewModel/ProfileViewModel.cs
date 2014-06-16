@@ -688,7 +688,9 @@ namespace RunApproachStatistics.ViewModel
 
         public void SeeVaults(object commandParam)
         {
-            _app.ShowVaultSelectorView(SelectedFilterItem);
+            String filterItem = selectedFilterItem.name + " "+ selectedFilterItem.surname_prefix + " " + selectedFilterItem.surname;
+            String filterType = "Profilefilter: Gymnast";
+            _app.ShowVaultSelectorView(filterItem, filterType);
         }
 
         public Boolean CanSeeVaults()
