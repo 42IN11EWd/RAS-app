@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
+using System.Xml;
 
 namespace RunApproachStatistics.Modules
 {
@@ -118,6 +119,7 @@ namespace RunApproachStatistics.Modules
                     }
                     catch (Exception e)
                     {
+
                         Console.WriteLine(e);
                     }
                 }
@@ -420,6 +422,12 @@ namespace RunApproachStatistics.Modules
 
                 // Save the new vault and include the video path.            
                 vault.videopath = fileName;
+                ////
+                //String u = SerializeService.SerializeObjectToString<vault>(vault);
+                //Console.WriteLine(u);
+
+
+                //
                 create(vault);
 
                 // Send vault back to view, for thumbnail list

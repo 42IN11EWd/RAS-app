@@ -36,9 +36,16 @@ namespace RunApproachStatistics
         private VideoCameraController videoCameraController;
         private IVideoCameraSettingsModule videoCameraSettingsModule = new SettingsModule();
 
+        private Boolean isOfflineMode;
         private Boolean isLocked;
         private Boolean isLoggedIn;
         private Boolean isLoginWindowOpen;
+
+        public Boolean IsOfflineMode
+        {
+            get { return isOfflineMode; }
+            set { isOfflineMode = value; }
+        }
 
         public Boolean IsLoggedIn
         {
@@ -314,6 +321,7 @@ namespace RunApproachStatistics
             {
                 if (!isConnected)
                 {
+                    IsOfflineMode = true;
                     MessageBoxResult result = MessageBox.Show("No active network connection could be found.\r\n Some functionalities will not be available", "Not connected to the internet", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 }
             }
