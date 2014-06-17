@@ -45,7 +45,7 @@
         <Label FontSize="24" Width="200" Height="45" Content="Date and Time"    HorizontalAlignment="Left" Margin="72,766,0,0" VerticalAlignment="Top"/>
         <Label FontSize="24" Width="200" Height="45" Content="Vault number"     HorizontalAlignment="Left" Margin="72,813,0,0" VerticalAlignment="Top"/>
         <Label FontSize="24" Width="200" Height="45" Content="Location"         HorizontalAlignment="Left" Margin="72,860,0,0" VerticalAlignment="Top"/>
-        <Label FontSize="24" Width="200" Height="45" Content="Vault kind"       HorizontalAlignment="Left" Margin="72,907,0,0" VerticalAlignment="Top"/>
+        <Label FontSize="24" Width="200" Height="45" Content="Vault event"       HorizontalAlignment="Left" Margin="72,907,0,0" VerticalAlignment="Top"/>
         <Label FontSize="24" Width="200" Height="45" Content="Rating"           HorizontalAlignment="Left" Margin="648,719,0,0" VerticalAlignment="Top"/>
         <Label FontSize="24" Width="200" Height="45" Content="D-score"          HorizontalAlignment="Left" Margin="648,766,0,0" VerticalAlignment="Top"/>
         <Label FontSize="24" Width="200" Height="45" Content="E-score"          HorizontalAlignment="Left" Margin="648,813,0,0" VerticalAlignment="Top"/>

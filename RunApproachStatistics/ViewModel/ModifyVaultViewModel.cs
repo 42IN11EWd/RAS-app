@@ -659,7 +659,7 @@ namespace RunApproachStatistics.ViewModel
 
         private void calculateTotalScore()
         {
-            if (!String.IsNullOrEmpty(DScore) && String.IsNullOrWhiteSpace(EScore) && GetErrorArr("DScore") == null && GetErrorArr("EScore") == null)
+            if (!String.IsNullOrEmpty(DScore) && !String.IsNullOrWhiteSpace(EScore) && GetErrorArr("DScore") == null && GetErrorArr("EScore") == null)
             {
                 try
                 {
