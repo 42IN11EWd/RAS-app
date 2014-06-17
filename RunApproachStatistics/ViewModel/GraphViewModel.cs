@@ -37,6 +37,7 @@ namespace RunApproachStatistics.ViewModel
         private Brush lineOneColor;
         private Brush lineTwoColor;
         private Visibility lineVisibilty;
+        private Visibility lineVisibilty2;
         private float graphSeconds;
         private String graphData;
 
@@ -119,6 +120,16 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
+        public Visibility LineVisibilty2
+        {
+            get { return lineVisibilty2; }
+            set
+            {
+                lineVisibilty2 = value;
+                OnPropertyChanged("LineVisibilty2");
+            }
+        }
+
         public Visibility HasSecondAxis
         {
             get { return hasSecondAxis; }
@@ -166,11 +177,13 @@ namespace RunApproachStatistics.ViewModel
             {
                 GraphSeconds    = 30;
                 LineVisibilty   = Visibility.Hidden;
+                LineVisibilty2 = Visibility.Hidden;
             }
             else
             {
                 GraphSeconds    = 10;
                 LineVisibilty   = Visibility.Visible;
+                LineVisibilty2 = Visibility.Hidden;
                 LineMargin      = new Thickness(87, 25, 0, 0);
                 LineMargin2     = new Thickness(87, 25, 0, 0);
             }
@@ -247,6 +260,7 @@ namespace RunApproachStatistics.ViewModel
             }
 
             HasSecondAxis = Visibility.Hidden;
+            LineVisibilty2 = Visibility.Visible;
 
             if (type.Equals("Speed"))
             {
