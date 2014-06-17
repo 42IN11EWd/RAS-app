@@ -7,7 +7,7 @@
              d:DesignHeight="430" d:DesignWidth="850" Background="White">
     <Viewbox Stretch="Uniform">
         <Grid Height="421" Width="850">
-            <Label FontSize="26" Content="Vault kind editor" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
+            <Label FontSize="26" Content="Vault event editor" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
             <ListBox SelectedItem="{Binding Path=SelectedItem, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Path=Vaults}" FontSize="18" HorizontalAlignment="Left" Height="361" Margin="10,50,0,0" VerticalAlignment="Top" Width="261">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
