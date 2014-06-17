@@ -4,6 +4,7 @@ using RunApproachStatistics.Modules.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,6 +21,7 @@ namespace RunApproachStatistics.Modules
     public class UserModule : IUserModule, ILoginModule
     {
         private static Boolean _isLoggedIn;
+        private const String SALT = "23kl4h0dfb;l2m4podgulrm23por0dvucg";
 
         public void create(gymnast gymnast)
         {
@@ -142,13 +144,27 @@ namespace RunApproachStatistics.Modules
         public Boolean login(string username, string password)
         {
             Boolean correctLoginVariables = false;
+            
+            String passwordToHash   = password + SALT;
+            byte[] passwordBytes    = Encoding.ASCII.GetBytes(passwordToHash);
+            
+            MD5 hasher              = MD5.Create();
+            passwordBytes           = hasher.ComputeHash(passwordBytes);
+
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < passwordBytes.Length; i++)
+            {
+                sb.Append(passwordBytes[i].ToString("x2"));
+            }
+            String hashedPassword = sb.ToString();
+
             using (var db = new DataContext())
             {
                 bool dbexist = db.Database.Exists();
                 if (dbexist == true)
                 {
                     var query = from qUser in db.user
-                                where qUser.username == username && qUser.password == password
+                                where qUser.username == username && qUser.password == hashedPassword
                                 select qUser;
 
                     foreach (user eUser in query)
