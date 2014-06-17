@@ -11,7 +11,9 @@ using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Data;
 using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.NetworkInformation;
 using System.Threading;
 using System.Threading.Tasks;
@@ -36,9 +38,19 @@ namespace RunApproachStatistics
         private VideoCameraController videoCameraController;
         private IVideoCameraSettingsModule videoCameraSettingsModule = new SettingsModule();
 
+        private static Boolean isOfflineMode;
         private Boolean isLocked;
         private Boolean isLoggedIn;
         private Boolean isLoginWindowOpen;
+
+        public readonly static String filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "RunApproachStatistics");
+        public readonly static String syncPath = Path.Combine(filePath, "SyncQueue");
+
+        public static Boolean IsOfflineMode
+        {
+            get { return isOfflineMode; }
+            set { isOfflineMode = value; }
+        }
 
         public Boolean IsLoggedIn
         {
@@ -75,6 +87,11 @@ namespace RunApproachStatistics
             // check connectivity with internet
             CheckNetworkConnection();
 
+            if (!IsOfflineMode)
+            {
+                SyncVaults();
+            }
+
             // init VideoCameraController
             videoCameraController = new VideoCameraController();
             int videoCameraIndex = videoCameraSettingsModule.getVideocameraIndex();
@@ -99,6 +116,30 @@ namespace RunApproachStatistics
 
             Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture("en-US");
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("en-US");
+        }
+
+        private void SyncVaults()
+        {
+            VaultModule vm = new VaultModule();
+            if (Directory.Exists(syncPath))
+            {
+                //Loop through
+                foreach (string s in Directory.GetFiles(syncPath, "*.dat").Select(Path.GetFileName))
+                {
+                    vault v = SerializeService.Deserialize<vault>(Path.Combine(syncPath,s));
+                    vm.create(v);
+
+                    // Upload the file to the server.
+                    WebClient myWebClient = new WebClient();
+                    NetworkCredential myCredentials = new NetworkCredential("snijhof", "MKD7529s09");
+                    myWebClient.Credentials = myCredentials;
+                    byte[] responseArray = myWebClient.UploadFile("ftp://student.aii.avans.nl/GRP/42IN11EWd/Videos/" + v.videopath, Path.Combine(filePath,v.videopath));
+
+
+                    //delete file
+                    File.Delete(Path.Combine(syncPath, s));
+                }
+            }
         }
 
         public void ShowMainScreen()
@@ -315,6 +356,7 @@ namespace RunApproachStatistics
             {
                 if (!isConnected)
                 {
+                    IsOfflineMode = true;
                     MessageBoxResult result = MessageBox.Show("No active network connection could be found.\r\n Some functionalities will not be available", "Not connected to the internet", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 }
             }

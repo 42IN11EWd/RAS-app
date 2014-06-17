@@ -286,7 +286,17 @@ namespace RunApproachStatistics.ViewModel
 
         public int ListRowCount
         {
-            get { return listRowCount; }
+            get
+            {
+                if (listRowCount <= 4)
+                {
+                    return 4;
+                }
+                else
+                {
+                    return listRowCount;
+                }
+            }
             set
             {
                 listRowCount = value;
@@ -418,10 +428,11 @@ namespace RunApproachStatistics.ViewModel
                 }
                 
             }
-            ListRowCount = thumbnailCollection.Count / 4;
+            ListRowCount = (thumbnailCollection.Count) / 4;
 
             OnPropertyChanged("ThumbnailCollection");
             OnPropertyChanged("FilterList");
+            OnPropertyChanged("ListRowCount");
 
         }
 
@@ -963,7 +974,7 @@ namespace RunApproachStatistics.ViewModel
             doubleClickCommand = new RelayCommand((thumbnail) =>
             {
                 ThumbnailViewModel thumbnailvm = (ThumbnailViewModel)thumbnail;
-                Console.WriteLine(thumbnailvm.Vault.gymnast.name);
+                
             });
             FinishCommand = new RelayCommand(FinishAction);
             DeleteCommand = new RelayCommand(DeleteAction);

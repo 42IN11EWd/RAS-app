@@ -588,7 +588,7 @@ namespace RunApproachStatistics.ViewModel
             vaultThumb.Vault = receivedVault;
             
             // Add to collection
-            thumbnailCollection.Add(vaultThumb);
+            thumbnailCollection.Insert(1, vaultThumb);
         }
 
         private void calculateTotalScore()
@@ -651,7 +651,7 @@ namespace RunApproachStatistics.ViewModel
         public void LoadPostMeasurementScreen(object commandParam)
         {
             ThumbnailCollection.RemoveAt(0);
-            if(ThumbnailCollection.Count == 0)
+            if(ThumbnailCollection.Count == 0 || App.IsOfflineMode)
             {
                 _app.ShowHomeView();
             }

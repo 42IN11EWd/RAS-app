@@ -104,12 +104,14 @@ namespace RunApproachStatistics.Services
             if (line.Length >= 2)
             {
                 String subLine = line.Substring(0, 2);
+                String errorLine = "D 0000.000 0000.000";
 
                 switch (subLine)
                 {
                     case "D-":
-                    case "D ": lastCommandReceived = "D"; writeMeasurement(line); break;
-                    case "PL": lastCommandReceived = "PL";  break;
+                    case "D ": lastCommandReceived = "D";  writeMeasurement(line); break;
+                    case "ER": lastCommandReceived = "ER"; writeMeasurement(errorLine); break;
+                    case "PL": lastCommandReceived = "PL"; break;
                     case "DT": lastCommandReceived = "DT"; Console.WriteLine("Single distance measurement started"); break;
                     case "VT": lastCommandReceived = "VT"; Console.WriteLine("Continous distance + speed measurement started"); break;
                     case "MF": lastCommandReceived = "MF"; break;
