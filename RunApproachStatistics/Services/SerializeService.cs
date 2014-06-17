@@ -14,7 +14,6 @@ namespace RunApproachStatistics.Services
     public static class SerializeService
     {
 
-        #region Serialize
         public static void Serialize<T>(T toSerialize, String fName)
         {
             BinaryFormatter bf = new BinaryFormatter();

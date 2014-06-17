@@ -18,7 +18,7 @@
                 <Button Content="Settings" Margin="35,30,35,0" FontSize="26" Height="50" Command="{Binding SettingsCommand}"/>
                 <Button Content="Home" Margin="35,30,35,0" FontSize="26" Height="50" Command="{Binding HomeCommand}"/>
             </StackPanel>
-            <Button Content="{Binding LogName}" Margin="35,0,34,10" FontSize="26" Height="50" Command="{Binding LogCommand}" VerticalAlignment="Bottom"/>
+            <Button Content="{Binding LogName}" Margin="35,0,34,10" FontSize="26" Height="50" IsEnabled="{Binding Path=OfflineMode}" Command="{Binding LogCommand}" VerticalAlignment="Bottom"/>
         </Grid>
     </Viewbox>
 </UserControl>
