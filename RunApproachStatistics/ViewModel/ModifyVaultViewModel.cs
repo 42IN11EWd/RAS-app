@@ -15,6 +15,7 @@ using System.Windows.Input;
 using Microsoft.Win32;
 using System.Text;
 using RunApproachStatistics.Services;
+using System.IO.Compression;
 
 namespace RunApproachStatistics.ViewModel
 {
@@ -777,20 +778,55 @@ namespace RunApproachStatistics.ViewModel
 
         public void ExportAction(object commandParam)
         {
-            String content = CsvService.MeasurementDataToString(SelectedThumbnails[0].Vault.graphdata);
-
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "CSV File|*.csv";
-            saveFileDialog.Title = "Save an CSV File";
-            saveFileDialog.ShowDialog();
-
-            if (saveFileDialog.FileName != "")
+            if (SelectedThumbnails.Count == 1)
             {
-                System.IO.FileStream fs = (System.IO.FileStream)saveFileDialog.OpenFile();
+                String content = CsvService.MeasurementDataToString(SelectedThumbnails[0].Vault.graphdata);
 
-                fs.Write(Encoding.UTF8.GetBytes(content), 0, Encoding.UTF8.GetByteCount(content));
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "CSV File|*.csv";
+                saveFileDialog.Title = "Save a CSV File";
+                saveFileDialog.FileName = CsvService.GenerateFilename(SelectedThumbnails[0]);
+                saveFileDialog.ShowDialog();
 
-                fs.Close();
+                if (saveFileDialog.FileName != "")
+                {
+                    try
+                    {
+                        System.IO.FileStream fs = (System.IO.FileStream)saveFileDialog.OpenFile();
+
+                        fs.Write(Encoding.UTF8.GetBytes(content), 0, Encoding.UTF8.GetByteCount(content));
+
+                        fs.Close();
+                    }
+                    catch
+                    {
+                        //no problem, file is not saved (cancel or the close button is clicked).
+                    }
+                }
+            }
+            else
+            {
+                CsvService.MultipleMeasurementsToZip(SelectedThumbnails);
+
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "ZIP File|*.zip";
+                saveFileDialog.Title = "Save a ZIP File";
+                saveFileDialog.FileName = "Vault collection " + DateTime.Now.ToString().Replace("/", "-").Replace(":", ".");
+                saveFileDialog.ShowDialog();
+
+                if (saveFileDialog.FileName != "")
+                {
+                    try
+                    { 
+                        ZipFile.CreateFromDirectory(CsvService.CSVFolder, saveFileDialog.FileName);
+                    }
+                    catch
+                    {
+                        //no problem, file is not saved (cancel or the close button is clicked).
+                    }
+                }
+
+                CsvService.ClearCSVFolderAfterSave();
             }
         }
 
