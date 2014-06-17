@@ -19,6 +19,8 @@ namespace RunApproachStatistics.ViewModel
     {
         private IApplicationController _app;
         private Boolean aVideoFinished;
+        private double videoLeftMax;
+        private double videoRightMax;
 
         #region Modules
 
@@ -382,6 +384,8 @@ namespace RunApproachStatistics.ViewModel
             SpeedGraphView = new GraphViewModel(_app, this, false, 1000);
 
             aVideoFinished = false;
+            videoLeftMax = 0;
+            videoRightMax = 0;
         }
 
         public void setVaultsToCompare(List<vault> vaults)
@@ -438,33 +442,39 @@ namespace RunApproachStatistics.ViewModel
                 }
             }
 
+            /*
             SpeedGraphView.setupSpecializedGraph("Speed", vaultsSpecialized[0][0], vaultsSpecialized[1][0]);
             DistanceGraphView.setupSpecializedGraph("Distance", vaultsSpecialized[0][1], vaultsSpecialized[1][1]);
+            */
 
-            /*
-            DistanceGraphView.setupSpecializedGraph("Distance", vaultsSpecialized[0][0], vaultsSpecialized[1][0]);
-            SpeedGraphView.setupSpecializedGraph("Speed", vaultsSpecialized[0][1], vaultsSpecialized[1][1]);
-             */
+            SpeedGraphView.setupSpecializedGraph("Speed", vaultsSpecialized[0][0], vaultsSpecialized[1][0]);
+            DistanceGraphView.setupSpecializedGraph("Distance", vaultsSpecialized[0][1], vaultsSpecialized[1][1]);
         }
 
         public void setVideoInfo()
         {
             // Set video settings
-            double leftMax = leftVideoView.Maximum;
-            double rightMax = rightVideoView.Maximum;
+            videoLeftMax = leftVideoView.Maximum;
+            videoRightMax = rightVideoView.Maximum;
 
-            if (leftMax < rightMax)
+            if (videoLeftMax < videoRightMax)
             {
-                Maximum = rightMax;
+                Maximum = videoRightMax;
             }
             else
             {
-                Maximum = leftMax;
+                Maximum = videoLeftMax;
             }
 
             CurrentPosition = 0;
             PlaybackSpeed = 1.0;
             setSliderEnabled();
+
+            if(videoLeftMax != 0 && videoRightMax != 0)
+            {
+                DistanceGraphView.updateSpecializedGraphLength((float)videoLeftMax / 1000, (float)videoRightMax / 1000);
+                SpeedGraphView.updateSpecializedGraphLength((float)videoLeftMax / 1000, (float)videoRightMax / 1000);
+            }
         }
 
         /// <summary>
@@ -513,10 +523,10 @@ namespace RunApproachStatistics.ViewModel
 
         public void updateSeconds(float duration)
         {
-            // langste gebruiken
-            // graph  .updateSpecializedGraphLength(duration);
+            /*
             DistanceGraphView.updateSpecializedGraphLength(duration);
             SpeedGraphView.updateSpecializedGraphLength(duration);
+            */
         }
 
         public void updateCurrentPosition(double seconds, String filePath)

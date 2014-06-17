@@ -11,13 +11,14 @@ namespace RunApproachStatistics.Model.Entity
 {
     using System;
     using System.Collections.Generic;
+    
     [Serializable]
     public partial class gymnast
     {
         public gymnast()
         {
-            this.user = new HashSet<user>();
             this.vault = new HashSet<vault>();
+            this.user = new HashSet<user>();
         }
     
         public int gymnast_id { get; set; }
@@ -26,6 +27,7 @@ namespace RunApproachStatistics.Model.Entity
         public string nationality { get; set; }
         public Nullable<decimal> length { get; set; }
         public byte[] picture { get; set; }
+        public byte[] picture_small { get; set; }
         public Nullable<System.DateTime> birthdate { get; set; }
         public string name { get; set; }
         public string surname { get; set; }
@@ -34,7 +36,7 @@ namespace RunApproachStatistics.Model.Entity
         public Nullable<decimal> weight { get; set; }
         public string note { get; set; }
     
-        public virtual ICollection<user> user { get; set; }
         public virtual ICollection<vault> vault { get; set; }
+        public virtual ICollection<user> user { get; set; }
     }
 }

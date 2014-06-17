@@ -243,6 +243,8 @@ namespace RunApproachStatistics.ViewModel
             {
                 addVideoElement(filePath);
             }
+
+            Maximum = 0;
         }
 
         private void addVideoElement(string filePath)
