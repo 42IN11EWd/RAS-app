@@ -33,7 +33,11 @@ namespace RunApproachStatistics.ViewModel
         private ObservableCollection<KeyValuePair<float, float>> distanceArray;
         private ObservableCollection<KeyValuePair<float, float>> speedArray;
         private Thickness lineMargin;
+        private Thickness lineMargin2;
+        private Brush lineOneColor;
+        private Brush lineTwoColor;
         private Visibility lineVisibilty;
+        private Visibility lineVisibilty2;
         private float graphSeconds;
         private String graphData;
 
@@ -76,6 +80,36 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
+        public Thickness LineMargin2
+        {
+            get { return lineMargin2; }
+            set
+            {
+                lineMargin2 = value;
+                OnPropertyChanged("LineMargin2");
+            }
+        }
+
+        public Brush LineOneColor
+        {
+            get { return lineOneColor; }
+            set
+            {
+                lineOneColor = value;
+                OnPropertyChanged("LineOneColor");
+            }
+        }
+
+        public Brush LineTwoColor
+        {
+            get { return lineTwoColor; }
+            set
+            {
+                lineTwoColor = value;
+                OnPropertyChanged("LineOneColor");
+            }
+        }
+
         public Visibility LineVisibilty
         {
             get { return lineVisibilty; }
@@ -83,6 +117,16 @@ namespace RunApproachStatistics.ViewModel
             {
                 lineVisibilty = value;
                 OnPropertyChanged("LineVisibilty");
+            }
+        }
+
+        public Visibility LineVisibilty2
+        {
+            get { return lineVisibilty2; }
+            set
+            {
+                lineVisibilty2 = value;
+                OnPropertyChanged("LineVisibilty2");
             }
         }
 
@@ -126,32 +170,37 @@ namespace RunApproachStatistics.ViewModel
         {
             _app = app;
 
-            DistanceArray = new ObservableCollection<KeyValuePair<float, float>>();
-            SpeedArray = new ObservableCollection<KeyValuePair<float, float>>();
+            DistanceArray   = new ObservableCollection<KeyValuePair<float, float>>();
+            SpeedArray      = new ObservableCollection<KeyValuePair<float, float>>();
 
             if (isLive)
             {
-                GraphSeconds = 30;
-                LineVisibilty = Visibility.Hidden;
+                GraphSeconds    = 30;
+                LineVisibilty   = Visibility.Hidden;
+                LineVisibilty2 = Visibility.Hidden;
             }
             else
             {
-                GraphSeconds = 10;
-                LineVisibilty = Visibility.Visible;
-                LineMargin = new Thickness(87, 25, 0, 0);
+                GraphSeconds    = 10;
+                LineVisibilty   = Visibility.Visible;
+                LineVisibilty2 = Visibility.Hidden;
+                LineMargin      = new Thickness(87, 25, 0, 0);
+                LineMargin2     = new Thickness(87, 25, 0, 0);
             }
 
-            DisplayWidth = width;
-            WidthChart = width;
-            GridWidth = width;
-            SizeAxisTime = 30;
+            LineOneColor = Brushes.Black;
+            LineTwoColor = new SolidColorBrush(Color.FromRgb(250, 42, 42));
+            DisplayWidth     = width;
+            WidthChart       = width;
+            GridWidth        = width;
+            SizeAxisTime     = 30;
             SizeAxisDistance = 30;
-            SizeAxisSpeed = 30;
+            SizeAxisSpeed    = 30;
 
             if (isLive)
             {
                 seconds = -1;
-                timer = new System.Timers.Timer();
+                timer   = new System.Timers.Timer();
                 timer.Interval = 500D;
                 timer.Elapsed += new System.Timers.ElapsedEventHandler(this.timer_Elapsed);
                 timer.Start();
@@ -159,7 +208,7 @@ namespace RunApproachStatistics.ViewModel
 
             // Setup default customization
             HasSecondAxis = Visibility.Visible;
-            AxisTitle = "Distance";
+            AxisTitle = "Distance (m)";
             OnPropertyChanged("AxisTitleColor");
             IsSpecializedGraph = false;
             AxisMaxLeft = 30;
@@ -211,7 +260,16 @@ namespace RunApproachStatistics.ViewModel
             }
 
             HasSecondAxis = Visibility.Hidden;
-            AxisTitle = type;
+            LineVisibilty2 = Visibility.Visible;
+
+            if (type.Equals("Speed"))
+            {
+                AxisTitle = type + " (m/s)";
+            }
+            else
+            {
+                AxisTitle = type + " (m)";
+            }
             OnPropertyChanged("AxisTitleColor");
 
             this.type = type;
@@ -242,6 +300,9 @@ namespace RunApproachStatistics.ViewModel
                     time2 += (float)timePerMeasurementVault2;
                 }
             }
+
+            LineOneColor = new SolidColorBrush(Color.FromRgb(250, 42, 42));
+            LineTwoColor = new SolidColorBrush(Color.FromRgb(42, 84, 250));
 
             IsSpecializedGraph = true;
             AxisMaxLeft = type.Equals("Distance") ? 30 : 10;
@@ -341,11 +402,27 @@ namespace RunApproachStatistics.ViewModel
         public void updateSlider(double milliseconds)
         {
             double percentage = milliseconds / GraphSeconds;
-            lineMargin.Left = ((WidthChart - 87 - 87) * percentage) + 87; //Een left margin van 87 pixels is precies 0 op de grafiek
-
-            if (!(lineMargin.Left > (WidthChart - 87)))
+            double perc = ((WidthChart - 100 - 100) * percentage) + 100;
+            if (!(lineMargin.Left > (WidthChart - 100)) && lineMargin.Left != perc)
             {
+                lineMargin.Left = perc;
                 LineMargin = lineMargin;
+            }
+        }
+
+        public void updateLeftVideoSlider(double milliseconds)
+        {
+            updateSlider(milliseconds);
+        }
+
+        public void updateRightVideoSlider(double milliseconds)
+        {
+            double percentage = milliseconds / GraphSeconds;
+            double perc = ((WidthChart - 100 - 100) * percentage) + 100;
+            if (!(lineMargin2.Left > (WidthChart - 100)) && lineMargin2.Left != perc)
+            {
+                lineMargin2.Left = perc;
+                LineMargin2 = lineMargin2;
             }
         }
 

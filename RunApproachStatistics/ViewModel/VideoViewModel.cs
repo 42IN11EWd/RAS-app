@@ -47,6 +47,7 @@ namespace RunApproachStatistics.ViewModel
         private String currentTime;
         private String totalTime;
         private String playbackSpeedString;
+        private String filePath;
 
         public Boolean IsPlaying
         {
@@ -211,7 +212,7 @@ namespace RunApproachStatistics.ViewModel
             LoadingVisibility = Visibility.Visible;
             FailedLoadingVisibility = Visibility.Hidden;
 
-            String filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "RunApproachStatistics");
+            filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "RunApproachStatistics");
             filePath = Path.Combine(filePath, videoPath);
 
             if (!File.Exists(filePath))
@@ -304,6 +305,11 @@ namespace RunApproachStatistics.ViewModel
         private void Video_Ended(object sender, RoutedEventArgs e)
         {
             Stop();
+
+            if (compareVaultsViewModel != null)
+            {
+                compareVaultsViewModel.VideoFinished();
+            }
         }
 
         /// <summary>
@@ -323,6 +329,30 @@ namespace RunApproachStatistics.ViewModel
                     Play();
                 }
                 IsPlaying = !IsPlaying;
+            }
+        }
+
+        /// <summary>
+        /// Plays the video when play button is pressed
+        /// </summary>
+        public void PlayVideo()
+        {
+            if (Video != null)
+            {
+                Play();
+                IsPlaying = true;
+            }
+        }
+
+        /// <summary>
+        /// Pauzes the video when pauze button is pressed
+        /// </summary>
+        public void PauzeVideo()
+        {
+            if (Video != null)
+            {
+                Pause();
+                IsPlaying = false;
             }
         }
 
@@ -476,7 +506,7 @@ namespace RunApproachStatistics.ViewModel
                         }
                         else if (compareVaultsViewModel != null)
                         {
-                            compareVaultsViewModel.updateCurrentPosition(CurrentPosition / 1000, this.IsPlaying);
+                            compareVaultsViewModel.updateCurrentPosition(CurrentPosition / 1000, filePath);
                         }
                     }
                 }

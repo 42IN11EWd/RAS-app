@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="c91329cf-26c3-41cf-a4ca-2bd4ef22e598"
+  name="Networking" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <packagedElements>
+    <packageHasNamedElement>
+      <class
+        Id="ee06d96f-209b-452c-87d4-c174d405f1b0"
+        name="AbstractNetworking"
+        isAbstract="true"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="f98801ee-4a5f-4cbd-b109-e59eb6c59ada"
+        name="NetworkConnections"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="954a5a09-14b6-432a-86e3-ddef72527e0f"
+        name="Networking"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <generalsInternal>
+          <generalization
+            Id="2f2aa849-a308-4ff2-87c5-269baee0ab49"
+            isSubstitutable="false">
+            <classMoniker
+              Id="ee06d96f-209b-452c-87d4-c174d405f1b0"
+              LastKnownName="AbstractNetworking"
+              LastKnownLocation="Package1_1025.uml" />
+          </generalization>
+        </generalsInternal>
+        <targetEnds>
+          <association
+            Id="d12321f5-7a5f-4489-8d72-10d7abb44dfb"
+            isDerived="false"
+            sourceEndRoleName="Networking"
+            targetEndRoleName="NetworkConnections"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="f98801ee-4a5f-4cbd-b109-e59eb6c59ada"
+              LastKnownName="NetworkConnections"
+              LastKnownLocation="Package1_1025.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="ea103966-a716-432a-b77e-601bbe3773c8"
+                  name="Networking"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="79eb2206-9542-4bb4-b9da-4453d109161a"
+                  name="NetworkConnections"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="b469cda2-a6ca-4ac1-b522-54124731d514"
+            isDerived="false"
+            sourceEndRoleName=""
+            targetEndRoleName="JSONParser"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="251c8487-d065-4970-816c-9cc4da647862"
+              LastKnownName="JSONParser"
+              LastKnownLocation="Package2_1025.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="4c9c6225-7e58-475b-8522-aec6c79dea7d"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="05a6b83c-cd75-4b06-8403-1e516c8c788a"
+                  name="JSONParser"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+      </class>
+    </packageHasNamedElement>
+  </packagedElements>
+</package>

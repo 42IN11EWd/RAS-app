@@ -528,5 +528,11 @@
         isLeaf="false"
         isActiveClass="false" />
     </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="449af9c0-6984-4fe0-8749-00bd2586d1c5"
+        LastKnownName="EntityFramework"
+        LastKnownLocation="Package_2348.uml" />
+    </packageHasNamedElement>
   </packagedElements>
 </package>

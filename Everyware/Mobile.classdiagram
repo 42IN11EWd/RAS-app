@@ -1,0 +1,622 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="55a221dc-27eb-45ad-a4df-36064b5a94e5" name="Mobile" linkedPackageId="68a068b9-126a-44bb-91c6-8a5e69e087f9" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+  <profileInstances>
+    <packageHasProfileInstances Id="ec2a932e-b674-4d6a-80c9-83590c0498b7">
+      <profileInstance Id="4faaf119-0e6f-4fc7-8a59-11dc137f60b9" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="4ed476e8-77b6-4ead-a640-1eceaa36b7b1">
+      <profileInstance Id="9d02bd70-5474-4290-8e61-c859c08fe165" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <logicalClassDesignerModelHasPackages>
+      <package Id="da3e577b-9b8b-43fc-a12a-04f6dc93453e" name="Activities">
+        <elementDefinition Id="2b5c94a2-80fe-4d6e-b275-4d406c476513" />
+        <suppliersInternal>
+          <dependency Id="80feb513-b955-438d-9b69-41df21acef4a">
+            <packageMoniker Id="99abc793-ffb0-4efe-a021-707ac922781b" LastKnownName="Databases" />
+            <elementDefinition Id="fa0518b6-f126-45be-ac00-41ba15b39b32" />
+          </dependency>
+        </suppliersInternal>
+        <packagedElements>
+          <packageHasNamedElement>
+            <class Id="3572dc48-b607-4a63-8765-bccf41a2ea28" name="LoginActivity" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="ab9b23a0-c0c3-4aab-bc47-ac86aaf67b1e" />
+              <targetEnds>
+                <association Id="3e210c57-9b43-4798-bbce-037823148697" isDerived="false" sourceEndRoleName="LoginActivity" targetEndRoleName="LoginFragment" isLeaf="false" isAbstract="false">
+                  <classMoniker Id="d7c95001-b00a-43f4-b928-a723e57c03cf" LastKnownName="LoginFragment" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="5bbfba99-c0de-4092-8e0e-ac38533b6eef" name="LoginActivity" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="448b6bf0-444a-4ab4-9c00-9bed95f5374f" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="3f6189c3-a24c-4066-acb9-a55b4a569ccf" name="LoginFragment" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="79663e26-a6de-4f22-96da-a4696d5902d1" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="1b0af2ab-d691-4099-99ac-0b38067875f1" />
+                </association>
+                <association Id="bae5d222-e09e-48b7-bea2-16a671dbb4a5" isDerived="false" sourceEndRoleName="LoginActivity" targetEndRoleName="Networking" isLeaf="false" isAbstract="false">
+                  <classMoniker Id="816ed554-1746-4ae2-984b-81dacc321aa4" LastKnownName="Networking" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="416bcccf-c658-4e04-911b-727fb8f2086a" name="LoginActivity" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="e053a23e-fd0c-43b0-a9f5-b46668b2a642" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="bf8a992e-2a66-4a22-a88d-42e8687b31b0" name="Networking" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="650c3e3c-390a-4ecb-953d-6d4bd12eca97" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="63a2c0ac-203a-4443-bc79-49a285ac3855" />
+                </association>
+              </targetEnds>
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="270f34b2-57c4-46e4-9b85-813b7af76d6c" name="ProfileActivity" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="6634bd5c-fb3f-4f03-b5f7-2127760a0145" />
+              <targetEnds>
+                <association Id="770ba00a-222d-474c-90ac-f829659898b5" isDerived="false" sourceEndRoleName="ProfileActivity" targetEndRoleName="ProfileFragment" isLeaf="false" isAbstract="false">
+                  <classMoniker Id="699a8c35-4099-43cf-8226-5f0b7e574892" LastKnownName="ProfileFragment" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="6f551d1b-0233-400f-bcea-5c90aff9da31" name="ProfileActivity" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="a5f96bd1-9bae-4147-97fb-8391fb79c72c" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="28fc25da-9d6c-470f-b75a-d24b7ff5ec08" name="ProfileFragment" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="31f3193c-de7f-46b3-a939-8dc3ebd6beff" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="24d81293-c18f-4668-8919-01ec0c706616" />
+                </association>
+                <association Id="7107e23a-279f-4174-b4ae-9f36fc71c0ec" isDerived="false" sourceEndRoleName="" targetEndRoleName="" isLeaf="false" isAbstract="false">
+                  <classMoniker Id="c25b51e2-8fab-47d7-8efb-756610c28e90" LastKnownName="ListViewFragment" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="786b7688-20fd-4edc-b9e4-6e8ef705a918" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="d8e9b05f-299e-4201-8ad1-04712d676ad1" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="960a773f-1381-4e6f-bfc2-ef2361ebbb48" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="d2ebfd41-4ae8-4465-bd88-eed6ddc84edc" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="8028b52a-19da-4d4d-9f8b-06500ffdb751" />
+                </association>
+                <association Id="76e2542b-9f21-4a04-99df-555834f0ba5e" isDerived="false" sourceEndRoleName="ProfileActivity" targetEndRoleName="" isLeaf="false" isAbstract="false">
+                  <classMoniker Id="816ed554-1746-4ae2-984b-81dacc321aa4" LastKnownName="Networking" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="28e702ae-5435-47c3-9200-87f0309b225b" name="ProfileActivity" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="f9979f01-1a0f-4eaf-b50e-bf27cf4b8a45" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="b84a74f4-d75c-44f8-92b6-7518f6c3ee79" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="a4d09391-7345-4a7d-ada1-9b99bdb5a20b" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="34a84568-5ad6-4d59-9f07-12926d933cad" />
+                </association>
+              </targetEnds>
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="944e3eb0-0924-4fc4-a0fc-d065e6d6ec10" name="ChartActivity" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="e6a78084-9cf2-4887-b50f-0f4287413c07" />
+              <targetEnds>
+                <association Id="f0bd9211-c4a5-406a-8ab6-30344de28115" isDerived="false" sourceEndRoleName="ChartActivity" targetEndRoleName="ChartFragment" isLeaf="false" isAbstract="false">
+                  <classMoniker Id="2c7dd120-292f-49c1-8dc3-1714214126b6" LastKnownName="ChartFragment" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="8bc8dfd6-d3be-4e39-b92c-e662fc278b19" name="ChartActivity" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="5a944c75-94f5-41c2-babd-0004af276e48" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="9ba7fc8d-ff30-437b-8eea-56da94d9fa10" name="ChartFragment" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="c6a9dc57-1e8a-4f66-919b-f93694bb9291" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="91314ed6-d088-45cc-8da5-da5b38134776" />
+                </association>
+              </targetEnds>
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="f42695fc-568b-44a0-8a14-0b249e705d29" name="CompareActivity" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="032a7a6e-c8e8-4962-88f9-6eb63b286b05" />
+              <targetEnds>
+                <association Id="6364f17c-df98-4daf-9d41-d4323acf0f59" isDerived="false" sourceEndRoleName="CompareActivity" targetEndRoleName="" isLeaf="false" isAbstract="false">
+                  <classMoniker Id="c25b51e2-8fab-47d7-8efb-756610c28e90" LastKnownName="ListViewFragment" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="7d5ad791-3cac-41a7-bcd2-550b0bf53dde" name="CompareActivity" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="7c790441-5e47-4928-9518-f31add2d29b8" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="7dd307d1-72c9-41ee-aedc-1a25768ae2a5" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="d5aa90b1-8750-4e65-ae66-532633ae3db4" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="94d1e591-a472-4903-b908-9ca6c46b02ec" />
+                </association>
+              </targetEnds>
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="a542a6d9-c9d4-4830-be77-a7902481b8d3" name="VaultActivity" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="5622ad50-2143-4c0c-8885-1319e8492aa4" />
+              <targetEnds>
+                <association Id="980ab5f6-2fb4-4f61-82f2-4e6187c9a72e" isDerived="false" sourceEndRoleName="VaultActivity" targetEndRoleName="VaultFragment" isLeaf="false" isAbstract="false">
+                  <classMoniker Id="5f4a9596-002c-4410-a9b5-8c8a866fcfa6" LastKnownName="VaultFragment" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="d5cd13b8-22c4-41e4-ab67-a7de6ef5b16a" name="VaultActivity" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="1f5f40fa-60dd-44d3-beb2-02893e84ebf6" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="f7fc3407-5d1f-4f28-9334-b68fd864abbd" name="VaultFragment" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="56a643a6-81fc-4c27-b341-85caa52cc86e" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="e9f21484-cb87-4ae6-a73f-7cc6516ab8f2" />
+                </association>
+                <association Id="a5c9c75d-d902-40c3-b758-4f3cba74f6cc" isDerived="false" sourceEndRoleName="VaultActivity" targetEndRoleName="FilterDialogFragment" isLeaf="false" isAbstract="false">
+                  <classMoniker Id="5a40e2b6-dd89-427c-95ab-33aae97ce261" LastKnownName="FilterDialogFragment" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="365b1859-88be-4b89-91ad-94b4b9b83233" name="VaultActivity" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="f67ec1c6-9107-4c13-bebd-ea95d278e70d" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="1e4f6688-c00f-47a9-b071-799fe05c7eb3" name="FilterDialogFragment" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="0d4bfcf6-acc9-4f21-a486-75dfd7bb5a80" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="40792ca0-eb96-4fe2-b461-ec358031b9c2" />
+                </association>
+                <association Id="8ef0216d-35dc-4ef7-8654-43721608cdb9" isDerived="false" sourceEndRoleName="VaultActivity" targetEndRoleName="" isLeaf="false" isAbstract="false">
+                  <classMoniker Id="c25b51e2-8fab-47d7-8efb-756610c28e90" LastKnownName="ListViewFragment" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="8338ae03-b98e-44d3-aea9-9d3e9f60ca90" name="VaultActivity" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="90a10c77-39f4-42ad-9c8a-faf2cf257974" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="cad6f2dd-63c3-469e-8cc9-5c2634e1f463" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="ef7ae9e9-4d16-4c2d-adf4-285cef41983c" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="7c42dcdf-4d3f-4cab-a967-5071dbfe00ea" />
+                </association>
+                <association Id="c299126c-4461-4fcc-be34-16db6156ab79" isDerived="false" sourceEndRoleName="" targetEndRoleName="" isLeaf="false" isAbstract="false">
+                  <classMoniker Id="816ed554-1746-4ae2-984b-81dacc321aa4" LastKnownName="Networking" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="5366a5da-61de-452a-a6ca-840f4e03b996" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="3986e308-49f2-4d92-8f29-f6e9e7118da8" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="75a1aa85-7460-4452-9be9-f7eec369d989" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="41406e52-585c-44a4-8f70-30613cb074cb" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="79e85453-52e7-4623-bdd2-7394d7d0a6c4" />
+                </association>
+              </targetEnds>
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="4ffb70b0-1776-4e0b-aa64-02df1d75a445" name="SettingsActivity" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="d2bd0d60-855e-422f-9f31-240ea2d4586e" />
+              <targetEnds>
+                <association Id="041972cd-3ba4-48d0-a9b3-97c1bbc00965" isDerived="false" sourceEndRoleName="SettingsActivity" targetEndRoleName="SettingsFragment" isLeaf="false" isAbstract="false">
+                  <classMoniker Id="44d63c4e-2a05-4936-b527-97a2e3c2018e" LastKnownName="SettingsFragment" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="0765063d-7c42-4e7c-b48c-53b0bc782ac1" name="SettingsActivity" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="4f3ff8bf-e0a9-40a5-9dc8-b886ac74e3a5" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="19c1b3cb-7900-41d2-8206-8eaa5dd7b5db" name="SettingsFragment" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="60e30df5-c70c-488b-89b3-1b416ac5c347" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="a670dcfa-b14b-4034-867b-9bd18c4a78fe" />
+                </association>
+              </targetEnds>
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="e84748eb-dadf-4cb6-a3dc-27fb89d14ac0" name="SplashScreenActivity" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="feb0a89e-073a-4b11-86d2-296fc45b22d0" />
+              <targetEnds>
+                <association Id="8ade2aea-30fa-4d58-bab2-79dc19fcaf4c" isDerived="false" sourceEndRoleName="SplashScreenActivity" targetEndRoleName="SplashScreenFragment" isLeaf="false" isAbstract="false">
+                  <classMoniker Id="3892049d-9d63-4c56-8feb-199dc46cbee2" LastKnownName="SplashScreenFragment" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="24420101-5bfc-48cf-b131-0e9d566c7746" name="SplashScreenActivity" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="791e5e37-8137-4ec5-a027-5808b8b81c7e" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="84a127b9-22a1-4950-9755-258bea9f0152" name="SplashScreenFragment" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="8923313e-65bb-46f2-8b16-2d1cda8c928f" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="b2318142-ef29-47ae-8488-acea64432207" />
+                </association>
+              </targetEnds>
+            </class>
+          </packageHasNamedElement>
+        </packagedElements>
+      </package>
+    </logicalClassDesignerModelHasPackages>
+    <logicalClassDesignerModelHasPackages>
+      <package Id="260cf6ec-09bb-4e02-bba2-70d7015c1329" name="Fragments">
+        <elementDefinition Id="1d16513d-b73c-45ee-8ef0-6a371bbe90db" />
+        <packagedElements>
+          <packageHasNamedElement>
+            <class Id="699a8c35-4099-43cf-8226-5f0b7e574892" name="ProfileFragment" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="e328788f-b6f1-40ac-86b3-3c26ca23167b" />
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="2c7dd120-292f-49c1-8dc3-1714214126b6" name="ChartFragment" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="f229fd5a-dc3a-43e9-a045-eb47df2032b5" />
+              <targetEnds>
+                <association Id="a887385c-8dda-464d-9fb8-d0ceeb997bdd" isDerived="false" sourceEndRoleName="ChartFragment" targetEndRoleName="SpeedChartFragment" isLeaf="false" isAbstract="false">
+                  <classMoniker Id="1fbc0464-80ad-4977-8e35-1d70a5f64260" LastKnownName="SpeedChartFragment" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="15b1ace9-a911-4a2d-ae03-c8758d6afc18" name="ChartFragment" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="f00bccb1-e463-4019-8b47-d06fdae6e97b" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="4533c970-39cc-46b9-8ea8-49ab86badfca" name="SpeedChartFragment" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="e158ce10-179d-416d-8f5c-c39205abfc3e" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="c25536a0-fa6b-4231-b792-5e3398f714ae" />
+                </association>
+                <association Id="7dc90b44-1dbe-41eb-a885-6adb7ea055e4" isDerived="false" sourceEndRoleName="ChartFragment" targetEndRoleName="DistanceChartFragment" isLeaf="false" isAbstract="false">
+                  <classMoniker Id="d56bbbdb-dfe9-4a21-99eb-bb34d82e4b01" LastKnownName="DistanceChartFragment" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="745d9c65-9320-4798-b8f5-cf8d8036f62c" name="ChartFragment" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="328cdc3f-8dc0-4107-9e55-3304b422e238" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="fe68c897-9aa9-4240-a8c5-dc103070461a" name="DistanceChartFragment" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="b9c2743a-f72f-4a2d-b921-69f2f0a91f11" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="2f6f1130-32db-4d2d-b218-67cab358b394" />
+                </association>
+              </targetEnds>
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="1fbc0464-80ad-4977-8e35-1d70a5f64260" name="SpeedChartFragment" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="38f648df-4628-4bdc-821d-d81e67ea0269" />
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="5f4a9596-002c-4410-a9b5-8c8a866fcfa6" name="VaultFragment" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="025f9d01-4fc3-419c-80b0-c3fa1547fbfb" />
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="44d63c4e-2a05-4936-b527-97a2e3c2018e" name="SettingsFragment" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="938e0539-965a-4bd6-94e2-c26d688e0e83" />
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="3892049d-9d63-4c56-8feb-199dc46cbee2" name="SplashScreenFragment" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="73a5697a-9068-4327-adee-e39fd3f903c8" />
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="d7c95001-b00a-43f4-b928-a723e57c03cf" name="LoginFragment" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="b7a92159-2f80-4cb7-b1ff-846377b6b212" />
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="d56bbbdb-dfe9-4a21-99eb-bb34d82e4b01" name="DistanceChartFragment" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="cf5560f3-e37d-4e67-989c-1eee426c1b93" />
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="c25b51e2-8fab-47d7-8efb-756610c28e90" name="ListViewFragment" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="65082309-0e9b-4b4b-979c-879ce05ff3bd" />
+              <targetEnds>
+                <association Id="f4a066b4-0740-4c3b-bf0e-cebea324eaa0" isDerived="false" sourceEndRoleName="" targetEndRoleName="CustomCursorAdapter" isLeaf="false" isAbstract="false">
+                  <classMoniker Id="2ef3ad50-6daa-457e-bd24-877acd7f7eb3" LastKnownName="CustomCursorAdapter" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="b2562ebc-888f-47d9-b3f1-6cf0cf1c530b" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="e8462f97-bc0c-4275-bf21-a744a3ba6c22" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="5be14679-df9c-4ef8-b749-b5be03edaaf7" name="CustomCursorAdapter" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="89c9a294-4f45-47fd-bf19-5abc982b5794" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="36225df6-19d8-4bd2-b42e-265a9c8943d1" />
+                </association>
+              </targetEnds>
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="5a40e2b6-dd89-427c-95ab-33aae97ce261" name="FilterDialogFragment" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="d59884c6-48c1-4e4d-a33a-4e762d2a591d" />
+              <targetEnds>
+                <association Id="c31483b8-ac23-446a-85b8-5ee9380bbf26" isDerived="false" sourceEndRoleName="FilterDialogFragment" targetEndRoleName="ListFilterDialogFragment" isLeaf="false" isAbstract="false">
+                  <classMoniker Id="c7ff8438-444e-4e9e-a8c6-e383487ec90a" LastKnownName="ListFilterDialogFragment" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="0c201695-1597-467f-bc55-60b86a694381" name="FilterDialogFragment" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="dc67873d-98b5-48f4-9ffc-0cd4645ffc67" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="0e5ec7b0-3d14-42dd-9b50-c37f0c914a71" name="ListFilterDialogFragment" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="0be135f1-d839-40a8-8493-b1e162eaa01f" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="28d2bca5-fb3e-4260-982c-928f89befe50" />
+                </association>
+              </targetEnds>
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="c7ff8438-444e-4e9e-a8c6-e383487ec90a" name="ListFilterDialogFragment" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="34439951-8066-447d-a729-3cb249189801" />
+            </class>
+          </packageHasNamedElement>
+        </packagedElements>
+      </package>
+    </logicalClassDesignerModelHasPackages>
+    <logicalClassDesignerModelHasPackages>
+      <package Id="ef353c8f-3c22-4124-82d0-d045cc2ba1c7" name="Model">
+        <elementDefinition Id="065186a0-af00-43c4-9705-5578f7795625" />
+        <packagedElements>
+          <packageHasNamedElement>
+            <class Id="b28c9874-9941-4c09-83c4-6f575c9733a4" name="Gymnast" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="9d10d652-a4e4-4fab-ab88-fb69565684e4" />
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="11a8bed9-15c4-4389-90d2-e08e9e9c0a89" name="Vault" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="486714d0-762a-4a19-b26e-58f17084c24c" />
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="42c44064-0996-4f9f-98c3-13b7d4cfe09e" name="User" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="4bf67655-a3dc-44de-a1eb-7046fabf88cb" />
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="0ea395e3-cc25-43cc-8396-9c6987723487" name="VaultNumber" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="16364332-cfb1-480b-8ff4-c022f996f1f6" />
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="0c3f37b6-9b11-4e2b-ab4d-259359595665" name="Location" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="1c645d31-2b50-4c1c-af38-46aa12e60dcf" />
+            </class>
+          </packageHasNamedElement>
+        </packagedElements>
+      </package>
+    </logicalClassDesignerModelHasPackages>
+    <logicalClassDesignerModelHasPackages>
+      <package Id="87a559a6-8a08-424b-b5ca-d37bcc6f439a" name="Services">
+        <elementDefinition Id="551568ce-4b3f-48c5-8f9d-c40c721c521b" />
+        <packagedElements>
+          <packageHasNamedElement>
+            <class Id="17b0066d-bc43-40c6-bc39-5728c86184da" name="MD5" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="e5b01cb9-66f4-4fad-84dd-5a4b91902abb" />
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="1a379934-64b0-4145-b506-aba14f6be13b" name="CacheHandler" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="608bd8df-08d7-4e24-bd98-5c1f531829df" />
+            </class>
+          </packageHasNamedElement>
+        </packagedElements>
+      </package>
+    </logicalClassDesignerModelHasPackages>
+    <logicalClassDesignerModelHasPackages>
+      <package Id="e7fe823c-c2de-4502-aadf-8bf18f61ed7f" name="Networking">
+        <elementDefinition Id="c91329cf-26c3-41cf-a4ca-2bd4ef22e598" />
+        <packagedElements>
+          <packageHasNamedElement>
+            <class Id="d3f446ef-a30a-4385-acca-b938f9c269a0" name="AbstractNetworking" isAbstract="true" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="ee06d96f-209b-452c-87d4-c174d405f1b0" />
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="0228fd4d-ab46-4f6a-9488-9c739ae5c484" name="NetworkConnections" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="f98801ee-4a5f-4cbd-b109-e59eb6c59ada" />
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="816ed554-1746-4ae2-984b-81dacc321aa4" name="Networking" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="954a5a09-14b6-432a-86e3-ddef72527e0f" />
+              <generalsInternal>
+                <generalization Id="6986c29c-bdcf-49d1-ad5f-438b4ef3d281" isSubstitutable="false">
+                  <classMoniker Id="d3f446ef-a30a-4385-acca-b938f9c269a0" LastKnownName="AbstractNetworking" />
+                  <elementDefinition Id="2f2aa849-a308-4ff2-87c5-269baee0ab49" />
+                </generalization>
+              </generalsInternal>
+              <targetEnds>
+                <association Id="be4ae41b-4678-4084-a573-3f13c3181edf" isDerived="false" sourceEndRoleName="Networking" targetEndRoleName="NetworkConnections" isLeaf="false" isAbstract="false">
+                  <classMoniker Id="0228fd4d-ab46-4f6a-9488-9c739ae5c484" LastKnownName="NetworkConnections" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="51ab938e-3daa-4303-b99e-15d8f1c1ccf8" name="Networking" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="ea103966-a716-432a-b77e-601bbe3773c8" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="86e0bc7d-3ed7-4926-bdc5-fbbd273b7e9c" name="NetworkConnections" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="79eb2206-9542-4bb4-b9da-4453d109161a" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="d12321f5-7a5f-4489-8d72-10d7abb44dfb" />
+                </association>
+                <association Id="c8fcf7dc-966f-4778-a689-8cb49f469888" isDerived="false" sourceEndRoleName="" targetEndRoleName="JSONParser" isLeaf="false" isAbstract="false">
+                  <classMoniker Id="106590b9-cae8-4a45-b1f5-bdaa13712fb0" LastKnownName="JSONParser" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="f7f4ac24-ceeb-481f-b8b7-e57d0328464d" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="4c9c6225-7e58-475b-8522-aec6c79dea7d" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="59ab1483-a3c5-4b08-8297-8bcde183df4c" name="JSONParser" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="05a6b83c-cd75-4b06-8403-1e516c8c788a" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="b469cda2-a6ca-4ac1-b522-54124731d514" />
+                </association>
+              </targetEnds>
+            </class>
+          </packageHasNamedElement>
+        </packagedElements>
+      </package>
+    </logicalClassDesignerModelHasPackages>
+    <logicalClassDesignerModelHasPackages>
+      <package Id="6fbcfc0c-dd01-4790-abdb-9969e270437a" name="Parser">
+        <elementDefinition Id="4f61d142-8de1-413d-90c8-03212ff70552" />
+        <packagedElements>
+          <packageHasNamedElement>
+            <class Id="bc4dfdcb-0f25-4594-ac70-9c618ff8a3ae" name="JSONNodes" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="6721e20d-7ce3-4022-8e6b-9eb011ce2b51" />
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="106590b9-cae8-4a45-b1f5-bdaa13712fb0" name="JSONParser" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="251c8487-d065-4970-816c-9cc4da647862" />
+              <targetEnds>
+                <association Id="44d8390d-2e9a-4ddb-bef3-6b8a018e006f" isDerived="false" sourceEndRoleName="JSONParser" targetEndRoleName="JSONNodes" isLeaf="false" isAbstract="false">
+                  <classMoniker Id="bc4dfdcb-0f25-4594-ac70-9c618ff8a3ae" LastKnownName="JSONNodes" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="1da7981d-18e3-4a53-9c7e-4b10d4232ef6" name="JSONParser" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="ccede1f8-4b26-418c-932b-dcae8a5e7934" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="31635e48-f214-490c-9340-1d62282dd7f4" name="JSONNodes" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="e0c3a202-54a6-426a-9292-ba1ab8c375b2" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="52478ef7-c2e9-4899-b8e3-f55a7ad6320c" />
+                </association>
+              </targetEnds>
+            </class>
+          </packageHasNamedElement>
+        </packagedElements>
+      </package>
+    </logicalClassDesignerModelHasPackages>
+    <logicalClassDesignerModelHasPackages>
+      <package Id="9cef630e-fe86-46e0-9475-69b021763676" name="Adapters">
+        <elementDefinition Id="3e71199b-79ec-42cc-847a-4564fa1f4d9c" />
+        <packagedElements>
+          <packageHasNamedElement>
+            <class Id="2ef3ad50-6daa-457e-bd24-877acd7f7eb3" name="CustomCursorAdapter" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="5d96b34f-ef25-45bc-84f0-4d2579d14c4e" />
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="07ea729a-9f9a-43c8-a3d8-d5a281af0edf" name="FragmentSlideAdapter" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="e59fa46c-a133-4167-b873-33f8b11cd9eb" />
+            </class>
+          </packageHasNamedElement>
+        </packagedElements>
+      </package>
+    </logicalClassDesignerModelHasPackages>
+    <logicalClassDesignerModelHasPackages>
+      <package Id="99abc793-ffb0-4efe-a021-707ac922781b" name="Databases">
+        <elementDefinition Id="f5c3836e-3292-4f52-bc6f-aba9d43911a4" />
+        <packagedElements>
+          <packageHasNamedElement>
+            <class Id="a74e34be-e427-4ab2-9ebd-6bd3fe3f34cb" name="DatabaseHelper" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="f959f165-e166-45ef-b4cb-378f9bb2531f" />
+              <targetEnds>
+                <association Id="ccfa871b-0c15-498a-b222-d857d9cc0967" isDerived="false" sourceEndRoleName="DatabaseHelper" targetEndRoleName="DatabaseNodes" isLeaf="false" isAbstract="false">
+                  <classMoniker Id="6b05fab7-4433-4860-83cc-7db1c8b029a5" LastKnownName="DatabaseNodes" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="981a3520-7332-466a-8602-be05a1ecfdf3" name="DatabaseHelper" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="c4b65264-753e-415b-8b21-23d8e184cccd" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="10eb2dac-3913-46f1-850d-c582c6086d74" name="DatabaseNodes" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="bb7c6ef6-83e6-4beb-a959-e5ed7fd1ec2a" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="95f88b59-b970-4a29-84b6-44826b9f2d7d" />
+                </association>
+              </targetEnds>
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="6b05fab7-4433-4860-83cc-7db1c8b029a5" name="DatabaseNodes" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="692050b4-0d5a-4b69-84e1-de577fb071ed" />
+            </class>
+          </packageHasNamedElement>
+        </packagedElements>
+      </package>
+    </logicalClassDesignerModelHasPackages>
+  </packagedElements>
+  <package Id="68a068b9-126a-44bb-91c6-8a5e69e087f9" name="Everyware">
+    <elementDefinition Id="bedd8b0a-628b-4680-b70e-a6c69f3e9872" />
+  </package>
+</logicalClassDesignerModel>

@@ -8,14 +8,17 @@
         <Grid Width="325" Height="1080" >
             <StackPanel Margin="0,10,0,-10">
                 <Image Source="pack://application:,,,/Images/Logo.png"/>
-                <Button Visibility="{Binding VisibilityLaser, Converter={StaticResource BoolToVis}}" Content="{Binding PilotLaserTitle}" Margin="35,30,35,0" FontSize="26" Height="50" Command="{Binding SetPilotLaserCommand}"/>
-                <Button Content="Start Session" Margin="35,30,35,0" FontSize="26" Height="50" Command="{Binding StartSessionCommand}"/>
+                <Grid Height="70" Visibility="{Binding VisibilityLaser, Converter={StaticResource BoolToVis}}">
+                    <Button Content="{Binding PilotLaserTitle}" Margin="35,0,35,0" FontSize="26" Height="50" Command="{Binding SetPilotLaserCommand}"/>
+                    <Rectangle Fill="Red" Visibility="{Binding VisibilityLaserOn}" Panel.ZIndex="-1" Height="70" Margin="25,0,25,0"/>
+                </Grid>
+                <Button Content="Start Session" Margin="35,20,35,0" FontSize="26" Height="50" Command="{Binding StartSessionCommand}"/>
                 <Button Content="Select Vault" Margin="35,30,35,0" FontSize="26" Height="50" Command="{Binding SelectVaultCommand}"/>
                 <Button Content="Gymnast Profiles" Margin="35,30,35,0" FontSize="26" Height="50" Command="{Binding GymnastProfilesCommand}"/>
                 <Button Content="Settings" Margin="35,30,35,0" FontSize="26" Height="50" Command="{Binding SettingsCommand}"/>
                 <Button Content="Home" Margin="35,30,35,0" FontSize="26" Height="50" Command="{Binding HomeCommand}"/>
             </StackPanel>
-            <Button Content="{Binding LogName}" Margin="36,0,34,30" FontSize="26" Height="50" Command="{Binding LogCommand}" VerticalAlignment="Bottom"/>
+            <Button Content="{Binding LogName}" Margin="35,0,34,10" FontSize="26" Height="50" Command="{Binding LogCommand}" VerticalAlignment="Bottom"/>
         </Grid>
     </Viewbox>
 </UserControl>

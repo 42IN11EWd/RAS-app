@@ -11,6 +11,11 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows;
 using System.Linq;
+using System.Windows.Input;
+using Microsoft.Win32;
+using System.Text;
+using RunApproachStatistics.Services;
+using System.IO.Compression;
 
 namespace RunApproachStatistics.ViewModel
 {
@@ -39,14 +44,8 @@ namespace RunApproachStatistics.ViewModel
         private String escore;
         private String penalty;
         private String totalscore;
-        private List<String> locations;
-        private List<String> gymnasts;
-        private List<String> vaultNumbers;
-        private List<String> vaultKinds;
-        private List<int> locationIds;
-        private List<int> gymnastIds;
-        private List<int> vaultNumberIds;
-        private List<int> vaultKindIds;
+        private int listRowCount;
+
 
         //Splitted names
         private String name;
@@ -70,6 +69,7 @@ namespace RunApproachStatistics.ViewModel
         public RelayCommand DeleteCommand { get; private set; }
         public RelayCommand CancelCommand { get; private set; }
         public RelayCommand SaveCommand { get; private set; }
+        public RelayCommand ExportCommand { get; private set; }
         public RelayCommand SelectedItemsChangedCommand { get; private set; }
 
         public PropertyChangedBase RatingControl
@@ -131,16 +131,6 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        /*public List<String> Gymnasts
-        {
-            get { return gymnasts; }
-            set
-            {
-                gymnasts = value;
-                OnPropertyChanged("Gymnasts");
-            }
-        }*/
-
         public List<String> Gymnasts
         {
             get
@@ -182,16 +172,6 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        /*public List<String> VaultNumbers
-        {
-            get { return vaultNumbers; }
-            set
-            {
-                vaultNumbers = value;
-                OnPropertyChanged("VaultNumbers");
-            }
-        }*/
-
         public List<String> VaultNumbers
         {
             get { return vaultNumberList.Select(v => v.code).ToList(); }
@@ -223,16 +203,6 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        /*public List<String> Locations
-        {
-            get { return locations; }
-            set
-            {
-                locations = value;
-                OnPropertyChanged("Locations");
-            }
-        }*/
-
         public List<String> Locations
         {
             get { return locationsList.Select(l => l.name).ToList(); }
@@ -253,16 +223,6 @@ namespace RunApproachStatistics.ViewModel
                 OnPropertyChanged("VaultKind");
             }
         }
-
-        /*public List<String> VaultKinds
-        {
-            get { return vaultKinds; }
-            set
-            {
-                vaultKinds = value;
-                OnPropertyChanged("VaultKinds");
-            }
-        }*/
 
         public String DScore
         {
@@ -324,6 +284,25 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
+        public int ListRowCount
+        {
+            get
+            {
+                if (listRowCount <= 4)
+                {
+                    return 4;
+                }
+                else
+                {
+                    return listRowCount;
+                }
+            }
+            set
+            {
+                listRowCount = value;
+                OnPropertyChanged("ListRowCount");
+            }
+        }
         public bool ChangeState
         {
             get { return changeState; }
@@ -447,14 +426,13 @@ namespace RunApproachStatistics.ViewModel
                 {
                     thumbnailCollection[i].Gymnast = vaults[i].gymnast.name + " " + (vaults[i].gymnast.surname_prefix != null ? vaults[i].gymnast.surname_prefix + " " : "") + vaults[i].gymnast.surname;
                 }
+                
             }
+            ListRowCount = (thumbnailCollection.Count) / 4;
 
-            /*for (int i = 0; i < thumbnailCollection.Count; i++)
-            {
-                thumbnailCollection[i].Vault = vaultModule.read(thumbnailCollection[i].Vault.vault_id);
-            }*/
             OnPropertyChanged("ThumbnailCollection");
             OnPropertyChanged("FilterList");
+            OnPropertyChanged("ListRowCount");
 
         }
 
@@ -708,6 +686,11 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
+        private void ListViewDoubleClick(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("Doe het eens...");
+        }
+
         #region RelayCommands
         public void FinishAction(object commandParam)
         {
@@ -799,15 +782,63 @@ namespace RunApproachStatistics.ViewModel
             }
             else if(kind == "SELECT")
             {
-                /*List<vault> tempVaults = new List<vault>();
-                foreach (ThumbnailViewModel thumb in ThumbnailCollection)
-                {
-                    tempVaults.Add(thumb.Vault);
-                }
-                setData(tempVaults);*/
                 _app.RefreshThumbnailCollection();
             }
             OnPropertyChanged("SelectedThumbnails");
+        }
+
+        public void ExportAction(object commandParam)
+        {
+            if (SelectedThumbnails.Count == 1)
+            {
+                String content = CsvService.MeasurementDataToString(SelectedThumbnails[0].Vault.graphdata);
+
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "CSV File|*.csv";
+                saveFileDialog.Title = "Save a CSV File";
+                saveFileDialog.FileName = CsvService.GenerateFilename(SelectedThumbnails[0]);
+                saveFileDialog.ShowDialog();
+
+                if (saveFileDialog.FileName != "")
+                {
+                    try
+                    {
+                        System.IO.FileStream fs = (System.IO.FileStream)saveFileDialog.OpenFile();
+
+                        fs.Write(Encoding.UTF8.GetBytes(content), 0, Encoding.UTF8.GetByteCount(content));
+
+                        fs.Close();
+                    }
+                    catch
+                    {
+                        //no problem, file is not saved (cancel or the close button is clicked).
+                    }
+                }
+            }
+            else
+            {
+                CsvService.MultipleMeasurementsToZip(SelectedThumbnails);
+
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "ZIP File|*.zip";
+                saveFileDialog.Title = "Save a ZIP File";
+                saveFileDialog.FileName = "Vault collection " + DateTime.Now.ToString().Replace("/", "-").Replace(":", ".");
+                saveFileDialog.ShowDialog();
+
+                if (saveFileDialog.FileName != "")
+                {
+                    try
+                    { 
+                        ZipFile.CreateFromDirectory(CsvService.CSVFolder, saveFileDialog.FileName);
+                    }
+                    catch
+                    {
+                        //no problem, file is not saved (cancel or the close button is clicked).
+                    }
+                }
+
+                CsvService.ClearCSVFolderAfterSave();
+            }
         }
 
         #endregion
@@ -943,12 +974,13 @@ namespace RunApproachStatistics.ViewModel
             doubleClickCommand = new RelayCommand((thumbnail) =>
             {
                 ThumbnailViewModel thumbnailvm = (ThumbnailViewModel)thumbnail;
-                Console.WriteLine(thumbnailvm.Vault.gymnast.name);
+                
             });
             FinishCommand = new RelayCommand(FinishAction);
             DeleteCommand = new RelayCommand(DeleteAction);
             SaveCommand = new RelayCommand(SaveAction);
             CancelCommand = new RelayCommand(CancelAction);
+            ExportCommand = new RelayCommand(ExportAction);
             SelectedItemsChangedCommand = new RelayCommand((thumbnails) =>
             {
                 if (thumbnails != null)

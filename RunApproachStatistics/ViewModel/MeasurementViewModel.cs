@@ -33,6 +33,7 @@ namespace RunApproachStatistics.ViewModel
         private String escore;
         private String penalty;
         private String totalscore;
+        private int listRowCount;
 
         private List<gymnast> gymnastList;
         private List<vaultnumber> vaultNumberList;
@@ -372,6 +373,25 @@ namespace RunApproachStatistics.ViewModel
                 OnPropertyChanged("Totalscore");
             }
         }
+        public int ListRowCount
+        {
+            get 
+            {
+                if (listRowCount < 4)
+                {
+                    return 4;
+                }
+                else
+                {
+                    return listRowCount;
+                }
+            }
+            set
+            {
+                listRowCount = value;
+                OnPropertyChanged("ListRowCount");
+            }
+        }
 
         public CameraViewModel CameraView
         {
@@ -389,6 +409,7 @@ namespace RunApproachStatistics.ViewModel
             set
             {
                 thumbnailCollection = value;
+                ListRowCount = thumbnailCollection.Count;
                 OnPropertyChanged("ThumbnailCollection");
             }
         }
@@ -567,7 +588,7 @@ namespace RunApproachStatistics.ViewModel
             vaultThumb.Vault = receivedVault;
             
             // Add to collection
-            thumbnailCollection.Add(vaultThumb);
+            thumbnailCollection.Insert(1, vaultThumb);
         }
 
         private void calculateTotalScore()

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<modelStoreModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+<modelStoreModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
   dslVersion="1.0.0.0"
   Id="bedd8b0a-628b-4680-b70e-a6c69f3e9872"
   name="Everyware" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
@@ -1944,6 +1944,54 @@
       <executionEvent
         Id="ce26691a-6b95-49a0-9330-1589c3848a89"
         name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="2b5c94a2-80fe-4d6e-b275-4d406c476513"
+        LastKnownName="Activities"
+        LastKnownLocation="Package_1023.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="1d16513d-b73c-45ee-8ef0-6a371bbe90db"
+        LastKnownName="Fragments"
+        LastKnownLocation="Package_1024.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="065186a0-af00-43c4-9705-5578f7795625"
+        LastKnownName="Model"
+        LastKnownLocation="Package1_1024.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="551568ce-4b3f-48c5-8f9d-c40c721c521b"
+        LastKnownName="Services"
+        LastKnownLocation="Package_1025.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="c91329cf-26c3-41cf-a4ca-2bd4ef22e598"
+        LastKnownName="Networking"
+        LastKnownLocation="Package1_1025.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="4f61d142-8de1-413d-90c8-03212ff70552"
+        LastKnownName="Parser"
+        LastKnownLocation="Package2_1025.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="3e71199b-79ec-42cc-847a-4564fa1f4d9c"
+        LastKnownName="Adapters"
+        LastKnownLocation="Package_1026.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="f5c3836e-3292-4f52-bc6f-aba9d43911a4"
+        LastKnownName="Databases"
+        LastKnownLocation="Package1_1026.uml" />
     </packageHasNamedElement>
   </packagedElements>
   <primitiveType
