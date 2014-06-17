@@ -667,7 +667,7 @@ namespace RunApproachStatistics.ViewModel
                     float escore = float.Parse(EScore.ToString(), CultureInfo.InvariantCulture);
                     float penalty = 0;
 
-                    if (String.IsNullOrWhiteSpace(Penalty))
+                    if (!String.IsNullOrWhiteSpace(Penalty))
                     {
                         float.TryParse(Penalty, out penalty);
                     }
