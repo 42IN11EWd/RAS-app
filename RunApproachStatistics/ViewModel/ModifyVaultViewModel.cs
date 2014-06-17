@@ -428,10 +428,11 @@ namespace RunApproachStatistics.ViewModel
                 }
                 
             }
-            ListRowCount = thumbnailCollection.Count / 4;
+            ListRowCount = (thumbnailCollection.Count) / 4;
 
             OnPropertyChanged("ThumbnailCollection");
             OnPropertyChanged("FilterList");
+            OnPropertyChanged("ListRowCount");
 
         }
 
