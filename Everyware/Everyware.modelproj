@@ -29,13 +29,44 @@
       <SubType>Content</SubType>
       <DependentUpon>Desktop.usecasediagram</DependentUpon>
     </Content>
+    <Content Include="Mobile.classdiagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Mobile.classdiagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>Mobile.classdiagram</DependentUpon>
+    </Content>
+    <Content Include="ModelDefinition\Package1_1024.uml">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ModelDefinition\Package1_1025.uml">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ModelDefinition\Package1_1026.uml">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="ModelDefinition\Package1_1101.uml">
       <SubType>Content</SubType>
     </Content>
     <Content Include="ModelDefinition\Package1_1402.uml">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="ModelDefinition\Package2_1025.uml">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="ModelDefinition\Package2_1101.uml">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ModelDefinition\Package_1023.uml">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ModelDefinition\Package_1024.uml">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ModelDefinition\Package_1025.uml">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ModelDefinition\Package_1026.uml">
       <SubType>Content</SubType>
     </Content>
     <Content Include="ModelDefinition\Package_1101.uml">
