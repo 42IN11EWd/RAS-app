@@ -27,8 +27,10 @@ namespace RunApproachStatistics.ViewModel
         public int SizeAxisTime { get; set; }
         public int SizeAxisDistance { get; set; }
         public int SizeAxisSpeed { get; set; }
+        public double AxisTimeMaximum { get; set; }
         public double AxisMaxLeft { get; set; }
         public double AxisMaxRight { get; set; }
+        public double AxisInterval { get; set; }
         
         private ObservableCollection<KeyValuePair<float, float>> distanceArray;
         private ObservableCollection<KeyValuePair<float, float>> speedArray;
@@ -198,8 +200,10 @@ namespace RunApproachStatistics.ViewModel
             AxisTitle = "Distance (m)";
             OnPropertyChanged("AxisTitleColor");
             IsSpecializedGraph = false;
+            AxisTimeMaximum = GraphSeconds;
             AxisMaxLeft = 30;
             AxisMaxRight = 10;
+            AxisInterval = 5;
         }
 
         private void timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
@@ -231,70 +235,6 @@ namespace RunApproachStatistics.ViewModel
                 OnPropertyChanged("DistanceArray");
                 OnPropertyChanged("SpeedArray");
             }));
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="type">Type of graph</param>
-        /// <param name="vault1Data">Data for player 1 (Red) of this particular type of graph</param>
-        /// <param name="vault2Data">Data for player 2 (Blue) of this particular type of graph</param>
-        public void setupSpecializedGraph(String type, String[] vault1Data, String[] vault2Data)
-        {
-            if (String.IsNullOrWhiteSpace(type) || !(type.Equals("Speed") || type.Equals("Distance")))
-            {
-                return;
-            }
-
-            HasSecondAxis = Visibility.Hidden;
-
-            if (type.Equals("Speed"))
-            {
-                AxisTitle = type + " (m/s)";
-            }
-            else
-            {
-                AxisTitle = type + " (m)";
-            }
-            OnPropertyChanged("AxisTitleColor");
-
-            this.type = type;
-            this.vault1Data = vault1Data;
-            this.vault2Data = vault2Data;
-            
-            SpeedArray = new ObservableCollection<KeyValuePair<float, float>>();
-            DistanceArray = new ObservableCollection<KeyValuePair<float, float>>();
-            double timePerMeasurementVault1 = GraphSeconds / vault1Data.Length;
-            double timePerMeasurementVault2 = GraphSeconds / vault2Data.Length;
-            float time1 = 0;
-            float time2 = 0;
-
-            foreach (String vault1Measurement in vault1Data)
-            {
-                if (!String.IsNullOrWhiteSpace(vault1Measurement))
-                {
-                    SpeedArray.Add(new KeyValuePair<float, float>(time1, float.Parse(vault1Measurement, CultureInfo.InvariantCulture)));
-                    time1 += (float)timePerMeasurementVault1;
-                }
-            }
-
-            foreach (String vault2Measurement in vault2Data)
-            {
-                if (!String.IsNullOrWhiteSpace(vault2Measurement))
-                {
-                    DistanceArray.Add(new KeyValuePair<float, float>(time2, float.Parse(vault2Measurement, CultureInfo.InvariantCulture)));
-                    time2 += (float)timePerMeasurementVault2;
-                }
-            }
-
-            LineOneColor = new SolidColorBrush(Color.FromRgb(250, 42, 42));
-            LineTwoColor = new SolidColorBrush(Color.FromRgb(42, 84, 250));
-
-            IsSpecializedGraph = true;
-            AxisMaxLeft = type.Equals("Distance") ? 30 : 10;
-            AxisMaxRight = type.Equals("Distance") ? 30 : 10;
-            OnPropertyChanged("DistanceArray");
-            OnPropertyChanged("SpeedArray");
         }
 
         public void insertGraphData(String graphData)
@@ -346,6 +286,7 @@ namespace RunApproachStatistics.ViewModel
             }
 
             GraphSeconds = seconds;
+            AxisTimeMaximum = Math.Ceiling(seconds);
 
             if (graphData == null)
             {
@@ -357,31 +298,79 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        public void updateSpecializedGraphLength(float seconds, String type = "", String[] vault1Data = null, String[] vault2Data = null)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type">Type of graph</param>
+        /// <param name="vault1Data">Data for player 1 (Red) of this particular type of graph</param>
+        /// <param name="vault2Data">Data for player 2 (Blue) of this particular type of graph</param>
+        public void setupSpecializedGraph(String type, String[] vault1Data, String[] vault2Data)
         {
-            if (!IsSpecializedGraph || (!String.IsNullOrWhiteSpace(type) && !(type.Equals("Speed") || type.Equals("Distance"))))
+            if (String.IsNullOrWhiteSpace(type) || !(type.Equals("Speed") || type.Equals("Distance")))
             {
                 return;
             }
 
-            GraphSeconds = seconds;
-
-            if (String.IsNullOrWhiteSpace(type))
-            {
-                type = this.type;
-            }
-
             HasSecondAxis = Visibility.Hidden;
-            AxisTitle = type;
-            OnPropertyChanged("AxisTitleColor");
 
-            if (vault1Data == null || vault2Data == null)
+            if (type.Equals("Speed"))
             {
-                setupSpecializedGraph(type, this.vault1Data, this.vault2Data);
+                AxisTitle = type + " (m/s)";
             }
             else
             {
-                setupSpecializedGraph(type, vault1Data, vault2Data);
+                AxisTitle = type + " (m)";
+            }
+            OnPropertyChanged("AxisTitleColor");
+
+            this.type = type;
+            this.vault1Data = vault1Data;
+            this.vault2Data = vault2Data;
+
+            SpeedArray = new ObservableCollection<KeyValuePair<float, float>>();
+            DistanceArray = new ObservableCollection<KeyValuePair<float, float>>();
+
+            LineOneColor = new SolidColorBrush(Color.FromRgb(250, 42, 42));
+            LineTwoColor = new SolidColorBrush(Color.FromRgb(42, 84, 250));
+
+            IsSpecializedGraph = true;
+            AxisInterval = type.Equals("Distance") ? 5 : 2;
+            AxisMaxLeft = type.Equals("Distance") ? 30 : 10;
+            AxisMaxRight = type.Equals("Distance") ? 30 : 10;
+            OnPropertyChanged("DistanceArray");
+            OnPropertyChanged("SpeedArray");
+        }
+
+        public void updateSpecializedGraphLength(float seconds1, float seconds2)
+        {
+            if (seconds1.Equals(0) || seconds2.Equals(0))
+            {
+                return;
+            }
+
+            AxisTimeMaximum = Math.Ceiling(Math.Max(seconds1, seconds2));
+
+            double timePerMeasurementVault1 = seconds1 / vault1Data.Length;
+            double timePerMeasurementVault2 = seconds2 / vault2Data.Length;
+            float time1 = 0;
+            float time2 = 0;
+
+            foreach (String vault1Measurement in vault1Data)
+            {
+                if (!String.IsNullOrWhiteSpace(vault1Measurement))
+                {
+                    SpeedArray.Add(new KeyValuePair<float, float>(time1, float.Parse(vault1Measurement, CultureInfo.InvariantCulture)));
+                    time1 += (float)timePerMeasurementVault1;
+                }
+            }
+
+            foreach (String vault2Measurement in vault2Data)
+            {
+                if (!String.IsNullOrWhiteSpace(vault2Measurement))
+                {
+                    DistanceArray.Add(new KeyValuePair<float, float>(time2, float.Parse(vault2Measurement, CultureInfo.InvariantCulture)));
+                    time2 += (float)timePerMeasurementVault2;
+                }
             }
         }
 
