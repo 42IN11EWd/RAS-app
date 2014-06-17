@@ -29,6 +29,12 @@ namespace RunApproachStatistics.ViewModel
                 OnPropertyChanged("VisibilityLaserOn");
             }
         }
+
+        public Boolean OfflineMode
+        {
+            get { return !App.IsOfflineMode; }            
+        }
+
         public String LogName
         {
             get { return logName; }
