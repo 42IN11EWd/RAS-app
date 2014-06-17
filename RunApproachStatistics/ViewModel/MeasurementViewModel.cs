@@ -96,6 +96,11 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
+        public Boolean OfflineMode
+        {
+            get { return !App.IsOfflineMode; }
+        }
+
         public String RectangleColor
         {
            get { return rectangleColor; }

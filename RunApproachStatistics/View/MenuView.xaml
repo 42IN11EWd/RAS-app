@@ -13,8 +13,8 @@
                     <Rectangle Fill="Red" Visibility="{Binding VisibilityLaserOn}" Panel.ZIndex="-1" Height="70" Margin="25,0,25,0"/>
                 </Grid>
                 <Button Content="Start Session" Margin="35,20,35,0" FontSize="26" Height="50" Command="{Binding StartSessionCommand}"/>
-                <Button Content="Select Vault" Margin="35,30,35,0" FontSize="26" Height="50" Command="{Binding SelectVaultCommand}"/>
-                <Button Content="Gymnast Profiles" Margin="35,30,35,0" FontSize="26" Height="50" Command="{Binding GymnastProfilesCommand}"/>
+                <Button Content="Select Vault" Margin="35,30,35,0" FontSize="26" Height="50" IsEnabled="{Binding Path=OfflineMode}" Command="{Binding SelectVaultCommand}"/>
+                <Button Content="Gymnast Profiles" Margin="35,30,35,0" FontSize="26" Height="50" IsEnabled="{Binding Path=OfflineMode}" Command="{Binding GymnastProfilesCommand}"/>
                 <Button Content="Settings" Margin="35,30,35,0" FontSize="26" Height="50" Command="{Binding SettingsCommand}"/>
                 <Button Content="Home" Margin="35,30,35,0" FontSize="26" Height="50" Command="{Binding HomeCommand}"/>
             </StackPanel>
