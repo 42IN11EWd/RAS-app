@@ -54,7 +54,7 @@
                     <ListBox FontSize="22" HorizontalAlignment="Left" Height="539" Margin="10,101,0,0" ItemsSource="{Binding Path=FilterItems}" SelectedItem="{Binding Path=SelectedFilterItem}" VerticalAlignment="Top" Width="368"/>
                     <Button Command="{Binding AddToFilterCommand}" Content="Add to filter" FontSize="24" Height="50" HorizontalAlignment="Right" Margin="0,650,10,378" Width="368"/>
                     <ListBox FontSize="22" HorizontalAlignment="Left" Height="300" ItemsSource="{Binding FilterList}" SelectedItem="{Binding Path=SelectedExistingFilterItem}" Margin="10,710,0,0" VerticalAlignment="Top" Width="368" />
-                    <Button Command="{Binding RemoveAllFiltersCommand}"        Content="Remove Filters"                FontSize="24" Height="50" HorizontalAlignment="Right"   Margin="0,0,10,10" VerticalAlignment="Bottom" Width="368"/>
+                    <Button Command="{Binding RemoveAllFiltersCommand}"        Content="Remove Filter"                FontSize="24" Height="50" HorizontalAlignment="Right"   Margin="0,0,10,10" VerticalAlignment="Bottom" Width="368"/>
                 </Grid>
             </Border>
 
