@@ -9,6 +9,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -505,6 +506,8 @@ namespace RunApproachStatistics.ViewModel
             {
                 BitmapImage bImage = EditPicture as BitmapImage; 
                 byte[] data = null;
+
+                //large picture
                 JpegBitmapEncoder encoder = new JpegBitmapEncoder();
                 encoder.Frames.Add(BitmapFrame.Create(bImage));
                 using (MemoryStream ms = new MemoryStream())
@@ -512,6 +515,18 @@ namespace RunApproachStatistics.ViewModel
                     encoder.Save(ms);
                     data = ms.ToArray();
                     gymnast.picture = data;
+                }
+
+                //small picture
+                bImage.DecodePixelHeight = 32;
+                bImage.DecodePixelWidth = 32;
+                encoder = new JpegBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create(bImage));
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    encoder.Save(ms);
+                    data = ms.ToArray();
+                    gymnast.picture_small = data;
                 }
             }
 
