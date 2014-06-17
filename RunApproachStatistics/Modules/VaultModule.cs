@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
+using System.Xml;
 
 namespace RunApproachStatistics.Modules
 {
@@ -82,7 +83,7 @@ namespace RunApproachStatistics.Modules
                 {
                     var query = (from qVault in db.vault.Include("gymnast").Include("vaultnumber").Include("location").Include("vaultkind")
                                  where qVault.vault_id == id
-                                 select qVault).First();
+                                 select qVault).FirstOrDefault();
                     return query;
                 }
                 vault v = new vault();
@@ -118,6 +119,7 @@ namespace RunApproachStatistics.Modules
                     }
                     catch (Exception e)
                     {
+
                         Console.WriteLine(e);
                     }
                 }
@@ -382,14 +384,13 @@ namespace RunApproachStatistics.Modules
                 vault vaultThread = vault;
                 // Create the filepath, add date stamp to filename
                 String fileName = "LC_Video_" + vault.timestamp.ToString("yyyy_MM_dd_HH-mm-ss") + ".avi";
-                String filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "RunApproachStatistics");
-
-                if (!Directory.Exists(filePath))
+                
+                if (!Directory.Exists(App.filePath))
                 {
-                    Directory.CreateDirectory(filePath);
+                    Directory.CreateDirectory(App.filePath);
                 }
 
-                filePath = Path.Combine(filePath, fileName);
+                String videoFilePath = Path.Combine(App.filePath, fileName);
 
                 //create the lasercamera string
                 String graphdata = "";
@@ -420,16 +421,28 @@ namespace RunApproachStatistics.Modules
 
                 // Save the new vault and include the video path.            
                 vault.videopath = fileName;
-                create(vault);
+                
+                if (App.IsOfflineMode)
+                {                    
+                    if (!Directory.Exists(App.syncPath))
+                    {
+                        Directory.CreateDirectory(App.syncPath);
+                    }
+                    SerializeService.Serialize<vault>(vault, Path.Combine(App.syncPath, String.Format("Vault_{0}.dat", Guid.NewGuid())));
+                }
+                else
+                {
+                    create(vault);
+                }               
 
                 // Send vault back to view, for thumbnail list
                 Application.Current.Dispatcher.Invoke(() =>
-                    {
-                        OnVaultCreated(vault);
-                    });
+                {
+                    OnVaultCreated(vault);
+                });
 
                 // Create a new thread to save the video
-                Worker workerObject = new Worker(filePath, fileName, frames);
+                Worker workerObject = new Worker(videoFilePath, fileName, frames);
                 Thread workerThread = new Thread(workerObject.DoWork);
 
                 // Start the thread.

@@ -162,6 +162,7 @@
     <Compile Include="Services\PortController.cs" />
     <Compile Include="Services\PortEmulator.cs" />
     <Compile Include="Services\ReadPort.cs" />
+    <Compile Include="Services\SerializeService.cs" />
     <Compile Include="Services\VideoCamera.cs" />
     <Compile Include="Services\VideoCameraController.cs" />
     <Compile Include="Services\WritePort.cs" />
