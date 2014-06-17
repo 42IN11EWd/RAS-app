@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
@@ -92,5 +94,55 @@ namespace RunApproachStatistics.Services
         }
         #endregion
 
+
+        public static void Serialize<T>(T toSerialize, String fName)
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            using (FileStream stream = new FileStream(fName, FileMode.Create))
+            {
+                BinaryFormatter bin = new BinaryFormatter();
+                bin.Serialize(stream, toSerialize);
+            }
+        }
+
+        //public static void Serialize<T>(T toSerialize, String fName)
+        //{
+        //    // Create a hashtable of values that will eventually be serialized.
+            
+
+        //    // To serialize the hashtable and its key/value pairs,   
+        //    // you must first open a stream for writing.  
+        //    // In this case, use a file stream.
+        //    FileStream fs = new FileStream(fName, FileMode.Create);
+
+        //    // Construct a BinaryFormatter and use it to serialize the data to the stream.
+        //    BinaryFormatter formatter = new BinaryFormatter();
+        //    try
+        //    {
+        //        formatter.Serialize(fs, toSerialize);
+        //    }
+        //    catch (SerializationException e)
+        //    {
+        //        Console.WriteLine("Failed to serialize. Reason: " + e.Message);
+        //        throw;
+        //    }
+        //    finally
+        //    {
+        //        fs.Close();
+        //    }
+        //}
+
+
+        public static T Deserialize<T>(String fName)
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            T deserialized;
+            using (FileStream stream = new FileStream(fName, FileMode.Open))
+            {
+                BinaryFormatter bin = new BinaryFormatter();
+                deserialized = (T) bin.Deserialize(stream);
+            }
+            return deserialized;
+        }
     }
 }

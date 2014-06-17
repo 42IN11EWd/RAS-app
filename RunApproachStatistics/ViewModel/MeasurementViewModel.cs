@@ -630,7 +630,7 @@ namespace RunApproachStatistics.ViewModel
         public void LoadPostMeasurementScreen(object commandParam)
         {
             ThumbnailCollection.RemoveAt(0);
-            if(ThumbnailCollection.Count == 0)
+            if(ThumbnailCollection.Count == 0 || App.IsOfflineMode)
             {
                 _app.ShowHomeView();
             }
