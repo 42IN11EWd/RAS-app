@@ -389,8 +389,8 @@ namespace RunApproachStatistics.ViewModel
                     Nationality = value.nationality;
                     Gender = value.gender;
 
-                    decimal length = (decimal)value.length;
-                    decimal weight = (decimal)value.weight;
+                    decimal length = value.length.HasValue == true ? (decimal)value.length : 0;
+                    decimal weight = value.weight.HasValue == true ? (decimal)value.weight : 0;
 
                     Length = length.ToString();
                     Weight = weight.ToString();
@@ -555,7 +555,7 @@ namespace RunApproachStatistics.ViewModel
 
         public Boolean CanSaveChanges()
         {
-            return inEditingMode && madeChanges();
+            return IsValid && inEditingMode && madeChanges();
         }
 
         public void CancelChanges(object commandParam)
@@ -795,7 +795,7 @@ namespace RunApproachStatistics.ViewModel
                               () =>
                               {
                                   DateTime result;
-                                  String[] formats = { "yyyy-MM-dd", "dd-MM-yyyy" };
+                                  String[] formats = { "yyyy/MM/dd", "dd/MM/yyyy", "dd/M/yyyy", "d/M/yyyy", "d/MM/yyyy" };
                                   if (EditDateOfBirth != null && EditDateOfBirth.Length > 0 && !DateTime.TryParseExact(EditDateOfBirth, formats, CultureInfo.CurrentCulture, DateTimeStyles.None, out result))
                                   {
                                       return RuleResult.Invalid("Date of birth must be a date");

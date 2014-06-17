@@ -67,6 +67,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Management" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -448,6 +449,7 @@
     <Resource Include="Images\videoControl_play_b.png" />
     <Resource Include="Images\videoControl_stop_b.png" />
     <Resource Include="Images\Icon.ico" />
+    <Resource Include="Images\lock.png" />
     <Content Include="postproc-52.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
