@@ -341,14 +341,19 @@ namespace RunApproachStatistics
 
         public void CheckNetworkConnection()
         {
-            bool isConnected = true;
-
+            bool isConnected = false;
             try
             {
-                if (new System.Net.NetworkInformation.Ping().Send("www.google.com").Status != IPStatus.Success)
-                    isConnected = false;
+                using (var db = new DataContext())
+                {
+                    bool dbexist = db.Database.Exists();
+                    if (dbexist == true)
+                    {
+                        isConnected = true;
+                    }
+                }
             }
-            catch (PingException pe)
+            catch(Exception e)
             {
                 isConnected = false;
             }
