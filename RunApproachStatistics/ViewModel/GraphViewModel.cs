@@ -392,7 +392,11 @@ namespace RunApproachStatistics.ViewModel
         {
             double percentage = milliseconds / GraphSeconds;
             double perc = ((WidthChart - 100 - 100) * percentage) + 100;
-            if (!(lineMargin.Left > (WidthChart - 100)) && lineMargin.Left != perc)
+
+            if (perc > (WidthChart - 88))
+                perc = 912;
+
+            if (lineMargin.Left != perc)
             {
                 lineMargin.Left = perc;
                 LineMargin = lineMargin;
@@ -408,7 +412,11 @@ namespace RunApproachStatistics.ViewModel
         {
             double percentage = milliseconds / GraphSeconds;
             double perc = ((WidthChart - 100 - 100) * percentage) + 100;
-            if (!(lineMargin2.Left > (WidthChart - 100)) && lineMargin2.Left != perc)
+
+            if (perc > (WidthChart - 88))
+                perc = 912;
+
+            if (lineMargin2.Left != perc)
             {
                 lineMargin2.Left = perc;
                 LineMargin2 = lineMargin2;
