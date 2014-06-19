@@ -28,8 +28,8 @@ namespace RunApproachStatistics.Model.Entity
         public virtual DbSet<gymnast> gymnast { get; set; }
         public virtual DbSet<location> location { get; set; }
         public virtual DbSet<user> user { get; set; }
-        public virtual DbSet<vault> vault { get; set; }
         public virtual DbSet<vaultkind> vaultkind { get; set; }
         public virtual DbSet<vaultnumber> vaultnumber { get; set; }
+        public virtual DbSet<vault> vault { get; set; }
     }
 }

@@ -11,6 +11,7 @@ namespace RunApproachStatistics.Model.Entity
 {
     using System;
     using System.Collections.Generic;
+
     [Serializable]
     public partial class vault
     {
