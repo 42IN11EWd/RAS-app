@@ -80,7 +80,7 @@ namespace RunApproachStatistics.ViewModel
         {
             get 
             {
-                if (Vault.gymnast != null)
+                if (Vault != null && Vault.gymnast != null)
                 {
                     return Vault.gymnast.name + " " + (Vault.gymnast.surname_prefix != null ? Vault.gymnast.surname_prefix + " " : "") + Vault.gymnast.surname;
                 }
@@ -104,8 +104,8 @@ namespace RunApproachStatistics.ViewModel
         public String VaultNumber
         {
             get 
-            { 
-                if (Vault.vaultnumber != null)
+            {
+                if (Vault != null && Vault.vaultnumber != null)
                 {
                     return Vault.vaultnumber.code; 
                 }
