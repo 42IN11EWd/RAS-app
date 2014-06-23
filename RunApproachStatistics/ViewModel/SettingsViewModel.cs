@@ -233,6 +233,11 @@ namespace RunApproachStatistics.ViewModel
             MeasurementWindowMax = String.Format("{0:####.###}", portController.MeasurementWindowMax);
             MeasurementWindowMin = String.Format("{0:####.###}", portController.MeasurementWindowMin);
 
+            if (MeasurementWindowMin.Length < 1)
+            {
+                MeasurementWindowMin = "0";
+            }
+
             MeasurementIndex                 = laserCameraSettingsModule.getMeasurementIndex();
             SelectedMeasurementPositionIndex = laserCameraSettingsModule.getMeasurementPosition();
 
