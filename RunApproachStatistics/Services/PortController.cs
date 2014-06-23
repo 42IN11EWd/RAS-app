@@ -13,7 +13,7 @@ namespace RunApproachStatistics.Services
 {
     public class PortController
     {
-        private Boolean isLive = false;
+        private Boolean isLive = true;
 
         public static volatile ReadPort  readPort;
         public static volatile WritePort writePort;
@@ -106,6 +106,14 @@ namespace RunApproachStatistics.Services
                     }
                 }
 
+                //No lasercamera found, init emulator
+                if (port == null || !port.IsOpen)
+                {
+                    isLive = false;
+                    InitEmulator();
+                    return;
+                }
+
                 Thread readThread   = new Thread(() => { readPort  = new ReadPort(this, port); });
                 Thread writeThread  = new Thread(() => { writePort = new WritePort(port); });
                 readThread.Start();
@@ -133,18 +141,23 @@ namespace RunApproachStatistics.Services
             }
             else
             {
-                Thread readThread = new Thread(() => { readPort = new ReadPort(this); });
-                Thread writeThread = new Thread(() => { writePort = new WritePort(); });
-                readThread.Start();
-                writeThread.Start();
-
-                readThread.Join();
-                writeThread.Join();
-                portEmulator = new PortEmulator(readPort, this);
-                
-                getSettings();
-                initializeMeasurement();
+                InitEmulator();
             }
+        }
+
+        private void InitEmulator()
+        {
+            Thread readThread = new Thread(() => { readPort = new ReadPort(this); });
+            Thread writeThread = new Thread(() => { writePort = new WritePort(); });
+            readThread.Start();
+            writeThread.Start();
+
+            readThread.Join();
+            writeThread.Join();
+            portEmulator = new PortEmulator(readPort, this);
+
+            getSettings();
+            initializeMeasurement();
         }
 
         public void initializeMeasurement()
