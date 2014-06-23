@@ -56,13 +56,11 @@
             <Button Content="Calibrate" FontSize="18" Command="{Binding CalibrateMaximumDistance}" HorizontalAlignment="Left" Margin="258,327,0,0" Width="80" Height="34" VerticalAlignment="Top" />
             <!-- End Measurement Screen-->
             <!-- Comport XAML -->
-            <Label Content="Lasercamera port" HorizontalAlignment="Left" FontSize="18" Margin="394,48,0,0" VerticalAlignment="Top" Width="158" Height="32"/>
-            <ComboBox x:Name="comportBox" FontSize="18" HorizontalAlignment="Left" Margin="557,48,0,0" VerticalAlignment="Top" Width="308" Height="34" ItemsSource="{Binding ComPorts}" SelectedIndex="{Binding Path=SelectedComportIndex, Mode=TwoWay}"/>
-            
+
             <!-- Camera XAML -->
-            <ComboBox x:Name="videocameraBox" Height="34" FontSize="18" HorizontalAlignment="Right" Margin="0,98,10,0" VerticalAlignment="Top" Width="308" SelectedIndex="{Binding Path=SelectedCameraIndex, Mode=TwoWay}" ItemsSource="{Binding Path=Devices}" />
-            <Label Content="Camera" FontSize="18" HorizontalAlignment="Right" Margin="0,98,410,0" VerticalAlignment="Top"/>
-            <ContentControl x:Name="cameraView" Content="{Binding Path=CameraView}" Height="274" VerticalAlignment="Top" HorizontalAlignment="Right" Width="471" Margin="0,137,10,0" Background="Black" />
+            <ComboBox x:Name="videocameraBox" Height="34" FontSize="18" HorizontalAlignment="Right" Margin="0,48,10,0" VerticalAlignment="Top" Width="422" SelectedIndex="{Binding Path=SelectedCameraIndex, Mode=TwoWay}" ItemsSource="{Binding Path=Devices}" />
+            <Label Content="Camera" FontSize="18" HorizontalAlignment="Right" Margin="0,48,448,0" VerticalAlignment="Top"/>
+            <ContentControl x:Name="cameraView" Content="{Binding Path=CameraView}" Height="296" VerticalAlignment="Top" HorizontalAlignment="Right" Width="509" Margin="0,87,10,0" Background="Black" />
             <!-- End Camera XAML -->
 
             <!-- Window Buttons XAML -->
@@ -88,7 +86,7 @@
             <Button Command="{Binding ClearLocalDataCommand}" Content="Clear local data" FontSize="18" HorizontalAlignment="Left" Margin="443,422,0,0" VerticalAlignment="Top" Width="153" Height="28"/>
             <Button Command="{Binding ShowVaultKindEditorCommand}" Content="Vault event" FontSize="18" HorizontalAlignment="Left" Margin="125,422,0,0" VerticalAlignment="Top" Width="123" Height="28"/>
             <Label Content="Editors" HorizontalAlignment="Left" FontSize="18" Margin="12,383,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.474,0.5"/>
-            
+
             <!-- End Window Buttons-->
         </Grid>
     </Viewbox>

@@ -29,9 +29,6 @@ namespace RunApproachStatistics.ViewModel
         private VideoCameraController   videoCameraController;
         private PortController          portController;
 
-        private int         selectedComportIndex;
-        private String[]    comports;
-
         private int         selectedCameraIndex;
         private String[]    devices;
 
@@ -93,19 +90,6 @@ namespace RunApproachStatistics.ViewModel
             {
                 devices = value;
                 OnPropertyChanged("Devices");
-            }
-        }
-
-        public String[] ComPorts
-        {
-            get
-            {
-                return comports;
-            }
-            set 
-            {
-                comports = value;
-                OnPropertyChanged("ComPorts");
             }
         }
 
@@ -184,16 +168,6 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        public int SelectedComportIndex
-        {
-            get { return selectedComportIndex; }
-            set
-            {
-                selectedComportIndex = value;
-                OnPropertyChanged("SelectedComportIndex");
-            }
-        }
-
         public RelayCommand SaveSettingsCommand { get; private set; }
         public RelayCommand CancelCommand { get; private set; }
         public RelayCommand CalibrateMinimumDistance { get; private set; }
@@ -221,7 +195,6 @@ namespace RunApproachStatistics.ViewModel
             openVideoSource(this.videoCameraController.CameraWindow);
             Devices = videoCameraController.Devices;
 
-            getComPortDevices();
             setSettingsProperties();
             setValidationRules();
         }
@@ -242,10 +215,7 @@ namespace RunApproachStatistics.ViewModel
             SelectedMeasurementPositionIndex = laserCameraSettingsModule.getMeasurementPosition();
 
             // Get comport index from name
-            String comportName   = laserCameraSettingsModule.getComPortName();
-            int comportIndex     = Array.IndexOf(comports, comportName);
-            comportIndex         = (comportIndex != -1) ? comportIndex : 0;
-            SelectedComportIndex = comportIndex;
+           // String comportName   = laserCameraSettingsModule.getComPortName();
         }
 
         public void selectedCameraIndexChanged()
@@ -267,17 +237,6 @@ namespace RunApproachStatistics.ViewModel
             WindowsFormsHost host = new WindowsFormsHost();
             host.Child = cameraWindow;
             cameraView.CameraHost = host;
-        }
-
-        public void getComPortDevices()
-        {
-            comports = SerialPort.GetPortNames();
-            if (comports.Length == 0)
-            {
-                comports = new String[] { "No usable comports found" };
-            }
-
-            OnPropertyChanged("ComPorts");
         }
 
         #region Relay Commands
@@ -321,10 +280,6 @@ namespace RunApproachStatistics.ViewModel
                     // Save selected videocamera
                     int cameraIndex = Convert.ToInt32(commandParams[6]);
                     videoCameraSettingsModule.saveVideocameraIndex(cameraIndex);
-
-                    // save comport
-                    int comportIndex = Convert.ToInt32(commandParams[7]);
-                    laserCameraSettingsModule.setComPortName(comports[comportIndex]);
 
                     _app.CloseSettingsWindow();
                 }
