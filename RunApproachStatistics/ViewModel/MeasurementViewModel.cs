@@ -460,6 +460,12 @@ namespace RunApproachStatistics.ViewModel
 
             ManualModeChecked = true;
 
+            //Turn pilotlaser off if it is on
+            if (portController.PilotLaser != 0)
+            {
+                portController.PilotLaser = 0;
+            }
+
             // Set Graph
             GraphViewModel graphVM = new GraphViewModel(_app, this, true, 1500);
             GraphViewMeasurement = graphVM;

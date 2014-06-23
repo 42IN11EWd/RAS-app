@@ -123,6 +123,12 @@ namespace RunApproachStatistics.Services
                     getSettings();
                 }
 
+                //Turn pilotlaser off at start if it is on.
+                if (PilotLaser != 0)
+                {
+                    PilotLaser = 0;
+                }
+
                 initializeMeasurement();
             }
             else
