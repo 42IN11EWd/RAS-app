@@ -377,8 +377,15 @@ namespace RunApproachStatistics.Modules
             throw new NotImplementedException();
         }
 
-        public void createVault(List<Bitmap> frames, List<String> writeBuffer, vault vault)
+        public void createVault(List<Bitmap> captureBuffer, List<String> writeBuffer, vault vault)
         {
+            List<Bitmap> frames = new List<Bitmap>();
+
+            foreach (Bitmap bmp in captureBuffer)
+            {
+                frames.Add((Bitmap)bmp.Clone());
+            }
+
             Thread createThread = new Thread(() =>
             {
                 vault vaultThread = vault;
@@ -398,7 +405,11 @@ namespace RunApproachStatistics.Modules
                 {
                     graphdata += s;
                 }
-                vault.graphdata = graphdata.Remove(graphdata.Length - 1); //Laatste komma weghalen
+
+                if (graphdata.Length > 0)
+                {
+                    vault.graphdata = graphdata.Remove(graphdata.Length - 1); //Laatste komma weghalen
+                }
 
                 //generate thumbnail
                 try
@@ -516,6 +527,11 @@ namespace RunApproachStatistics.Modules
                         // Close the writer
                         writer.Close();
                         writer = null;
+
+                        foreach (Bitmap bmp in frames)
+                        {
+                            bmp.Dispose();
+                        }
                         frames = null;
 
                         // Upload the file to the server.

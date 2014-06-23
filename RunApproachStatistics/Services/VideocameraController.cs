@@ -189,17 +189,17 @@ namespace RunApproachStatistics.Services
             cameraWindow.Camera.Lock();
 
             Bitmap lastFrame = (Bitmap)cameraWindow.Camera.LastFrame.Clone();
-
+            
             if (save)
             {
                 captureBuffer.AddCaptureBufferFrame(lastFrame);
             }
 
             captureBuffer.AddDynamicBufferFrame(lastFrame);
+            
+            //lastFrame.Dispose();
 
             cameraWindow.Camera.Unlock();
-
-            lastFrame.Dispose();
         }
 
         public void Capture()

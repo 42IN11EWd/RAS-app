@@ -41,7 +41,7 @@ namespace RunApproachStatistics.Services
 
         public void AddCaptureBufferFrame(Bitmap bmp)
         {
-            captureBuffer.Add(bmp);
+            captureBuffer.Add((Bitmap)bmp.Clone());
         }
 
         public void AddDynamicBufferFrame(Bitmap bmp)
@@ -59,6 +59,7 @@ namespace RunApproachStatistics.Services
 
             if (dynamicBuffer.Count > (fps * 3))
             {
+                dynamicBuffer[0].Dispose();
                 dynamicBuffer.RemoveAt(0);
             }
 
@@ -88,7 +89,12 @@ namespace RunApproachStatistics.Services
         }
 
         public void Close()
-        {              
+        {
+            foreach (Bitmap bmp in captureBuffer)
+            {
+                bmp.Dispose();
+            }
+
             captureBuffer = null;
         }
     }
