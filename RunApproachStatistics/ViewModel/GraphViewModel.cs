@@ -27,11 +27,10 @@ namespace RunApproachStatistics.ViewModel
         public int SizeAxisTime { get; set; }
         public int SizeAxisDistance { get; set; }
         public int SizeAxisSpeed { get; set; }
-        public double AxisTimeMaximum { get; set; }
         public double AxisMaxLeft { get; set; }
         public double AxisMaxRight { get; set; }
         public double AxisInterval { get; set; }
-        
+
         private ObservableCollection<KeyValuePair<float, float>> distanceArray;
         private ObservableCollection<KeyValuePair<float, float>> speedArray;
         private Thickness lineMargin;
@@ -42,6 +41,7 @@ namespace RunApproachStatistics.ViewModel
         private Visibility lineVisibilty2;
         private float graphSeconds;
         private String graphData;
+        private Double axisTimeMaximum;
 
         private String type;
         private String[] vault1Data;
@@ -142,6 +142,16 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
+        public double AxisTimeMaximum
+        {
+            get { return axisTimeMaximum; }
+            set
+            {
+                axisTimeMaximum = value;
+                OnPropertyChanged("AxisTimeMaximum");
+            }
+        }
+
         public String AxisTitle
         {
             get { return axisTitle; }
@@ -172,37 +182,37 @@ namespace RunApproachStatistics.ViewModel
         {
             _app = app;
 
-            DistanceArray   = new ObservableCollection<KeyValuePair<float, float>>();
-            SpeedArray      = new ObservableCollection<KeyValuePair<float, float>>();
+            DistanceArray = new ObservableCollection<KeyValuePair<float, float>>();
+            SpeedArray = new ObservableCollection<KeyValuePair<float, float>>();
 
             if (isLive)
             {
-                GraphSeconds    = 30;
-                LineVisibilty   = Visibility.Hidden;
+                GraphSeconds = 30;
+                LineVisibilty = Visibility.Hidden;
                 LineVisibilty2 = Visibility.Hidden;
             }
             else
             {
-                GraphSeconds    = 10;
-                LineVisibilty   = Visibility.Visible;
+                GraphSeconds = 10;
+                LineVisibilty = Visibility.Visible;
                 LineVisibilty2 = Visibility.Hidden;
-                LineMargin      = new Thickness(87, 25, 0, 0);
-                LineMargin2     = new Thickness(87, 25, 0, 0);
+                LineMargin = new Thickness(87, 25, 0, 0);
+                LineMargin2 = new Thickness(87, 25, 0, 0);
             }
 
             LineOneColor = Brushes.Black;
             LineTwoColor = new SolidColorBrush(Color.FromRgb(250, 42, 42));
-            DisplayWidth     = width;
-            WidthChart       = width;
-            GridWidth        = width;
-            SizeAxisTime     = 30;
+            DisplayWidth = width;
+            WidthChart = width;
+            GridWidth = width;
+            SizeAxisTime = 30;
             SizeAxisDistance = 30;
-            SizeAxisSpeed    = 30;
+            SizeAxisSpeed = 30;
 
             if (isLive)
             {
                 seconds = -1;
-                timer   = new System.Timers.Timer();
+                timer = new System.Timers.Timer();
                 timer.Interval = 500D;
                 timer.Elapsed += new System.Timers.ElapsedEventHandler(this.timer_Elapsed);
                 timer.Start();
@@ -249,7 +259,7 @@ namespace RunApproachStatistics.ViewModel
                 OnPropertyChanged("SpeedArray");
             }));
         }
-		
+
         public void insertGraphData(String graphData)
         {
             this.graphData = graphData;
