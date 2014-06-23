@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO.Ports;
 using System.Linq;
+using System.Management;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -98,6 +99,7 @@ namespace RunApproachStatistics.Services
                     catch (Exception e)
                     {
                         //no problem
+                        
                     }
 
                     if (port.IsOpen)
@@ -142,6 +144,19 @@ namespace RunApproachStatistics.Services
             else
             {
                 InitEmulator();
+            }
+        }
+
+        private void findLaserComPort()
+        {
+            ManagementScope scope = new ManagementScope();
+            SelectQuery query = new SelectQuery("SELECT * FROM Win32_PnPEntity");
+            ManagementObjectSearcher comSearcher = new ManagementObjectSearcher(scope, query);
+            foreach(ManagementObject comport in comSearcher.Get())
+            {
+                String deviceID = comport["DeviceID"].ToString();
+                //deviceID contains VID and PID 
+                Console.WriteLine(deviceID);
             }
         }
 
@@ -282,6 +297,21 @@ namespace RunApproachStatistics.Services
         public String getLatestMeasurement()
         {
             return readPort.getLatestMeasurement();
+        }
+
+        public static byte[] stringToByteArray(string hex)
+        {
+            if (hex != "1B")
+            {
+                // Add the "return" statement to command
+                hex += "0D";
+            }
+
+            // Using Linq to convert the hex string into a byte array, what a serialport needs
+            return Enumerable.Range(0, hex.Length)
+                             .Where(x => x % 2 == 0)
+                             .Select(x => Convert.ToByte(hex.Substring(x, 2), 16))
+                             .ToArray();
         }
     }
 }
