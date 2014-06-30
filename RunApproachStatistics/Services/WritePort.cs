@@ -23,6 +23,11 @@ namespace RunApproachStatistics.Services
             escapeCharacter = stringToByteArray("1B");
         }
 
+        public void updatePort(SerialPort port)
+        {
+            this.port = port;
+        }
+
         /// <summary>
         /// Start a continous measurement
         /// </summary>

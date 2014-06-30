@@ -50,6 +50,12 @@ namespace RunApproachStatistics.Services
             modifiyingBuffer = false;
         }
 
+        public void updatePort(SerialPort port)
+        {
+            this.port = port;
+            this.port.DataReceived += dataReceived;
+        }
+
         public float getLatestBufferDistance()
         {
             while (modifiyingBuffer)
@@ -265,7 +271,9 @@ namespace RunApproachStatistics.Services
             if (!measurementRecieved && portController.PilotLaser == 0)
             {
                 timer.Dispose();
-                MessageBox.Show("Lost connection to the lasercamera. To reconnect the lasercamera, reconnect the lasercamera and restart the program.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Please reconnect the lasercamera to the computer and press 'OK'.", 
+                    "Lasercamera connection lost", MessageBoxButton.OK, MessageBoxImage.Warning);
+                portController.reconnectLaserCamera();            
             }
 
             measurementRecieved = false;

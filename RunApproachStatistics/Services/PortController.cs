@@ -89,31 +89,13 @@ namespace RunApproachStatistics.Services
         {
             if (isLive)
             {
-                SerialPort port = null;
-                foreach (String name in SerialPort.GetPortNames())
-                {
-                    port = new SerialPort(name, 115200, Parity.None, 8, StopBits.One);
-                    try
-                    {
-                        port.Open();
-                    }
-                    catch (Exception e)
-                    {
-                        //no problem                        
-                    }
-
-                    if (port.IsOpen)
-                    {
-                        break;
-                    }
-                }
+                SerialPort port = connectLaserCamera();
 
                 //No lasercamera found, init emulator
                 if (port == null || !port.IsOpen)
                 {
                     isLive = false;
                     InitEmulator();
-                    return;
                 }
 
                 Thread readThread   = new Thread(() => { readPort  = new ReadPort(this, port); });
@@ -148,16 +130,52 @@ namespace RunApproachStatistics.Services
             }
         }
 
-        private void findLaserComPort()
+        private SerialPort connectLaserCamera()
         {
-            ManagementScope scope = new ManagementScope();
-            SelectQuery query = new SelectQuery("SELECT * FROM Win32_USBHub");
-            ManagementObjectSearcher comSearcher = new ManagementObjectSearcher(scope, query);
-            foreach(ManagementObject comport in comSearcher.Get())
+            SerialPort port = null;
+            foreach (String name in SerialPort.GetPortNames())
             {
-                String deviceID = comport["DeviceID"].ToString() + "  " + comport["PNPDeviceID"].ToString() + "  " + comport["Description"].ToString();
-                //deviceID contains VID and PID 
-                Console.WriteLine(deviceID);
+                port = new SerialPort(name, 115200, Parity.None, 8, StopBits.One);
+                try
+                {
+                    port.Open();
+                }
+                catch (Exception e)
+                {
+                    //no problem                        
+                }
+
+                if (port.IsOpen)
+                {
+                    break;
+                }
+            }
+
+            return port;
+        }
+
+        public void reconnectLaserCamera()
+        {
+            SerialPort port = null;
+            int connectionAttempts = 0;
+            
+            while(port == null && connectionAttempts < 15)
+            {
+                port = connectLaserCamera();
+
+                Thread.Sleep(1000);
+                connectionAttempts++;
+            }
+
+            if (port == null || !port.IsOpen)
+            {
+                isLive = false;
+                InitEmulator();
+            }
+            else
+            {
+                writePort.updatePort(port);
+                readPort.updatePort(port);
             }
         }
 
