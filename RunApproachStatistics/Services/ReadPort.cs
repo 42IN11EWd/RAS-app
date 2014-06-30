@@ -250,7 +250,7 @@ namespace RunApproachStatistics.Services
             if (!measurementRecieved)
             {
                 timer.Dispose();
-                MessageBoxResult messageBox = MessageBox.Show("Lost connection to the lasercamera. To reconnect the lasercamera, reconnect the lasercamera and restart the program.");
+                MessageBox.Show("Lost connection to the lasercamera. To reconnect the lasercamera, reconnect the lasercamera and restart the program.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
 
             measurementRecieved = false;
