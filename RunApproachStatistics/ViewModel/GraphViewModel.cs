@@ -288,7 +288,6 @@ namespace RunApproachStatistics.ViewModel
 
                             SpeedArray.Add(new KeyValuePair<float, float>(time, float.Parse(splitString[0], CultureInfo.InvariantCulture)));
                             DistanceArray.Add(new KeyValuePair<float, float>(time, float.Parse(splitString[1], CultureInfo.InvariantCulture)));
-
                             time += (float)timePerMeasurement;
                         }
                     }

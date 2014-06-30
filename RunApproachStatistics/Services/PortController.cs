@@ -5,9 +5,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO.Ports;
 using System.Linq;
+using System.Management;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace RunApproachStatistics.Services
 {
@@ -98,6 +100,7 @@ namespace RunApproachStatistics.Services
                     catch (Exception e)
                     {
                         //no problem
+                        
                     }
 
                     if (port.IsOpen)
@@ -142,6 +145,19 @@ namespace RunApproachStatistics.Services
             else
             {
                 InitEmulator();
+            }
+        }
+
+        private void findLaserComPort()
+        {
+            ManagementScope scope = new ManagementScope();
+            SelectQuery query = new SelectQuery("SELECT * FROM Win32_PnPEntity");
+            ManagementObjectSearcher comSearcher = new ManagementObjectSearcher(scope, query);
+            foreach(ManagementObject comport in comSearcher.Get())
+            {
+                String deviceID = comport["DeviceID"].ToString();
+                //deviceID contains VID and PID 
+                Console.WriteLine(deviceID);
             }
         }
 
@@ -279,6 +295,7 @@ namespace RunApproachStatistics.Services
             MeasurementWindowMax = measurementWindowMax;
             MeasurementWindowMin = measurementWindowMin;
         }
+
         public String getLatestMeasurement()
         {
             return readPort.getLatestMeasurement();
