@@ -344,12 +344,12 @@ namespace RunApproachStatistics.ViewModel
                         FinishButtonState = true;
                         return FinishButtonText = "View";
                     }
-                    else if (SelectedThumbnails.Count > 1)
+                    else if (SelectedThumbnails.Count > 1 && selectedThumbnails.Count <= 2)
                     {
                         FinishButtonState = true;
                         return FinishButtonText = "Compare";
                     }
-
+                    FinishButtonState = false;
                     return "";
                 }
                 return "";
