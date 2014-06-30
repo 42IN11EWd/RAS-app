@@ -362,7 +362,7 @@ namespace RunApproachStatistics
                 if (!isConnected)
                 {
                     IsOfflineMode = true;
-                    MessageBoxResult result = MessageBox.Show("No active network connection could be found.\r\n Some functionalities will not be available", "Not connected to the internet", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    MessageBox.Show("No active network connection could be found.\r\n Some functionalities will not be available", "Not connected to the internet", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
             }
         }

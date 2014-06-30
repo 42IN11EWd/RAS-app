@@ -309,7 +309,7 @@ namespace RunApproachStatistics.ViewModel
             catch (Exception e)
             {
                 MeasurementWindowMin = "1";
-                MessageBoxResult messageBox = MessageBox.Show("Unable to calibrate, the value is set to 1 (not in the lasercamera, press save to apply the settings).");
+                MessageBox.Show("Unable to calibrate, the value is set to 1 (not in the lasercamera, press save to apply the settings).", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 
@@ -322,7 +322,7 @@ namespace RunApproachStatistics.ViewModel
             catch (Exception e)
             {
                 MeasurementWindowMax = "200";
-                MessageBoxResult messageBox = MessageBox.Show("Unable to calibrate, the value is set to 200 (not in the lasercamera, press save to apply the settings).");
+                MessageBox.Show("Unable to calibrate, the value is set to 200 (not in the lasercamera, press save to apply the settings).", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 
