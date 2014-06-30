@@ -5,6 +5,7 @@ using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace RunApproachStatistics.Services
@@ -20,6 +21,9 @@ namespace RunApproachStatistics.Services
         private Boolean modifiyingBuffer;
         public Boolean settingsReceived = false;
         public String lastCommandReceived = "";
+        private String errorLine = "D 0000.000 0000.000";
+        private Timer timer;
+        private Boolean measurementRecieved;
 
         public ReadPort(PortController portController, SerialPort port)
         {
@@ -30,6 +34,9 @@ namespace RunApproachStatistics.Services
             writeBuffer = new List<String>();
             dynamicBuffer = new List<String>();
             modifiyingBuffer = false;
+
+            AutoResetEvent autoEvent = new AutoResetEvent(false);
+            timer = new Timer(timer_Tick, autoEvent, 1000, 1000);
         }
 
         public ReadPort(PortController portController)
@@ -101,10 +108,10 @@ namespace RunApproachStatistics.Services
         /// <param name="line">The line read from the SerialPort</param>
         public void checkReceivedData(String line)
         {
+            measurementRecieved = true;
             if (line.Length >= 2)
             {
                 String subLine = line.Substring(0, 2);
-                String errorLine = "D 0000.000 0000.000";
 
                 switch (subLine)
                 {
@@ -234,6 +241,18 @@ namespace RunApproachStatistics.Services
             }
 
             save = true;
+        }
+
+        //Checks once a second if there is still a lasercamera connected.
+        private void timer_Tick(object state)
+        {
+            if (!measurementRecieved)
+            {
+                timer.Dispose();
+
+            }
+
+            measurementRecieved = false;
         }
 
         public List<String> stopMeasurement()

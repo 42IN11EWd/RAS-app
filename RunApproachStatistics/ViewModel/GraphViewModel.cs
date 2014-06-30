@@ -263,42 +263,46 @@ namespace RunApproachStatistics.ViewModel
         public void insertGraphData(String graphData)
         {
             this.graphData = graphData;
-            DistanceArray = new ObservableCollection<KeyValuePair<float, float>>();
-            SpeedArray = new ObservableCollection<KeyValuePair<float, float>>();
 
-            String[] measurements = graphData.Split(',');
-            Boolean hasSpeed = measurements[0].Split(' ')[1] != null;
-            double timePerMeasurement = GraphSeconds / measurements.Length;
-            float time = 0;
-
-            if (hasSpeed)
+            if (this.graphData != null && this.graphData.Length > 0)
             {
-                foreach (String measurement in measurements)
-                {
-                    if (measurement.Length > 0)
-                    {
-                        String[] splitString = measurement.Split(' ');
+                DistanceArray = new ObservableCollection<KeyValuePair<float, float>>();
+                SpeedArray = new ObservableCollection<KeyValuePair<float, float>>();
 
-                        SpeedArray.Add(new KeyValuePair<float, float>(time, float.Parse(splitString[0], CultureInfo.InvariantCulture)));
-                        DistanceArray.Add(new KeyValuePair<float, float>(time, float.Parse(splitString[1], CultureInfo.InvariantCulture)));
-                        time += (float)timePerMeasurement;
+                String[] measurements = graphData.Split(',');
+                Boolean hasSpeed = measurements[0].Split(' ')[1] != null;
+                double timePerMeasurement = GraphSeconds / measurements.Length;
+                float time = 0;
+
+                if (hasSpeed)
+                {
+                    foreach (String measurement in measurements)
+                    {
+                        if (measurement.Length > 0)
+                        {
+                            String[] splitString = measurement.Split(' ');
+
+                            SpeedArray.Add(new KeyValuePair<float, float>(time, float.Parse(splitString[0], CultureInfo.InvariantCulture)));
+                            DistanceArray.Add(new KeyValuePair<float, float>(time, float.Parse(splitString[1], CultureInfo.InvariantCulture)));
+                            time += (float)timePerMeasurement;
+                        }
                     }
                 }
-            }
-            else
-            {
-                foreach (String distance in measurements)
+                else
                 {
-                    if (distance.Length > 0)
+                    foreach (String distance in measurements)
                     {
-                        DistanceArray.Add(new KeyValuePair<float, float>(time, float.Parse(distance, CultureInfo.InvariantCulture)));
-                        time += (float)timePerMeasurement;
+                        if (distance.Length > 0)
+                        {
+                            DistanceArray.Add(new KeyValuePair<float, float>(time, float.Parse(distance, CultureInfo.InvariantCulture)));
+                            time += (float)timePerMeasurement;
+                        }
                     }
                 }
-            }
 
-            OnPropertyChanged("DistanceArray");
-            OnPropertyChanged("SpeedArray");
+                OnPropertyChanged("DistanceArray");
+                OnPropertyChanged("SpeedArray");
+            }
         }
 
         public void updateGraphLength(float seconds, String graphData = null)
@@ -309,7 +313,7 @@ namespace RunApproachStatistics.ViewModel
             }
 
             GraphSeconds = seconds;
-            AxisTimeMaximum = Math.Ceiling(seconds);
+            AxisTimeMaximum = seconds;
 
             if (graphData == null)
             {
@@ -372,7 +376,7 @@ namespace RunApproachStatistics.ViewModel
                 return;
             }
 
-            AxisTimeMaximum = Math.Ceiling(Math.Max(seconds1, seconds2));
+            AxisTimeMaximum = Math.Max(seconds1, seconds2);
 
             double timePerMeasurementVault1 = seconds1 / vault1Data.Length;
             double timePerMeasurementVault2 = seconds2 / vault2Data.Length;
