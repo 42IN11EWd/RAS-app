@@ -129,7 +129,7 @@ namespace RunApproachStatistics.Services
                 while (!readPort.lastCommandReceived.Equals("me"))
                 {
                     // wait for settings
-                    Thread.Sleep(50);
+                    Thread.Sleep(100);
                     getSettings();
                 }
 
@@ -139,6 +139,7 @@ namespace RunApproachStatistics.Services
                     PilotLaser = 0;
                 }
 
+                measurementIndex = laserCameraSettingsModule.getMeasurementIndex();
                 initializeMeasurement();
             }
             else
@@ -177,7 +178,14 @@ namespace RunApproachStatistics.Services
 
         public void initializeMeasurement()
         {
-            measurementIndex = laserCameraSettingsModule.getMeasurementIndex();
+            if (laserCameraSettingsModule.getMeasurementIndex() != measurementIndex)
+            {
+                // Change the measurement index
+                measurementIndex = laserCameraSettingsModule.getMeasurementIndex();
+
+                // Stop the measurement
+                reallyStopMeasurement();
+            }
 
             if (isLive)
             {

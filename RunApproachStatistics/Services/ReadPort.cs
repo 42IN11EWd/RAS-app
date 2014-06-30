@@ -25,6 +25,7 @@ namespace RunApproachStatistics.Services
         private String errorLine = "D 0000.000 0000.000";
         private Timer timer;
         private Boolean measurementRecieved;
+        private int amountSettingsTried = 0;
 
         public ReadPort(PortController portController, SerialPort port)
         {
@@ -148,6 +149,8 @@ namespace RunApproachStatistics.Services
 
                 //get pilot laser setting
                 portController.PilotLaser = (int)Convert.ToDouble(line.Substring(line.IndexOf("PL") + 20, line.IndexOf("autostart command") - (line.IndexOf("PL") + 20)));
+                
+                settingsReceived = true;
             }
             catch (Exception e)
             {
@@ -156,10 +159,22 @@ namespace RunApproachStatistics.Services
                 portController.MeasurementWindowMin = 1;
                 portController.MeasurementWindowMax = 200;
                 portController.PilotLaser = 0;
+                
+                if (amountSettingsTried < 3)
+                {
+                    settingsReceived = false;
+
+                    lastCommandReceived = "notme";
+                    amountSettingsTried++;
+                }
+                else
+                {
+                    settingsReceived = true;
+                }
+
                 Console.WriteLine(line);
                 Console.WriteLine("Settings werken niet!");
             }
-            settingsReceived = true;
         }
 
         /// <summary>

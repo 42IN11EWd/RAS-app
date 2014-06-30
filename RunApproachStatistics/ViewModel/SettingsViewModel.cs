@@ -213,9 +213,7 @@ namespace RunApproachStatistics.ViewModel
 
             MeasurementIndex                 = laserCameraSettingsModule.getMeasurementIndex();
             SelectedMeasurementPositionIndex = laserCameraSettingsModule.getMeasurementPosition();
-
-            // Get comport index from name
-           // String comportName   = laserCameraSettingsModule.getComPortName();
+            SelectedCameraIndex              = videoCameraSettingsModule.getVideocameraIndex();
         }
 
         public void selectedCameraIndexChanged()
