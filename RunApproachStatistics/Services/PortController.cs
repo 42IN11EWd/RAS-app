@@ -232,7 +232,7 @@ namespace RunApproachStatistics.Services
         
         public void getSettings()
         {
-            if(isLive)
+            if (isLive)
             {
                 writePort.sendSettingsCommand();
             }

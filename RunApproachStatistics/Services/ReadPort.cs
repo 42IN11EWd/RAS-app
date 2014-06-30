@@ -153,7 +153,7 @@ namespace RunApproachStatistics.Services
             {
                 portController.MeasurementFrequency = 2000;
                 portController.MeanValue = 200;
-                portController.MeasurementWindowMin = 10;
+                portController.MeasurementWindowMin = 1;
                 portController.MeasurementWindowMax = 200;
                 portController.PilotLaser = 0;
                 Console.WriteLine(line);
