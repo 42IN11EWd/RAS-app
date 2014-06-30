@@ -513,7 +513,7 @@ namespace RunApproachStatistics.ViewModel
             String date = "Unknown date";
             if (setVault.timestamp != null && !String.IsNullOrWhiteSpace(setVault.timestamp.ToShortDateString()))
             {
-                date = setVault.timestamp.ToShortDateString();
+                date = setVault.timestamp.ToString("dd/MM/yyyy HH:mm:ss");
             }
             classType.GetProperty(side + "Date").SetValue(this, date);
 

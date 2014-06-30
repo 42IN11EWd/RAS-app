@@ -145,19 +145,13 @@ namespace RunApproachStatistics.ViewModel
             }
         }
 
-        public DateTime Datetime
+        public String Datetime
         {
             get
             {
                 if (SelectedThumbnails.Count == 1)
-                    return SelectedThumbnails[0].Vault.timestamp;
-                return new DateTime();
-            }
-            set
-            {
-                if (SelectedThumbnails.Count == 1)
-                    SelectedThumbnails[0].Vault.timestamp = value;
-                OnPropertyChanged("Datetime");
+                    return SelectedThumbnails[0].Vault.timestamp.ToString("dd/MM/yyyy HH:mm:ss");
+                return "";
             }
         }
 
@@ -608,12 +602,12 @@ namespace RunApproachStatistics.ViewModel
                 Location = "";
                 Gymnast = "";
                 VaultNumber = "";
-                Datetime = new DateTime();
                 DScore = "";
                 EScore = "";
                 Penalty = "";
                 TotalScore = "";
                 ratingVM.RatingValue = 0;
+                OnPropertyChanged("Datetime");
             }
         }
 

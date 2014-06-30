@@ -98,7 +98,7 @@ namespace RunApproachStatistics.ViewModel
 
         public String Datetime
         {
-            get { return Vault.timestamp.ToString(); }
+            get { return Vault.timestamp.ToString("dd/MM/yyyy HH:mm:ss"); }
         }
 
         public String VaultNumber
