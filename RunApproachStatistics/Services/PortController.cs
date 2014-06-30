@@ -96,6 +96,7 @@ namespace RunApproachStatistics.Services
                 {
                     isLive = false;
                     InitEmulator();
+                    return;
                 }
 
                 Thread readThread   = new Thread(() => { readPort  = new ReadPort(this, port); });
