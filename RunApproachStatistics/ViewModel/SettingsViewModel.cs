@@ -193,6 +193,7 @@ namespace RunApproachStatistics.ViewModel
             // Set videocamera settings
             this.videoCameraController = videoCameraController;
             openVideoSource(this.videoCameraController.CameraWindow);
+            videoCameraController.setDevices();
             Devices = videoCameraController.Devices;
 
             setSettingsProperties();

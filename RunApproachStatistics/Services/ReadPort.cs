@@ -24,7 +24,6 @@ namespace RunApproachStatistics.Services
         public String lastCommandReceived = "";
         private String errorLine = "D 0000.000 0000.000";
         private Timer timer;
-        private Boolean measurementRecieved;
         private int amountSettingsTried = 0;
 
         public ReadPort(PortController portController, SerialPort port)
@@ -116,7 +115,6 @@ namespace RunApproachStatistics.Services
         /// <param name="line">The line read from the SerialPort</param>
         public void checkReceivedData(String line)
         {
-            measurementRecieved = true;
             if (line.Length >= 2)
             {
                 String subLine = line.Substring(0, 2);
@@ -268,15 +266,13 @@ namespace RunApproachStatistics.Services
         //Checks once a second if there is still a lasercamera connected.
         private void timer_Tick(object state)
         {
-            if (!measurementRecieved && portController.PilotLaser == 0)
+            if (!port.IsOpen)
             {
                 timer.Dispose();
                 MessageBox.Show("Please reconnect the lasercamera to the computer and press 'OK'.", 
                     "Lasercamera connection lost", MessageBoxButton.OK, MessageBoxImage.Warning);
                 portController.reconnectLaserCamera();            
             }
-
-            measurementRecieved = false;
         }
 
         public List<String> stopMeasurement()
