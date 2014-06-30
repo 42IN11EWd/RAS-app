@@ -408,11 +408,11 @@ namespace RunApproachStatistics.ViewModel
 
         public void updateSlider(double milliseconds)
         {
-            double percentage = milliseconds / GraphSeconds;
-            double perc = ((WidthChart - 100 - 100) * percentage) + 100;
+            double percentage = Math.Round(milliseconds, 3) / Math.Round(AxisTimeMaximum, 3);
+            double perc = ((WidthChart - 190) * percentage) + 103;
 
-            if (perc > (WidthChart - 88))
-                perc = (WidthChart - 88);
+            if (perc > (WidthChart - 87))
+                perc = (WidthChart - 87);
 
             if (LineMargin.Left != perc)
             {
@@ -427,11 +427,11 @@ namespace RunApproachStatistics.ViewModel
 
         public void updateRightVideoSlider(double milliseconds)
         {
-            double percentage = milliseconds / GraphSeconds;
-            double perc = ((WidthChart - 100 - 100) * percentage) + 100;
+            double percentage = Math.Round(milliseconds, 3) / Math.Round(AxisTimeMaximum, 3);
+            double perc = ((WidthChart - 190) * percentage) + 103;
 
-            if (perc > (WidthChart - 88))
-                perc = (WidthChart - 88);
+            if (perc > (WidthChart - 87))
+                perc = (WidthChart - 87);
 
             if (LineMargin2.Left != perc)
             {
