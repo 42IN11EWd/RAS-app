@@ -37,7 +37,7 @@ namespace RunApproachStatistics.Services
             modifiyingBuffer = false;
 
             AutoResetEvent autoEvent = new AutoResetEvent(false);
-            timer = new Timer(timer_Tick, autoEvent, 1000, 1000);
+            timer = new Timer(timer_Tick, autoEvent, 1000, 2500);
         }
 
         public ReadPort(PortController portController)
@@ -247,7 +247,7 @@ namespace RunApproachStatistics.Services
         //Checks once a second if there is still a lasercamera connected.
         private void timer_Tick(object state)
         {
-            if (!measurementRecieved)
+            if (!measurementRecieved && portController.PilotLaser == 0)
             {
                 timer.Dispose();
                 MessageBox.Show("Lost connection to the lasercamera. To reconnect the lasercamera, reconnect the lasercamera and restart the program.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);

@@ -425,8 +425,15 @@ namespace RunApproachStatistics.ViewModel
                         {
                             String[] splitString = measurements[j].Split(' ');
 
-                            vaultsSpecialized[i][0][j] = splitString[0];
-                            vaultsSpecialized[i][1][j] = splitString[1];
+                            try
+                            {
+                                vaultsSpecialized[i][0][j] = splitString[0];
+                                vaultsSpecialized[i][1][j] = splitString[1];
+                            }
+                            catch (Exception e)
+                            {
+                                //No problem
+                            }
                         }
                     }
                 }

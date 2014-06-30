@@ -99,8 +99,7 @@ namespace RunApproachStatistics.Services
                     }
                     catch (Exception e)
                     {
-                        //no problem
-                        
+                        //no problem                        
                     }
 
                     if (port.IsOpen)
@@ -151,11 +150,11 @@ namespace RunApproachStatistics.Services
         private void findLaserComPort()
         {
             ManagementScope scope = new ManagementScope();
-            SelectQuery query = new SelectQuery("SELECT * FROM Win32_PnPEntity");
+            SelectQuery query = new SelectQuery("SELECT * FROM Win32_USBHub");
             ManagementObjectSearcher comSearcher = new ManagementObjectSearcher(scope, query);
             foreach(ManagementObject comport in comSearcher.Get())
             {
-                String deviceID = comport["DeviceID"].ToString();
+                String deviceID = comport["DeviceID"].ToString() + "  " + comport["PNPDeviceID"].ToString() + "  " + comport["Description"].ToString();
                 //deviceID contains VID and PID 
                 Console.WriteLine(deviceID);
             }

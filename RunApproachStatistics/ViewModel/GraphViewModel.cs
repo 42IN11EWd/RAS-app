@@ -281,13 +281,16 @@ namespace RunApproachStatistics.ViewModel
                         if (measurement.Length > 0)
                         {
                             String[] splitString = measurement.Split(' ');
-                            if (splitString.Length <= 1)
+                            try
                             {
-                                break;
+                                SpeedArray.Add(new KeyValuePair<float, float>(time, float.Parse(splitString[0], CultureInfo.InvariantCulture)));
+                                DistanceArray.Add(new KeyValuePair<float, float>(time, float.Parse(splitString[1], CultureInfo.InvariantCulture)));
+                            }
+                            catch (Exception e)
+                            {
+                                //No problem
                             }
 
-                            SpeedArray.Add(new KeyValuePair<float, float>(time, float.Parse(splitString[0], CultureInfo.InvariantCulture)));
-                            DistanceArray.Add(new KeyValuePair<float, float>(time, float.Parse(splitString[1], CultureInfo.InvariantCulture)));
                             time += (float)timePerMeasurement;
                         }
                     }
