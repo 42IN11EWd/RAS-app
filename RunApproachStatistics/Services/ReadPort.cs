@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace RunApproachStatistics.Services
 {
@@ -249,7 +250,7 @@ namespace RunApproachStatistics.Services
             if (!measurementRecieved)
             {
                 timer.Dispose();
-
+                MessageBoxResult messageBox = MessageBox.Show("Lost connection to the lasercamera. To reconnect the lasercamera, reconnect the lasercamera and restart the program.");
             }
 
             measurementRecieved = false;

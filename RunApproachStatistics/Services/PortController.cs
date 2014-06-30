@@ -9,6 +9,7 @@ using System.Management;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace RunApproachStatistics.Services
 {
@@ -294,29 +295,10 @@ namespace RunApproachStatistics.Services
             MeasurementWindowMax = measurementWindowMax;
             MeasurementWindowMin = measurementWindowMin;
         }
+
         public String getLatestMeasurement()
         {
             return readPort.getLatestMeasurement();
-        }
-
-        public static byte[] stringToByteArray(string hex)
-        {
-            if (hex != "1B")
-            {
-                // Add the "return" statement to command
-                hex += "0D";
-            }
-
-            // Using Linq to convert the hex string into a byte array, what a serialport needs
-            return Enumerable.Range(0, hex.Length)
-                             .Where(x => x % 2 == 0)
-                             .Select(x => Convert.ToByte(hex.Substring(x, 2), 16))
-                             .ToArray();
-        }
-
-        public void lostConnectionToLaserCamera()
-        {
-
         }
     }
 }

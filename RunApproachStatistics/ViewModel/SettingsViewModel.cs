@@ -302,12 +302,28 @@ namespace RunApproachStatistics.ViewModel
 
         private void calibrateMinimumDistance(object commandParam)
         {
-            MeasurementWindowMin = String.Format("{0:####.###}", portController.calibrateMeasurementWindow());
+            try
+            {
+                MeasurementWindowMin = String.Format("{0:####.###}", portController.calibrateMeasurementWindow());
+            }
+            catch (Exception e)
+            {
+                MeasurementWindowMin = "1";
+                MessageBoxResult messageBox = MessageBox.Show("Unable to calibrate, the value is set to 1 (not in the lasercamera, press save to apply the settings).");
+            }
         }
 
         private void calibrateMaximumDistance(object commandParam)
         {
-            MeasurementWindowMax = String.Format("{0:####.###}", portController.calibrateMeasurementWindow());
+            try
+            {
+                MeasurementWindowMax = String.Format("{0:####.###}", portController.calibrateMeasurementWindow());            
+            }
+            catch (Exception e)
+            {
+                MeasurementWindowMax = "200";
+                MessageBoxResult messageBox = MessageBox.Show("Unable to calibrate, the value is set to 200 (not in the lasercamera, press save to apply the settings).");
+            }
         }
 
         private void ShowVaultNumberEditor(object commandParam)
