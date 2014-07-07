@@ -256,6 +256,11 @@ namespace RunApproachStatistics
             ((VaultSelectorViewModel)currentViewModel).RefreshList();
         }
 
+        public void RefreshPostContent()
+        {
+            ((PostMeasurementViewModel)currentViewModel).RefreshContent();
+        }
+
         public void ShowLocationEditorView()
         {
             if (settingsWindow == null)

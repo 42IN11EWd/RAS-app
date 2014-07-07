@@ -48,6 +48,7 @@ namespace RunApproachStatistics.ViewModel
         private Boolean escoreChecked;
         private Boolean ratingChecked;
         private Boolean penaltyChecked;
+        private Boolean vaultSaved = true;
         
         private Boolean manualModeChecked;
         private Boolean measuring;
@@ -139,6 +140,16 @@ namespace RunApproachStatistics.ViewModel
                 }
                 
                 OnPropertyChanged("Measuring");
+            }
+        }
+
+        public Boolean VaultSaved
+        {
+            get { return vaultSaved; }
+            set
+            {
+                vaultSaved = value;
+                OnPropertyChanged("VaultSaved");
             }
         }
 
@@ -494,6 +505,7 @@ namespace RunApproachStatistics.ViewModel
 
         private void stopMeasuring()
         {
+            vaultSaved = false;
             ThumbnailViewModel liveThumbnail = ThumbnailCollection[0];
             vault newVault = liveThumbnail.Vault;
 
@@ -600,6 +612,7 @@ namespace RunApproachStatistics.ViewModel
             
             // Add to collection
             thumbnailCollection.Insert(1, vaultThumb);
+            vaultSaved = true;
         }
 
         private void calculateTotalScore()
@@ -661,16 +674,18 @@ namespace RunApproachStatistics.ViewModel
 
         public void LoadPostMeasurementScreen(object commandParam)
         {
-            ThumbnailCollection.RemoveAt(0);
-            if(ThumbnailCollection.Count == 0 || App.IsOfflineMode)
+            if (VaultSaved)
             {
-                _app.ShowHomeView();
+                ThumbnailCollection.RemoveAt(0);
+                if (ThumbnailCollection.Count == 0 || App.IsOfflineMode)
+                {
+                    _app.ShowHomeView();
+                }
+                else
+                {
+                    _app.ShowPostMeasurementView(ThumbnailCollection);
+                }
             }
-            else
-            {
-               _app.ShowPostMeasurementView(ThumbnailCollection);
-            }
-           
         }
         public void StartMeasurement(object commandParam)
         {

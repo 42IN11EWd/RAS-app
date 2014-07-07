@@ -446,6 +446,7 @@ namespace RunApproachStatistics.ViewModel
                     thumbnailCollection[i].Gymnast = thumbnailCollection[i].Vault.gymnast.name + " " + (thumbnailCollection[i].Vault.gymnast.surname_prefix != null ? thumbnailCollection[i].Vault.gymnast.surname_prefix + " " : "") + thumbnailCollection[i].Vault.gymnast.surname;
                 }
             }
+            OnPropertyChanged("ThumbnailCollection");
         }
 
         private void setProperties()
@@ -717,6 +718,12 @@ namespace RunApproachStatistics.ViewModel
             {
                 // TODO : test
                 setMeasuredVaults(ThumbnailCollection);
+                List<vault> tempVaults = new List<vault>();
+                foreach (ThumbnailViewModel thumb in ThumbnailCollection)
+                {
+                    tempVaults.Add(thumb.Vault);
+                }
+                setData(tempVaults);
             }
             else if (kind == "SELECT")
             {
@@ -773,6 +780,12 @@ namespace RunApproachStatistics.ViewModel
             if(kind == "POST")
             {
                 setMeasuredVaults(ThumbnailCollection);
+                List<vault> tempVaults = new List<vault>();
+                foreach (ThumbnailViewModel thumb in ThumbnailCollection)
+                {
+                    tempVaults.Add(thumb.Vault);
+                }
+                setData(tempVaults);
             }
             else if(kind == "SELECT")
             {

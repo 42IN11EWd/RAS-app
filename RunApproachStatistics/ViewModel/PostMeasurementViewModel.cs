@@ -44,13 +44,13 @@ namespace RunApproachStatistics.ViewModel
             MenuViewModel menuViewModel = new MenuViewModel(_app);
             menuViewModel.VisibilityLaser = false;
             Menu = menuViewModel;
-
             
         }
 
-
-
-
+        public void RefreshContent()
+        {
+            OnPropertyChanged("Content");
+        }
 
         protected override void initRelayCommands()
         {

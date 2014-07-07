@@ -704,7 +704,7 @@ namespace RunApproachStatistics.ViewModel
 
         public void SeeVaults(object commandParam)
         {
-            String filterItem = selectedFilterItem.name + " "+ selectedFilterItem.surname_prefix + " " + selectedFilterItem.surname;
+            String filterItem = selectedFilterItem.name + (selectedFilterItem.surname_prefix != null ? " " + selectedFilterItem.surname_prefix : "") + " " + selectedFilterItem.surname;
             String filterType = "Profilefilter: Gymnast";
             _app.ShowVaultSelectorView(filterItem, filterType);
         }

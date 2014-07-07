@@ -41,6 +41,8 @@ namespace RunApproachStatistics.Controllers
 
         void RefreshThumbnailCollection();
 
+        void RefreshPostContent();
+
         void ShowLocationEditorView();
 
         void ShowVaultNumberEditorView();
