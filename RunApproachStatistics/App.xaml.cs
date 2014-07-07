@@ -133,8 +133,14 @@ namespace RunApproachStatistics
                     WebClient myWebClient = new WebClient();
                     NetworkCredential myCredentials = new NetworkCredential("snijhof", "MKD7529s09");
                     myWebClient.Credentials = myCredentials;
-                    byte[] responseArray = myWebClient.UploadFile("ftp://student.aii.avans.nl/GRP/42IN11EWd/Videos/" + v.videopath, Path.Combine(filePath,v.videopath));
-
+                    try
+                    {
+                        byte[] responseArray = myWebClient.UploadFile("ftp://student.aii.avans.nl/GRP/42IN11EWd/Videos/" + v.videopath, Path.Combine(filePath, v.videopath));
+                    }
+                    catch(WebException e)
+                    {
+                        // No video data for file
+                    }
 
                     //delete file
                     File.Delete(Path.Combine(syncPath, s));
