@@ -386,7 +386,7 @@ namespace RunApproachStatistics.ViewModel
                     Prefix = value.surname_prefix;
                     Surname = value.surname;
                     FIGNumber = value.turnbondID.ToString();
-                    DateOfBirth = value.birthdate != null ? value.birthdate.Value.ToShortDateString() : "";
+                    DateOfBirth = value.birthdate != null ? value.birthdate.Value.ToString("dd/MM/yyyy") : "";
                     Nationality = value.nationality;
                     Gender = value.gender;
 
@@ -488,6 +488,7 @@ namespace RunApproachStatistics.ViewModel
             decimal tmpLength;
             decimal tmpWeight;
             DateTime tmpDoB;
+            String[] formats = { "yyyy/dd/MM", "yyyy/dd/M", "yyyy/d/MM", "yyyy/d/M", "dd/MM/yyyy", "dd/M/yyyy", "d/MM/yyyy", "d/M/yyyy" };
 
             gymnast gymnast = creatingNewGymnast ? new gymnast() : SelectedFilterItem;
 
@@ -495,7 +496,7 @@ namespace RunApproachStatistics.ViewModel
             gymnast.surname_prefix = EditPrefix;
             gymnast.surname = EditSurname;
             gymnast.turnbondID = long.Parse(EditFIGNumber);
-            gymnast.birthdate = DateTime.TryParse(EditDateOfBirth, out tmpDoB) ? tmpDoB : (DateTime?)null;
+            gymnast.birthdate = DateTime.TryParseExact(EditDateOfBirth, formats, CultureInfo.InvariantCulture, DateTimeStyles.None, out tmpDoB) ? tmpDoB : (DateTime?)null;
             gymnast.nationality = EditNationality;
             gymnast.gender = EditGender;
             gymnast.length = decimal.TryParse(EditLength.Replace(",", "."), out tmpLength) ? tmpLength : (decimal?)null;
@@ -810,8 +811,8 @@ namespace RunApproachStatistics.ViewModel
                               () =>
                               {
                                   DateTime result;
-                                  String[] formats = { "yyyy/MM/dd", "dd/MM/yyyy", "dd/M/yyyy", "d/M/yyyy", "d/MM/yyyy" };
-                                  if (EditDateOfBirth != null && EditDateOfBirth.Length > 0 && !DateTime.TryParseExact(EditDateOfBirth, formats, CultureInfo.CurrentCulture, DateTimeStyles.None, out result))
+                                  String[] formats = { "yyyy/dd/MM", "yyyy/dd/M", "yyyy/d/MM", "yyyy/d/M", "dd/MM/yyyy", "dd/M/yyyy", "d/MM/yyyy", "d/M/yyyy" };
+                                  if (EditDateOfBirth != null && EditDateOfBirth.Length > 0 && !DateTime.TryParseExact(EditDateOfBirth, formats, CultureInfo.InvariantCulture, DateTimeStyles.None, out result))
                                   {
                                       return RuleResult.Invalid("Date of birth must be a date");
                                   }

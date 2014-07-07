@@ -35,7 +35,7 @@
             <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="70,350,0,0" Text="Surname:" VerticalAlignment="Top" />
             <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="70,390,0,0" Text="FIG Number:" VerticalAlignment="Top" />
 
-            <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="70,450,0,0" Text="Date Of Birth:" VerticalAlignment="Top" />
+            <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="70,450,0,0" Text="Date of Birth:" VerticalAlignment="Top" />
             <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="70,490,0,0" Text="Nationality:" VerticalAlignment="Top" />
             <TextBlock FontSize="24" Grid.Column="1" HorizontalAlignment="Left" Margin="70,530,0,0" Text="Gender:" VerticalAlignment="Top" />
 
