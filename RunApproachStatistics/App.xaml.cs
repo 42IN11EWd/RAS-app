@@ -256,11 +256,6 @@ namespace RunApproachStatistics
             ((VaultSelectorViewModel)currentViewModel).RefreshList();
         }
 
-        public void RefreshPostContent()
-        {
-            ((PostMeasurementViewModel)currentViewModel).RefreshContent();
-        }
-
         public void ShowLocationEditorView()
         {
             if (settingsWindow == null)
@@ -385,6 +380,18 @@ namespace RunApproachStatistics
                 mainViewModel.Content = viewModel;
                 currentViewModel = viewModel;
             }
+        }
+
+
+        public void SetPilotLaserToNull()
+        {
+            portController.SetLastCommandReceived();
+            portController.PilotLaser = 0;
+        }
+
+        public Boolean isPilotLaserOn()
+        {
+            return Convert.ToBoolean(portController.PilotLaser);
         }
 
         public void TogglePilotLaser()

@@ -472,7 +472,6 @@ namespace RunApproachStatistics.ViewModel
             OnPropertyChanged("EScore");
             OnPropertyChanged("Penalty");
             OnPropertyChanged("TotalScore");
-            
         }
 
         private void SetFilter()

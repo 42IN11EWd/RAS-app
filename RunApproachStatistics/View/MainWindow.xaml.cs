@@ -1,7 +1,9 @@
-﻿using System;
+﻿using RunApproachStatistics.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -28,6 +30,16 @@ namespace RunApproachStatistics.View
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
+
+            //close application set pilot laser to null
+            MainViewModel viewModel = (MainViewModel)DataContext;
+            viewModel.PilotLaserToNullCommand.Execute(0);
+            Thread.Sleep(1000);
+            while(viewModel.isPilotLaserOn())
+            {
+                // wait for pilot laser to turn off
+                Console.WriteLine("wait for pilot");
+            }
 
             Environment.Exit(-1);
         }

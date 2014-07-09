@@ -18,6 +18,8 @@ namespace RunApproachStatistics.ViewModel
 
         public RelayCommand LockScreenCommand { get; set; }
 
+        public RelayCommand PilotLaserToNullCommand { get; set; }
+
         public PropertyChangedBase Content
         {
             get { return content; }
@@ -38,6 +40,11 @@ namespace RunApproachStatistics.ViewModel
             MenuViewModel menuViewModel = new MenuViewModel(_app);
         }
 
+        public Boolean isPilotLaserOn()
+        {
+            return _app.isPilotLaserOn();
+        }
+
         #region RelayCommands
 
         public void ToggleLockScreen(object commandParam)
@@ -45,11 +52,17 @@ namespace RunApproachStatistics.ViewModel
             _app.ToggleLockScreen();
         }
 
+        public void SetPilotToNull(object commandParam)
+        {
+            _app.SetPilotLaserToNull();
+        }
+
         #endregion
 
         protected override void initRelayCommands()
         {
             LockScreenCommand = new RelayCommand(ToggleLockScreen);
+            PilotLaserToNullCommand = new RelayCommand(SetPilotToNull);
         }
     }
 }

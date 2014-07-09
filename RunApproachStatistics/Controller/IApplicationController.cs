@@ -15,6 +15,10 @@ namespace RunApproachStatistics.Controllers
         /// Show the main screen
         /// </summary>
         void TogglePilotLaser();
+
+        void SetPilotLaserToNull();
+
+        bool isPilotLaserOn();
         void ShowMainScreen();
 
         void ShowHomeView();
@@ -40,8 +44,6 @@ namespace RunApproachStatistics.Controllers
         void ShowVaultSelectorView(String filterItem, String filterType);
 
         void RefreshThumbnailCollection();
-
-        void RefreshPostContent();
 
         void ShowLocationEditorView();
 

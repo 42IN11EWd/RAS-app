@@ -153,7 +153,7 @@ namespace RunApproachStatistics.Services
 
                 //get pilot laser setting
                 portController.PilotLaser = (int)Convert.ToDouble(line.Substring(line.IndexOf("PL") + 20, line.IndexOf("autostart command") - (line.IndexOf("PL") + 20)));
-                
+                Console.WriteLine(line);
                 settingsReceived = true;
             }
             catch (Exception e)

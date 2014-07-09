@@ -555,8 +555,7 @@ namespace RunApproachStatistics.ViewModel
             }
             else
             {
-                Gymnast = savedVault.gymnast.name + savedVault.gymnast.surname_prefix != null ? " " + 
-                    savedVault.gymnast.surname_prefix : "" + savedVault.gymnast.surname;
+                Gymnast = savedVault.gymnast.name + (savedVault.gymnast.surname_prefix != null ? " " + savedVault.gymnast.surname_prefix : "") + " " + savedVault.gymnast.surname;
             }
 
             if (!VaultNumberChecked)

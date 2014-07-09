@@ -117,11 +117,11 @@ namespace RunApproachStatistics.Services
                 }
 
                 //Turn pilotlaser off at start if it is on.
-                if (PilotLaser != 0)
+                /*if(PilotLaser != 0)
                 {
                     PilotLaser = 0;
-                }
-
+                }*/
+                PilotLaser = 0;
                 measurementIndex = laserCameraSettingsModule.getMeasurementIndex();
                 initializeMeasurement();
             }
@@ -129,6 +129,11 @@ namespace RunApproachStatistics.Services
             {
                 InitEmulator();
             }
+        }
+
+        public void SetLastCommandReceived()
+        {
+            readPort.lastCommandReceived = "";
         }
 
         private SerialPort connectLaserCamera()

@@ -47,11 +47,6 @@ namespace RunApproachStatistics.ViewModel
             
         }
 
-        public void RefreshContent()
-        {
-            OnPropertyChanged("Content");
-        }
-
         protected override void initRelayCommands()
         {
 
